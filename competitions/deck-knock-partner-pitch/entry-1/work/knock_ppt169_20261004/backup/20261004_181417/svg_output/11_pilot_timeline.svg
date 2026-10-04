@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" data-pptx-page-role="content" font-family="Arial">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F2EA"/>
+
+  <g id="header" data-pptx-bounds="64 44 1152 136">
+    <text x="64" y="74" font-size="15" font-weight="bold" letter-spacing="2" fill="#8A5A24">10  THE PILOT</text>
+    <text x="64" y="128" font-family="Georgia" font-size="40" fill="#1D2624">A three-week pilot, from kickoff to results.</text>
+    <text x="64" y="166" font-size="20" fill="#5C6461">Five students chosen by the club. Free of charge.</text>
+  </g>
+
+  <g id="week-0" data-pptx-bounds="64 204 284 380">
+    <g id="p11-week0-shape" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="homePlate" data-pptx-frame="64 212 284 76" fill="#16302B" stroke="none">
+<path d="M 64 212 L 310 212 L 348 250 L 310 288 L 64 288 Z"/>
+</g>
+    <text x="88" y="258" font-family="Georgia" font-size="24" fill="#F6F2EA">Week 0</text>
+    <text x="64" y="334" font-family="Georgia" font-size="24" fill="#1D2624">Kickoff</text>
+    <text x="64" y="370" font-size="18" fill="#5C6461">Each student sets target
+      <tspan x="64" dy="27">companies and roles with us.</tspan></text>
+    <text x="64" y="470" font-size="14" font-weight="bold" letter-spacing="2" fill="#8A5A24">CLUB'S PART</text>
+    <text x="64" y="500" font-size="18" fill="#1D2624">Choose the 5 students.
+      <tspan x="64" dy="27">Send one announcement.</tspan></text>
+  </g>
+
+  <g id="week-1-2" data-pptx-bounds="356 204 568 380">
+    <g id="p11-week12-shape" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="homePlate" data-pptx-frame="356 212 568 76" fill="#2C5148" stroke="none">
+<path d="M 356 212 L 886 212 L 924 250 L 886 288 L 356 288 Z"/>
+</g>
+    <text x="380" y="258" font-family="Georgia" font-size="24" fill="#F6F2EA">Weeks 1 to 2</text>
+    <text x="380" y="334" font-family="Georgia" font-size="24" fill="#1D2624">Outreach</text>
+    <text x="380" y="370" font-size="18" fill="#5C6461">We find the people and draft each first message. Students
+      <tspan x="380" dy="27">approve and send. We guide every reply as it comes in.</tspan></text>
+    <text x="380" y="470" font-size="14" font-weight="bold" letter-spacing="2" fill="#8A5A24">CLUB'S PART</text>
+    <text x="380" y="500" font-size="18" fill="#1D2624">Nothing. Students and Knock do the work.</text>
+  </g>
+
+  <g id="week-3" data-pptx-bounds="932 204 284 380">
+    <g id="p11-week3-shape" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="homePlate" data-pptx-frame="932 212 284 76" fill="#A8743A" stroke="none">
+<path d="M 932 212 L 1178 212 L 1216 250 L 1178 288 L 932 288 Z"/>
+</g>
+    <text x="956" y="258" font-family="Georgia" font-size="24" fill="#F6F2EA">Week 3</text>
+    <text x="956" y="334" font-family="Georgia" font-size="24" fill="#1D2624">Results review</text>
+    <text x="956" y="370" font-size="18" fill="#5C6461">Per-student and pilot-wide
+      <tspan x="956" dy="27">results, shared openly.</tspan></text>
+    <text x="956" y="470" font-size="14" font-weight="bold" letter-spacing="2" fill="#8A5A24">CLUB'S PART</text>
+    <text x="956" y="500" font-size="18" fill="#1D2624">One feedback call.
+      <tspan x="956" dy="27">Then decide what next.</tspan></text>
+  </g>
+
+  <rect id="lane-rule" data-pptx-role="decoration" x="64" y="430" width="1152" height="1" fill="#D9CFBF"/>
+
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 662 1152 40">
+    <text x="64" y="690" font-family="Georgia" font-size="17" fill="#16302B">Knock</text>
+    <text x="126" y="689" font-size="13" fill="#5C6461">Partner proposal for &lt;Club name&gt;</text>
+    <rect x="1178" y="674" width="11" height="18" rx="2" fill="none" stroke="#A8743A" stroke-width="1.5"/>
+    <text x="1216" y="690" font-family="Georgia" font-size="17" fill="#16302B" text-anchor="end">11</text>
+  </g>
+</svg>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" data-pptx-page-role="content" font-family="Arial">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F2EA"/>
+
+  <g id="header" data-pptx-bounds="64 44 1152 136">
+    <text x="64" y="74" font-size="15" font-weight="bold" letter-spacing="2" fill="#8A5A24">06  PACKAGES</text>
+    <text x="64" y="128" font-family="Georgia" font-size="40" fill="#1D2624">Four packages, at founding-member prices.</text>
+    <text x="64" y="166" font-size="20" fill="#5C6461">Every member of <tspan font-weight="bold" fill="#1D2624">&lt;Club name&gt;</tspan> gets the founding price. Prices in INR.</text>
+  </g>
+
+  <g id="pkg-sprint" data-pptx-bounds="64 200 270 308">
+    <rect x="64" y="204" width="270" height="300" rx="6" fill="#FFFFFF" stroke="#D9CFBF" stroke-width="1"/>
+    <rect x="64" y="204" width="270" height="5" fill="#A8743A"/>
+    <text x="92" y="256" font-family="Georgia" font-size="28" fill="#1D2624">Sprint</text>
+    <text x="92" y="288" font-size="17" fill="#5C6461">A focused first push</text>
+    <text x="92" y="370" font-size="38" font-weight="bold" fill="#16302B">Rs 2,499</text>
+    <line x1="92" y1="402" x2="306" y2="402" stroke="#E6DED0" stroke-width="1"/>
+    <text x="92" y="440" font-size="20" fill="#1D2624"><tspan font-weight="bold">7</tspan> days</text>
+    <text x="92" y="474" font-size="20" fill="#1D2624"><tspan font-weight="bold">60</tspan> people</text>
+  </g>
+
+  <g id="pkg-standard" data-pptx-bounds="358 200 270 308">
+    <rect x="358" y="204" width="270" height="300" rx="6" fill="#FFFFFF" stroke="#D9CFBF" stroke-width="1"/>
+    <rect x="358" y="204" width="270" height="5" fill="#A8743A"/>
+    <text x="386" y="256" font-family="Georgia" font-size="28" fill="#1D2624">Standard</text>
+    <text x="386" y="288" font-size="17" fill="#5C6461">Time for replies to grow</text>
+    <text x="386" y="370" font-size="38" font-weight="bold" fill="#16302B">Rs 3,999</text>
+    <line x1="386" y1="402" x2="600" y2="402" stroke="#E6DED0" stroke-width="1"/>
+    <text x="386" y="440" font-size="20" fill="#1D2624"><tspan font-weight="bold">14</tspan> days</text>
+    <text x="386" y="474" font-size="20" fill="#1D2624"><tspan font-weight="bold">120</tspan> people</text>
+  </g>
+
+  <g id="pkg-full" data-pptx-bounds="652 200 270 308">
+    <rect x="652" y="204" width="270" height="300" rx="6" fill="#FFFFFF" stroke="#D9CFBF" stroke-width="1"/>
+    <rect x="652" y="204" width="270" height="5" fill="#A8743A"/>
+    <text x="680" y="256" font-family="Georgia" font-size="28" fill="#1D2624">Full search</text>
+    <text x="680" y="288" font-size="17" fill="#5C6461">A complete search cycle</text>
+    <text x="680" y="370" font-size="38" font-weight="bold" fill="#16302B">Rs 5,499</text>
+    <line x1="680" y1="402" x2="894" y2="402" stroke="#E6DED0" stroke-width="1"/>
+    <text x="680" y="440" font-size="20" fill="#1D2624"><tspan font-weight="bold">21</tspan> days</text>
+    <text x="680" y="474" font-size="20" fill="#1D2624"><tspan font-weight="bold">180</tspan> people</text>
+  </g>
+
+  <g id="pkg-concierge" data-pptx-bounds="946 200 270 308">
+    <rect x="946" y="204" width="270" height="300" rx="6" fill="#16302B"/>
+    <rect x="946" y="204" width="270" height="5" fill="#C9A063"/>
+    <text x="974" y="256" font-family="Georgia" font-size="28" fill="#F6F2EA">Done-for-you</text>
+    <text x="974" y="288" font-size="17" fill="#C8CFC9">Full concierge support</text>
+    <text x="974" y="330" font-size="16" fill="#C9A063">from</text>
+    <text x="974" y="370" font-size="38" font-weight="bold" fill="#E9C98C">Rs 14,999</text>
+    <line x1="974" y1="402" x2="1188" y2="402" stroke="#2F5A50" stroke-width="1"/>
+    <text x="974" y="440" font-size="20" fill="#F6F2EA">Scoped to the search
+      <tspan x="974" dy="34">we run together</tspan></text>
+  </g>
+
+  <g id="included" data-pptx-bounds="64 524 1152 96">
+    <rect x="64" y="528" width="1152" height="88" rx="6" fill="#EDE6D8"/>
+    <text x="92" y="560" font-size="14" font-weight="bold" letter-spacing="2" fill="#8A5A24">IN EVERY PACKAGE</text>
+    <text x="92" y="588" font-size="16" fill="#5C6461">Research on each person, a personal first message, and reply guidance until a referral or an interview.</text>
+  </g>
+
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 662 1152 40">
+    <text x="64" y="690" font-family="Georgia" font-size="17" fill="#16302B">Knock</text>
+    <text x="126" y="689" font-size="13" fill="#5C6461">Partner proposal for &lt;Club name&gt;</text>
+    <rect x="1178" y="674" width="11" height="18" rx="2" fill="none" stroke="#A8743A" stroke-width="1.5"/>
+    <text x="1216" y="690" font-family="Georgia" font-size="17" fill="#16302B" text-anchor="end">07</text>
+  </g>
+</svg>

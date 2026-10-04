@@ -1,0 +1,52 @@
+[
+ {
+  "pair": "P01",
+  "note": "Hey Rahul, saw your post on PMs now owning quick commerce assortment calls. I'm a fellow IIM Ahmedabad alum, moving from brand management at HUL into product. Curious, what did you have to unlearn most from your category days?",
+  "followup": "Hi Rahul, after years in brand management I keep wondering how assortment calls change once a PM owns them. What's one metric you watch that category teams usually did not?"
+ },
+ {
+  "pair": "P02",
+  "note": "Hey Neha, your fintech meetup talk on designing trust into payment failures stuck with me. I spent 2 years at Bain on consumer and retail and I'm moving toward fintech product. What's the one failure moment users forgive least?",
+  "followup": "Hi Neha, you moved from Razorpay to CRED, two very different payment worlds. Did the way you think about failure states change much between the merchant side and the consumer side?"
+ },
+ {
+  "pair": "P03",
+  "note": "Hi Arjun, I follow your weekly hiring updates at Freshworks. I'm an XLRI grad with 4 years in supply chain at Asian Paints, moving toward B2B SaaS product. Curious, which non product backgrounds have you seen make that switch well?",
+  "followup": "Hi Arjun, since you hire for both product and design, how do you tell when a candidate's ops background has become real product thinking? Always wondered what that moment looks like to you."
+ },
+ {
+  "pair": "P04",
+  "note": "Hey Priya, your post on the partner app redesign learnings caught my eye. At Zomato I built an internal tool that cut restaurant onboarding from 7 days to 2. Curious, what was the hardest onboarding friction to remove on the Swiggy side?",
+  "followup": "Hi Priya, you came to Swiggy from Uber Eats India. What's something about restaurant partners that surprised you after moving to this side of the food delivery business?"
+ },
+ {
+  "pair": "P05",
+  "note": "Hi Vikram, I'm at IIM Bangalore after 3 years as a software engineer at TCS, and AI product is where I want to land. You built a voice AI startup before Microsoft. What did building it teach you that platform work now rewards?",
+  "followup": "Hi Vikram, from founding a voice AI startup to leading AI Platform product at Microsoft India is quite a shift in scale. Is there a founder habit you deliberately kept?"
+ },
+ {
+  "pair": "P06",
+  "note": "Hey Tanvi, fellow Pune person here. I read your article on retention loops for first time investors. I'm an SPJIMR grad from ed-tech sales aiming at growth PM. Curious, which loop surprised you most once you saw the data?",
+  "followup": "Hi Tanvi, a COEP grad building growth at Groww is a nice Pune story. Did anything from your engineering days shape how you think about retention experiments?"
+ },
+ {
+  "pair": "P07",
+  "note": "Hi Aditya, I'm an IIM Calcutta MBA with 3 years in healthcare consulting at Deloitte, aiming for health-tech product. You went from doctor to Head of Product. What did clinic experience change about how you prioritise features?",
+  "followup": "Hi Aditya, health-tech is crowded with Practo style players. What's one thing a doctor sees in a product that a non clinician PM usually misses?"
+ },
+ {
+  "pair": "P08",
+  "note": "Hey Shreya, I'm Nikhil, IIM Lucknow, and I went through the same HUL management trainee programme before sales. You moved from HUL into product at Meesho. What was the biggest mindset shift from the HUL way of working?",
+  "followup": "Hi Shreya, HUL taught us to sell through distributors, Meesho sells through resellers. Did that background help your product thinking at Meesho or did you have to rebuild from scratch?"
+ },
+ {
+  "pair": "P09",
+  "note": "Hey Kabir, I ran a D2C coffee brand that shut down in 2024, and I follow your posts on founder to PM moves. You did it after your snacks brand. What was the hardest founder habit to drop in product work?",
+  "followup": "Hi Kabir, I'm at ISB now after the coffee brand closed. In your first PM role at Rapido, what did you miss most about owning the whole business?"
+ },
+ {
+  "pair": "P10",
+  "note": "Hi Manish, saw your note on Flipkart search moving to semantic ranking. I'm a data analyst at Myntra with 3 years in, now at IIM Kozhikode. Curious, how do you measure whether semantic ranking actually beat the old results?",
+  "followup": "Hi Manish, after 6 years on Flipkart, what's the search metric you trust most when two ranking changes disagree? I work with product analytics at Myntra and the trade off fascinates me."
+ }
+]

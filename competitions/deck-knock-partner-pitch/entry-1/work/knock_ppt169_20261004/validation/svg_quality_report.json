@@ -4,7 +4,7 @@
   "target": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004",
   "source_fingerprint": {
     "algorithm": "sha256",
-    "digest": "d3ddf4bb77e49ac9368f8eb3327fc24cf20ab57ea25ab31c0f6a35edd2bf1948",
+    "digest": "82b78d95a02a8e5db6b1afef70b93c202257ee085ed1574955da4e5ef69c4866",
     "file_count": 12,
     "files": [
       {
@@ -25,7 +25,7 @@
       },
       {
         "file": "05_example_message.svg",
-        "sha256": "c91334bef7fc9c5f38f5473d3533aa2daa33f4ae68bd760b94a17ebff4945f2b"
+        "sha256": "3e74f29069aaff2ed45e8a1da7aac95fd0e57be44d252521eebbed9924a181ba"
       },
       {
         "file": "06_not_spam.svg",
@@ -451,7 +451,7 @@
         "tspan_elements": 12
       },
       "passed": true,
-      "source_sha256": "c91334bef7fc9c5f38f5473d3533aa2daa33f4ae68bd760b94a17ebff4945f2b"
+      "source_sha256": "3e74f29069aaff2ed45e8a1da7aac95fd0e57be44d252521eebbed9924a181ba"
     },
     {
       "file": "06_not_spam.svg",

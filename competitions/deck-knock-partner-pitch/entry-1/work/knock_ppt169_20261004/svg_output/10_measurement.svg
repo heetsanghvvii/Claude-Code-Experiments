@@ -10,8 +10,8 @@
   <g id="metric" data-pptx-bounds="64 200 620 446">
     <rect x="64" y="204" width="620" height="438" rx="6" fill="#16302B"/>
     <text x="104" y="256" font-size="15" font-weight="bold" letter-spacing="2" fill="#C9A063">THE ONE NUMBER</text>
-    <text x="104" y="344" font-family="Georgia" font-size="50" fill="#F6F2EA">Interviews per</text>
-    <text x="104" y="408" font-family="Georgia" font-size="50" fill="#E9C98C">100 people contacted</text>
+    <text x="104" y="344" font-family="Georgia" font-size="46" fill="#F6F2EA">Interviews per
+      <tspan x="104" dy="60" fill="#E9C98C">100 people contacted</tspan></text>
     <line x1="104" y1="452" x2="644" y2="452" stroke="#2F5A50" stroke-width="1"/>
     <text x="104" y="500" font-size="19" fill="#C8CFC9">Interviews secured, divided by people contacted,
       <tspan x="104" dy="28">times 100. Simple to check, hard to inflate.</tspan></text>

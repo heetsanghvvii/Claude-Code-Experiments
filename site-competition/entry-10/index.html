@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knock · Knock on the right door</title>
+<meta name="description" content="Knock finds the hiring managers, team members and alumni at your target companies, researches each one, and starts real conversations that turn into referrals and interviews.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F0E6;
+  --paper-2:#EDE6D8;
+  --card:#FBF8F2;
+  --ink:#1B2620;
+  --ink-2:#4D564F;
+  --line:#D9D0BE;
+  --green:#1F4A38;
+  --green-deep:#15342A;
+  --green-ink:#E9E3D3;
+  --brass:#C08A35;
+  --brass-text:#8A5A14;
+  --error:#A5321F;
+  --ok:#1F6B47;
+  --focus:#C08A35;
+  --serif:"Fraunces", Georgia, "Times New Roman", serif;
+  --sans:"Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --wrap:1180px;
+  --radius:14px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08;letter-spacing:-0.015em;margin:0}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:8px;z-index:100}
+.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+.eyebrow{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;background:var(--green);color:#fff;font:600 16px/1 var(--sans);text-decoration:none;border:0;cursor:pointer;transition:background .2s, transform .2s}
+.btn:hover{background:var(--green-deep)}
+.btn:active{transform:translateY(1px)}
+.btn svg{transition:transform .2s}
+.btn:hover svg{transform:translateX(3px)}
+.btn[disabled]{opacity:.7;cursor:progress}
+.btn--light{background:var(--paper);color:var(--green-deep)}
+.btn--light:hover{background:#fff}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(245,240,230,.92);backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid transparent;transition:border-color .2s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:-.02em}
+.brand svg{width:30px;height:30px}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a:not(.btn){text-decoration:none;font-size:15px;color:var(--ink-2);font-weight:500}
+.nav-links a:not(.btn):hover{color:var(--ink)}
+.nav .btn{min-height:44px;padding:0 20px;font-size:15px}
+
+/* hero */
+.hero{padding:72px 0 96px;overflow-x:clip}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
+.hero h1{font-size:clamp(46px,6.4vw,88px);font-weight:400;margin:18px 0 26px}
+.hero h1 em{font-style:italic;color:var(--green)}
+.hero .lede{font-size:20px;color:var(--ink-2);max-width:34em;line-height:1.55}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:18px 24px;margin-top:36px}
+.hero-note{font-size:15px;color:var(--ink-2);display:flex;align-items:center;gap:8px}
+.hero-note svg{flex:none}
+
+/* target list sheet */
+.sheet{position:relative;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:28px 28px 22px;box-shadow:0 1px 0 rgba(27,38,32,.04),0 24px 48px -28px rgba(27,38,32,.35);transform:rotate(1.2deg)}
+.sheet::before{content:"";position:absolute;inset:8px -8px -8px 8px;background:var(--paper-2);border:1px solid var(--line);border-radius:6px;z-index:-1;transform:rotate(-2.4deg)}
+.sheet-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:6px;gap:12px}
+.sheet-head h2{font-size:22px;font-weight:500}
+.tag{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--line);padding:3px 8px;border-radius:999px;white-space:nowrap}
+.sheet ol{list-style:none;margin:0;padding:0}
+.sheet li{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.sheet li:last-child{border-bottom:0}
+.sheet .n{font-family:var(--serif);font-size:15px;color:var(--brass-text);padding-top:1px}
+.sheet .who{font-weight:600;font-size:15.5px;line-height:1.35}
+.sheet .why{font-size:14px;color:var(--ink-2);line-height:1.45;margin-top:3px}
+.sheet .why b{font-weight:600;color:var(--green)}
+.sheet-foot{font-size:13px;color:var(--ink-2);margin-top:10px;display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--ink);padding-top:10px}
+
+/* sections */
+section{scroll-margin-top:80px}
+.section{padding:112px 0}
+.section-head{max-width:720px;margin-bottom:56px}
+.section-head h2{font-size:clamp(34px,4.4vw,56px);margin-top:14px}
+.section-head p{font-size:19px;color:var(--ink-2);margin-top:18px;max-width:36em}
+
+/* problem */
+.problem{border-top:1px solid var(--line)}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.queue{background:var(--paper-2);border-radius:var(--radius);padding:26px;font-size:15px;position:relative;overflow:hidden}
+.queue::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(to bottom,rgba(237,230,216,0),var(--paper-2))}
+.queue-row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);color:var(--ink-2)}
+.queue-row span:last-child{font-size:13px;white-space:nowrap}
+.queue-row .st{color:#6b6f66}
+.queue-cap{font-size:13px;color:var(--ink-2);margin-bottom:8px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.problem-copy h2{font-size:clamp(34px,4.4vw,56px);margin:14px 0 22px}
+.problem-copy p{font-size:19px;color:var(--ink-2);max-width:30em}
+.problem-copy p + p{margin-top:16px}
+.problem-copy strong{color:var(--ink);font-weight:600}
+
+/* steps */
+.how{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s;position:relative}
+.steps li{position:relative;padding:0 28px 0 0}
+.steps .dot{display:flex;align-items:center;gap:0;margin-bottom:26px}
+.steps .dot b{flex:none;width:46px;height:46px;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;font-family:var(--serif);font-weight:500;font-size:19px;background:var(--card)}
+.steps .dot i{flex:1;height:1px;background:var(--ink);opacity:.35}
+.steps li:last-child .dot i{background:transparent}
+.steps li:last-child .dot b{background:var(--green);color:#fff;border-color:var(--green)}
+.steps h3{font-size:24px;margin-bottom:10px}
+.steps p{color:var(--ink-2);font-size:16px}
+.approve{margin-top:56px;display:flex;align-items:center;gap:14px;padding:18px 22px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);max-width:640px;font-size:16px}
+.approve svg{flex:none}
+
+/* example message */
+.example{background:var(--green-deep);color:var(--green-ink)}
+.example .eyebrow{color:#D9AE62}
+.example .section-head h2{color:#fff}
+.example .section-head p{color:#C9C6B6}
+.ex-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:72px;align-items:start}
+.thread{background:#FBF8F2;color:var(--ink);border-radius:18px;padding:22px 22px 18px;max-width:560px;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.thread-top{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:15px;flex:none}
+.av--r{background:#D8E3DC;color:var(--green-deep)}
+.av--y{background:#E9D7B5;color:#5c3d0c}
+.thread-top .nm{font-weight:600;line-height:1.25}
+.thread-top .rl{font-size:13px;color:var(--ink-2)}
+.msg{display:flex;gap:12px;align-items:flex-end}
+.bubble{background:#fff;border:1px solid var(--line);border-radius:16px 16px 16px 4px;padding:16px 18px;font-size:17px;line-height:1.55}
+.bubble mark{background:linear-gradient(transparent 58%, rgba(192,138,53,.32) 58%);color:inherit;padding:0 1px}
+.meta{font-size:12.5px;color:var(--ink-2);margin:10px 0 0 54px}
+.thread-foot{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-2);display:flex;gap:8px;align-items:center}
+.notes{list-style:none;margin:0;padding:0;counter-reset:n}
+.notes li{counter-increment:n;display:grid;grid-template-columns:36px 1fr;gap:14px;padding:20px 0;border-top:1px solid rgba(233,227,211,.18)}
+.notes li:first-child{border-top:0;padding-top:4px}
+.notes li::before{content:counter(n);width:30px;height:30px;border-radius:50%;border:1px solid #D9AE62;color:#D9AE62;display:grid;place-items:center;font-family:var(--serif);font-size:14px}
+.notes h3{font-size:21px;color:#fff;margin-bottom:6px;font-weight:500}
+.notes p{font-size:16px;color:#C9C6B6}
+
+/* why */
+.why-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--ink)}
+.why-item{padding:36px 40px 40px 0;border-bottom:1px solid var(--line)}
+.why-item:nth-child(2n){padding-left:40px;padding-right:0;border-left:1px solid var(--line)}
+.big{font-family:var(--serif);font-size:clamp(40px,5vw,64px);line-height:1;color:var(--green);letter-spacing:-.02em;margin-bottom:18px;font-weight:400}
+.big s{color:var(--ink-2);text-decoration-thickness:2px;font-size:.55em;margin-left:10px;opacity:.75}
+.why-item h3{font-size:24px;margin-bottom:8px}
+.why-item p{color:var(--ink-2);max-width:30em}
+
+/* pricing */
+.pricing{background:var(--paper-2);border-top:1px solid var(--line)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:32px 28px;display:flex;flex-direction:column;position:relative}
+.plan--pop{background:var(--green-deep);color:var(--green-ink);border-color:var(--green-deep)}
+.plan--pop h3,.plan--pop .price{color:#fff}
+.plan--pop .plan-sub,.plan--pop .per{color:#C9C6B6}
+.pop{position:absolute;top:-13px;left:28px;background:var(--brass);color:#1d1407;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
+.plan h3{font-size:28px}
+.plan-sub{color:var(--ink-2);font-size:15px;margin-top:6px}
+.price{font-family:var(--serif);font-size:48px;line-height:1;margin:28px 0 6px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.price small{font-size:22px;margin-right:4px;vertical-align:.5em}
+.per{font-size:14px;color:var(--ink-2)}
+.plan dl{margin:26px 0 30px;display:grid;grid-template-columns:auto 1fr;gap:10px 16px;font-size:15.5px;border-top:1px solid var(--line);padding-top:20px}
+.plan--pop dl{border-top-color:rgba(233,227,211,.2)}
+.plan dt{color:var(--ink-2)}
+.plan--pop dt{color:#C9C6B6}
+.plan dd{margin:0;text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.plan .btn{margin-top:auto;width:100%}
+.plan:not(.plan--pop) .btn{background:transparent;color:var(--green-deep);box-shadow:inset 0 0 0 1.5px var(--green)}
+.plan:not(.plan--pop) .btn:hover{background:var(--green);color:#fff}
+.includes{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px;align-items:start}
+.includes h3{font-size:22px;margin-bottom:14px}
+.includes ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.includes li{display:flex;gap:10px;align-items:flex-start;font-size:16px}
+.includes li svg{flex:none;margin-top:5px}
+.dfy{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px}
+.dfy p{color:var(--ink-2);font-size:16px;margin-bottom:14px}
+.dfy .from{font-family:var(--serif);font-size:30px;color:var(--ink);font-variant-numeric:tabular-nums}
+.dfy .from span{font-family:var(--sans);font-size:14px;color:var(--ink-2);margin-right:6px}
+.dfy a{font-weight:600;color:var(--green);text-underline-offset:3px}
+.fine{font-size:14px;color:var(--ink-2);margin-top:28px}
+
+/* faq */
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:first-child{border-top:1px solid var(--ink)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font-family:var(--serif);font-size:22px;font-weight:500}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{flex:none;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);position:relative;transition:transform .25s}
+.faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%)}
+.faq summary .pm::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .25s}
+.faq details[open] .pm::after{transform:translate(-50%,-50%) rotate(0)}
+.faq details p{padding:0 48px 24px 0;color:var(--ink-2);font-size:17px;max-width:38em}
+
+/* intake */
+.intake{background:var(--green-deep);color:var(--green-ink)}
+.intake-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:72px;align-items:start}
+.intake h2{color:#fff;font-size:clamp(34px,4.4vw,56px);margin:14px 0 20px}
+.intake .eyebrow{color:#D9AE62}
+.intake-copy p{color:#C9C6B6;font-size:18px;max-width:28em}
+.next{list-style:none;padding:0;margin:32px 0 0;display:grid;gap:14px}
+.next li{display:flex;gap:12px;font-size:16px;color:#DCD8C9}
+.next li b{font-family:var(--serif);color:#D9AE62;font-weight:500;flex:none;width:20px}
+.formcard{background:var(--card);color:var(--ink);border-radius:20px;padding:36px;box-shadow:0 30px 60px -30px rgba(0,0,0,.55)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+label{font-size:14.5px;font-weight:600}
+label .opt{font-weight:400;color:var(--ink-2)}
+.hint{font-size:13px;color:var(--ink-2);margin-top:-2px}
+input{font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1.5px solid #B9AF9C;border-radius:10px;min-height:50px;padding:12px 14px;width:100%;transition:border-color .15s, box-shadow .15s}
+input::placeholder{color:#8a8a80}
+input:hover{border-color:#8f8674}
+input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(192,138,53,.45)}
+input[aria-invalid="true"]{border-color:var(--error);background:#FFF8F5}
+.err{font-size:13.5px;color:var(--error);display:none;align-items:center;gap:6px;font-weight:500}
+.err.show{display:flex}
+.summary{display:none;background:#FBEDE8;border:1px solid #E6B8AB;color:#6F2214;border-radius:10px;padding:14px 16px;font-size:15px;margin-bottom:22px}
+.summary.show{display:block}
+.summary:focus{outline:3px solid var(--focus);outline-offset:2px}
+.form-foot{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:28px}
+.form-foot p{font-size:13.5px;color:var(--ink-2);flex:1;min-width:200px}
+.spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin .8s linear infinite;display:none}
+.loading .spinner{display:block}
+.loading .arrow{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.success{display:none;text-align:left}
+.success.show{display:block}
+.success .seal{width:56px;height:56px;border-radius:50%;background:#E3EEE6;display:grid;place-items:center;margin-bottom:20px}
+.success h3{font-size:32px;margin-bottom:12px}
+.success p{color:var(--ink-2);font-size:17px}
+.success .recap{margin:22px 0;padding:18px 20px;background:var(--paper);border-radius:12px;border:1px solid var(--line);font-size:15px;display:grid;gap:6px}
+.success .recap span{color:var(--ink-2)}
+.linkbtn{background:none;border:0;padding:6px 0;font:600 15px var(--sans);color:var(--green);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+/* footer */
+footer{padding:56px 0 40px;background:var(--paper)}
+.foot{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.foot .tagline{font-family:var(--serif);font-size:clamp(28px,3.4vw,40px);font-style:italic;margin-top:10px;color:var(--green)}
+.foot a{font-weight:600;text-underline-offset:4px}
+.foot-small{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+
+/* reveal */
+.rv{opacity:1;transform:none}
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .7s ease, transform .7s ease}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.js .rv{opacity:1;transform:none}}
+
+@media (max-width: 980px){
+  .hero-grid,.problem-grid,.ex-grid,.faq-grid,.intake-grid{grid-template-columns:1fr;gap:48px}
+  .steps{grid-template-columns:1fr 1fr;gap:44px 0}
+  .steps li:nth-child(2) .dot i{background:transparent}
+  .plans{grid-template-columns:1fr;max-width:520px}
+  .includes{grid-template-columns:1fr}
+  .sheet{max-width:520px;transform:rotate(.8deg)}
+}
+@media (max-width: 720px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  .nav .wrap{height:62px}
+  .nav-links a:not(.btn){display:none}
+  .nav .btn{min-height:40px;padding:0 16px;font-size:14px}
+  .hero{padding:40px 0 64px}
+  .hero h1{margin:14px 0 20px}
+  .hero .lede{font-size:18px}
+  .hero-actions .btn{width:100%}
+  .sheet{padding:20px 18px 16px;margin:0 6px}
+  .section{padding:72px 0}
+  .section-head{margin-bottom:40px}
+  .section-head p,.problem-copy p{font-size:17px}
+  .steps{grid-template-columns:1fr;gap:0}
+  .steps li{display:grid;grid-template-columns:46px 1fr;gap:0 18px;padding:0 0 32px}
+  .steps .dot{flex-direction:column;align-items:center;margin:0;grid-row:span 2;height:100%}
+  .steps .dot i{width:1px;height:auto;flex:1;margin-top:6px}
+  .steps li:nth-child(2) .dot i{background:var(--ink)}
+  .steps li:last-child .dot i{background:transparent}
+  .steps h3{font-size:22px;margin-top:9px}
+  .approve{margin-top:16px;align-items:flex-start}
+  .thread{padding:16px 14px 14px}
+  .bubble{font-size:16px;padding:14px}
+  .meta{margin-left:0}
+  .msg .av{display:none}
+  .why-list{grid-template-columns:1fr}
+  .why-item,.why-item:nth-child(2n){padding:28px 0 30px;border-left:0}
+  .plan{padding:28px 22px}
+  .faq summary{font-size:19px;padding:18px 0}
+  .faq details p{padding-right:0;font-size:16px}
+  .formcard{padding:24px 18px;border-radius:16px}
+  .fields{grid-template-columns:1fr;gap:18px}
+  .form-foot .btn{width:100%}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Knock, back to top">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="5" y="2.5" width="22" height="27" rx="11" stroke="#1F4A38" stroke-width="2"/><circle cx="16" cy="11" r="2.2" fill="#C08A35"/><path d="M11.5 13.5a4.5 4.5 0 0 0 9 0" stroke="#C08A35" stroke-width="2" stroke-linecap="round"/><path d="M11 25.5h10" stroke="#1F4A38" stroke-width="2" stroke-linecap="round"/></svg>
+      Knock
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#pricing">Packages</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn js-cta" href="#intake">Get my target list</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">For MBAs and future PMs</p>
+        <h1 id="hero-title">Stop applying.<br><em>Start conversations.</em></h1>
+        <p class="lede">We find the hiring managers, team members and alumni at your target companies, research each one, and start real conversations that turn into referrals and interviews.</p>
+        <div class="hero-actions">
+          <a class="btn js-cta" href="#intake">Get my target list <svg class="arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h11M10 4.5 14.5 9 10 13.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <p class="hero-note"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="8" stroke="#1F4A38" stroke-width="1.5"/><path d="m5.5 9.2 2.3 2.3 4.7-4.9" stroke="#1F4A38" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>You approve every message. It goes from your own LinkedIn.</p>
+        </div>
+      </div>
+
+      <figure class="sheet rv" aria-labelledby="sheet-title" style="margin:0">
+        <div class="sheet-head">
+          <h2 id="sheet-title">Your target list</h2>
+          <span class="tag">Illustrative</span>
+        </div>
+        <ol>
+          <li><span class="n">01</span><div><p class="who">Hiring manager, Product · Swiggy</p><p class="why">Shared reason: <b>same school, two batches apart</b></p></div></li>
+          <li><span class="n">02</span><div><p class="who">Senior PM, Growth · Zepto</p><p class="why">Shared reason: <b>also moved from brand management</b></p></div></li>
+          <li><span class="n">03</span><div><p class="who">Associate PM · Razorpay</p><p class="why">Shared reason: <b>wrote about the same pricing problem you worked on</b></p></div></li>
+          <li><span class="n">04</span><div><p class="who">Director of Product · CRED</p><p class="why">Shared reason: <b>alumni who can introduce</b></p></div></li>
+        </ol>
+        <figcaption class="sheet-foot"><span>4 of 60 people</span><span>Researched by hand</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section problem" aria-labelledby="problem-title">
+    <div class="wrap problem-grid">
+      <div class="queue rv" aria-hidden="true">
+        <p class="queue-cap">The usual week</p>
+        <div class="queue-row"><span>Product Manager · applied via portal</span><span class="st">No response</span></div>
+        <div class="queue-row"><span>Associate PM · easy apply</span><span class="st">No response</span></div>
+        <div class="queue-row"><span>Product Analyst · careers page</span><span class="st">No response</span></div>
+        <div class="queue-row"><span>APM Programme · applied via portal</span><span class="st">No response</span></div>
+        <div class="queue-row"><span>Product Manager II · easy apply</span><span class="st">No response</span></div>
+        <div class="queue-row"><span>Growth PM · careers page</span><span class="st">No response</span></div>
+        <div class="queue-row"><span>Product Manager · applied via portal</span><span class="st">No response</span></div>
+      </div>
+      <div class="problem-copy">
+        <p class="eyebrow">The problem</p>
+        <h2 id="problem-title">Hundreds of applications. No callbacks.</h2>
+        <p>A job portal is a queue, and you are somewhere near the back of it. Your CV is read by a filter before it is read by a person, if it is read at all.</p>
+        <p><strong>People hire people.</strong> The shortlist usually starts with someone inside the company saying, "you should talk to this person." Knock gets you into that conversation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section how" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How it works</p>
+        <h2 id="how-title">Four steps from target list to interview.</h2>
+      </div>
+      <ol class="steps">
+        <li class="rv"><span class="dot" aria-hidden="true"><b>1</b><i></i></span><div><h3>You pick the doors</h3><p>Tell us the companies and roles you want. A short intake, about ten minutes.</p></div></li>
+        <li class="rv"><span class="dot" aria-hidden="true"><b>2</b><i></i></span><div><h3>We find the right people</h3><p>Hiring managers, team members, alumni and senior people who can introduce you, at each company.</p></div></li>
+        <li class="rv"><span class="dot" aria-hidden="true"><b>3</b><i></i></span><div><h3>We write the first message</h3><p>One short, personal note for each person, built on something you genuinely share.</p></div></li>
+        <li class="rv"><span class="dot" aria-hidden="true"><b>4</b><i></i></span><div><h3>We guide every reply</h3><p>We draft your responses until the conversation becomes a referral or an interview.</p></div></li>
+      </ol>
+      <p class="approve"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><rect x="1" y="1" width="20" height="20" rx="6" fill="#1F4A38"/><path d="m6.5 11.2 3 3 6-6.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>You approve every message.</strong> Nothing is sent without you, and it goes from your own LinkedIn.</span></p>
+    </div>
+  </section>
+
+  <section class="section example" aria-labelledby="ex-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">An example first message</p>
+        <h2 id="ex-title">Short. Specific. Easy to answer.</h2>
+        <p>No CV attached, no favour asked. Just a real reason to talk.</p>
+      </div>
+      <div class="ex-grid">
+        <figure class="thread rv" style="margin:0" aria-label="Example LinkedIn message to Rahul">
+          <div class="thread-top">
+            <span class="av av--r" aria-hidden="true">R</span>
+            <div><p class="nm">Rahul</p><p class="rl">Product Manager at Zepto · previously Flipkart</p></div>
+          </div>
+          <div class="msg">
+            <span class="av av--y" aria-hidden="true">You</span>
+            <blockquote class="bubble" style="margin:0">Hey Rahul, <mark>saw you moved from Flipkart into product at Zepto.</mark> <mark>I'm making a similar jump from brand management.</mark> Curious, <mark>what was the biggest adjustment for you?</mark></blockquote>
+          </div>
+          <p class="meta">Approved by you · sent from your LinkedIn</p>
+          <figcaption class="thread-foot"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M7 6.2v3.6M7 4.2v.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Example for illustration. Names are placeholders.</figcaption>
+        </figure>
+        <ol class="notes">
+          <li><div><h3>It shows we did the homework</h3><p>One line proves this was written for Rahul and nobody else.</p></div></li>
+          <li><div><h3>It names what you share</h3><p>The same career jump. A genuine reason for him to care.</p></div></li>
+          <li><div><h3>It asks a question, not a favour</h3><p>Easy to answer in a minute. The referral conversation comes later.</p></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="why-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Why it works</p>
+        <h2 id="why-title">Fewer doors. The right ones.</h2>
+      </div>
+      <div class="why-list">
+        <div class="why-item rv"><p class="big" aria-hidden="true">60 <s>6,000</s></p><h3>60 hand-picked people, not 6,000 messages</h3><p>A short list of people who can actually move your application, chosen and researched one by one.</p></div>
+        <div class="why-item rv"><p class="big" aria-hidden="true">1 : 1</p><h3>Every message is written for one person</h3><p>No templates with a name swapped in. Each note starts from something real you have in common.</p></div>
+        <div class="why-item rv"><p class="big" aria-hidden="true">Talk, <em>then</em> ask</p><h3>Conversations first, the ask comes later</h3><p>People help people they have spoken to. We build the conversation before anyone asks for a referral.</p></div>
+        <div class="why-item rv"><p class="big" aria-hidden="true">Outbound</p><h3>Built on how modern sales teams create meetings</h3><p>Good sales teams do not wait for inbound. They research, reach out with care, and follow up well. We do the same for your career.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pricing" id="pricing" aria-labelledby="price-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Packages · Founding member pricing</p>
+        <h2 id="price-title">Pick the length of your search.</h2>
+        <p>One-time price, in rupees. Every package includes the full service. We do not promise a number of replies yet; we promise the work.</p>
+      </div>
+      <div class="plans">
+        <article class="plan rv" aria-labelledby="p1">
+          <h3 id="p1">Sprint</h3>
+          <p class="plan-sub">A focused first push.</p>
+          <p class="price"><small>Rs</small>2,499</p>
+          <p class="per">one time</p>
+          <dl><dt>Duration</dt><dd>7 days</dd><dt>People contacted</dt><dd>60</dd></dl>
+          <a class="btn js-cta" href="#intake" data-plan="Sprint">Get my target list</a>
+        </article>
+        <article class="plan plan--pop rv" aria-labelledby="p2">
+          <span class="pop">Most popular</span>
+          <h3 id="p2">Standard</h3>
+          <p class="plan-sub">Time for replies to turn into referrals.</p>
+          <p class="price"><small>Rs</small>3,999</p>
+          <p class="per">one time</p>
+          <dl><dt>Duration</dt><dd>14 days</dd><dt>People contacted</dt><dd>120</dd></dl>
+          <a class="btn btn--light js-cta" href="#intake" data-plan="Standard">Get my target list</a>
+        </article>
+        <article class="plan rv" aria-labelledby="p3">
+          <h3 id="p3">Full search</h3>
+          <p class="plan-sub">Every target company, covered properly.</p>
+          <p class="price"><small>Rs</small>5,499</p>
+          <p class="per">one time</p>
+          <dl><dt>Duration</dt><dd>21 days</dd><dt>People contacted</dt><dd>180</dd></dl>
+          <a class="btn js-cta" href="#intake" data-plan="Full search">Get my target list</a>
+        </article>
+      </div>
+      <div class="includes">
+        <div>
+          <h3>Every package includes</h3>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8.4 3 3 7-7" stroke="#1F4A38" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Your target list</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8.4 3 3 7-7" stroke="#1F4A38" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Research on every person</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8.4 3 3 7-7" stroke="#1F4A38" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Personal first messages</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8.4 3 3 7-7" stroke="#1F4A38" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Reply drafts for every conversation</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8.4 3 3 7-7" stroke="#1F4A38" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>A weekly results report</li>
+          </ul>
+        </div>
+        <div class="dfy">
+          <h3>Rather we ran it for you?</h3>
+          <p>Done for you: we run the outreach end to end, from the list to the last reply, with your sign-off on the plan.</p>
+          <p class="from"><span>from</span>Rs 14,999</p>
+          <a href="mailto:hello@knock.careers?subject=Done-for-you%20outreach">Ask about done for you</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section faq" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq-grid">
+      <div class="section-head" style="margin-bottom:0">
+        <p class="eyebrow">Questions</p>
+        <h2 id="faq-title">The honest answers.</h2>
+        <p>Anything else, write to <a href="mailto:hello@knock.careers">hello@knock.careers</a>. A person replies.</p>
+      </div>
+      <div>
+        <details><summary>Is this spam?<span class="pm" aria-hidden="true"></span></summary><p>No. We contact around 60 researched people per week of your search, and every message is written for that one person. Spam is the opposite: thousands of copies of the same note.</p></details>
+        <details><summary>Will my LinkedIn get banned?<span class="pm" aria-hidden="true"></span></summary><p>We stay well under LinkedIn's limits, and you send from your own account at a human pace. No bots, no automation running on your profile.</p></details>
+        <details><summary>Do you write as me?<span class="pm" aria-hidden="true"></span></summary><p>Yes, in your voice. You approve every message before it goes, and you can edit or skip anything.</p></details>
+        <details><summary>Who is this for?<span class="pm" aria-hidden="true"></span></summary><p>To start, MBA graduates and final-year students, and professionals moving into product roles.</p></details>
+        <details><summary>What if nobody replies?<span class="pm" aria-hidden="true"></span></summary><p>Founding members get a free extra week if fewer than 5 people reply.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section intake" id="intake" aria-labelledby="intake-title">
+    <div class="wrap intake-grid">
+      <div class="intake-copy">
+        <p class="eyebrow">Start here</p>
+        <h2 id="intake-title">Tell us where you want to knock.</h2>
+        <p>Six quick fields. We will come back with your first target list and a plan for your search.</p>
+        <ol class="next">
+          <li><b>1</b>We review your goals and LinkedIn profile.</li>
+          <li><b>2</b>You get a sample of your target list by email.</li>
+          <li><b>3</b>Pick a package only if the list looks right.</li>
+        </ol>
+      </div>
+
+      <div class="formcard">
+        <form id="intake-form" novalidate>
+          <div class="summary" id="summary" role="alert" tabindex="-1"></div>
+          <div class="fields">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="Ananya Sharma" aria-describedby="name-err">
+              <p class="err" id="name-err"></p>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" aria-describedby="email-err">
+              <p class="err" id="email-err"></p>
+            </div>
+            <div class="field full">
+              <label for="linkedin">LinkedIn URL</label>
+              <input id="linkedin" name="linkedin" type="url" inputmode="url" autocomplete="url" placeholder="linkedin.com/in/your-name" aria-describedby="linkedin-err">
+              <p class="err" id="linkedin-err"></p>
+            </div>
+            <div class="field">
+              <label for="role">Target role</label>
+              <input id="role" name="role" type="text" placeholder="Associate Product Manager" aria-describedby="role-err">
+              <p class="err" id="role-err"></p>
+            </div>
+            <div class="field">
+              <label for="city">City</label>
+              <input id="city" name="city" type="text" autocomplete="address-level2" placeholder="Bengaluru" aria-describedby="city-err">
+              <p class="err" id="city-err"></p>
+            </div>
+            <div class="field full">
+              <label for="companies">Target companies</label>
+              <p class="hint" id="companies-hint">Separate with commas. Five to fifteen works well.</p>
+              <input id="companies" name="companies" type="text" placeholder="Swiggy, Zepto, Razorpay, CRED" aria-describedby="companies-hint companies-err">
+              <p class="err" id="companies-err"></p>
+            </div>
+          </div>
+          <input type="hidden" id="plan" name="plan" value="">
+          <div class="form-foot">
+            <button class="btn" type="submit" id="submit"><span class="spinner" aria-hidden="true"></span><span class="label">Get my target list</span><svg class="arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h11M10 4.5 14.5 9 10 13.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <p>No payment now. We only use your details to build your list.</p>
+          </div>
+        </form>
+
+        <div class="success" id="success" tabindex="-1" aria-live="polite">
+          <div class="seal" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="m6 13.5 4.5 4.5L20 8" stroke="#1F6B47" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3 id="success-title">Thank you. We are on it.</h3>
+          <p id="success-msg">We will email you within two working days with a sample of your target list.</p>
+          <div class="recap" id="recap"></div>
+          <button class="linkbtn" type="button" id="edit">Edit my details</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top" aria-label="Knock, back to top"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="5" y="2.5" width="22" height="27" rx="11" stroke="#1F4A38" stroke-width="2"/><circle cx="16" cy="11" r="2.2" fill="#C08A35"/><path d="M11.5 13.5a4.5 4.5 0 0 0 9 0" stroke="#C08A35" stroke-width="2" stroke-linecap="round"/><path d="M11 25.5h10" stroke="#1F4A38" stroke-width="2" stroke-linecap="round"/></svg>Knock</a>
+        <p class="tagline">Knock on the right door.</p>
+      </div>
+      <a href="mailto:hello@knock.careers">hello@knock.careers</a>
+    </div>
+    <div class="foot-small"><span>© 2026 Knock</span><span>Made in India, for people who would rather talk than apply.</span></div>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var doc=document.documentElement; doc.classList.add('js');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // nav border on scroll
+  var nav=document.querySelector('.nav');
+  function onScroll(){nav.classList.toggle('scrolled',window.scrollY>8)}
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // reveal
+  var rv=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    rv.forEach(function(el){io.observe(el)});
+  } else { rv.forEach(function(el){el.classList.add('in')}); }
+
+  // CTA: scroll to form and focus first field
+  var intake=document.getElementById('intake');
+  var form=document.getElementById('intake-form'), planInput=document.getElementById('plan');
+  document.querySelectorAll('.js-cta').forEach(function(a){
+    a.addEventListener('click',function(ev){
+      ev.preventDefault();
+      if(a.dataset.plan) planInput.value=a.dataset.plan;
+      intake.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+      var target=form.hidden? document.getElementById('success') : document.getElementById('name');
+      setTimeout(function(){target.focus({preventScroll:true})}, reduce?0:550);
+      history.replaceState(null,'','#intake');
+    });
+  });
+
+  // validation
+  var fields={
+    name:{el:document.getElementById('name'),label:'Full name',test:function(v){return v.trim().length>=2?'':'Please enter your full name.'}},
+    email:{el:document.getElementById('email'),label:'Email',test:function(v){v=v.trim(); if(!v) return 'Please enter your email.'; return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)?'':'That email looks incomplete. Try name@example.com.'}},
+    linkedin:{el:document.getElementById('linkedin'),label:'LinkedIn URL',test:function(v){v=v.trim(); if(!v) return 'Please add your LinkedIn profile link.'; return /(^|\/\/|\.)linkedin\.com\/in\/[^\s\/]+/i.test(v)?'':'Use your profile link, like linkedin.com/in/your-name.'}},
+    role:{el:document.getElementById('role'),label:'Target role',test:function(v){return v.trim()?'':'Which role are you aiming for?'}},
+    city:{el:document.getElementById('city'),label:'City',test:function(v){return v.trim()?'':'Please enter your city.'}},
+    companies:{el:document.getElementById('companies'),label:'Target companies',test:function(v){var l=v.split(',').map(function(s){return s.trim()}).filter(Boolean); return l.length?'':'Add at least one company, separated by commas.'}}
+  };
+  var icon='<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M7 3.8v3.8M7 9.8v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+  function check(k){
+    var f=fields[k], msg=f.test(f.el.value), err=document.getElementById(k+'-err');
+    f.el.setAttribute('aria-invalid',msg?'true':'false');
+    err.innerHTML=msg?icon+'<span>'+msg+'</span>':''; err.classList.toggle('show',!!msg);
+    return msg;
+  }
+  Object.keys(fields).forEach(function(k){
+    var el=fields[k].el;
+    el.addEventListener('blur',function(){ if(el.value.trim()||el.getAttribute('aria-invalid')==='true') check(k) });
+    el.addEventListener('input',function(){ if(el.getAttribute('aria-invalid')==='true') check(k) });
+  });
+
+  var summary=document.getElementById('summary'), btn=document.getElementById('submit'), success=document.getElementById('success');
+  function esc(s){return s.replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var bad=[];
+    Object.keys(fields).forEach(function(k){ if(check(k)) bad.push(k) });
+    if(bad.length){
+      summary.innerHTML='<strong>'+(bad.length===1?'One field needs':bad.length+' fields need')+' a look:</strong> '+bad.map(function(k){return '<a href="#'+k+'">'+fields[k].label+'</a>'}).join(', ')+'.';
+      summary.classList.add('show');
+      summary.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();document.getElementById(a.getAttribute('href').slice(1)).focus()})});
+      fields[bad[0]].el.focus();
+      return;
+    }
+    summary.classList.remove('show'); summary.innerHTML='';
+    btn.disabled=true; btn.classList.add('loading'); btn.querySelector('.label').textContent='Sending';
+    setTimeout(function(){
+      var first=fields.name.el.value.trim().split(/\s+/)[0];
+      var comps=fields.companies.el.value.split(',').map(function(s){return s.trim()}).filter(Boolean);
+      document.getElementById('success-title').textContent='Thank you, '+first+'. We are on it.';
+      document.getElementById('success-msg').textContent='We will email '+fields.email.el.value.trim()+' within two working days with a sample of your target list.';
+      document.getElementById('recap').innerHTML=
+        '<div><span>Role: </span>'+esc(fields.role.el.value.trim())+' · '+esc(fields.city.el.value.trim())+'</div>'+
+        '<div><span>Companies ('+comps.length+'): </span>'+esc(comps.join(', '))+'</div>'+
+        (planInput.value?'<div><span>Interested in: </span>'+esc(planInput.value)+'</div>':'');
+      form.hidden=true; success.classList.add('show'); success.focus();
+      btn.disabled=false; btn.classList.remove('loading'); btn.querySelector('.label').textContent='Get my target list';
+    }, 700);
+  });
+  document.getElementById('edit').addEventListener('click',function(){
+    success.classList.remove('show'); form.hidden=false; fields.name.el.focus();
+  });
+})();
+</script>
+</body>
+</html>

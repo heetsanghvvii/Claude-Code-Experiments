@@ -7,10 +7,12 @@ import csv
 import json
 import sys
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from . import bridge, discovery, feedback, hooks, messages, profiles, store
+import anthropic
+
+from . import bridge, discovery, feedback, hooks, llm, messages, profiles, store
 from .models import Bucket, Candidate, Fact, Message, Prospect
 
 STATUSES = [
@@ -93,25 +95,36 @@ def cmd_generate(a):
     targets = [p for p in c.prospects if p.status == "enriched" and (not a.id or p.id == a.id)]
     everyone = [store.load(cid) for cid in store.list_ids()]
     guidance, judge_notes = feedback.guidance(everyone), feedback.judge_guidance()
+    failed = []
     for p in targets:
-        p.hooks = hooks.find(c, p)
-        if not p.hooks:
-            p.status = "skipped"
-            print(f"{p.full_name}: no legitimate hook, skipped")
-            store.save(c)
-            continue
-        writers = feedback.choose_writers(everyone, p.bucket.value)
-        msg, problems = messages.write_opener(c, p, p.hooks[0], guidance, writers, judge_notes)
-        p.messages = [msg]
-        p.status = "message_ready"
+        try:
+            _generate_one(c, p, everyone, guidance, judge_notes)
+        except (llm.RefusedError, anthropic.APIError, RuntimeError, ValueError) as e:
+            failed.append(p.full_name)
+            print(f"{p.full_name}: FAILED ({type(e).__name__}: {e}); left as enriched, rerun generate to retry")
+    if failed:
+        print(f"\n{len(failed)} of {len(targets)} failed: {', '.join(failed)}")
+
+
+def _generate_one(c, p, everyone, guidance, judge_notes):
+    p.hooks = hooks.find(c, p)
+    if not p.hooks:
+        p.status = "skipped"
+        print(f"{p.full_name}: no legitimate hook, skipped")
         store.save(c)
-        flag = f"  [CHECK: {'; '.join(problems)}]" if problems else ""
-        print(f"\n{p.full_name} ({p.bucket.value}, hook={p.hooks[0].hook_type}, score={p.hooks[0].score}){flag}")
-        print(f"  WINNER [{msg.writer}]: {msg.body}")
-        if msg.judge_reason:
-            print(f"  Why: {msg.judge_reason}")
-        for i, (alt, w) in enumerate(zip(msg.alternatives, msg.alternative_writers), start=1):
-            print(f"  alt {i} [{w}]: {alt}")
+        return
+    writers = feedback.choose_writers(everyone, p.bucket.value)
+    msg, problems = messages.write_opener(c, p, p.hooks[0], guidance, writers, judge_notes)
+    p.messages = [msg]
+    p.status = "message_ready"
+    store.save(c)
+    flag = f"  [CHECK: {'; '.join(problems)}]" if problems else ""
+    print(f"\n{p.full_name} ({p.bucket.value}, hook={p.hooks[0].hook_type}, score={p.hooks[0].score}){flag}")
+    print(f"  WINNER [{msg.writer}]: {msg.body}")
+    if msg.judge_reason:
+        print(f"  Why: {msg.judge_reason}")
+    for i, (alt, w) in enumerate(zip(msg.alternatives, msg.alternative_writers), start=1):
+        print(f"  alt {i} [{w}]: {alt}")
 
 
 def cmd_approve(a):
@@ -251,21 +264,103 @@ def cmd_enrich_web(a):
 
 
 def cmd_export_lgm(a):
-    """CSV for La Growth Machine audience import, with Message 1 as a custom attribute."""
+    """CSV for La Growth Machine audience import, with Message 1 as a custom attribute.
+    Exports at most --limit prospects not exported before (LinkedIn's weekly invite budget)."""
     c = store.load(a.candidate)
     out = Path(a.out or f"{c.id}-lgm.csv")
-    n = 0
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    ready = [p for p in c.prospects if p.status == "approved" and not p.exported_at and p.linkedin_url
+             and any(m.step == 1 and m.direction == "outbound" for m in p.messages)]
+    # Hiring managers and team members first: they are the most useful conversations.
+    order = {"hiring_manager": 0, "team_member": 1, "alumni": 2, "senior_connector": 3, "recruiter": 4, "other": 5}
+    ready.sort(key=lambda p: order.get(p.bucket.value, 9))
+    batch = ready[:a.limit]
     with out.open("w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["firstname", "lastname", "linkedinUrl", "companyName", "jobTitle", "customAttribute1"])
-        for p in c.prospects:
-            opener = next((m for m in p.messages if m.step == 1 and m.direction == "outbound"), None)
-            if p.status != "approved" or not opener or not p.linkedin_url:
-                continue
+        for p in batch:
+            opener = next(m for m in p.messages if m.step == 1 and m.direction == "outbound")
             first, _, last = p.full_name.partition(" ")
             w.writerow([first, last, p.linkedin_url, p.company, p.headline, opener.body])
-            n += 1
-    print(f"Wrote {n} approved prospects to {out}. In LGM use {{{{customAttribute1}}}} as the invite note.")
+            p.exported_at, p.status, opener.sent_at = now, "sent", now
+    store.save(c)
+    left = len(ready) - len(batch)
+    print(f"Wrote {len(batch)} prospects to {out}" + (f"; {left} approved prospects wait for next week's batch" if left else "")
+          + ". In LGM use {{customAttribute1}} as the invite note.")
+
+
+def cmd_followups(a):
+    """Draft one gentle second touch for openers with no reply after --days; close out older silent threads."""
+    c = store.load(a.candidate)
+    now = datetime.now(timezone.utc)
+    drafted = closed = 0
+    for p in c.prospects:
+        if p.status not in ("sent", "accepted") or any(m.direction == "inbound" for m in p.messages):
+            continue
+        outbound = [m for m in p.messages if m.direction == "outbound"]
+        last_sent = max((m.sent_at for m in outbound if m.sent_at), default="")
+        if not last_sent or now - datetime.fromisoformat(last_sent) < timedelta(days=a.days):
+            continue
+        if len(outbound) >= 2:
+            p.status = "no_response"          # opener and follow-up both unanswered: stop
+            closed += 1
+            continue
+        if any(m.step == 2 for m in outbound):
+            continue
+        try:
+            msg = messages.write_followup(c, p, p.hooks[1] if len(p.hooks) > 1 else None)
+        except (llm.RefusedError, anthropic.APIError, RuntimeError) as e:
+            print(f"{p.full_name}: FAILED ({e})")
+            continue
+        if c.auto_send:
+            bridge.queue(c, p, msg)
+        p.messages.append(msg)
+        drafted += 1
+        state = f"queued, sends after {msg.send_after}" if msg.approved else "held for approval"
+        print(f"{p.full_name} ({state}): {msg.body}")
+    store.save(c)
+    print(f"{drafted} follow-ups drafted, {closed} threads closed as no response")
+
+
+def cmd_cost(a):
+    rows = (store.get_doc("usage") or [])
+    if a.candidate:
+        rows = [r for r in rows if r.get("candidate") == a.candidate]
+    total = {k: sum(r.get(k, 0) for r in rows) for k in ("calls", "input", "output", "cache_read", "web_searches")}
+    print(f"{len(rows)} commands, {total['calls']} Claude calls, {total['web_searches']} web searches")
+    print(f"Tokens: {total['input']:,} in, {total['output']:,} out. Cost: ${llm.cost_usd(total):.2f} "
+          f"(about Rs {llm.cost_usd(total) * 88:,.0f})")
+    if a.candidate:
+        c = store.load(a.candidate)
+        n = len([p for p in c.prospects if p.status not in ("discovered", "skipped")])
+        if n:
+            print(f"Per targeted prospect: about Rs {llm.cost_usd(total) * 88 / n:,.1f} across {n} prospects")
+
+
+def cmd_intake_pull(a):
+    """Create candidates from website sign-ups (Supabase intake_requests)."""
+    rows = store.rest("GET", "intake_requests", params={"processed_at": "is.null", "order": "created_at"})
+    for r in rows:
+        c = Candidate(id=store.new_id(r["full_name"]), full_name=r["full_name"],
+                      target_roles=_split(r.get("target_role")), target_companies=_split(r.get("target_companies")),
+                      locations=_split(r.get("city")),
+                      story={"email": r.get("email", ""), "linkedin_url": r.get("linkedin_url", ""),
+                             "package": r.get("package") or "", "intake_id": r["id"]})
+        store.save(c)
+        store.rest("PATCH", "intake_requests", params={"id": f"eq.{r['id']}"},
+                   json_body={"processed_at": datetime.now(timezone.utc).isoformat(), "candidate_id": c.id})
+        print(f"{c.id}: {c.full_name} ({r.get('email')}) -> next: candidate-cv {c.id} --cv <their CV PDF>")
+    print(f"{len(rows)} new sign-up(s)")
+
+
+def cmd_candidate_cv(a):
+    """Attach a CV / LinkedIn PDF to an existing candidate (e.g. one created from a website sign-up)."""
+    c = store.load(a.candidate)
+    extracted = profiles.extract([p for p in (a.cv, a.linkedin) if p])
+    c.headline = extracted.headline
+    c.facts = profiles.to_facts(extracted, "candidate", "c", "cv")
+    store.save(c)
+    print(f"{c.id}: {len(c.facts)} facts from CV")
 
 
 def cmd_settings(a):
@@ -433,7 +528,26 @@ def main(argv=None):
     s = sub.add_parser("export-lgm", help="CSV of approved openers for LGM audience import")
     s.add_argument("candidate")
     s.add_argument("--out")
+    s.add_argument("--limit", type=int, default=60, help="Max prospects per batch (LinkedIn weekly invite budget)")
     s.set_defaults(fn=cmd_export_lgm)
+
+    s = sub.add_parser("followups", help="Draft second touches for openers with no reply")
+    s.add_argument("candidate")
+    s.add_argument("--days", type=int, default=6)
+    s.set_defaults(fn=cmd_followups)
+
+    s = sub.add_parser("cost", help="Claude API spend, overall or per candidate")
+    s.add_argument("candidate", nargs="?")
+    s.set_defaults(fn=cmd_cost)
+
+    s = sub.add_parser("intake-pull", help="Create candidates from website sign-ups")
+    s.set_defaults(fn=cmd_intake_pull)
+
+    s = sub.add_parser("candidate-cv", help="Attach CV / LinkedIn PDFs to an existing candidate")
+    s.add_argument("candidate")
+    s.add_argument("--cv", required=True)
+    s.add_argument("--linkedin")
+    s.set_defaults(fn=cmd_candidate_cv)
 
     s = sub.add_parser("settings", help="Auto-send follow-ups and reply delay")
     s.add_argument("candidate")
@@ -469,7 +583,21 @@ def main(argv=None):
     s.set_defaults(fn=cmd_list)
 
     a = ap.parse_args(argv)
-    a.fn(a)
+    llm.reset_usage()
+    try:
+        a.fn(a)
+    finally:
+        if llm.USAGE["calls"]:
+            _log_usage(a)
+
+
+def _log_usage(a):
+    u = dict(llm.USAGE)
+    print(f"[cost] {u['calls']} Claude calls, ${llm.cost_usd(u):.3f}")
+    rows = store.get_doc("usage") or []
+    rows.append({"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "command": a.cmd,
+                 "candidate": getattr(a, "candidate", None), **u, "usd": llm.cost_usd(u)})
+    store.put_doc("usage", rows[-5000:])
 
 
 if __name__ == "__main__":

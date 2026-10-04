@@ -83,6 +83,19 @@ python -m outreach.cli status asha-mehta-1a2b3c rahul-shah-9f8e7d sent
 # 6. They replied
 python -m outreach.cli reply asha-mehta-1a2b3c rahul-shah-9f8e7d --text "Ha, the speed. Everything ships weekly."
 
+# 6b. No reply after 6 days: one gentle second touch on a new angle, then stop
+python -m outreach.cli followups asha-mehta-1a2b3c --days 6
+
+# Website sign-ups -> candidates, then attach their CV
+python -m outreach.cli intake-pull
+python -m outreach.cli candidate-cv priya-nair-4d5e6f --cv priya_cv.pdf
+
+# Weekly LGM batch (default 60, LinkedIn's safe weekly invite budget; hiring managers first)
+python -m outreach.cli export-lgm asha-mehta-1a2b3c --limit 60
+
+# What has Claude cost so far (overall, or per candidate and per prospect)
+python -m outreach.cli cost asha-mehta-1a2b3c
+
 # 7. Learn from edits and results (run weekly)
 python -m outreach.cli learn
 python -m outreach.cli stats

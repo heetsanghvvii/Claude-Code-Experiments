@@ -147,6 +147,7 @@ class Prospect(BaseModel):
     bucket_reason: str = ""
     status: str = "discovered"
     source: str = "manual"
+    exported_at: str = ""            # when the opener was handed to LGM
     facts: list[Fact] = []
     hooks: list[Hook] = []
     messages: list[Message] = []

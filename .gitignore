@@ -5,3 +5,4 @@ __pycache__/
 engine/data/
 data/
 *.csv
+node_modules/

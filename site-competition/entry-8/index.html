@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knock · Knock on the right door</title>
+<meta name="description" content="Knock finds the hiring managers, team members and alumni at your target companies and starts real conversations that turn into referrals and interviews.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4EFE4; --paper-2:#EBE4D5; --card:#FBF8F1;
+  --ink:#18241F; --muted:#4D5852; --line:#D3CAB7;
+  --green:#1E3A32; --green-2:#264840;
+  --brass:#B08A4E; --brass-ink:#7A5B27; --brass-light:#DDBE80;
+  --on-green:#F4EFE4; --on-green-muted:#C9CFC5;
+  --serif:"Instrument Serif", Georgia, "Times New Roman", serif;
+  --sans:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r:14px; --wrap:1160px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:hidden}
+img,svg{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+:focus-visible{outline:3px solid var(--brass-ink);outline-offset:3px;border-radius:6px}
+.dark :focus-visible{outline-color:var(--brass-light)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:8px;z-index:100}
+.skip:focus{left:12px}
+
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-height:1.05;margin:0}
+h1{font-size:clamp(48px,7.4vw,96px)}
+h2{font-size:clamp(36px,4.8vw,60px)}
+h3{font-size:28px;line-height:1.15}
+em{font-style:italic}
+p{margin:0}
+.eyebrow{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--brass-ink);display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+.dark .eyebrow{color:var(--brass-light)}
+.lede{font-size:clamp(18px,1.6vw,20px);color:var(--muted);max-width:36em}
+section{padding:120px 0}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;font:600 16px/1 var(--sans);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .2s,transform .2s,border-color .2s}
+.btn-primary{background:var(--green);color:var(--paper)}
+.btn-primary:hover{background:#13271F}
+.btn-primary .knob{width:7px;height:7px;border-radius:50%;background:var(--brass-light)}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:transparent}
+.btn-ghost:hover{border-color:var(--ink)}
+.dark .btn-primary{background:var(--paper);color:var(--green)}
+.dark .btn-primary:hover{background:#fff}
+.dark .btn-primary .knob{background:var(--brass)}
+
+/* header */
+header.site{position:sticky;top:0;z-index:50;background:rgba(244,239,228,.92);backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid transparent;transition:border-color .2s}
+header.site.scrolled{border-bottom-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);font-size:30px;line-height:1}
+.brand svg{width:22px;height:30px}
+.nav-links{display:flex;align-items:center;gap:30px;font-size:15px}
+.nav-links a:not(.btn){text-decoration:none;color:var(--muted)}
+.nav-links a:not(.btn):hover{color:var(--ink)}
+.nav .btn{min-height:44px;padding:0 20px;font-size:15px}
+
+/* hero */
+.hero{padding:72px 0 96px}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.hero h1 em{color:var(--green)}
+.hero .lede{margin-top:28px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.assure{margin-top:22px;font-size:14.5px;color:var(--muted);display:flex;gap:10px;align-items:center}
+.assure svg{flex:none;color:var(--brass-ink)}
+.art-frame{position:relative;color:var(--ink)}
+.hero-art{width:100%;height:auto}
+.art-cap{margin-top:14px;font-size:13px;color:var(--muted);letter-spacing:.02em;text-align:right}
+
+/* problem */
+.dark{background:var(--green);color:var(--on-green)}
+.dark .lede{color:var(--on-green-muted)}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:end}
+.problem h2 em{color:var(--brass-light)}
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(244,239,228,.18);border:1px solid rgba(244,239,228,.18);border-radius:var(--r);overflow:hidden;margin-top:72px}
+.contrast > div{background:var(--green);padding:36px}
+.contrast > div:last-child{background:var(--green-2)}
+.contrast h3{margin:10px 0 12px}
+.contrast p{color:var(--on-green-muted)}
+.tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--on-green-muted)}
+.contrast > div:last-child .tag{color:var(--brass-light)}
+.queue{display:flex;gap:5px;margin-top:26px;flex-wrap:wrap}
+.queue i{width:10px;height:14px;border:1px solid rgba(244,239,228,.4);border-radius:5px 5px 1px 1px}
+.queue i.lit{background:var(--brass-light);border-color:var(--brass-light)}
+
+/* how */
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end;margin-bottom:56px}
+figure{margin:0}
+.flow{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:36px 32px 26px;color:var(--ink)}
+.flow svg{width:100%;height:auto}
+.flow .tall{display:none}
+.flow figcaption{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);font-size:14.5px;color:var(--muted)}
+.steps{list-style:none;padding:0;margin:48px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;counter-reset:s}
+.steps li{border-top:1px solid var(--ink);padding-top:18px}
+.steps .n{font-size:13px;letter-spacing:.14em;font-weight:600;color:var(--brass-ink)}
+.steps h3{font-size:24px;margin:8px 0 10px}
+.steps p{color:var(--muted);font-size:16px}
+
+/* why */
+.why{background:var(--paper-2)}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.why-grid > div{background:var(--paper-2);padding:44px 40px;display:grid;grid-template-columns:56px 1fr;gap:20px}
+.why-grid svg{width:44px;height:44px;color:var(--green)}
+.why-grid h3{margin-bottom:10px}
+.why-grid p{color:var(--muted)}
+
+/* example */
+.example-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:72px;align-items:center}
+.letter{position:relative}
+.msg{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:0 1px 0 rgba(24,36,31,.04),0 30px 60px -30px rgba(24,36,31,.25)}
+.msg-head{display:flex;align-items:center;gap:14px;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.avatar{width:44px;height:44px;border-radius:50%;background:var(--green);color:var(--paper);display:grid;place-items:center;font-family:var(--serif);font-size:22px;flex:none}
+.msg-head b{display:block;font-weight:600;font-size:16px}
+.msg-head span{font-size:14px;color:var(--muted)}
+.bubble{font-family:var(--serif);font-size:clamp(23px,2.3vw,28px);line-height:1.35;color:var(--ink)}
+.bubble mark{background:linear-gradient(transparent 62%, rgba(221,190,128,.55) 62%);color:inherit;padding:0 2px}
+.msg-foot{display:flex;justify-content:space-between;gap:12px;margin-top:22px;font-size:13.5px;color:var(--muted);flex-wrap:wrap}
+.notes{list-style:none;padding:0;margin:36px 0 0;display:grid;gap:18px}
+.notes li{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start}
+.notes .k{width:26px;height:26px;border-radius:50%;border:1px solid var(--brass-ink);color:var(--brass-ink);font-size:13px;font-weight:600;display:grid;place-items:center;margin-top:1px}
+.notes b{font-weight:600}
+.notes p{color:var(--muted);font-size:16px}
+
+/* packages */
+.packages .sec-head{margin-bottom:48px}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px 30px;display:flex;flex-direction:column;position:relative}
+.plan.pop{background:var(--green);color:var(--on-green);border-color:var(--green)}
+.badge{position:absolute;top:-13px;left:30px;background:var(--brass-light);color:var(--ink);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
+.plan h3{font-size:34px}
+.plan .meta{font-size:15px;color:var(--muted);margin-top:6px}
+.plan.pop .meta{color:var(--on-green-muted)}
+.price{font-family:var(--serif);font-size:52px;line-height:1;margin:30px 0 4px}
+.price small{font-family:var(--sans);font-size:16px;color:var(--muted);margin-right:4px;vertical-align:middle}
+.plan.pop .price small{color:var(--on-green-muted)}
+.per{font-size:14px;color:var(--muted)}
+.plan.pop .per{color:var(--on-green-muted)}
+.facts{display:flex;gap:28px;margin:26px 0;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.plan.pop .facts{border-color:rgba(244,239,228,.2)}
+.facts div b{display:block;font-family:var(--serif);font-weight:400;font-size:30px;line-height:1}
+.facts div span{font-size:13px;color:var(--muted)}
+.plan.pop .facts div span{color:var(--on-green-muted)}
+.plan .btn{margin-top:auto;width:100%}
+.plan.pop .btn{background:var(--paper);color:var(--green)}
+.plan.pop .btn:hover{background:#fff}
+.includes{margin-top:28px;display:grid;grid-template-columns:1.1fr 1fr;gap:20px}
+.box{border:1px solid var(--line);border-radius:20px;padding:30px}
+.box h3{font-size:24px;margin-bottom:14px}
+.box ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.box li{display:flex;gap:12px;align-items:baseline;color:var(--muted)}
+.box li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--brass);transform:translateY(-2px)}
+.box.dfy{background:var(--paper-2);display:flex;flex-direction:column;gap:12px}
+.box.dfy p{color:var(--muted)}
+.box.dfy .price{font-size:40px;margin:6px 0 0}
+.box.dfy a{font-weight:600;color:var(--green);text-underline-offset:4px}
+.fine{margin-top:22px;font-size:14px;color:var(--muted)}
+
+/* faq */
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:72px}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;padding:24px 0;font-family:var(--serif);font-size:26px;line-height:1.2}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{flex:none;width:30px;height:30px;border:1px solid var(--line);border-radius:50%;position:relative}
+.faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%);transition:transform .2s}
+.faq summary .pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq details[open] .pm::after{transform:translate(-50%,-50%) rotate(0)}
+.faq details p{padding:0 50px 26px 0;color:var(--muted);max-width:40em}
+
+/* intake */
+.intake-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:72px;align-items:start}
+.intake .lede{margin-top:22px}
+.after{margin-top:36px;list-style:none;padding:0;display:grid;gap:16px}
+.after li{display:grid;grid-template-columns:34px 1fr;gap:10px;color:var(--on-green-muted)}
+.after b{color:var(--on-green);font-weight:600}
+.after .k{font-family:var(--serif);font-size:24px;color:var(--brass-light);line-height:1.2}
+form.card{background:var(--paper);color:var(--ink);border-radius:20px;padding:36px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:18px 18px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+label{font-size:14px;font-weight:600}
+label .opt{font-weight:400;color:var(--muted)}
+input{font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1px solid #A89F8C;border-radius:10px;padding:13px 14px;min-height:50px;width:100%}
+input::placeholder{color:#636963}
+input:focus-visible{outline:3px solid var(--brass-ink);outline-offset:1px;border-color:var(--ink)}
+.field .err{font-size:13.5px;color:#9B2C1F;display:none}
+.field.invalid input{border-color:#9B2C1F}
+.field.invalid .err{display:block}
+form .btn{width:100%;margin-top:24px;min-height:56px;font-size:17px}
+.form-note{margin-top:14px;font-size:13.5px;color:var(--muted);text-align:center}
+.success{display:none;text-align:center;padding:30px 10px}
+.success svg{margin:0 auto 18px;width:64px;height:84px;color:var(--green)}
+.success h3{font-size:38px;margin-bottom:12px}
+.success p{color:var(--muted);max-width:28em;margin:0 auto}
+form.done .fields, form.done > .btn, form.done .form-note{display:none}
+form.done .success{display:block}
+
+form.card .btn-primary{background:var(--green);color:var(--paper)}
+form.card .btn-primary:hover{background:#13271F}
+form.card .btn-primary .knob{background:var(--brass-light)}
+form.card :focus-visible{outline-color:var(--brass-ink)}
+.msg-head .avatar{color:var(--paper);font-size:22px}
+.box.dfy .price{color:var(--ink)}
+
+/* footer */
+footer{padding:64px 0 48px;border-top:1px solid var(--line)}
+.foot{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.foot .tagline{font-family:var(--serif);font-size:clamp(30px,4vw,44px);line-height:1.1;margin-top:14px}
+.foot a.mail{font-size:17px;color:var(--green);font-weight:600;text-underline-offset:4px}
+.foot small{display:block;margin-top:28px;color:var(--muted);font-size:13.5px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s ease}
+.rv.in{opacity:1;transform:none}
+.door-swing{transform-box:fill-box;transform-origin:left center;animation:swing 2.4s 0.6s ease-out both}
+@keyframes swing{from{transform:scaleX(2.6)}to{transform:scaleX(1)}}
+.lightfade{animation:lf 2.4s .6s ease-out both}
+@keyframes lf{from{opacity:0}to{opacity:1}}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+  .door-swing,.lightfade{animation:none}
+  *{transition:none !important}
+}
+
+/* responsive */
+@media (max-width:1000px){
+  .hero-grid,.problem-grid,.sec-head,.example-grid,.faq-grid,.intake-grid{grid-template-columns:1fr;gap:40px}
+  .steps{grid-template-columns:1fr 1fr}
+  .plans{grid-template-columns:1fr;max-width:560px}
+  .includes{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  section{padding:80px 0}
+  .hero{padding:40px 0 72px}
+  .nav-links a:not(.btn){display:none}
+  .nav .btn{padding:0 16px;font-size:14px}
+  .brand{font-size:26px}
+  .contrast{grid-template-columns:1fr;margin-top:48px}
+  .contrast > div{padding:28px 24px}
+  .flow{padding:22px 16px 18px}
+  .flow .wide{display:none}
+  .flow .tall{display:block;max-width:400px;margin:0 auto}
+  .steps{grid-template-columns:1fr;gap:24px}
+  .why-grid > div{padding:30px 22px;grid-template-columns:1fr;gap:14px}
+  .msg{padding:22px 20px}
+  .plans{max-width:none}
+  .plan{padding:30px 22px}
+  .fields{grid-template-columns:1fr}
+  form.card{padding:24px 18px}
+  .faq summary{font-size:22px}
+  .faq details p{padding-right:0}
+  .art-cap{text-align:left}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site" id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Knock, home">
+      <svg viewBox="0 0 22 30" aria-hidden="true"><path d="M1.5 29V11A9.5 9.5 0 0 1 20.5 11V29Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="15.5" cy="18.5" r="1.8" fill="#B08A4E"/></svg>
+      Knock
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#packages">Packages</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-primary" href="#intake">Get my target list</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">For MBA graduates and product switchers</p>
+      <h1>Stop applying.<br><em>Start conversations.</em></h1>
+      <p class="lede">We find the hiring managers, team members and alumni at your target companies, research each one, and start real conversations that turn into referrals and interviews.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#intake"><span class="knob" aria-hidden="true"></span>Get my target list</a>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
+      </div>
+      <p class="assure"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>You approve every message. It goes from your own LinkedIn.</p>
+    </div>
+    <figure class="art-frame">
+      <svg class="hero-art" viewBox="0 0 582 574" role="img" aria-label="A field of sixty identical closed doors. One of them stands open, with warm light falling out of it."><defs><linearGradient id="spill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9C987" stop-opacity=".85"/><stop offset="1" stop-color="#E9C987" stop-opacity="0"/></linearGradient><radialGradient id="glow" cx=".5" cy=".55" r=".6"><stop offset="0" stop-color="#F6DFA8"/><stop offset="1" stop-color="#D9AE62"/></radialGradient></defs><g class="survey" fill="none" stroke="currentColor" stroke-width=".6" opacity=".45"><line x1="40" y1="20" x2="542" y2="20"/><line x1="40" y1="15" x2="40" y2="25"/><line x1="542" y1="15" x2="542" y2="25"/><line x1="18" y1="48" x2="18" y2="526"/><line x1="13" y1="48" x2="23" y2="48"/><line x1="13" y1="526" x2="23" y2="526"/></g><g class="survey-t" font-family="Instrument Sans, sans-serif" font-size="9" letter-spacing="1.5" fill="currentColor" opacity=".6"><text x="57" y="556" text-anchor="middle">01</text><text x="109" y="556" text-anchor="middle">02</text><text x="161" y="556" text-anchor="middle">03</text><text x="213" y="556" text-anchor="middle">04</text><text x="265" y="556" text-anchor="middle">05</text><text x="317" y="556" text-anchor="middle">06</text><text x="369" y="556" text-anchor="middle">07</text><text x="421" y="556" text-anchor="middle">08</text><text x="473" y="556" text-anchor="middle">09</text><text x="525" y="556" text-anchor="middle">10</text></g><g fill="none" stroke="currentColor" stroke-width="1.1"><path d="M40 106V65A17 17 0 0 1 74 65V106Z"/><circle cx="67" cy="83.96000000000001" r="1.3" fill="currentColor" stroke="none"/><path d="M92 106V65A17 17 0 0 1 126 65V106Z"/><circle cx="119" cy="83.96000000000001" r="1.3" fill="currentColor" stroke="none"/><path d="M144 106V65A17 17 0 0 1 178 65V106Z"/><circle cx="171" cy="83.96000000000001" r="1.3" fill="currentColor" stroke="none"/><path d="M196 106V65A17 17 0 0 1 230 65V106Z"/><circle cx="223" cy="83.96000000000001" r="1.3" fill="currentColor" stroke="none"/><path d="M248 106V65A17 17 0 0 1 282 65V106Z"/><circle cx="275" cy="83.96000000000001" r="1.3" fill="currentColor" stroke="none"/><path d="M300 106V65A17 17 0 0 1 334 65V106Z"/><circle cx="327" cy="83.96000000000001" r="1.3" fill="currentColor" stroke="none"/><path d="M352 106V65A17 17 0 0 1 386 65V106Z"/><circle cx="379" cy="83.96000000000001" r="1.3" fill="currentColor" stroke="none"/><path d="M404 106V65A17 17 0 0 1 438 65V106Z"/><circle cx="431" cy="83.96000000000001" r="1.3" fill="currentColor" stroke="none"/><path d="M456 106V65A17 17 0 0 1 490 65V106Z"/><circle cx="483" cy="83.96000000000001" r="1.3" fill="currentColor" stroke="none"/><path d="M508 106V65A17 17 0 0 1 542 65V106Z"/><circle cx="535" cy="83.96000000000001" r="1.3" fill="currentColor" stroke="none"/><path d="M40 190V149A17 17 0 0 1 74 149V190Z"/><circle cx="67" cy="167.96" r="1.3" fill="currentColor" stroke="none"/><path d="M92 190V149A17 17 0 0 1 126 149V190Z"/><circle cx="119" cy="167.96" r="1.3" fill="currentColor" stroke="none"/><path d="M144 190V149A17 17 0 0 1 178 149V190Z"/><circle cx="171" cy="167.96" r="1.3" fill="currentColor" stroke="none"/><path d="M196 190V149A17 17 0 0 1 230 149V190Z"/><circle cx="223" cy="167.96" r="1.3" fill="currentColor" stroke="none"/><path d="M248 190V149A17 17 0 0 1 282 149V190Z"/><circle cx="275" cy="167.96" r="1.3" fill="currentColor" stroke="none"/><path d="M300 190V149A17 17 0 0 1 334 149V190Z"/><circle cx="327" cy="167.96" r="1.3" fill="currentColor" stroke="none"/><path d="M352 190V149A17 17 0 0 1 386 149V190Z"/><circle cx="379" cy="167.96" r="1.3" fill="currentColor" stroke="none"/><path d="M404 190V149A17 17 0 0 1 438 149V190Z"/><circle cx="431" cy="167.96" r="1.3" fill="currentColor" stroke="none"/><path d="M456 190V149A17 17 0 0 1 490 149V190Z"/><circle cx="483" cy="167.96" r="1.3" fill="currentColor" stroke="none"/><path d="M508 190V149A17 17 0 0 1 542 149V190Z"/><circle cx="535" cy="167.96" r="1.3" fill="currentColor" stroke="none"/><path d="M40 274V233A17 17 0 0 1 74 233V274Z"/><circle cx="67" cy="251.96" r="1.3" fill="currentColor" stroke="none"/><path d="M92 274V233A17 17 0 0 1 126 233V274Z"/><circle cx="119" cy="251.96" r="1.3" fill="currentColor" stroke="none"/><path d="M144 274V233A17 17 0 0 1 178 233V274Z"/><circle cx="171" cy="251.96" r="1.3" fill="currentColor" stroke="none"/><path d="M196 274V233A17 17 0 0 1 230 233V274Z"/><circle cx="223" cy="251.96" r="1.3" fill="currentColor" stroke="none"/><path d="M248 274V233A17 17 0 0 1 282 233V274Z"/><circle cx="275" cy="251.96" r="1.3" fill="currentColor" stroke="none"/><path d="M300 274V233A17 17 0 0 1 334 233V274Z"/><circle cx="327" cy="251.96" r="1.3" fill="currentColor" stroke="none"/><path d="M404 274V233A17 17 0 0 1 438 233V274Z"/><circle cx="431" cy="251.96" r="1.3" fill="currentColor" stroke="none"/><path d="M456 274V233A17 17 0 0 1 490 233V274Z"/><circle cx="483" cy="251.96" r="1.3" fill="currentColor" stroke="none"/><path d="M508 274V233A17 17 0 0 1 542 233V274Z"/><circle cx="535" cy="251.96" r="1.3" fill="currentColor" stroke="none"/><path d="M40 358V317A17 17 0 0 1 74 317V358Z"/><circle cx="67" cy="335.96" r="1.3" fill="currentColor" stroke="none"/><path d="M92 358V317A17 17 0 0 1 126 317V358Z"/><circle cx="119" cy="335.96" r="1.3" fill="currentColor" stroke="none"/><path d="M144 358V317A17 17 0 0 1 178 317V358Z"/><circle cx="171" cy="335.96" r="1.3" fill="currentColor" stroke="none"/><path d="M196 358V317A17 17 0 0 1 230 317V358Z"/><circle cx="223" cy="335.96" r="1.3" fill="currentColor" stroke="none"/><path d="M248 358V317A17 17 0 0 1 282 317V358Z"/><circle cx="275" cy="335.96" r="1.3" fill="currentColor" stroke="none"/><path d="M300 358V317A17 17 0 0 1 334 317V358Z"/><circle cx="327" cy="335.96" r="1.3" fill="currentColor" stroke="none"/><path d="M352 358V317A17 17 0 0 1 386 317V358Z"/><circle cx="379" cy="335.96" r="1.3" fill="currentColor" stroke="none"/><path d="M404 358V317A17 17 0 0 1 438 317V358Z"/><circle cx="431" cy="335.96" r="1.3" fill="currentColor" stroke="none"/><path d="M456 358V317A17 17 0 0 1 490 317V358Z"/><circle cx="483" cy="335.96" r="1.3" fill="currentColor" stroke="none"/><path d="M508 358V317A17 17 0 0 1 542 317V358Z"/><circle cx="535" cy="335.96" r="1.3" fill="currentColor" stroke="none"/><path d="M40 442V401A17 17 0 0 1 74 401V442Z"/><circle cx="67" cy="419.96" r="1.3" fill="currentColor" stroke="none"/><path d="M92 442V401A17 17 0 0 1 126 401V442Z"/><circle cx="119" cy="419.96" r="1.3" fill="currentColor" stroke="none"/><path d="M144 442V401A17 17 0 0 1 178 401V442Z"/><circle cx="171" cy="419.96" r="1.3" fill="currentColor" stroke="none"/><path d="M196 442V401A17 17 0 0 1 230 401V442Z"/><circle cx="223" cy="419.96" r="1.3" fill="currentColor" stroke="none"/><path d="M248 442V401A17 17 0 0 1 282 401V442Z"/><circle cx="275" cy="419.96" r="1.3" fill="currentColor" stroke="none"/><path d="M300 442V401A17 17 0 0 1 334 401V442Z"/><circle cx="327" cy="419.96" r="1.3" fill="currentColor" stroke="none"/><path d="M352 442V401A17 17 0 0 1 386 401V442Z"/><circle cx="379" cy="419.96" r="1.3" fill="currentColor" stroke="none"/><path d="M404 442V401A17 17 0 0 1 438 401V442Z"/><circle cx="431" cy="419.96" r="1.3" fill="currentColor" stroke="none"/><path d="M456 442V401A17 17 0 0 1 490 401V442Z"/><circle cx="483" cy="419.96" r="1.3" fill="currentColor" stroke="none"/><path d="M508 442V401A17 17 0 0 1 542 401V442Z"/><circle cx="535" cy="419.96" r="1.3" fill="currentColor" stroke="none"/><path d="M40 526V485A17 17 0 0 1 74 485V526Z"/><circle cx="67" cy="503.96" r="1.3" fill="currentColor" stroke="none"/><path d="M92 526V485A17 17 0 0 1 126 485V526Z"/><circle cx="119" cy="503.96" r="1.3" fill="currentColor" stroke="none"/><path d="M144 526V485A17 17 0 0 1 178 485V526Z"/><circle cx="171" cy="503.96" r="1.3" fill="currentColor" stroke="none"/><path d="M196 526V485A17 17 0 0 1 230 485V526Z"/><circle cx="223" cy="503.96" r="1.3" fill="currentColor" stroke="none"/><path d="M248 526V485A17 17 0 0 1 282 485V526Z"/><circle cx="275" cy="503.96" r="1.3" fill="currentColor" stroke="none"/><path d="M300 526V485A17 17 0 0 1 334 485V526Z"/><circle cx="327" cy="503.96" r="1.3" fill="currentColor" stroke="none"/><path d="M352 526V485A17 17 0 0 1 386 485V526Z"/><circle cx="379" cy="503.96" r="1.3" fill="currentColor" stroke="none"/><path d="M404 526V485A17 17 0 0 1 438 485V526Z"/><circle cx="431" cy="503.96" r="1.3" fill="currentColor" stroke="none"/><path d="M456 526V485A17 17 0 0 1 490 485V526Z"/><circle cx="483" cy="503.96" r="1.3" fill="currentColor" stroke="none"/><path d="M508 526V485A17 17 0 0 1 542 485V526Z"/><circle cx="535" cy="503.96" r="1.3" fill="currentColor" stroke="none"/></g><path d="M326 352.2L352 274L386 274L432 381.2Z" fill="url(#spill)" class="lightfade"/><path d="M352 274V233A17 17 0 0 1 386 233V274Z" fill="url(#glow)"/><path d="M352 274V233A17 17 0 0 1 386 233V274Z" fill="none" stroke="#B08A4E" stroke-width="1.4"/><path d="M352 274V233Q354 219 365 221V269Z" fill="#1E3A32" class="door-swing"/><circle cx="362" cy="250.8" r="1.4" fill="#E9C987"/><text x="369" y="206" text-anchor="middle" font-family="Instrument Sans, sans-serif" font-size="9" letter-spacing="1.5" fill="#8A6A33">07 · 03</text></svg>
+      <figcaption class="art-cap">Every company has a door. We find the one that opens.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem dark" aria-labelledby="p-h">
+  <div class="wrap">
+    <div class="problem-grid">
+      <div>
+        <p class="eyebrow">The problem</p>
+        <h2 id="p-h">Hundreds of applications. <em>No callbacks.</em></h2>
+      </div>
+      <p class="lede">You did everything right. Polished the CV, tailored the cover letter, hit apply until midnight. And heard nothing. It is not you. It is the channel.</p>
+    </div>
+    <div class="contrast">
+      <div>
+        <p class="tag">The portal</p>
+        <h3>A queue.</h3>
+        <p>Your application joins thousands of others and waits for a filter to read it. Nobody is choosing you. Nobody even knows you are there.</p>
+        <div class="queue" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div>
+        <p class="tag">The door</p>
+        <h3>People hire people.</h3>
+        <p>One person inside the company who knows your name can pass on your CV, put in a word, or simply tell you who to talk to. That is how most good roles actually move.</p>
+        <div class="queue" aria-hidden="true"><i class="lit"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how" class="how" aria-labelledby="h-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">How it works</p>
+        <h2 id="h-h">Four steps. <em>You hold the key</em> at every one.</h2>
+      </div>
+      <p class="lede">You tell us where you want to be. We do the finding, the research and the writing. Nothing reaches anyone until you say yes.</p>
+    </div>
+
+    <figure class="flow rv">
+      <svg class="wide" viewBox="0 0 1160 360" role="img" aria-label="Sequence: you pick target companies and roles; Knock finds the right people and writes a personal first message to each; you approve each draft, which is sent from your LinkedIn; Knock guides every reply, with each reply draft returning to you for approval, until it becomes a referral or interview."><defs><marker id="aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="currentColor"/></marker></defs><rect x="0" y="22" width="1160" height="134" rx="14" fill="#B08A4E" fill-opacity=".09"/><rect x="0" y="204" width="1160" height="134" rx="14" fill="currentColor" fill-opacity=".04"/><text x="16" y="16" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="2" fill="#7A5B27">YOU</text><text x="16" y="356" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="2" fill="currentColor" opacity=".7">KNOCK</text><rect x="24" y="50" width="176" height="78" rx="12" fill="#FBF8F1" stroke="currentColor" stroke-width="1.1"/><text x="40" y="74" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="1.4" fill="#7A5B27">01</text><text x="40" y="96" font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600" fill="currentColor">Pick targets</text><text x="40" y="115" font-family="Instrument Sans, sans-serif" font-size="13" fill="currentColor" opacity=".78">companies and roles</text><rect x="252" y="232" width="176" height="78" rx="12" fill="#FBF8F1" stroke="currentColor" stroke-width="1.1"/><text x="268" y="256" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="1.4" fill="#7A5B27">02</text><text x="268" y="278" font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600" fill="currentColor">Find the people</text><text x="268" y="297" font-family="Instrument Sans, sans-serif" font-size="13" fill="currentColor" opacity=".78">managers, team, alumni</text><rect x="500" y="232" width="176" height="78" rx="12" fill="#FBF8F1" stroke="currentColor" stroke-width="1.1"/><text x="516" y="256" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="1.4" fill="#7A5B27">03</text><text x="516" y="278" font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600" fill="currentColor">Write first messages</text><text x="516" y="297" font-family="Instrument Sans, sans-serif" font-size="13" fill="currentColor" opacity=".78">one shared reason each</text><rect x="730" y="50" width="176" height="78" rx="12" fill="#F1DDAE" stroke="#7A5B27" stroke-width="1.6"/><text x="746" y="74" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="1.4" fill="#7A5B27">YOU APPROVE</text><text x="746" y="96" font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600" fill="currentColor">Review each draft</text><text x="746" y="115" font-family="Instrument Sans, sans-serif" font-size="13" fill="currentColor" opacity=".78">edit or say yes</text><rect x="940" y="232" width="176" height="78" rx="12" fill="#FBF8F1" stroke="currentColor" stroke-width="1.1"/><text x="956" y="256" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="1.4" fill="#7A5B27">04</text><text x="956" y="278" font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600" fill="currentColor">Guide every reply</text><text x="956" y="297" font-family="Instrument Sans, sans-serif" font-size="13" fill="currentColor" opacity=".78">draft your next message</text><rect x="940" y="50" width="176" height="78" rx="12" fill="#1E3A32" stroke="currentColor" stroke-width="1.1"/><text x="956" y="87" font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600" fill="#F4EFE4">Referral</text><text x="956" y="106" font-family="Instrument Sans, sans-serif" font-size="13" fill="#F4EFE4" opacity=".78">or interview</text><path d="M112 128V271H248" fill="none" stroke="currentColor" stroke-width="1.3"  marker-end="url(#aw)"/><text x="122" y="261" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="start" fill="currentColor" opacity=".85">your targets</text><path d="M428 271H496" fill="none" stroke="currentColor" stroke-width="1.3"  marker-end="url(#aw)"/><text x="464" y="261" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="middle" fill="currentColor" opacity=".85">researched</text><path d="M676 254H770V132" fill="none" stroke="currentColor" stroke-width="1.3"  marker-end="url(#aw)"/><text x="764" y="248" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="end" fill="currentColor" opacity=".85">draft</text><path d="M866 128V292H936" fill="none" stroke="currentColor" stroke-width="1.3"  marker-end="url(#aw)"/><text x="874" y="214" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="start" fill="currentColor" opacity=".85">sent from</text><text x="874" y="228" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="start" fill="currentColor" opacity=".85">your LinkedIn</text><path d="M1068 232V132" fill="none" stroke="currentColor" stroke-width="1.3"  marker-end="url(#aw)"/><text x="1076" y="184" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="start" fill="currentColor" opacity=".85">becomes</text><path d="M964 232V158H894V132" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="5 5" marker-end="url(#aw)"/><text x="972" y="218" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="start" fill="currentColor" opacity=".85">each reply</text></svg>
+      <svg class="tall" viewBox="0 0 380 786" role="img" aria-label="Sequence: you pick target companies and roles; Knock finds the right people and writes a personal first message to each; you approve each draft, which is sent from your LinkedIn; Knock guides every reply, with each reply draft returning to you for approval, until it becomes a referral or interview."><defs><marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="currentColor"/></marker></defs><text x="8" y="14" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="2" fill="#7A5B27">YOU</text><text x="372" y="14" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="2" text-anchor="end" fill="currentColor" opacity=".7">KNOCK</text><rect x="8" y="30" width="178" height="74" rx="12" fill="#FBF8F1" stroke="currentColor" stroke-width="1.1"/><text x="24" y="54" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="1.4" fill="#7A5B27">01</text><text x="24" y="76" font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600" fill="currentColor">Pick targets</text><text x="24" y="95" font-family="Instrument Sans, sans-serif" font-size="13" fill="currentColor" opacity=".78">companies and roles</text><rect x="194" y="160" width="178" height="74" rx="12" fill="#FBF8F1" stroke="currentColor" stroke-width="1.1"/><text x="210" y="184" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="1.4" fill="#7A5B27">02</text><text x="210" y="206" font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600" fill="currentColor">Find the people</text><text x="210" y="225" font-family="Instrument Sans, sans-serif" font-size="13" fill="currentColor" opacity=".78">managers, team, alumni</text><rect x="194" y="290" width="178" height="74" rx="12" fill="#FBF8F1" stroke="currentColor" stroke-width="1.1"/><text x="210" y="314" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="1.4" fill="#7A5B27">03</text><text x="210" y="336" font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600" fill="currentColor">Write first messages</text><text x="210" y="355" font-family="Instrument Sans, sans-serif" font-size="13" fill="currentColor" opacity=".78">one shared reason each</text><rect x="8" y="420" width="178" height="74" rx="12" fill="#F1DDAE" stroke="#7A5B27" stroke-width="1.6"/><text x="24" y="444" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="1.4" fill="#7A5B27">YOU APPROVE</text><text x="24" y="466" font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600" fill="currentColor">Review each draft</text><text x="24" y="485" font-family="Instrument Sans, sans-serif" font-size="13" fill="currentColor" opacity=".78">edit or say yes</text><rect x="194" y="560" width="178" height="74" rx="12" fill="#FBF8F1" stroke="currentColor" stroke-width="1.1"/><text x="210" y="584" font-family="Instrument Sans, sans-serif" font-size="11" font-weight="600" letter-spacing="1.4" fill="#7A5B27">04</text><text x="210" y="606" font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600" fill="currentColor">Guide every reply</text><text x="210" y="625" font-family="Instrument Sans, sans-serif" font-size="13" fill="currentColor" opacity=".78">draft your next message</text><rect x="8" y="700" width="178" height="74" rx="12" fill="#1E3A32" stroke="currentColor" stroke-width="1.1"/><text x="24" y="735" font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600" fill="#F4EFE4">Referral</text><text x="24" y="754" font-family="Instrument Sans, sans-serif" font-size="13" fill="#F4EFE4" opacity=".78">or interview</text><path d="M68 104V197H190" fill="none" stroke="currentColor" stroke-width="1.3"  marker-end="url(#at)"/><text x="76" y="128" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="start" fill="currentColor" opacity=".85">your targets</text><path d="M323 234V286" fill="none" stroke="currentColor" stroke-width="1.3"  marker-end="url(#at)"/><text x="315" y="267" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="end" fill="currentColor" opacity=".85">researched</text><path d="M234 364V457H190" fill="none" stroke="currentColor" stroke-width="1.3"  marker-end="url(#at)"/><text x="242" y="388" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="start" fill="currentColor" opacity=".85">draft</text><path d="M68 494V580H190" fill="none" stroke="currentColor" stroke-width="1.3"  marker-end="url(#at)"/><text x="76" y="516" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="start" fill="currentColor" opacity=".85">sent from</text><text x="76" y="531" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="start" fill="currentColor" opacity=".85">your LinkedIn</text><path d="M342 560C342 520 376 440 190 434" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="5 5" marker-end="url(#at)"/><text x="332" y="546" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="end" fill="currentColor" opacity=".85">each reply</text><path d="M234 634V737H190" fill="none" stroke="currentColor" stroke-width="1.3"  marker-end="url(#at)"/><text x="242" y="662" font-family="Instrument Sans, sans-serif" font-size="12" font-style="italic" text-anchor="start" fill="currentColor" opacity=".85">becomes</text></svg>
+      <figcaption>Work moves between you and us. Every message, first or follow-up, passes through your approval before it is sent from your own LinkedIn.</figcaption>
+    </figure>
+
+    <ol class="steps">
+      <li class="rv"><span class="n">STEP 01</span><h3>You pick the targets</h3><p>The companies you want, the roles you want there. A short form, nothing more.</p></li>
+      <li class="rv"><span class="n">STEP 02</span><h3>We find the right people</h3><p>Hiring managers, future teammates, alumni from your school, and senior people who can introduce you.</p></li>
+      <li class="rv"><span class="n">STEP 03</span><h3>We write to each one</h3><p>A short, personal first message built on something you genuinely share. You approve it, then it goes from your account.</p></li>
+      <li class="rv"><span class="n">STEP 04</span><h3>We guide every reply</h3><p>When someone answers, we draft your next message and help the conversation along until it becomes a referral or an interview.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" aria-labelledby="w-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Why it works</p>
+        <h2 id="w-h">Fewer doors. <em>The right ones.</em></h2>
+      </div>
+      <p class="lede">The same quiet method good sales teams use to earn meetings with busy people, applied with care to the most important sale you will make: you.</p>
+    </div>
+    <div class="why-grid">
+      <div class="rv">
+        <svg viewBox="0 0 44 44" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 40V22a5 5 0 0 1 10 0v18Z" opacity=".35"/><path d="M17 40V22a5 5 0 0 1 10 0v18Z"/><path d="M30 40V22a5 5 0 0 1 10 0v18Z" opacity=".35"/></g><circle cx="24" cy="31" r="1.4" fill="#B08A4E"/></svg>
+        <div><h3>60 hand-picked people, not 6,000 messages.</h3><p>A short list chosen for you, person by person. Small enough to do properly, big enough to open doors.</p></div>
+      </div>
+      <div class="rv">
+        <svg viewBox="0 0 44 44" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.3"><rect x="5" y="9" width="34" height="24" rx="5"/><path d="M13 33l-3 7 9-7"/><path d="M12 18h20M12 24h12"/></g></svg>
+        <div><h3>Every message is written for one person.</h3><p>No templates with a name swapped in. Each first message starts from something real you have in common.</p></div>
+      </div>
+      <div class="rv">
+        <svg viewBox="0 0 44 44" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="14" cy="22" r="8"/><circle cx="30" cy="22" r="8"/></g><circle cx="22" cy="22" r="1.6" fill="#B08A4E"/></svg>
+        <div><h3>Conversations first. The ask comes later.</h3><p>People help people they have spoken to. We start with genuine curiosity and let the referral follow naturally.</p></div>
+      </div>
+      <div class="rv">
+        <svg viewBox="0 0 44 44" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 36h32"/><path d="M10 36V26M18 36V20M26 36V14M34 36V8"/></g><circle cx="34" cy="8" r="1.8" fill="#B08A4E"/></svg>
+        <div><h3>Built on how modern sales teams create meetings.</h3><p>Research, relevance, timing and follow-up. A proven craft, used here for careers instead of contracts.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXAMPLE -->
+<section class="example" aria-labelledby="e-h">
+  <div class="wrap example-grid">
+    <div>
+      <p class="eyebrow">An example first message</p>
+      <h2 id="e-h">Short. Specific. <em>Easy to answer.</em></h2>
+      <ol class="notes">
+        <li><span class="k">1</span><div><b>A real shared path.</b><p>Rahul made the same move you are making. That is the reason to talk.</p></div></li>
+        <li><span class="k">2</span><div><b>Who you are, in one line.</b><p>Enough context to be human, not a CV pasted into a chat.</p></div></li>
+        <li><span class="k">3</span><div><b>A question, not a favour.</b><p>Easy to reply to in a minute. The ask can wait.</p></div></li>
+      </ol>
+    </div>
+    <figure class="letter rv">
+      <div class="msg">
+        <div class="msg-head">
+          <span class="avatar" aria-hidden="true">R</span>
+          <div><b>To Rahul</b><span>Product Manager, Zepto · ex-Flipkart</span></div>
+        </div>
+        <blockquote class="bubble" style="margin:0">
+          Hey Rahul, <mark>saw you moved from Flipkart into product at Zepto.</mark> <mark>I'm making a similar jump from brand management.</mark> <mark>Curious, what was the biggest adjustment for you?</mark>
+        </blockquote>
+        <div class="msg-foot"><span>Drafted by Knock · Approved by you</span><span>Sent from your LinkedIn</span></div>
+      </div>
+      <figcaption class="fine">Illustrative example. Names and details change for every person we write to.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section id="packages" class="packages" aria-labelledby="k-h" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Packages · Founding member pricing</p>
+        <h2 id="k-h">Pick the length <em>of your search.</em></h2>
+      </div>
+      <p class="lede">One-time price, no subscription. You keep everything we research and write for you.</p>
+    </div>
+    <div class="plans">
+      <div class="plan rv">
+        <h3>Sprint</h3>
+        <p class="meta">A focused first push.</p>
+        <p class="price"><small>Rs</small>2,499</p>
+        <p class="per">one time</p>
+        <div class="facts"><div><b>7</b><span>days</span></div><div><b>60</b><span>people contacted</span></div></div>
+        <a class="btn btn-ghost" href="#intake" data-plan="Sprint">Get my target list</a>
+      </div>
+      <div class="plan pop dark rv">
+        <span class="badge">Most popular</span>
+        <h3>Standard</h3>
+        <p class="meta">Room for replies to grow.</p>
+        <p class="price"><small>Rs</small>3,999</p>
+        <p class="per">one time</p>
+        <div class="facts"><div><b>14</b><span>days</span></div><div><b>120</b><span>people contacted</span></div></div>
+        <a class="btn btn-primary" href="#intake" data-plan="Standard">Get my target list</a>
+      </div>
+      <div class="plan rv">
+        <h3>Full search</h3>
+        <p class="meta">Wide reach, every lead followed.</p>
+        <p class="price"><small>Rs</small>5,499</p>
+        <p class="per">one time</p>
+        <div class="facts"><div><b>21</b><span>days</span></div><div><b>180</b><span>people contacted</span></div></div>
+        <a class="btn btn-ghost" href="#intake" data-plan="Full search">Get my target list</a>
+      </div>
+    </div>
+    <div class="includes">
+      <div class="box">
+        <h3>Every package includes</h3>
+        <ul>
+          <li>Your target list of the right people</li>
+          <li>Research on every person</li>
+          <li>Personal first messages</li>
+          <li>Reply drafts for every conversation</li>
+          <li>A weekly results report</li>
+        </ul>
+      </div>
+      <div class="box dfy">
+        <h3>Rather we handle it all?</h3>
+        <p>Done for you: we run the outreach end to end, with you kept in the loop.</p>
+        <p class="price"><small>from Rs</small>14,999</p>
+        <a href="mailto:hello@knock.careers?subject=Done-for-you%20outreach">Ask about done for you</a>
+      </div>
+    </div>
+    <p class="fine">We do not promise a number of replies or interviews. We promise careful, personal work on every person we contact.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq" aria-labelledby="f-h" style="padding-top:40px">
+  <div class="wrap faq-grid">
+    <div>
+      <p class="eyebrow">Questions</p>
+      <h2 id="f-h">Fair things <em>to ask.</em></h2>
+    </div>
+    <div>
+      <details><summary>Is this spam?<span class="pm" aria-hidden="true"></span></summary><p>No. Spam is the same message sent to thousands. We contact around 60 researched people at a time, and every message is written for that one person.</p></details>
+      <details><summary>Will my LinkedIn get banned?<span class="pm" aria-hidden="true"></span></summary><p>We stay well under LinkedIn's limits, and you send from your own account, at a human pace. There are no bots logging in as you.</p></details>
+      <details><summary>Do you write as me?<span class="pm" aria-hidden="true"></span></summary><p>Yes, in your voice. And you approve every message before it goes. Nothing is ever sent without your yes.</p></details>
+      <details><summary>Who is this for?<span class="pm" aria-hidden="true"></span></summary><p>To start, MBA graduates and final-year students, and professionals moving into product roles.</p></details>
+      <details><summary>What if nobody replies?<span class="pm" aria-hidden="true"></span></summary><p>Founding members get a free extra week if fewer than 5 people reply.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- INTAKE -->
+<section id="intake" class="intake dark" aria-labelledby="i-h">
+  <div class="wrap intake-grid">
+    <div>
+      <p class="eyebrow">Start here</p>
+      <h2 id="i-h">Tell us where <em>you want to be.</em></h2>
+      <p class="lede">Two minutes. We will come back with the kind of people we would contact at your target companies.</p>
+      <ol class="after">
+        <li><span class="k">i</span><div><b>We review your targets.</b> A real person reads every form.</div></li>
+        <li><span class="k">ii</span><div><b>We send a sample of your list.</b> By email, usually within two working days.</div></li>
+        <li><span class="k">iii</span><div><b>You choose a package if it feels right.</b> No payment until then.</div></li>
+      </ol>
+    </div>
+    <form class="card" id="intake-form" novalidate>
+      <div class="fields">
+        <div class="field"><label for="f-name">Full name</label><input id="f-name" name="name" autocomplete="name" required placeholder="Ananya Sharma"><span class="err">Please add your name.</span></div>
+        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"><span class="err">Please add a valid email.</span></div>
+        <div class="field full"><label for="f-li">LinkedIn URL</label><input id="f-li" name="linkedin" type="url" inputmode="url" required placeholder="linkedin.com/in/yourname"><span class="err">Please add your LinkedIn profile link.</span></div>
+        <div class="field"><label for="f-role">Target role</label><input id="f-role" name="role" required placeholder="Associate Product Manager"><span class="err">Please add a target role.</span></div>
+        <div class="field"><label for="f-city">City</label><input id="f-city" name="city" autocomplete="address-level2" required placeholder="Bengaluru"><span class="err">Please add your city.</span></div>
+        <div class="field full"><label for="f-co">Target companies <span class="opt">(comma separated)</span></label><input id="f-co" name="companies" required placeholder="Zepto, Swiggy, Razorpay, CRED"><span class="err">Please add at least one company.</span></div>
+      </div>
+      <button class="btn btn-primary" type="submit"><span class="knob" aria-hidden="true"></span>Get my target list</button>
+      <p class="form-note">No payment now. We never message anyone without your approval.</p>
+      <div class="success" role="status" aria-live="polite" tabindex="-1">
+        <svg viewBox="0 0 64 84" aria-hidden="true"><path d="M4 82V32a28 28 0 0 1 56 0v50Z" fill="#F1DDAE"/><path d="M4 82V32a28 28 0 0 1 56 0v50Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 82V30Q6 12 20 10V78Z" fill="#1E3A32"/><circle cx="16" cy="50" r="2" fill="#DDBE80"/></svg>
+        <h3>The door is open.</h3>
+        <p>Thank you<span id="s-name"></span>. We have your targets and will email a sample of your list within two working days. Questions until then: hello@knock.careers</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="brand" href="#top" aria-label="Knock, back to top">
+        <svg viewBox="0 0 22 30" aria-hidden="true"><path d="M1.5 29V11A9.5 9.5 0 0 1 20.5 11V29Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="15.5" cy="18.5" r="1.8" fill="#B08A4E"/></svg>
+        Knock
+      </a>
+      <p class="tagline">Knock on the right door.</p>
+    </div>
+    <div style="text-align:right">
+      <a class="mail" href="mailto:hello@knock.careers">hello@knock.careers</a>
+      <small>© 2026 Knock · Made in India</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var h=document.querySelector('header.site');
+  function onS(){h.classList.toggle('scrolled',window.scrollY>8)}
+  window.addEventListener('scroll',onS,{passive:true});onS();
+
+  var els=document.querySelectorAll('.rv');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')})}
+  else{
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){io.observe(e)});
+  }
+
+  var form=document.getElementById('intake-form');
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var ok=true,first=null;
+    form.querySelectorAll('.field').forEach(function(f){
+      var i=f.querySelector('input'),v=i.value.trim(),bad=!v;
+      if(i.type==='email'&&v)bad=!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      if(i.name==='linkedin'&&v)bad=!/linkedin\.com\//i.test(v);
+      f.classList.toggle('invalid',bad);
+      i.setAttribute('aria-invalid',bad?'true':'false');
+      if(bad){ok=false;if(!first)first=i}
+    });
+    if(!ok){first.focus();return}
+    var n=form.querySelector('#f-name').value.trim().split(' ')[0];
+    document.getElementById('s-name').textContent=n?', '+n:'';
+    form.classList.add('done');
+    var s=form.querySelector('.success');s.focus();
+  });
+  form.querySelectorAll('input').forEach(function(i){
+    i.addEventListener('input',function(){i.closest('.field').classList.remove('invalid');i.setAttribute('aria-invalid','false')});
+  });
+})();
+</script>
+</body>
+</html>

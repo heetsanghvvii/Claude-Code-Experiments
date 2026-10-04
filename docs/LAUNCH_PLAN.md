@@ -20,6 +20,10 @@ Status key: [x] done, [~] in progress, [ ] todo. (You) = founder task, (Build) =
 - [x] (Build) Feedback layer: operator edits + reply outcomes distilled into a playbook fed back to writers
 - [x] (Build) Engine: reply classifier and next-message drafter
 - [x] (Build) Operator CLI and CSV export for Tier 1
+- [x] (Build) No-reply follow-ups (one second touch on a new hook, then close), weekly LGM export cap
+- [x] (Build) Cost tracking per command, candidate and prospect (`cost`)
+- [x] (Build) Website sign-ups table `intake_requests` (public insert only) + `intake-pull`
+- [x] (Build) Self-learning agents, own web enrichment, token-gated Supabase access
 
 ## Phase 1: Dogfood (week 2)
 

@@ -20,7 +20,7 @@ import httpx
 from .models import Candidate, Prospect
 
 DATA_DIR = Path(os.environ.get("OUTREACH_DATA_DIR", "data"))
-SHARED_DOCS = {"feedback"}
+SHARED_DOCS = {"feedback", "usage"}
 
 
 def _supabase() -> tuple[str, dict] | None:

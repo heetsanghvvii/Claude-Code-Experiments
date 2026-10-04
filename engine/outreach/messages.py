@@ -129,3 +129,26 @@ def next_reply(candidate: Candidate, prospect: Prospect, guidance: str = "") -> 
     if guidance:
         text += f"\n\n{guidance}"
     return llm.parse(prompts.ANALYZE_REPLY, text, ReplyAnalysis, effort="high")
+
+
+def write_followup(candidate: Candidate, prospect: Prospect, hook: Hook | None) -> Message:
+    """A short second touch on a new angle, for openers that got no reply."""
+    facts = {f.id: f.text for f in candidate.facts + prospect.facts}
+    first_name = prospect.full_name.split()[0] if prospect.full_name else ""
+    opener = next((m.body for m in prospect.messages if m.step == 1), "")
+    angle = (f"{hook.summary}\nCandidate side: {facts.get(hook.candidate_fact_id, '')}\n"
+             f"Recipient side: {facts.get(hook.prospect_fact_id, '')}") if hook else \
+        "No second hook: ask one easy, specific question about their current work at " + prospect.company
+    text = (f"{_candidate_brief(candidate)}\n\nRecipient: {prospect.full_name}, {prospect.headline} at {prospect.company}\n"
+            f"First message (no reply): {opener}\n\nNew angle:\n{angle}")
+    feedback = ""
+    for _ in range(3):
+        draft = llm.parse(prompts.WRITE_FOLLOWUP, text + feedback, OpenerDraft)
+        problems = [x for x in check_opener(draft.body, first_name) if not x.startswith("Too long")]
+        if len(draft.body) > 220:
+            problems.append(f"Too long: {len(draft.body)} chars, max 220.")
+        if not problems:
+            break
+        feedback = "\n\nRejected draft:\n" + draft.body + "\nProblems:\n- " + "\n- ".join(problems)
+    return Message(direction="outbound", step=2, body=draft.body, style=draft.style, ask_type="none",
+                   writer="followup", created_at=_now())

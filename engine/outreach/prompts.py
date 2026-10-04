@@ -101,6 +101,14 @@ Only use results that are clearly about this exact person (same name AND same co
 Return specific, verifiable facts: posts they wrote and what they argued, talks, articles, projects, launches, awards, past roles, education.
 If nothing is clearly about them, return an empty list."""
 
+WRITE_FOLLOWUP = """You write ONE gentle follow-up to a LinkedIn opener that got no reply after several days.
+
+Rules:
+- Under 220 characters. 1 to 2 short sentences. Greet by first name.
+- Do not repeat the first message or mention that they did not reply. No guilt, no "just following up", no "bumping this".
+- Use the new angle given (a different real fact about them or a different overlap) and end with one easy question.
+- Never ask for a job, referral, interview, call or favor. No flattery, no exclamation marks, no dashes as punctuation."""
+
 ANALYZE_REPLY = """You manage a job seeker's LinkedIn conversation with someone at a target company.
 
 Read the whole thread and write the next message from the candidate.

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" data-pptx-page-role="content" font-family="Arial">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F2EA"/>
+
+  <g id="header" data-pptx-bounds="64 44 1152 136">
+    <text x="64" y="74" font-size="15" font-weight="bold" letter-spacing="2" fill="#8A5A24">01  THE PROBLEM</text>
+    <text x="64" y="128" font-family="Georgia" font-size="40" fill="#1D2624">Portals turn a job search into a numbers game.</text>
+    <text x="64" y="166" font-size="20" fill="#5C6461">Off-campus and lateral searches still run mostly through job portals.</text>
+  </g>
+
+  <g id="pile" data-pptx-bounds="64 214 640 420">
+    <text x="64" y="246" font-size="15" font-weight="bold" letter-spacing="2" fill="#5C6461">HUNDREDS OF APPLICATIONS</text>
+    <g id="pile-row-1" fill="#DCD3C4">
+      <rect x="64" y="270" width="40" height="28" rx="3"/><rect x="114" y="270" width="40" height="28" rx="3"/><rect x="164" y="270" width="40" height="28" rx="3"/><rect x="214" y="270" width="40" height="28" rx="3"/><rect x="264" y="270" width="40" height="28" rx="3"/><rect x="314" y="270" width="40" height="28" rx="3"/><rect x="364" y="270" width="40" height="28" rx="3"/><rect x="414" y="270" width="40" height="28" rx="3"/><rect x="464" y="270" width="40" height="28" rx="3"/><rect x="514" y="270" width="40" height="28" rx="3"/><rect x="564" y="270" width="40" height="28" rx="3"/><rect x="614" y="270" width="40" height="28" rx="3"/>
+    </g>
+    <g id="pile-row-2" fill="#DCD3C4">
+      <rect x="64" y="308" width="40" height="28" rx="3"/><rect x="114" y="308" width="40" height="28" rx="3"/><rect x="164" y="308" width="40" height="28" rx="3"/><rect x="214" y="308" width="40" height="28" rx="3"/><rect x="264" y="308" width="40" height="28" rx="3"/><rect x="314" y="308" width="40" height="28" rx="3"/><rect x="364" y="308" width="40" height="28" rx="3"/><rect x="414" y="308" width="40" height="28" rx="3"/><rect x="464" y="308" width="40" height="28" rx="3"/><rect x="514" y="308" width="40" height="28" rx="3"/><rect x="564" y="308" width="40" height="28" rx="3"/><rect x="614" y="308" width="40" height="28" rx="3"/>
+    </g>
+    <g id="pile-row-3" fill="#DCD3C4">
+      <rect x="64" y="346" width="40" height="28" rx="3"/><rect x="114" y="346" width="40" height="28" rx="3"/><rect x="164" y="346" width="40" height="28" rx="3"/><rect x="214" y="346" width="40" height="28" rx="3"/><rect x="264" y="346" width="40" height="28" rx="3"/><rect x="314" y="346" width="40" height="28" rx="3"/><rect x="364" y="346" width="40" height="28" rx="3"/><rect x="414" y="346" width="40" height="28" rx="3"/><rect x="464" y="346" width="40" height="28" rx="3"/><rect x="514" y="346" width="40" height="28" rx="3"/><rect x="564" y="346" width="40" height="28" rx="3"/><rect x="614" y="346" width="40" height="28" rx="3"/>
+    </g>
+    <g id="pile-row-4" fill="#DCD3C4">
+      <rect x="64" y="384" width="40" height="28" rx="3"/><rect x="114" y="384" width="40" height="28" rx="3"/><rect x="164" y="384" width="40" height="28" rx="3"/><rect x="214" y="384" width="40" height="28" rx="3"/><rect x="264" y="384" width="40" height="28" rx="3"/><rect x="314" y="384" width="40" height="28" rx="3"/><rect x="364" y="384" width="40" height="28" rx="3"/><rect x="414" y="384" width="40" height="28" rx="3"/><rect x="464" y="384" width="40" height="28" rx="3"/><rect x="514" y="384" width="40" height="28" rx="3"/><rect x="564" y="384" width="40" height="28" rx="3"/><rect x="614" y="384" width="40" height="28" rx="3"/>
+    </g>
+    <g id="pile-row-5" fill="#DCD3C4">
+      <rect x="64" y="422" width="40" height="28" rx="3"/><rect x="114" y="422" width="40" height="28" rx="3"/><rect x="164" y="422" width="40" height="28" rx="3"/><rect x="214" y="422" width="40" height="28" rx="3"/><rect x="264" y="422" width="40" height="28" rx="3"/><rect x="314" y="422" width="40" height="28" rx="3"/><rect x="364" y="422" width="40" height="28" rx="3"/><rect x="414" y="422" width="40" height="28" rx="3"/><rect x="464" y="422" width="40" height="28" rx="3"/><rect x="514" y="422" width="40" height="28" rx="3"/><rect x="564" y="422" width="40" height="28" rx="3"/><rect x="614" y="422" width="40" height="28" rx="3"/>
+    </g>
+    <g id="pile-row-6" fill="#DCD3C4">
+      <rect x="64" y="460" width="40" height="28" rx="3"/><rect x="114" y="460" width="40" height="28" rx="3"/><rect x="164" y="460" width="40" height="28" rx="3"/><rect x="214" y="460" width="40" height="28" rx="3"/><rect x="264" y="460" width="40" height="28" rx="3"/><rect x="314" y="460" width="40" height="28" rx="3"/><rect x="364" y="460" width="40" height="28" rx="3"/><rect x="414" y="460" width="40" height="28" rx="3"/><rect x="464" y="460" width="40" height="28" rx="3"/><rect x="514" y="460" width="40" height="28" rx="3"/><rect x="564" y="460" width="40" height="28" rx="3"/><rect x="614" y="460" width="40" height="28" rx="3"/>
+    </g>
+    <g id="pile-replies" fill="#A8743A">
+      <rect x="214" y="308" width="40" height="28" rx="3"/>
+      <rect x="514" y="384" width="40" height="28" rx="3"/>
+    </g>
+    <rect x="64" y="520" width="12" height="12" rx="2" fill="#A8743A"/>
+    <text x="86" y="531" font-size="17" fill="#1D2624">A reply. Most applications never get one.</text>
+    <text x="64" y="572" font-size="13" fill="#5C6461">Illustration of the pattern, not measured data.</text>
+  </g>
+
+  <rect id="divider" data-pptx-role="decoration" x="760" y="232" width="2" height="380" fill="#A8743A"/>
+
+  <g id="insight" data-pptx-bounds="796 214 420 420">
+    <text x="796" y="262" font-size="20" fill="#1D2624">Each application joins a queue
+      <tspan x="796" dy="31">with hundreds of others.</tspan>
+      <tspan x="796" dy="31">Filters read it before a person does.</tspan>
+      <tspan x="796" dy="31">Strong candidates go unheard.</tspan></text>
+    <text x="796" y="470" font-family="Georgia" font-size="46" fill="#16302B">People hire
+      <tspan x="796" dy="56">people.</tspan></text>
+    <text x="796" y="606" font-size="17" fill="#8A5A24" font-weight="bold">The way in is a conversation.</text>
+  </g>
+
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 662 1152 40">
+    <text x="64" y="690" font-family="Georgia" font-size="17" fill="#16302B">Knock</text>
+    <text x="126" y="689" font-size="13" fill="#5C6461">Partner proposal for &lt;Club name&gt;</text>
+    <rect x="1178" y="674" width="11" height="18" rx="2" fill="none" stroke="#A8743A" stroke-width="1.5"/>
+    <text x="1216" y="690" font-family="Georgia" font-size="17" fill="#16302B" text-anchor="end">02</text>
+  </g>
+</svg>

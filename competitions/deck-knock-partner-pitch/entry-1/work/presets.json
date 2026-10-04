@@ -1,0 +1,13 @@
+[
+ {"preset":"round2SameRect","id":"p01-door-frame","frame":[868,112,284,500],"fill":"none","stroke":"#C9A063","stroke_width":3,"adjustments":{"adj1":"val 50000","adj2":"val 0"}},
+ {"preset":"round2SameRect","id":"p01-door-leaf","frame":[886,130,248,482],"fill":"#21443C","stroke":"none","adjustments":{"adj1":"val 50000","adj2":"val 0"}},
+ {"preset":"homePlate","id":"p04-step-1-shape","frame":[64,224,300,84],"fill":"#16302B","stroke":"none"},
+ {"preset":"chevron","id":"p04-step-2-shape","frame":[348,224,300,84],"fill":"#2C5148","stroke":"none"},
+ {"preset":"chevron","id":"p04-step-3-shape","frame":[632,224,300,84],"fill":"#42695F","stroke":"none"},
+ {"preset":"chevron","id":"p04-step-4-shape","frame":[916,224,300,84],"fill":"#A8743A","stroke":"none"},
+ {"preset":"wedgeRoundRectCallout","id":"p05-bubble-shape","frame":[64,204,700,300],"fill":"#FFFFFF","stroke":"#D9CFBF","stroke_width":1.5,"adjustments":{"adj1":"val -38000","adj2":"val 64000","adj3":"val 8000"}},
+ {"preset":"homePlate","id":"p11-week0-shape","frame":[64,212,284,76],"fill":"#16302B","stroke":"none"},
+ {"preset":"homePlate","id":"p11-week12-shape","frame":[356,212,568,76],"fill":"#2C5148","stroke":"none"},
+ {"preset":"homePlate","id":"p11-week3-shape","frame":[932,212,284,76],"fill":"#A8743A","stroke":"none"},
+ {"preset":"round2SameRect","id":"p12-door-frame","frame":[868,112,284,500],"fill":"none","stroke":"#C9A063","stroke_width":3,"adjustments":{"adj1":"val 50000","adj2":"val 0"}}
+]

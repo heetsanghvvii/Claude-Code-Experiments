@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knock Partner Proposal</title>
+<!-- Fonts: Newsreader (display serif) + Hanken Grotesk (body sans). Google Fonts. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap">
+<style>
+/* ===========================================
+   THEME TOKENS
+   Change these to restyle the whole deck.
+   Palette: ivory paper, deep forest ink, brass.
+   =========================================== */
+:root {
+  --ivory: #F4EFE6;
+  --paper: #FBF8F2;
+  --ink: #1B2A22;
+  --forest: #2E4A3B;
+  --brass: #A8773F;
+  --brass-soft: #D9B98C;
+  --sage: #7F9184;
+  --muted: #5B6A60;
+  --line: rgba(27, 42, 34, 0.14);
+  --line-strong: rgba(27, 42, 34, 0.28);
+
+  --stage-bg: #0f1713;
+  --slide-bg: var(--ivory);
+
+  --font-display: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+
+  --pad-x: 128px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-normal: 0.9s;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ===========================================
+   FIXED 16:9 STAGE: MANDATORY BASE STYLES
+   =========================================== */
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: var(--stage-bg, #000); }
+.deck-viewport { position: fixed; inset: 0; overflow: hidden; background: var(--stage-bg, #000); }
+.deck-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 0 0; background: var(--slide-bg, #fff); }
+.slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; display: block; visibility: hidden; opacity: 0; pointer-events: none; background: var(--slide-bg, #fff); }
+.slide.active, .slide.visible { visibility: visible; opacity: 1; pointer-events: auto; z-index: 1; }
+img, video, canvas, svg { max-width: 100%; max-height: 100%; }
+.deck-controls { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 1000; }
+@media print {
+  html, body { width: 1920px; height: auto; overflow: visible; background: #fff; }
+  .deck-viewport { position: static; overflow: visible; background: #fff; }
+  .deck-stage { position: static; width: auto; height: auto; transform: none !important; background: none; }
+  .slide { position: relative; display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; width: 1920px; height: 1080px; break-after: page; page-break-after: always; }
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+  .deck-controls { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+}
+
+/* ===========================================
+   PRINT: one 1920x1080 page per slide, final state
+   =========================================== */
+@page { size: 1920px 1080px; margin: 0; }
+@media print {
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .notes, .progress, .edit-toggle, .edit-hotzone, .counter { display: none !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ===========================================
+   BASE TYPE
+   =========================================== */
+body { font-family: var(--font-body); color: var(--ink); -webkit-font-smoothing: antialiased; }
+.slide { color: var(--ink); }
+.slide.dark { background: var(--ink); color: var(--ivory); }
+.notes { display: none; }
+
+/* Paper grain: two soft radial washes give depth without gradients-as-decoration */
+.slide::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(1200px 700px at 88% 8%, rgba(168,119,63,0.07), transparent 60%),
+    radial-gradient(900px 600px at 0% 100%, rgba(46,74,59,0.06), transparent 60%);
+}
+.slide.dark::before {
+  background:
+    radial-gradient(1100px 800px at 78% 40%, rgba(217,185,140,0.10), transparent 60%),
+    radial-gradient(900px 700px at 0% 100%, rgba(46,74,59,0.45), transparent 60%);
+}
+
+.frame { position: absolute; inset: 0; padding: 104px var(--pad-x) 150px; }
+
+.eyebrow {
+  font-family: var(--font-body); font-weight: 600; font-size: 21px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass);
+  display: flex; align-items: center; gap: 18px;
+}
+.eyebrow .num { color: var(--muted); font-weight: 500; }
+.dark .eyebrow .num { color: var(--brass-soft); opacity: .7; }
+.eyebrow::after { content: ""; width: 72px; height: 1px; background: var(--brass); opacity: .6; }
+
+.title {
+  font-family: var(--font-display); font-weight: 400; font-size: 72px; line-height: 1.08;
+  letter-spacing: -0.012em; margin-top: 30px; max-width: 1480px;
+}
+.title em { font-style: italic; color: var(--forest); }
+.dark .title em { color: var(--brass-soft); }
+
+.lede { font-size: 30px; line-height: 1.5; color: var(--muted); max-width: 1100px; margin-top: 28px; }
+.dark .lede { color: rgba(244,239,230,0.72); }
+
+.rule { height: 1px; background: var(--line); }
+
+/* ===========================================
+   FOOTER CHROME (inside each slide)
+   =========================================== */
+.foot {
+  position: absolute; left: var(--pad-x); right: var(--pad-x); bottom: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 19px; color: var(--muted); letter-spacing: 0.02em;
+  border-top: 1px solid var(--line); padding-top: 22px;
+}
+.dark .foot { color: rgba(244,239,230,0.55); border-top-color: rgba(244,239,230,0.14); }
+.foot .brand { display: flex; align-items: center; gap: 12px; font-family: var(--font-display); font-size: 26px; color: var(--ink); letter-spacing: 0; }
+.dark .foot .brand { color: var(--ivory); }
+.foot .brand svg { width: 20px; height: 28px; }
+.foot .pg { font-variant-numeric: tabular-nums; }
+
+/* ===========================================
+   ANIMATIONS: calm, slow fades
+   =========================================== */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
+.slide.visible .reveal { opacity: 1; transform: none; }
+.d1 { transition-delay: .08s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .32s; }
+.d4 { transition-delay: .44s; } .d5 { transition-delay: .56s; } .d6 { transition-delay: .68s; }
+
+/* ===========================================
+   SLIDE 1 + 12: TITLE / CLOSE (dark, door motif)
+   =========================================== */
+.cover .frame { display: grid; grid-template-columns: 1fr 520px; gap: 80px; align-items: center; padding-top: 90px; }
+.cover .wordmark { display: flex; align-items: center; gap: 22px; font-family: var(--font-display); font-size: 44px; color: var(--ivory); }
+.cover .wordmark svg { width: 34px; height: 48px; }
+.cover h1 { font-family: var(--font-display); font-weight: 300; font-size: 148px; line-height: 0.98; letter-spacing: -0.025em; margin-top: 56px; }
+.cover h1 em { font-style: italic; color: var(--brass-soft); }
+.cover .proposal { margin-top: 56px; font-size: 30px; color: rgba(244,239,230,0.75); }
+.cover .proposal b { color: var(--ivory); font-weight: 500; border-bottom: 1px dashed rgba(217,185,140,0.7); padding-bottom: 2px; }
+.door-art { height: 760px; display: flex; justify-content: center; align-items: flex-end; }
+.door-art svg { height: 760px; width: auto; max-height: none; }
+
+.close h1 { font-size: 112px; margin-top: 40px; }
+.close .contact { margin-top: 64px; display: flex; gap: 72px; }
+.close .contact div { font-size: 22px; letter-spacing: .16em; text-transform: uppercase; color: var(--brass-soft); }
+.close .contact span { display: block; margin-top: 12px; font-family: var(--font-display); font-size: 44px; letter-spacing: 0; text-transform: none; color: var(--ivory); }
+
+/* ===========================================
+   SLIDE 2: PROBLEM (application grid)
+   =========================================== */
+.problem .body { display: grid; grid-template-columns: 980px 1fr; gap: 110px; margin-top: 64px; align-items: start; }
+.app-grid { display: grid; grid-template-columns: repeat(24, 1fr); gap: 9px; }
+.app-grid i { display: block; height: 30px; border: 1px solid var(--line-strong); border-radius: 3px; background: rgba(255,255,255,0.35); }
+.app-grid i.r { background: var(--brass); border-color: var(--brass); }
+.grid-cap { margin-top: 22px; display: flex; justify-content: space-between; font-size: 20px; color: var(--muted); }
+.grid-cap .k { display: inline-flex; align-items: center; gap: 10px; }
+.grid-cap .k i { width: 16px; height: 16px; border: 1px solid var(--line-strong); border-radius: 3px; display: inline-block; }
+.grid-cap .k i.r { background: var(--brass); border-color: var(--brass); }
+.pull { font-family: var(--font-display); font-size: 54px; line-height: 1.12; font-weight: 400; }
+.pull em { font-style: italic; color: var(--brass); }
+.pull-sub { margin-top: 30px; font-size: 27px; line-height: 1.5; color: var(--muted); }
+
+/* ===========================================
+   SLIDE 3: COLD vs WARM comparison
+   =========================================== */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 64px; border-top: 1px solid var(--line-strong); }
+.compare .col { padding: 40px 64px 0 0; }
+.compare .col + .col { padding-left: 64px; border-left: 1px solid var(--line-strong); }
+.compare h3 { font-family: var(--font-body); font-size: 22px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.compare .warm h3 { color: var(--forest); }
+.compare ul { list-style: none; margin-top: 26px; }
+.compare li { font-family: var(--font-display); font-size: 40px; line-height: 1.25; padding: 18px 0; border-bottom: 1px solid var(--line); display: flex; gap: 22px; align-items: baseline; }
+.compare .cold li { color: var(--muted); }
+.compare li .m { font-family: var(--font-body); font-size: 22px; width: 26px; flex: none; }
+.compare .cold li .m { color: var(--sage); }
+.compare .warm li .m { color: var(--brass); }
+.bridge { margin-top: 44px; font-size: 27px; color: var(--ink); display: flex; gap: 18px; align-items: center; }
+.bridge::before { content: ""; width: 44px; height: 2px; background: var(--brass); flex: none; }
+
+/* ===========================================
+   SLIDE 4: IS / IS NOT
+   =========================================== */
+.isnot { display: grid; grid-template-columns: 1.25fr 1fr; gap: 48px; margin-top: 60px; }
+.panel { border-radius: 4px; padding: 52px 56px; }
+.panel.is { background: var(--forest); color: var(--ivory); }
+.panel.not { border: 1px solid var(--line-strong); background: rgba(255,255,255,0.3); }
+.panel h3 { font-size: 22px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; }
+.panel.is h3 { color: var(--brass-soft); }
+.panel.not h3 { color: var(--muted); }
+.panel ul { list-style: none; margin-top: 30px; }
+.panel li { font-size: 30px; line-height: 1.4; padding: 18px 0; border-top: 1px solid rgba(244,239,230,0.16); }
+.panel.not li { border-top-color: var(--line); color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(168,119,63,0.6); text-decoration-thickness: 2px; }
+.panel li b { font-weight: 600; }
+
+/* ===========================================
+   SLIDE 5: FOUR STEPS
+   =========================================== */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 70px; position: relative; }
+.step { padding: 0 44px 0 0; position: relative; }
+.step + .step { padding-left: 40px; border-left: 1px solid var(--line); }
+.step .n { font-family: var(--font-display); font-style: italic; font-size: 92px; line-height: 1; color: var(--brass); font-weight: 300; }
+.step .who { margin-top: 22px; font-size: 19px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.step h3 { font-family: var(--font-display); font-weight: 400; font-size: 40px; line-height: 1.15; margin-top: 14px; }
+.step p { font-size: 24px; line-height: 1.5; color: var(--muted); margin-top: 18px; }
+.approve { margin-top: 64px; display: flex; align-items: center; gap: 28px; padding: 28px 40px; background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--forest); font-size: 29px; }
+.approve b { font-weight: 600; color: var(--forest); }
+
+/* ===========================================
+   SLIDE 6: EXAMPLE MESSAGE
+   =========================================== */
+.example .body { display: grid; grid-template-columns: 960px 1fr; gap: 96px; margin-top: 56px; align-items: start; }
+.msg { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 30px 60px -30px rgba(27,42,34,0.25); }
+.msg-head { display: flex; align-items: center; gap: 20px; padding: 26px 36px; border-bottom: 1px solid var(--line); }
+.avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--forest); color: var(--ivory); display: grid; place-items: center; font-family: var(--font-display); font-size: 26px; }
+.msg-head .nm { font-weight: 600; font-size: 24px; }
+.msg-head .sub { font-size: 19px; color: var(--muted); margin-top: 2px; }
+.msg-head .tag { margin-left: auto; font-size: 17px; letter-spacing: .14em; text-transform: uppercase; color: var(--forest); border: 1px solid var(--line-strong); padding: 8px 14px; border-radius: 40px; }
+.msg-body { padding: 40px 44px 44px; font-family: var(--font-display); font-size: 40px; line-height: 1.45; }
+.hl { background: linear-gradient(transparent 62%, rgba(217,185,140,0.55) 62%); padding: 0 2px; }
+.mk { font-family: var(--font-body); font-size: 15px; font-weight: 700; color: var(--ivory); background: var(--brass); border-radius: 50%; width: 26px; height: 26px; display: inline-grid; place-items: center; vertical-align: super; margin-left: 4px; }
+.msg-foot { padding: 20px 44px; border-top: 1px solid var(--line); font-size: 19px; color: var(--muted); display: flex; justify-content: space-between; }
+.why { list-style: none; }
+.why li { display: grid; grid-template-columns: 52px 1fr; gap: 20px; padding: 30px 0; border-bottom: 1px solid var(--line); }
+.why li:first-child { padding-top: 6px; }
+.why .mk { width: 42px; height: 42px; font-size: 20px; vertical-align: baseline; margin: 0; }
+.why h4 { font-family: var(--font-display); font-weight: 400; font-size: 36px; line-height: 1.15; }
+.why p { font-size: 23px; line-height: 1.5; color: var(--muted); margin-top: 10px; }
+
+/* ===========================================
+   SLIDE 7: NOT SPAM (big 60 + principles)
+   =========================================== */
+.spam .body { display: grid; grid-template-columns: 560px 1fr; gap: 100px; margin-top: 50px; align-items: start; }
+.big60 { border-right: 1px solid var(--line); padding-right: 60px; }
+.big60 .n { font-family: var(--font-display); font-weight: 300; font-size: 300px; line-height: .9; color: var(--forest); letter-spacing: -0.04em; }
+.big60 .u { font-size: 30px; line-height: 1.4; margin-top: 18px; }
+.big60 .u b { font-weight: 600; }
+.big60 .s { font-size: 22px; color: var(--muted); margin-top: 16px; line-height: 1.5; }
+.principles { list-style: none; }
+.principles li { display: grid; grid-template-columns: 70px 1fr; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--line); }
+.principles li:first-child { border-top: 1px solid var(--line); }
+.principles .i { font-family: var(--font-display); font-style: italic; font-size: 30px; color: var(--brass); }
+.principles h4 { font-family: var(--font-display); font-weight: 400; font-size: 38px; line-height: 1.2; }
+.principles p { font-size: 22px; color: var(--muted); margin-top: 6px; }
+
+/* ===========================================
+   SLIDE 8: PACKAGES
+   =========================================== */
+.packs { display: grid; grid-template-columns: repeat(3, 1fr) 1.08fr; gap: 28px; margin-top: 60px; }
+.pack { background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 44px 40px 40px; display: flex; flex-direction: column; min-height: 470px; }
+.pack .nm { font-size: 21px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.pack .price { font-family: var(--font-display); font-size: 84px; line-height: 1; margin-top: 30px; letter-spacing: -0.02em; }
+.pack .price small { font-size: 22px; font-family: var(--font-body); color: var(--muted); letter-spacing: .04em; display: block; margin-bottom: 10px; }
+.pack .meta { margin-top: auto; border-top: 1px solid var(--line); padding-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pack .meta div { font-size: 19px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+.pack .meta b { display: block; font-family: var(--font-display); font-size: 38px; color: var(--ink); text-transform: none; letter-spacing: 0; font-weight: 400; margin-top: 4px; }
+.pack.dfy { background: var(--ink); color: var(--ivory); border-color: var(--ink); }
+.pack.dfy .nm { color: var(--brass-soft); }
+.pack.dfy .price small { color: rgba(244,239,230,0.6); }
+.pack.dfy p { margin-top: auto; font-size: 25px; line-height: 1.5; color: rgba(244,239,230,0.8); border-top: 1px solid rgba(244,239,230,0.16); padding-top: 24px; }
+.pack-note { margin-top: 38px; display: flex; justify-content: space-between; align-items: center; font-size: 25px; }
+.pack-note .pill { background: var(--forest); color: var(--ivory); padding: 14px 26px; border-radius: 40px; font-size: 22px; letter-spacing: .02em; }
+.pack-note span:last-child { color: var(--muted); font-size: 21px; }
+
+/* ===========================================
+   SLIDE 9: PARTNERSHIP (give / ask)
+   =========================================== */
+.deal { display: grid; grid-template-columns: 1.55fr 1fr; gap: 56px; margin-top: 58px; }
+.deal h3 { font-size: 22px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: var(--forest); padding-bottom: 22px; border-bottom: 2px solid var(--forest); }
+.deal .ask h3 { color: var(--brass); border-bottom-color: var(--brass); }
+.gets { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
+.gets div, .asks div { padding: 30px 0; border-bottom: 1px solid var(--line); }
+.gets h4, .asks h4 { font-family: var(--font-display); font-weight: 400; font-size: 38px; line-height: 1.15; }
+.gets p, .asks p { font-size: 22px; line-height: 1.5; color: var(--muted); margin-top: 10px; }
+.asks .n { font-family: var(--font-display); font-style: italic; font-size: 26px; color: var(--brass); }
+.deal-note { margin-top: 46px; font-size: 26px; color: var(--muted); }
+.deal-note b { color: var(--ink); font-weight: 600; }
+
+/* ===========================================
+   SLIDE 10: MEASUREMENT (formula)
+   =========================================== */
+.measure .body { display: grid; grid-template-columns: 1fr 640px; gap: 100px; margin-top: 64px; align-items: center; }
+.formula { display: flex; align-items: center; gap: 44px; }
+.fraction { text-align: center; font-family: var(--font-display); }
+.fraction .top, .fraction .bot { font-size: 50px; padding: 12px 20px; }
+.fraction .bar { height: 3px; background: var(--ink); }
+.formula .x { font-family: var(--font-display); font-size: 64px; color: var(--brass); font-weight: 300; }
+.formula .hundred { font-family: var(--font-display); font-size: 88px; font-weight: 300; }
+.measure .def { margin-top: 48px; font-size: 27px; line-height: 1.55; color: var(--muted); max-width: 900px; }
+.report { border: 1px solid var(--line-strong); border-radius: 4px; background: var(--paper); }
+.report div { padding: 34px 40px; border-bottom: 1px solid var(--line); }
+.report div:last-child { border-bottom: 0; background: rgba(46,74,59,0.06); }
+.report span { font-size: 19px; letter-spacing: .18em; text-transform: uppercase; color: var(--brass); font-weight: 600; }
+.report h4 { font-family: var(--font-display); font-weight: 400; font-size: 34px; margin-top: 10px; line-height: 1.2; }
+.report p { font-size: 22px; color: var(--muted); margin-top: 8px; line-height: 1.45; }
+
+/* ===========================================
+   SLIDE 11: PILOT TIMELINE
+   =========================================== */
+.timeline { margin-top: 90px; position: relative; display: grid; grid-template-columns: 1fr 2fr 1fr; }
+.timeline::before { content: ""; position: absolute; left: 0; right: 0; top: 15px; height: 2px; background: var(--line-strong); }
+.phase { position: relative; padding-right: 48px; }
+.phase .dot { width: 32px; height: 32px; border-radius: 50%; background: var(--ivory); border: 2px solid var(--forest); position: relative; z-index: 1; }
+.phase.mid .dot { background: var(--forest); }
+.phase.end .dot { background: var(--brass); border-color: var(--brass); }
+.phase.mid .span { position: absolute; top: 14px; left: 32px; right: 48px; height: 4px; background: var(--forest); }
+.phase .wk { margin-top: 38px; font-size: 21px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: var(--brass); }
+.phase h3 { font-family: var(--font-display); font-weight: 400; font-size: 52px; margin-top: 12px; line-height: 1.1; }
+.phase ul { list-style: none; margin-top: 24px; }
+.phase li { font-size: 24px; line-height: 1.45; color: var(--muted); padding: 10px 0 10px 26px; position: relative; }
+.phase li::before { content: ""; position: absolute; left: 0; top: 24px; width: 12px; height: 1px; background: var(--brass); }
+.mid ul { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; }
+
+/* ===========================================
+   NON-SLIDE UI: progress, counter, editing
+   =========================================== */
+.progress { position: fixed; left: 0; top: 0; height: 3px; background: var(--brass); z-index: 1000; transition: width .4s var(--ease-out-expo); }
+.counter { position: fixed; right: 20px; bottom: 16px; z-index: 1000; font: 500 13px var(--font-body); color: rgba(244,239,230,0.6); letter-spacing: .1em; }
+.edit-hotzone { position: fixed; top: 0; left: 0; width: 80px; height: 80px; z-index: 10000; cursor: pointer; }
+.edit-toggle { position: fixed; top: 16px; left: 16px; z-index: 10001; opacity: 0; pointer-events: none; transition: opacity .3s ease; font: 600 13px var(--font-body); letter-spacing: .12em; text-transform: uppercase; background: var(--ivory); color: var(--ink); border: 1px solid var(--brass); padding: 10px 16px; border-radius: 30px; cursor: pointer; }
+.edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
+.edit-toggle.active { background: var(--brass); color: var(--ivory); }
+body.editing [contenteditable="true"]:hover { outline: 1px dashed rgba(168,119,63,0.7); outline-offset: 4px; }
+</style>
+</head>
+<body>
+
+<!-- Reusable SVG symbols: brand mark (arched door with knocker) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mark" viewBox="0 0 40 56">
+      <path d="M3 54 V20 A17 17 0 0 1 37 20 V54" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+      <circle cx="28" cy="34" r="4.2" fill="none" stroke="#A8773F" stroke-width="2.6"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter"></div>
+<div class="edit-hotzone" aria-hidden="true"></div>
+<button class="edit-toggle" id="editToggle" title="Edit mode (E)">Edit</button>
+
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+<!-- =========================================
+     01 TITLE
+     ========================================= -->
+<section class="slide dark cover active" aria-label="Title">
+  <div class="frame">
+    <div>
+      <div class="wordmark reveal d1"><svg><use href="#mark"/></svg>knock</div>
+      <h1 class="reveal d2">Knock on the<br><em>right door.</em></h1>
+      <p class="proposal reveal d3">Partner proposal for <b>&lt;Club name&gt;</b></p>
+      <p class="lede reveal d4" style="margin-top:22px;font-size:27px;">A private outbound service for your students and alumni.</p>
+    </div>
+    <div class="door-art reveal d3" aria-hidden="true">
+      <svg viewBox="0 0 420 680">
+        <defs>
+          <linearGradient id="glow" x1="0" x2="1">
+            <stop offset="0" stop-color="#F3D9AE" stop-opacity="0.95"/>
+            <stop offset="1" stop-color="#D9B98C" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!-- light spilling from the gap -->
+        <path d="M44 676 L-40 680 L-40 680 L44 220 Z" fill="url(#glow)" opacity="0.18"/>
+        <!-- frame -->
+        <path d="M30 676 V220 A180 180 0 0 1 390 220 V676" fill="none" stroke="#D9B98C" stroke-width="3" opacity="0.55"/>
+        <!-- gap of light -->
+        <path d="M44 676 V222 A166 166 0 0 1 120 84 L120 676 Z" fill="#F3D9AE" opacity="0.16"/>
+        <path d="M44 676 V222" stroke="#F3D9AE" stroke-width="3" opacity="0.9"/>
+        <!-- door leaf, slightly ajar -->
+        <path d="M62 676 V226 A158 158 0 0 1 376 226 V676 Z" fill="#24392D" stroke="#3E5A4A" stroke-width="2"/>
+        <path d="M110 640 V430 H330 V640 Z" fill="none" stroke="#3E5A4A" stroke-width="2"/>
+        <path d="M110 390 V250 A110 110 0 0 1 330 250 V390 Z" fill="none" stroke="#3E5A4A" stroke-width="2"/>
+        <!-- knocker -->
+        <circle cx="300" cy="410" r="9" fill="#D9B98C"/>
+        <circle cx="300" cy="440" r="26" fill="none" stroke="#D9B98C" stroke-width="5"/>
+        <!-- threshold -->
+        <path d="M0 678 H420" stroke="#D9B98C" stroke-width="2" opacity="0.4"/>
+      </svg>
+    </div>
+  </div>
+  <div class="foot"><span class="brand"><svg><use href="#mark"/></svg>knock</span><span>hello@knock.careers</span><span class="pg">01</span></div>
+  <aside class="notes">Thank the committee for the time. One line: Knock helps your students get real conversations at the companies they want, without spamming anyone. Today is about a small, free pilot.</aside>
+</section>
+
+<!-- =========================================
+     02 PROBLEM
+     ========================================= -->
+<section class="slide problem" aria-label="The problem">
+  <div class="frame">
+    <div class="eyebrow reveal d1"><span class="num">02</span>The problem</div>
+    <h2 class="title reveal d2">Off-campus and lateral searches run through portals, and <em>portals rarely answer back.</em></h2>
+    <div class="body">
+      <div class="reveal d3">
+        <div class="app-grid" id="appGrid"></div>
+        <div class="grid-cap"><span class="k"><i></i>Applications sent</span><span class="k"><i class="r"></i>Replies</span><span>Illustrative</span></div>
+      </div>
+      <div class="reveal d4">
+        <p class="pull">Hundreds of applications. <em>A handful of replies.</em></p>
+        <p class="pull-sub">A portal is a queue, not a person. But hiring decisions are still made by people. <b style="color:var(--ink);font-weight:600">People hire people.</b></p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand"><svg><use href="#mark"/></svg>knock</span><span>Partner proposal for &lt;Club name&gt;</span><span class="pg">02</span></div>
+  <aside class="notes">Everyone in this room has watched batchmates apply to a hundred roles off-campus and hear back from a few. The grid is illustrative, not data. The point: the portal is the wrong door.</aside>
+</section>
+
+<!-- =========================================
+     03 WHAT ALREADY WORKS
+     ========================================= -->
+<section class="slide" aria-label="What already works">
+  <div class="frame">
+    <div class="eyebrow reveal d1"><span class="num">03</span>What already works</div>
+    <h2 class="title reveal d2">Referrals and warm conversations get read. <em>Cold applications get filtered.</em></h2>
+    <div class="compare reveal d3">
+      <div class="col cold">
+        <h3>A cold application</h3>
+        <ul>
+          <li><span class="m">-</span>Lands in a queue</li>
+          <li><span class="m">-</span>Judged on keywords</li>
+          <li><span class="m">-</span>No one vouches for you</li>
+        </ul>
+      </div>
+      <div class="col warm">
+        <h3>A warm conversation</h3>
+        <ul>
+          <li><span class="m">+</span>Lands with a person</li>
+          <li><span class="m">+</span>Judged on context and fit</li>
+          <li><span class="m">+</span>Can turn into a referral</li>
+        </ul>
+      </div>
+    </div>
+    <p class="bridge reveal d4">Your seniors already know this. The hard part is doing it well, for every target, without spamming.</p>
+  </div>
+  <div class="foot"><span class="brand"><svg><use href="#mark"/></svg>knock</span><span>Partner proposal for &lt;Club name&gt;</span><span class="pg">03</span></div>
+  <aside class="notes">No numbers here on purpose. Ask the room how their own seniors landed lateral roles. Most will say a referral or a conversation. Knock exists to make that path repeatable.</aside>
+</section>
+
+<!-- =========================================
+     04 WHAT KNOCK IS / IS NOT
+     ========================================= -->
+<section class="slide" aria-label="What Knock is">
+  <div class="frame">
+    <div class="eyebrow reveal d1"><span class="num">04</span>What Knock is</div>
+    <h2 class="title reveal d2">Knock is a private career concierge, <em>not another AI job tool.</em></h2>
+    <div class="isnot">
+      <div class="panel is reveal d3">
+        <h3>What Knock is</h3>
+        <ul>
+          <li>A <b>person-led outbound service</b>, with good tools behind the team</li>
+          <li>Real research on <b>every person</b> we suggest you contact</li>
+          <li>Messages <b>you approve</b>, sent from <b>your own LinkedIn</b></li>
+          <li>Guidance on <b>every reply</b>, until it becomes a referral or interview</li>
+        </ul>
+      </div>
+      <div class="panel not reveal d4">
+        <h3>What Knock is not</h3>
+        <ul>
+          <li>A bot that mass-messages recruiters</li>
+          <li>Another job board or portal</li>
+          <li>A resume rewriter</li>
+          <li>A promise of an offer</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand"><svg><use href="#mark"/></svg>knock</span><span>Partner proposal for &lt;Club name&gt;</span><span class="pg">04</span></div>
+  <aside class="notes">Address the AI-tool fatigue head on. You have seen a dozen of these pitches. This is a service. The student stays in control of every word.</aside>
+</section>
+
+<!-- =========================================
+     05 HOW IT WORKS: FOUR STEPS
+     ========================================= -->
+<section class="slide" aria-label="How it works">
+  <div class="frame">
+    <div class="eyebrow reveal d1"><span class="num">05</span>How it works</div>
+    <h2 class="title reveal d2">Four steps from a target list <em>to a real conversation.</em></h2>
+    <div class="steps">
+      <div class="step reveal d3">
+        <div class="n">1</div><div class="who">You</div>
+        <h3>Pick target companies and roles</h3>
+        <p>A short list of where you actually want to work.</p>
+      </div>
+      <div class="step reveal d4">
+        <div class="n">2</div><div class="who">We</div>
+        <h3>Find the right people</h3>
+        <p>Hiring managers, team members, alumni and seniors who can introduce.</p>
+      </div>
+      <div class="step reveal d5">
+        <div class="n">3</div><div class="who">We</div>
+        <h3>Write a personal first message</h3>
+        <p>One for each person, built on something genuinely shared.</p>
+      </div>
+      <div class="step reveal d6">
+        <div class="n">4</div><div class="who">We, with you</div>
+        <h3>Guide every reply</h3>
+        <p>Until the conversation becomes a referral or an interview.</p>
+      </div>
+    </div>
+    <div class="approve reveal d6"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13.5" fill="none" stroke="#2E4A3B" stroke-width="2"/><path d="M9 15.5 L13.3 19.5 L21 11" fill="none" stroke="#2E4A3B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>You approve every message</b> before it goes. Nothing is sent without you.</span></div>
+  </div>
+  <div class="foot"><span class="brand"><svg><use href="#mark"/></svg>knock</span><span>Partner proposal for &lt;Club name&gt;</span><span class="pg">05</span></div>
+  <aside class="notes">Walk the four steps quickly. Stress step 3: the shared reason is real, found through research, never invented. Then the approval line.</aside>
+</section>
+
+<!-- =========================================
+     06 EXAMPLE MESSAGE
+     ========================================= -->
+<section class="slide example" aria-label="An example first message">
+  <div class="frame">
+    <div class="eyebrow reveal d1"><span class="num">06</span>An example first message</div>
+    <h2 class="title reveal d2">A good first message asks for a conversation, <em>not a job.</em></h2>
+    <div class="body">
+      <div class="msg reveal d3">
+        <div class="msg-head">
+          <div class="avatar">R</div>
+          <div><div class="nm">Rahul</div><div class="sub">Product, Zepto. Previously Flipkart</div></div>
+          <div class="tag">Draft for approval</div>
+        </div>
+        <div class="msg-body">
+          Hey Rahul, <span class="hl">saw you moved from Flipkart into product at Zepto.</span><span class="mk">1</span> <span class="hl">I'm making a similar jump from brand management.</span><span class="mk">2</span> <span class="hl">Curious, what was the biggest adjustment for you?</span><span class="mk">3</span>
+        </div>
+        <div class="msg-foot"><span>Sent from the student's own LinkedIn</span><span>Illustrative example</span></div>
+      </div>
+      <ol class="why">
+        <li class="reveal d4"><span class="mk">1</span><div><h4>A real, specific shared path</h4><p>Found through research on Rahul, not guessed.</p></div></li>
+        <li class="reveal d5"><span class="mk">2</span><div><h4>Honest about the student's own move</h4><p>Gives Rahul a reason to care, in one line.</p></div></li>
+        <li class="reveal d6"><span class="mk">3</span><div><h4>An easy question, no ask yet</h4><p>Starts a conversation. The referral comes later, if it fits.</p></div></li>
+      </ol>
+    </div>
+  </div>
+  <div class="foot"><span class="brand"><svg><use href="#mark"/></svg>knock</span><span>Partner proposal for &lt;Club name&gt;</span><span class="pg">06</span></div>
+  <aside class="notes">Read the message aloud. It is three sentences. Then point to the three notes. This is the quality bar for every message, sixty times a week.</aside>
+</section>
+
+<!-- =========================================
+     07 WHY IT IS NOT SPAM
+     ========================================= -->
+<section class="slide spam" aria-label="Why it is not spam">
+  <div class="frame">
+    <div class="eyebrow reveal d1"><span class="num">07</span>Why it is not spam</div>
+    <h2 class="title reveal d2">Built to protect your batch's reputation, <em>not spend it.</em></h2>
+    <div class="body">
+      <div class="big60 reveal d3">
+        <div class="n">60</div>
+        <p class="u"><b>hand-picked people per week,</b> per student.</p>
+        <p class="s">A deliberate ceiling. Fewer, better conversations.</p>
+      </div>
+      <ul class="principles">
+        <li class="reveal d3"><span class="i">i.</span><div><h4>Every message is personal</h4><p>Written for one person. No templates, no blasts.</p></div></li>
+        <li class="reveal d4"><span class="i">ii.</span><div><h4>Sent from the student's own account</h4><p>Their name, their voice, their approval.</p></div></li>
+        <li class="reveal d5"><span class="i">iii.</span><div><h4>Well under LinkedIn's limits</h4><p>Paced so no account looks or acts like a bot.</p></div></li>
+        <li class="reveal d6"><span class="i">iv.</span><div><h4>Conversation first, the ask later</h4><p>Nobody gets a referral request from a stranger.</p></div></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span class="brand"><svg><use href="#mark"/></svg>knock</span><span>Partner proposal for &lt;Club name&gt;</span><span class="pg">07</span></div>
+  <aside class="notes">This is the slide for the committee's real worry: will this embarrass our batch? Sixty a week is a cap we chose. Alumni receiving these get a thoughtful message, not a blast.</aside>
+</section>
+
+<!-- =========================================
+     08 PACKAGES
+     ========================================= -->
+<section class="slide" aria-label="Packages">
+  <div class="frame">
+    <div class="eyebrow reveal d1"><span class="num">08</span>Packages</div>
+    <h2 class="title reveal d2">Founding-member pricing, <em>open to every member of your club.</em></h2>
+    <div class="packs">
+      <div class="pack reveal d3">
+        <div class="nm">Sprint</div>
+        <div class="price"><small>Founding price</small>₹2,499</div>
+        <div class="meta"><div>Duration<b>7 days</b></div><div>People<b>60</b></div></div>
+      </div>
+      <div class="pack reveal d4">
+        <div class="nm">Standard</div>
+        <div class="price"><small>Founding price</small>₹3,999</div>
+        <div class="meta"><div>Duration<b>14 days</b></div><div>People<b>120</b></div></div>
+      </div>
+      <div class="pack reveal d5">
+        <div class="nm">Full search</div>
+        <div class="price"><small>Founding price</small>₹5,499</div>
+        <div class="meta"><div>Duration<b>21 days</b></div><div>People<b>180</b></div></div>
+      </div>
+      <div class="pack dfy reveal d6">
+        <div class="nm">Done-for-you</div>
+        <div class="price"><small>From</small>₹14,999</div>
+        <p>For a full search run end to end with you. Scoped to each student.</p>
+      </div>
+    </div>
+    <div class="pack-note reveal d6"><span class="pill">&lt;Club name&gt; members get the founding price</span><span>All prices in INR</span></div>
+  </div>
+  <div class="foot"><span class="brand"><svg><use href="#mark"/></svg>knock</span><span>Partner proposal for &lt;Club name&gt;</span><span class="pg">08</span></div>
+  <aside class="notes">Same rhythm across the three core packages: sixty people a week. Done-for-you is for students who want us to run the whole search alongside them.</aside>
+</section>
+
+<!-- =========================================
+     09 THE PARTNERSHIP
+     ========================================= -->
+<section class="slide" aria-label="The partnership">
+  <div class="frame">
+    <div class="eyebrow reveal d1"><span class="num">09</span>The partnership</div>
+    <h2 class="title reveal d2">What your club gets, <em>and the two things we ask in return.</em></h2>
+    <div class="deal">
+      <div class="give reveal d3">
+        <h3>&lt;Club name&gt; gets</h3>
+        <div class="gets">
+          <div><h4>Founding price for members</h4><p>For students and alumni of the club.</p></div>
+          <div><h4>A free pilot for 5 students</h4><p>Chosen by the club, at no cost.</p></div>
+          <div><h4>A results summary to share</h4><p>Honest numbers from the pilot, yours to use.</p></div>
+          <div><h4>A co-hosted session</h4><p>On running an outbound job search well.</p></div>
+        </div>
+      </div>
+      <div class="ask reveal d4">
+        <h3>Knock asks for</h3>
+        <div class="asks">
+          <div><span class="n">One</span><h4>Announcement to the batch</h4><p>Once, in the club's own words.</p></div>
+          <div><span class="n">Two</span><h4>A feedback call after the pilot</h4><p>Thirty minutes on what to improve.</p></div>
+        </div>
+      </div>
+    </div>
+    <p class="deal-note reveal d5"><b>No exclusivity, no revenue share, no lock-in.</b> If the pilot does not earn it, the partnership ends there.</p>
+  </div>
+  <div class="foot"><span class="brand"><svg><use href="#mark"/></svg>knock</span><span>Partner proposal for &lt;Club name&gt;</span><span class="pg">09</span></div>
+  <aside class="notes">Keep the ask small and clear. The club takes no risk: the pilot is free, the club picks who joins, and the club decides whether to announce anything further.</aside>
+</section>
+
+<!-- =========================================
+     10 HOW WE MEASURE SUCCESS
+     ========================================= -->
+<section class="slide measure" aria-label="How we measure success">
+  <div class="frame">
+    <div class="eyebrow reveal d1"><span class="num">10</span>How we measure success</div>
+    <h2 class="title reveal d2">One number, reported honestly: <em>interviews per 100 people contacted.</em></h2>
+    <div class="body">
+      <div class="reveal d3">
+        <div class="formula">
+          <div class="fraction"><div class="top">Interviews</div><div class="bar"></div><div class="bot">People contacted</div></div>
+          <span class="x">&times;</span>
+          <span class="hundred">100</span>
+        </div>
+        <p class="def">We are new, so we will not promise a number. The pilot is how we find out, together, and you see the result before anyone else.</p>
+      </div>
+      <div class="report reveal d4">
+        <div><span>Per student</span><h4>Each pilot student's own result</h4><p>Shared privately with that student.</p></div>
+        <div><span>In aggregate</span><h4>One summary for the club</h4><p>Anonymised, ready to share with the batch.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand"><svg><use href="#mark"/></svg>knock</span><span>Partner proposal for &lt;Club name&gt;</span><span class="pg">10</span></div>
+  <aside class="notes">Interviews, not replies or likes, because interviews are what the batch cares about. Per hundred contacted keeps it comparable across packages.</aside>
+</section>
+
+<!-- =========================================
+     11 PILOT TIMELINE
+     ========================================= -->
+<section class="slide" aria-label="Pilot timeline">
+  <div class="frame">
+    <div class="eyebrow reveal d1"><span class="num">11</span>Pilot timeline</div>
+    <h2 class="title reveal d2">A three-week pilot, <em>from kickoff to results.</em></h2>
+    <div class="timeline">
+      <div class="phase reveal d3">
+        <div class="dot"></div>
+        <div class="wk">Week 0</div>
+        <h3>Kickoff</h3>
+        <ul><li>Club picks 5 students</li><li>We agree targets with each</li></ul>
+      </div>
+      <div class="phase mid reveal d4">
+        <div class="dot"></div><div class="span"></div>
+        <div class="wk">Weeks 1 to 2</div>
+        <h3>Outreach</h3>
+        <ul><li>We research and find the right people</li><li>Students approve every message</li><li>We guide every reply</li><li>Short weekly check-in with the club</li></ul>
+      </div>
+      <div class="phase end reveal d5">
+        <div class="dot"></div>
+        <div class="wk">Week 3</div>
+        <h3>Results review</h3>
+        <ul><li>Per-student and club summary</li><li>Feedback call with the club</li></ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand"><svg><use href="#mark"/></svg>knock</span><span>Partner proposal for &lt;Club name&gt;</span><span class="pg">11</span></div>
+  <aside class="notes">Three weeks, start to finish. The club's total time is choosing five students, one announcement and one call.</aside>
+</section>
+
+<!-- =========================================
+     12 CLOSE
+     ========================================= -->
+<section class="slide dark cover close" aria-label="Next step">
+  <div class="frame">
+    <div>
+      <div class="eyebrow reveal d1" style="color:var(--brass-soft)"><span class="num">12</span>Next step</div>
+      <h1 class="reveal d2">Pick 5 students for the <em>free pilot.</em></h1>
+      <div class="contact reveal d3">
+        <div>Write to us<span>hello@knock.careers</span></div>
+        <div>Starts<span>Within a week of yes</span></div>
+      </div>
+    </div>
+    <div class="door-art reveal d3" aria-hidden="true">
+      <svg viewBox="0 0 420 680">
+        <path d="M30 676 V220 A180 180 0 0 1 390 220 V676" fill="none" stroke="#D9B98C" stroke-width="3" opacity="0.55"/>
+        <path d="M44 676 V222 A166 166 0 0 1 376 222 V676 Z" fill="#F3D9AE" opacity="0.14"/>
+        <path d="M44 676 V222 A166 166 0 0 1 200 58" fill="none" stroke="#F3D9AE" stroke-width="2" opacity="0.6"/>
+        <!-- door swung open: narrow leaf on the right -->
+        <path d="M300 676 V150 L376 226 V676 Z" fill="#24392D" stroke="#3E5A4A" stroke-width="2"/>
+        <circle cx="316" cy="430" r="7" fill="#D9B98C"/>
+        <path d="M0 678 H420" stroke="#D9B98C" stroke-width="2" opacity="0.4"/>
+        <!-- light on the floor -->
+        <path d="M44 678 L376 678 L460 740 L-60 740 Z" fill="#F3D9AE" opacity="0.10"/>
+      </svg>
+    </div>
+  </div>
+  <div class="foot"><span class="brand"><svg><use href="#mark"/></svg>knock</span><span>Knock on the right door.</span><span class="pg">12</span></div>
+  <aside class="notes">End on the single ask. If the committee agrees, we take five names this week and start kickoff right after.</aside>
+</section>
+
+</main>
+</div>
+
+<script>
+/* ===========================================
+   SLIDE 2 GRID: illustrative applications vs replies
+   =========================================== */
+(function () {
+  const grid = document.getElementById('appGrid');
+  const replies = new Set([37, 118, 171]);
+  let html = '';
+  for (let i = 0; i < 216; i++) html += '<i' + (replies.has(i) ? ' class="r"' : '') + '></i>';
+  grid.innerHTML = html;
+})();
+
+/* ===========================================
+   SLIDE PRESENTATION CONTROLLER
+   Keyboard, wheel, touch, stage scaling, progress.
+   =========================================== */
+class SlidePresentation {
+  constructor() {
+    this.slides = document.querySelectorAll('.slide');
+    this.current = 0;
+    this.stage = document.getElementById('deckStage');
+    this.progress = document.getElementById('progress');
+    this.counter = document.getElementById('counter');
+    this.wheelLock = false;
+    this.setupStageScale();
+    this.setupKeyboardNav();
+    this.setupWheelNav();
+    this.setupTouchNav();
+    this.show(0);
+  }
+  setupStageScale() {
+    const scale = () => {
+      const f = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+      const x = (window.innerWidth - 1920 * f) / 2;
+      const y = (window.innerHeight - 1080 * f) / 2;
+      this.stage.style.transform = `translate(${x}px, ${y}px) scale(${f})`;
+    };
+    scale();
+    window.addEventListener('resize', scale);
+  }
+  setupKeyboardNav() {
+    document.addEventListener('keydown', (e) => {
+      if (document.body.classList.contains('editing')) return;
+      if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); this.show(this.current + 1); }
+      if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); this.show(this.current - 1); }
+      if (e.key === 'Home') this.show(0);
+      if (e.key === 'End') this.show(this.slides.length - 1);
+    });
+  }
+  setupWheelNav() {
+    window.addEventListener('wheel', (e) => {
+      if (this.wheelLock || Math.abs(e.deltaY) < 20) return;
+      this.wheelLock = true;
+      this.show(this.current + (e.deltaY > 0 ? 1 : -1));
+      setTimeout(() => (this.wheelLock = false), 700);
+    }, { passive: true });
+  }
+  setupTouchNav() {
+    let sx = 0;
+    window.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
+    window.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 50) this.show(this.current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  }
+  show(i) {
+    this.current = Math.max(0, Math.min(i, this.slides.length - 1));
+    this.slides.forEach((s, n) => {
+      s.classList.toggle('active', n === this.current);
+      s.classList.toggle('visible', n === this.current);
+    });
+    this.progress.style.width = ((this.current + 1) / this.slides.length * 100) + '%';
+    this.counter.textContent = String(this.current + 1).padStart(2, '0') + ' / ' + String(this.slides.length).padStart(2, '0');
+  }
+}
+const deck = new SlidePresentation();
+
+/* ===========================================
+   INLINE EDITING
+   Press E or hover the top-left corner. Edits autosave locally.
+   =========================================== */
+const editor = {
+  isActive: false,
+  key: 'knock-deck-edits-v1',
+  targets() { return document.querySelectorAll('.slide h1, .slide h2, .slide h3, .slide h4, .slide p, .slide li, .slide .price, .slide .pill'); },
+  toggleEditMode() {
+    this.isActive = !this.isActive;
+    document.body.classList.toggle('editing', this.isActive);
+    document.getElementById('editToggle').classList.toggle('active', this.isActive);
+    this.targets().forEach((el) => el.setAttribute('contenteditable', this.isActive ? 'true' : 'false'));
+    if (!this.isActive) this.save();
+  },
+  save() {
+    try { localStorage.setItem(this.key, JSON.stringify([...this.targets()].map((el) => el.innerHTML))); } catch (e) {}
+  },
+  load() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(this.key) || 'null');
+      if (!saved) return;
+      const els = this.targets();
+      if (saved.length !== els.length) return;
+      els.forEach((el, i) => { el.innerHTML = saved[i]; });
+    } catch (e) {}
+  }
+};
+editor.load();
+const editToggle = document.getElementById('editToggle');
+const hotzone = document.querySelector('.edit-hotzone');
+let hideTimeout = null;
+editToggle.addEventListener('click', () => editor.toggleEditMode());
+hotzone.addEventListener('click', () => editor.toggleEditMode());
+hotzone.addEventListener('mouseenter', () => { clearTimeout(hideTimeout); editToggle.classList.add('show'); });
+hotzone.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => { if (!editor.isActive) editToggle.classList.remove('show'); }, 400); });
+editToggle.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
+editToggle.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => { if (!editor.isActive) editToggle.classList.remove('show'); }, 400); });
+document.addEventListener('keydown', (e) => {
+  if ((e.key === 'e' || e.key === 'E') && e.target.getAttribute('contenteditable') !== 'true') editor.toggleEditMode();
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); editor.save(); }
+});
+document.addEventListener('input', () => editor.save());
+</script>
+</body>
+</html>

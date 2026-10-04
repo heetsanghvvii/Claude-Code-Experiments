@@ -1,5 +1,7 @@
-# Job Search Outbound Engine
+# Knock
 
+
+Knock on the right door: interviews at your target companies, through the people who work there.
 Finds the right people at a candidate's target companies, researches them, finds a real reason for them to talk, writes the opener, and drafts every follow-up from the actual conversation.
 
 North star: **interviews per 100 targeted prospects**.

@@ -312,7 +312,7 @@ def cmd_followups(a):
         except (llm.RefusedError, anthropic.APIError, RuntimeError) as e:
             print(f"{p.full_name}: FAILED ({e})")
             continue
-        if c.auto_send:
+        if c.auto_send and bridge.safe_to_auto_send(msg.body):
             bridge.queue(c, p, msg)
         p.messages.append(msg)
         drafted += 1

@@ -20,6 +20,15 @@ from . import feedback, messages, store
 from .models import Candidate, Message, Prospect
 
 AUTO_SEND_SENTIMENTS = {"warm", "neutral", "redirecting"}
+MAX_AUTO_SEND_CHARS = 600
+# Anything that could leak contact details or carry a link is held for a human, whatever the sentiment.
+UNSAFE_FOR_AUTO_SEND = re.compile(
+    r"https?://|www\.|\b[\w.+-]+@[\w-]+\.[\w.]+\b|(?:\+?\d[\s-]?){10,}|\b(?:password|otp|bank|upi|aadhaar|pan card)\b",
+    re.IGNORECASE)
+
+
+def safe_to_auto_send(body: str) -> bool:
+    return len(body) <= MAX_AUTO_SEND_CHARS and not UNSAFE_FOR_AUTO_SEND.search(body)
 LOCAL_INBOUND, LOCAL_OUTBOX = "bridge_inbound", "bridge_outbox"
 store.SHARED_DOCS.update({LOCAL_INBOUND, LOCAL_OUTBOX})
 
@@ -135,7 +144,7 @@ def handle_reply(c: Candidate, p: Prospect, text: str, guidance: str | None = No
     result = messages.next_reply(c, p, guidance)
     draft = Message(direction="outbound", step=step + 1, body=result.next_message, ask_type=result.ask_type,
                     created_at=_iso(now))
-    if c.auto_send and result.sentiment in AUTO_SEND_SENTIMENTS:
+    if c.auto_send and result.sentiment in AUTO_SEND_SENTIMENTS and safe_to_auto_send(draft.body):
         queue(c, p, draft)
     p.messages.append(draft)
     return result

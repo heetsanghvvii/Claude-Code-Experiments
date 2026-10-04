@@ -1,0 +1,121 @@
+[
+  {
+    "entry": "entry-4",
+    "skill": "Knock engine: 3 writer agents + judge",
+    "score": 7.6,
+    "spread": 0.52,
+    "judges": 4,
+    "criteria": {
+      "would_reply": 7.3,
+      "hook": 7.5,
+      "ask_quality": 8.0,
+      "human_voice": 7.9,
+      "brevity_format": 8.7,
+      "followup_quality": 6.5
+    },
+    "violations": [],
+    "rank": 1
+  },
+  {
+    "entry": "entry-5",
+    "skill": "Hybrid: research playbook + 3 angles + rubric self-judge",
+    "score": 7.38,
+    "spread": 0.42,
+    "judges": 4,
+    "criteria": {
+      "would_reply": 7.3,
+      "hook": 7.2,
+      "ask_quality": 7.8,
+      "human_voice": 6.0,
+      "brevity_format": 8.2,
+      "followup_quality": 8.3
+    },
+    "violations": [],
+    "rank": 2
+  },
+  {
+    "entry": "entry-2",
+    "skill": "Research playbook (33 rules)",
+    "score": 7.11,
+    "spread": 0.46,
+    "judges": 4,
+    "criteria": {
+      "would_reply": 6.9,
+      "hook": 6.9,
+      "ask_quality": 7.0,
+      "human_voice": 6.8,
+      "brevity_format": 8.3,
+      "followup_quality": 7.8
+    },
+    "violations": [],
+    "rank": 3
+  },
+  {
+    "entry": "entry-6",
+    "skill": "Knock engine: single writer",
+    "score": 6.9,
+    "spread": 0.38,
+    "judges": 4,
+    "criteria": {
+      "would_reply": 6.5,
+      "hook": 7.0,
+      "ask_quality": 7.4,
+      "human_voice": 6.5,
+      "brevity_format": 8.3,
+      "followup_quality": 6.2
+    },
+    "violations": [],
+    "rank": 4
+  },
+  {
+    "entry": "entry-1",
+    "skill": "Sales copywriting (Josh Braun / Sam McKenna style)",
+    "score": 6.65,
+    "spread": 0.46,
+    "judges": 4,
+    "criteria": {
+      "would_reply": 6.5,
+      "hook": 6.9,
+      "ask_quality": 7.1,
+      "human_voice": 6.1,
+      "brevity_format": 7.7,
+      "followup_quality": 5.9
+    },
+    "violations": [],
+    "rank": 5
+  },
+  {
+    "entry": "entry-7",
+    "skill": "Steve Dalton 5-point method",
+    "score": 4.71,
+    "spread": 0.77,
+    "judges": 4,
+    "criteria": {
+      "would_reply": 4.1,
+      "hook": 5.0,
+      "ask_quality": 4.2,
+      "human_voice": 5.1,
+      "brevity_format": 7.3,
+      "followup_quality": 3.5
+    },
+    "violations": [],
+    "rank": 6
+  },
+  {
+    "entry": "entry-3",
+    "skill": "Plain baseline",
+    "score": 3.5,
+    "spread": 0.71,
+    "judges": 4,
+    "criteria": {
+      "would_reply": 2.9,
+      "hook": 4.2,
+      "ask_quality": 1.9,
+      "human_voice": 4.1,
+      "brevity_format": 6.5,
+      "followup_quality": 2.5
+    },
+    "violations": [],
+    "rank": 7
+  }
+]

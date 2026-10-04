@@ -70,3 +70,7 @@ def test_web_facts_uses_profile_slug_and_dedupes(monkeypatch):
     assert queries[0] == "site:linkedin.com/posts/rahulshah"
     assert seen["content"].count("rahulshah_pricing-123") == 1
     assert facts[0].kind == "post"
+
+
+def test_doctor_greeting_allowed():
+    assert check_opener("Hi Dr. Menon, saw your move from medicine into product. What surprised you most?", "Aditya") == []

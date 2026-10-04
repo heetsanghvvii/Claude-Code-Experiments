@@ -1,0 +1,466 @@
+{
+ "mapping": [
+  {
+   "id": "entry-1",
+   "skill": "Sales copywriting (Josh Braun / Sam McKenna style)"
+  },
+  {
+   "id": "entry-2",
+   "skill": "Research playbook (33 rules)"
+  },
+  {
+   "id": "entry-3",
+   "skill": "Plain baseline"
+  },
+  {
+   "id": "entry-4",
+   "skill": "Knock engine: 3 writer agents + judge"
+  },
+  {
+   "id": "entry-5",
+   "skill": "Hybrid: research playbook + 3 angles + rubric self-judge"
+  },
+  {
+   "id": "entry-6",
+   "skill": "Knock engine: single writer"
+  },
+  {
+   "id": "entry-7",
+   "skill": "Steve Dalton 5-point method"
+  }
+ ],
+ "criteria": {
+  "would_reply": 30,
+  "hook": 20,
+  "ask_quality": 15,
+  "human_voice": 15,
+  "brevity_format": 10,
+  "followup_quality": 10
+ },
+ "judgements": [
+  {
+   "lens": "recipients",
+   "scores": [
+    {
+     "entry": "entry-4",
+     "would_reply": 7.6,
+     "hook": 7.6,
+     "ask_quality": 8.1,
+     "human_voice": 8,
+     "brevity_format": 8.6,
+     "followup_quality": 6.4,
+     "gate_failures": 1,
+     "best_message": "P10 note: \"Hi Manish, saw you share that Flipkart search is moving to semantic ranking. I spent 3 years as a data analyst at Myntra, so ranking metrics are familiar ground. How do you judge whether semantic ranking beats the old setup, beyond clicks?\" ('beyond clicks' tells an expert this person knows the field. As Manish I would answer this.)",
+     "worst_message": "P04 follow-up: \"Hi Priya, you worked on restaurant partners at Uber Eats before Swiggy. What's one partner pain point that looks the same across both?\" (The profile only says she came from Uber Eats India. Saying she worked on restaurant partners there is an unverified claim about her, which fails the hard gate.)",
+     "comments": "Best openers in the field. The hook comes first, the sender gives one proof point, and the single question is sharp and suited to the prospect's expertise (P02 'which failure state do apps still handle worst', P07 'how you prioritise features', P03's yes/no for a recruiter). Skipping 'I'm <Name>' (LinkedIn already shows it) makes the notes read like a peer wrote them, not a template. The voice is uneven and natural, with no stock vocabulary. Weaknesses: no note gives an easy out. P01's 'same MBA school as you' is oddly coy and throws away the IIMA tie. The follow-ups are crisp (under 26 words) and each takes a new angle (Razorpay to CRED merchant vs consumer, Uber Eats to Swiggy), but none mentions the earlier note, none gives an easy out or a natural close, and some drift into small talk about the prospect's career (P06 'was there a point you realised growth was the PM path'). Acting as each prospect, I would accept and reply to 8 of 10 notes."
+    },
+    {
+     "entry": "entry-5",
+     "would_reply": 7.2,
+     "hook": 7.2,
+     "ask_quality": 7.6,
+     "human_voice": 6,
+     "brevity_format": 8.4,
+     "followup_quality": 8.5,
+     "gate_failures": 0,
+     "best_message": "P01 follow-up: \"Hi Rahul, one narrower question on your assortment post. Which call was hardest to hand over from category to product, pricing or SKU selection? A one-line answer is plenty, and no worries if not.\" (It names the earlier note, narrows the question to an either/or tied to his post, gives an easy out, and stays under 40 words.)",
+     "worst_message": "P05 note: \"Hi Vikram, I'm Ananya, IIMB '25, 3 years as a software engineer at TCS, now moving toward AI product. You built a voice AI startup that was acquired in 2022. What did you learn as a founder that you now use building AI platforms? Fine if busy.\" (It opens with the sender, recites his bio back to him, the question is broad, and 'Fine if busy' is tacked on.)",
+     "comments": "The entry that follows the rubric most closely. Every note has a hook, a one-line credential, one question and an easy out. Every follow-up is a narrower, often either/or question with 'one line is plenty' and a graceful close, and these are the best follow-ups in the competition (P04 setup vs first week of orders, P10 query-level relevance vs post-click behaviour). The 'IIMA '25 (you're '19)' batch-year tie in P01 is a nice touch. Weaknesses: 'Fine if you're busy' ends all 10 notes and 'a narrower question after my note' opens most follow-ups. Both come across as template filler, and P09's 'Fine if you're busy, a one-line reply helps' is clumsy. Several note questions are generic ('what did you wish you knew before starting in product?', 'one retention mistake new growth teams make') and fail the 50-recipient test. I would reply to about 7 of 10."
+    },
+    {
+     "entry": "entry-6",
+     "would_reply": 7,
+     "hook": 7,
+     "ask_quality": 7.5,
+     "human_voice": 6.4,
+     "brevity_format": 8.5,
+     "followup_quality": 6.6,
+     "gate_failures": 0,
+     "best_message": "P08 follow-up: \"Hi Shreya, HUL taught us to sell through distributors, Meesho sells through resellers. Did that background help your product thinking at Meesho or did you have to rebuild from scratch?\" (Only a fellow HUL MT would make that observation. It gives her a real new reason to reply.)",
+     "worst_message": "P10 note and follow-up: \"I'm a data analyst at Myntra with 3 years in, now at IIM Kozhikode\" / \"I work with product analytics at Myntra\". (Wrong tense for a 2025 graduate, and it contradicts itself, which hurts credibility with a Flipkart search PM.)",
+     "comments": "Close to entry-4 in structure: hook, one proof point, a sharp question, no name intro. The follow-ups bring new angles and sometimes a real insight (the P08 distributor vs reseller point, P02 merchant vs consumer). Weaknesses: 'Hey' to a GPM, a Product Lead and a Senior PM is a little too casual for a cold message to someone senior in India. Hyphens are missing throughout ('non product', 'first time investors', 'Practo style', 'trade off'), which looks like over-correcting to avoid dashes and reads as sloppy. 'Curious,' is a repeated tic. P06's 'a COEP grad building growth at Groww is a nice Pune story' comes across as slightly patronising. Follow-ups never mention the first note and offer no easy out. Sender facts are stale (P09 'I'm at ISB now', P05 'I'm at IIM Bangalore'). I would reply to about 7 of 10."
+    },
+    {
+     "entry": "entry-2",
+     "would_reply": 6.6,
+     "hook": 6.6,
+     "ask_quality": 6.5,
+     "human_voice": 6.6,
+     "brevity_format": 8,
+     "followup_quality": 7.6,
+     "gate_failures": 0,
+     "best_message": "P07 follow-up: \"Hi Aditya, a smaller ask than a call. From your doctor-to-product move, what is one thing clinical experience gave you that a consultant would find hard to learn? A line or two is plenty.\" (It shrinks the ask openly after silence and asks a question only he can answer.)",
+     "worst_message": "P07 note: \"Hi Aditya, I'm Fatima, IIM Calcutta 2025, with 3 years in healthcare consulting at Deloitte. Your path from doctor to Head of Product at a health-tech startup is the one I'm curious about. Would you be open to a 15-minute chat sometime this month?\" (Sender first, a meeting request to a stranger, and nothing that makes it worth his time.)",
+     "comments": "Solid and clean. Notes stay inside the limit and ask one question, and the follow-ups are consistently narrower and sometimes add the sender's own observation (P06 'I have seen drop-off at first payment', P04 'curious if Swiggy sees the same pattern'), which is good value-add. P10's follow-up offers a menu of metrics (CTR, conversion, reformulation), which makes it easy to answer. Weaknesses: the note questions are often broad advice questions ('what would you tell a consultant moving into payments product?', 'what helped most in your switch?'). P07 and P08 open with the sender. No note gives an easy out. P04's 'is relevant to my work' is flat. 'A narrower question' becomes a fixed template opener. I would reply to about 6 or 7 of 10."
+    },
+    {
+     "entry": "entry-1",
+     "would_reply": 6.5,
+     "hook": 7,
+     "ask_quality": 6.9,
+     "human_voice": 5.9,
+     "brevity_format": 7.6,
+     "followup_quality": 6,
+     "gate_failures": 0,
+     "best_message": "P08 note: \"Hi Shreya, fellow HUL management trainee here (I was in sales, then IIM Lucknow '25). You went from HUL to product at Meesho, which is the move I'm exploring. Curious: what from the HUL years proved most useful in product?\" (It leads with the uncommon shared tie and asks one clear question.)",
+     "worst_message": "P02 follow-up: \"Hi Neha, following up on my note. I keep thinking about your point on trust in payment failures. If you ever have a minute, I'd love your view on what separates PMs who do this well. Totally fine if it's not a fit.\" (Stock 'following up', a vague ask with no question mark, nothing new.)",
+     "comments": "The notes are good: hook first, then name and school, then a 'Curious:' question. The 'Curious:' formula on every note is a visible tell, and P01 is long (279 characters). Hooks are specific (the Zepto assortment post, 'fellow Pune person', the HUL MT tie). The follow-ups are uneven. Several start with clich\u00e9s ('a gentle nudge', 'following up', 'no pressure at all' as an odd opener), and P05's 'A short reply would mean a lot' adds a little guilt. Good moves: P04 offers to share the sender's own onboarding approach, and most follow-ups end with an easy out. I would reply to about 6 or 7 of 10."
+    },
+    {
+     "entry": "entry-7",
+     "would_reply": 3.6,
+     "hook": 4.9,
+     "ask_quality": 4,
+     "human_voice": 5,
+     "brevity_format": 7,
+     "followup_quality": 3.4,
+     "gate_failures": 1,
+     "best_message": "P10 note: \"Hi Manish, I'm Divya, an IIM Kozhikode MBA with 3 years as a data analyst at Myntra. Your post on Flipkart search moving to semantic ranking was fascinating. How is the team thinking about measuring search quality as that shift happens?\" (A real topical question, despite opening with the sender.)",
+     "worst_message": "P01 note: \"Hi Rahul, fellow IIM Ahmedabad alum here. Like you, I'm moving from a brand management background into product...\" (Rahul came from category management, not brand management. A false 'like you' claim fails the gate, and he would notice.)",
+     "comments": "Every note opens with 'I'm <Name>, an <School> MBA', which is the sender-first pattern. The questions are vague and open-ended ('What shapes your approach to that problem?', 'How did you make that transition?', 'What was the biggest shift for you?') and pass the 50-recipient test. Stock praise: 'was sharp', 'stood out', 'fascinating', 'great read'. Every follow-up starts with 'following up on my (earlier) note' and moves up to a call ('spare 10 minutes', 'here or on a short call'), so the ask grows after silence. P02's follow-up asks what to read, which is the one small, smart ask. P09's 'fellow D2C founder turned product person' overstates the sender. I would accept a few of these but reply to about 3."
+    },
+    {
+     "entry": "entry-3",
+     "would_reply": 2.5,
+     "hook": 4.4,
+     "ask_quality": 2,
+     "human_voice": 4,
+     "brevity_format": 6.4,
+     "followup_quality": 2.4,
+     "gate_failures": 0,
+     "best_message": "P08 note: \"Hi Shreya, I'm Nikhil, MBA IIM Lucknow 2025 and a fellow HUL management trainee alum (ex-sales officer). I saw you moved from HUL to product at Meesho, which is the switch I'm hoping to make. Would love to connect.\" (The shared tie is strong enough to get the connection accepted.)",
+     "worst_message": "P03 follow-up: \"Hi Arjun, following up on my note. I'm exploring product roles in B2B SaaS and Freshworks is high on my list. Do you have any product openings coming up that suit a supply chain professional from Asian Paints? I'd be happy to share my profile. Thanks!\" (It jumps to asking for a job, offers a r\u00e9sum\u00e9, and is all about the sender.)",
+     "comments": "No note contains an ask. All ten end with 'Would love to connect', so nothing gives the prospect a reason to reply. Every note opens with 'I'm <Name>' plus a r\u00e9sum\u00e9 line, and the praise is stock ('inspiring' twice, 'fascinating', 'great read', 'really resonated'). The follow-ups are the weakest in the field. Most ask for 15-minute calls or 'two or three questions', which is a bigger ask after silence. They restate the background instead of adding anything new, and P03 turns into a job ask with an offer to send a profile. Several end with 'Thanks!' and 40 to 55 words. I would accept some of these connections but reply to almost none."
+    }
+   ],
+   "ranking": [
+    "entry-4",
+    "entry-5",
+    "entry-6",
+    "entry-2",
+    "entry-1",
+    "entry-7",
+    "entry-3"
+   ],
+   "best_ideas_to_graft": "entry-4 wins on its openers and needs its follow-ups fixed. Changes to make:\n(1) From entry-5: rebuild every follow-up as a reference of a few words to the first note, plus a narrower either/or question tied to the prospect's own post, plus an easy-out close. Examples: 'pricing or SKU selection?', 'setup or the first week of orders?', 'query-level relevance or what shoppers do after the first page?', ending with 'One line is plenty, no worries if not.' Also take entry-5's batch-year tie 'IIMA '25 (you're '19)' to replace entry-4's coy 'same MBA school as you'.\n(2) From entry-2: name the smaller ask openly ('a smaller ask than a call'). Add the sender's own observation to the follow-up so it carries new value ('I have seen drop-off at first payment, curious if Groww sees the same').\n(3) From entry-6: the P08 follow-up's insight that only an insider would have ('HUL sells through distributors, Meesho through resellers'). This is the model for making a follow-up add real value instead of small talk about the prospect's career.\n(4) From entry-1: offer something in return where the sender has real proof ('Happy to share how I approached the 7-to-2-day onboarding cut if useful').\n(5) Add a short easy out to entry-4's notes, but vary the wording and don't copy entry-5's 'Fine if you're busy' on every note.\nFixes for the winner: remove the unverified claim in P04's follow-up that Priya 'worked on restaurant partners at Uber Eats' (it fails the hard gate). Keep entry-4's choice to skip 'I'm <Name>' and its questions suited to each prospect's expertise ('beyond clicks', 'which failure state apps still handle worst'). Those are what make it the winner."
+  },
+  {
+   "lens": "hiring-manager",
+   "scores": [
+    {
+     "entry": "entry-5",
+     "would_reply": 7.4,
+     "hook": 7.2,
+     "ask_quality": 8,
+     "human_voice": 6,
+     "brevity_format": 8,
+     "followup_quality": 8.6,
+     "gate_failures": 0,
+     "best_message": "P01 note: \"Hi Rahul, your post on PMs, not category teams, now owning quick commerce assortment made me curious. I'm Asha, IIMA '25 (you're '19), 3 years in HUL brand management. What did you learn first moving from Flipkart category to product? Fine if you're busy.\"",
+     "worst_message": "P07 note: \"Hi Aditya, I'm Fatima, IIM Calcutta '25, 3 years in healthcare consulting at Deloitte. Your move from doctor to product head is the path I'm trying to understand. What did you wish you knew before starting in product? Fine if you're busy.\" (sender-first, a generic 'what do you wish you knew' question, and a tacked-on easy out)",
+     "comments": "The follow-ups match the rubric most closely of any entry. Each one narrows the first question, often by offering options ('pricing or SKU selection', 'setup or in the first week of orders'), stays under 40 words, refers back to the note, never grows the ask and ends with an easy out. The notes give the hook first and then one line of credentials, and every question can be answered in a line. The weakness is voice. 'Fine if you're busy / swamped' is bolted onto all 10 notes, and every follow-up opens with 'a narrower question after my note' and closes with 'One line is plenty, and no pressure'. That reads as a formula, and in a 300-character note it costs space a sharper question could use. P05, P07 and P08 put the sender first. All notes go over LinkedIn's 200-character limit for free accounts (all are under the 300-character premium limit, which is true of every entry)."
+    },
+    {
+     "entry": "entry-4",
+     "would_reply": 7.4,
+     "hook": 7.6,
+     "ask_quality": 8,
+     "human_voice": 8,
+     "brevity_format": 8.5,
+     "followup_quality": 6.8,
+     "gate_failures": 0,
+     "best_message": "P10 note: \"Hi Manish, saw you share that Flipkart search is moving to semantic ranking. I spent 3 years as a data analyst at Myntra, so ranking metrics are familiar ground. How do you judge whether semantic ranking beats the old setup, beyond clicks?\"",
+     "worst_message": "P06 follow-up: \"Hi Tanvi, you went from COEP in Pune to growth at Groww. Was there a point where you realised growth was the PM path for you?\" (soft career-journey question that adds no value, plus no context and no easy out)",
+     "comments": "These sound the most human of the set: uneven sentences, no AI vocabulary, and pointed questions that show a practitioner's angle ('beyond clicks', 'which failure state do you think most payment apps still handle worst?'). The follow-ups are very short (18 to 26 words) and pull in a second profile fact (Razorpay to CRED, Uber Eats to Swiggy) for new value, which is the right instinct. But apart from P01, none of them refers back to the first note, so each reads like a separate cold message. None offers an easy out, and some drift into personal-journey questions (P06, P09). P01's 'same MBA school as you' is oddly coy when naming IIMA would be stronger. With no easy outs anywhere, the 'ease of reply' and 'graceful close' scores suffer."
+    },
+    {
+     "entry": "entry-2",
+     "would_reply": 7,
+     "hook": 7,
+     "ask_quality": 7.2,
+     "human_voice": 7.2,
+     "brevity_format": 8.2,
+     "followup_quality": 8,
+     "gate_failures": 0,
+     "best_message": "P10 follow-up: \"Hi Manish, a narrower question. For semantic ranking, which single metric would you trust most to show search got better: click-through, conversion, or reformulation rate? One line is plenty.\"",
+     "worst_message": "P07 note: \"Hi Aditya, I'm Fatima, IIM Calcutta 2025, with 3 years in healthcare consulting at Deloitte. Your path from doctor to Head of Product at a health-tech startup is the one I'm curious about. Would you be open to a 15-minute chat sometime this month?\" (sender-first and asks a stranger with a thin profile for a call)",
+     "comments": "This is a solid, clean template. The notes give the hook first and then concrete proof (P04's '7 days to 2', P09's '40 lakh'), and every follow-up is a narrower, more answerable question. The P07 follow-up ('a smaller ask than a call') is the best de-escalation in the competition. Several note asks are broad advice requests ('What would you tell a consultant moving into payments product?', 'What helped most in your category-to-product switch?'). P04's 'is relevant to my work' is a weak hook. Most follow-ups have no easy out. P09's 'am now at ISB' gets the timeline wrong for a 2025 graduate writing in late 2026."
+    },
+    {
+     "entry": "entry-1",
+     "would_reply": 6.8,
+     "hook": 7.4,
+     "ask_quality": 7.4,
+     "human_voice": 6.4,
+     "brevity_format": 7.6,
+     "followup_quality": 6,
+     "gate_failures": 0,
+     "best_message": "P01 note: \"Hi Rahul, your post on quick commerce assortment moving from category teams to PMs stuck with me. I'm Asha, IIMA '25, 3 years in brand management at HUL, now moving into product. You made a similar jump from Flipkart category. Curious what surprised you most in the first months?\"",
+     "worst_message": "P05 follow-up: \"Hi Vikram, a gentle nudge. As someone who went from founder to leading AI Platform product, what's one habit that mattered most for staying close to the tech? A short reply would mean a lot. Understand if your calendar is full.\" (a nudge clich\u00e9, light guilt, and a needy close)",
+     "comments": "The notes are good: the hook comes first, credentials take one line, and the single question is specific (P10 'how do you judge whether semantic ranking is working?'). The follow-ups pull it down. 'Following up' or 'a gentle nudge' opens 7 of 10, lines like 'A short reply would mean a lot' and 'I'd value your honest view' add mild pressure, and P02's follow-up becomes vaguer ('what separates PMs who do this well'). P04's follow-up has the best reciprocity move in the field: 'Happy to share how I approached it if useful.' The 'Curious:' tic repeats across the set. P01 is close to the character limit at 279."
+    },
+    {
+     "entry": "entry-6",
+     "would_reply": 6.5,
+     "hook": 7,
+     "ask_quality": 7.4,
+     "human_voice": 6,
+     "brevity_format": 8,
+     "followup_quality": 7,
+     "gate_failures": 0,
+     "best_message": "P08 follow-up: \"Hi Shreya, HUL taught us to sell through distributors, Meesho sells through resellers. Did that background help your product thinking at Meesho or did you have to rebuild from scratch?\"",
+     "worst_message": "P10 note: \"Hi Manish, saw your note on Flipkart search moving to semantic ranking. I'm a data analyst at Myntra with 3 years in, now at IIM Kozhikode. Curious, how do you measure whether semantic ranking actually beat the old results?\" (says she is currently both at Myntra and at IIMK, though she graduated in 2025, so a hiring manager who checks her profile will see a contradiction)",
+     "comments": "The follow-ups add the most new insight of any entry. P08's distributor-versus-reseller line and P02's merchant-versus-consumer angle give a real reason to reply. Execution problems hold it back. 'Hey' to strangers who are senior to the sender is a cultural misfit in India. 'Curious,' starts most of the questions. Hyphens are dropped everywhere ('non product', 'first time investors', 'Practo style'), which reads like a dash-avoidance quirk. 'A nice Pune story' (P06) sounds patronising. Sender facts are wrong in places: 'I'm at IIM Bangalore', 'I'm at ISB now', and the P10 Myntra contradiction. No follow-up offers an easy out, and several do not refer back to the first note."
+    },
+    {
+     "entry": "entry-7",
+     "would_reply": 4,
+     "hook": 5,
+     "ask_quality": 4.2,
+     "human_voice": 5,
+     "brevity_format": 7,
+     "followup_quality": 3.6,
+     "gate_failures": 0,
+     "best_message": "P04 note: \"Hi Priya, I'm Rohan, an FMS Delhi MBA. Before that I was an analyst at Zomato, where I built a tool that cut restaurant onboarding from 7 days to 2. Your post on the partner app redesign was useful. What did you learn that surprised you most?\"",
+     "worst_message": "P05 follow-up: \"Hi Vikram, a gentle follow-up on my note. As an engineer turned MBA, I'd value one piece of advice from you on learning AI product craft. Would you be open to sharing a thought here or on a short call?\" (a Director at Microsoft gets a clich\u00e9 nudge, a vague advice ask and a call request that grows the ask)",
+     "comments": "Almost every note puts the sender first ('I'm Karan, an ISB 2025 grad...'), with stock praise ('was sharp', 'great read', 'fascinating', 'stood out') and asks too broad to answer in a line ('What shapes your approach to that problem?', 'How did you make that transition?'). P03's 'Could I ask you a question or two' is a request for permission to ask, not an ask. Every follow-up starts with 'following up on my (earlier) note', most carry the passive 'I'd still...', and 8 of 10 grow the ask to a '10 minute' or 'short call' after silence, which breaks the escalation criterion. P02's follow-up asking for a reading recommendation is the only one that shrinks the ask."
+    },
+    {
+     "entry": "entry-3",
+     "would_reply": 2.4,
+     "hook": 4,
+     "ask_quality": 1.8,
+     "human_voice": 4,
+     "brevity_format": 5.8,
+     "followup_quality": 2.4,
+     "gate_failures": 0,
+     "best_message": "P04 note: \"Hi Priya, I'm Rohan, ex-Zomato analyst (MBA FMS Delhi 2025). I built a tool that cut restaurant onboarding from 7 days to 2, so your post on the partner app redesign really caught my eye. Would love to connect.\"",
+     "worst_message": "P03 follow-up: \"Hi Arjun, following up on my note. I'm exploring product roles in B2B SaaS and Freshworks is high on my list. Do you have any product openings coming up that suit a supply chain professional from Asian Paints? I'd be happy to share my profile. Thanks!\" (an unpackaged job ask, the sender's own employer used as their identity, and an exclamation-mark close)",
+     "comments": "This is the classic ignore pile. Every note follows 'I'm X, school, years, target... your [thing] is inspiring/fascinating... Would love to connect', which puts the sender first, contains no question and fails the 50-recipient test. P01 leaves the strongest hook (Rahul's assortment post) out of the note and saves it for the follow-up. The follow-ups mix 'following up on my note' with 'thanks for connecting', so the situation is unclear. Nearly all ask for 15 minutes or a call, P02 and P05 grow to 'two or three questions', and P03 asks a recruiter for openings. P02 and P05 run past 50 words, and the style is full of stock warmth ('really resonated', 'Thanks either way!'). No hard gate is broken, but nothing here earns a reply."
+    }
+   ],
+   "ranking": [
+    "entry-5",
+    "entry-4",
+    "entry-2",
+    "entry-1",
+    "entry-6",
+    "entry-7",
+    "entry-3"
+   ],
+   "best_ideas_to_graft": "Changes to make to entry-5, the winner:\n(1) From entry-6 and entry-4: build each follow-up around a second, different profile fact rather than just narrowing the first question. Examples: Razorpay to CRED as merchant versus consumer; Uber Eats to Swiggy; entry-6 P08's 'HUL taught us to sell through distributors, Meesho sells through resellers'. That is real new value, the 25-weight criterion, where entry-5 currently restates the same topic.\n(2) From entry-4: write sharper questions that sound like a practitioner. Entry-4 P10's 'beyond clicks' and P02's 'which failure state do you think most payment apps still handle worst?' beat entry-5's softer 'What did you wish you knew' (P07) and 'What did you learn first' (P01).\n(3) From entry-4: a more human voice. Remove the 'Fine if you're busy / swamped' tail from all 10 connection notes, which saves 20 to 25 characters toward the 200-character free-account limit and drops the formula. Keep the easy out only in the follow-up.\n(4) From entry-2: name candidate answers inside the question, as in 'click-through, conversion, or reformulation rate?', so a one-line reply takes no effort. Also take P07's explicit de-escalation, 'a smaller ask than a call', for thin-profile or senior targets.\n(5) From entry-1 P04: a reciprocity offer in the follow-up ('Happy to share how I approached it if useful') where the candidate has a relevant win, such as Rohan's onboarding tool or Ishaan's D2C brand.\n(6) From entry-1 and entry-6: put the hook ahead of the name in P05, P07 and P08, which currently open with 'I'm X'.\n(7) Vary the follow-up opener and close across pairs instead of repeating 'a narrower question after my note ... One line is plenty, and no pressure' every time.\n(8) Keep entry-5's own '(you're '19)' alumni detail, which is the most specific alumni tie in the field, and never state a 2025 graduate as currently enrolled, as entry-6 and entry-2 did."
+  },
+  {
+   "lens": "recruiter-india",
+   "scores": [
+    {
+     "entry": "entry-5",
+     "would_reply": 7.6,
+     "hook": 7.2,
+     "ask_quality": 8.2,
+     "human_voice": 6.2,
+     "brevity_format": 8.5,
+     "followup_quality": 8.6,
+     "gate_failures": 0,
+     "best_message": "P01 note: \"Hi Rahul, your post on PMs, not category teams, now owning quick commerce assortment made me curious. I'm Asha, IIMA '25 (you're '19), 3 years in HUL brand management. What did you learn first moving from Flipkart category to product? Fine if you're busy.\" (follow-up adds a sharp binary: \"pricing or SKU selection?\")",
+     "worst_message": "P03 follow-up: \"Hi Arjun, a narrower question after my note. In your weekly updates, which skill from non-product backgrounds gets noticed first when you read profiles for product? Happy with a one-line reply, and fine if not.\" (garbled logic: it ties his weekly posts to how he screens profiles)",
+     "comments": "Best match for the rubric. Every note opens on the recipient's own post or a shared tie, gives one proof point, asks one expert-matched question and offers an easy way out. Every follow-up is a narrower question, often a binary one (setup vs first week of orders; query relevance vs post-click behaviour), under 40 words with a gentle close. The '(you're '19)' alumni detail is a nice touch. The main weakness is formula: 'Fine if you're busy/swamped' ends all 10 notes, and 'a narrower question after my note... one line is plenty, and no worries if not' appears in nearly every follow-up. A candidate sending all 10 would get caught in any shared Slack or alumni WhatsApp group. Hindi-belt politeness is fine, but tacking the tag onto the end of a 250-character invite reads slightly needy to a GPM at CRED."
+    },
+    {
+     "entry": "entry-4",
+     "would_reply": 7.4,
+     "hook": 7.6,
+     "ask_quality": 8,
+     "human_voice": 8.3,
+     "brevity_format": 8.8,
+     "followup_quality": 7,
+     "gate_failures": 0,
+     "best_message": "P02 follow-up: \"Hi Neha, you moved from Razorpay to CRED. Is designing a payment experience for consumers a different muscle than building for merchants?\" (a new, verified profile fact turned into a question only she can answer, in 22 words)",
+     "worst_message": "P01 note: \"...I'm moving from brand management at HUL into product, same MBA school as you...\" (coyly avoids naming IIM Ahmedabad, which is the strongest tie in the whole pair, and drops the sender's name)",
+     "comments": "Most human voice in the field: uneven sentences, no stock phrases, questions a practitioner would actually enjoy answering ('Which failure state do you think most payment apps still handle worst?'; 'clinician's workflow or the patient's experience?'). Follow-ups are very short and bring fresh value from verified profile facts (Uber Eats to Swiggy, Razorpay to CRED, 6 years on Flipkart). It loses points because follow-ups never acknowledge the first note and none offers an easy out, so some read like a second cold message. Notes also have no easy out. 'Hi Aditya' to a former doctor who now heads product is acceptable in startup culture, but 'Dr. Menon' is safer for a first touch in India."
+    },
+    {
+     "entry": "entry-2",
+     "would_reply": 7,
+     "hook": 7,
+     "ask_quality": 7.2,
+     "human_voice": 6.5,
+     "brevity_format": 8.5,
+     "followup_quality": 8.2,
+     "gate_failures": 0,
+     "best_message": "P10 follow-up: \"Hi Manish, a narrower question. For semantic ranking, which single metric would you trust most to show search got better: click-through, conversion, or reformulation rate? One line is plenty.\" (a menu of options makes the reply nearly effortless and signals analytics depth)",
+     "worst_message": "P07 note: \"Hi Aditya, I'm Fatima, IIM Calcutta 2025, with 3 years in healthcare consulting at Deloitte. Your path from doctor to Head of Product... Would you be open to a 15-minute chat sometime this month?\" (opens with the sender, and asks a thin-profile senior for a call in the first touch)",
+     "comments": "Solid, credible notes with real proof points (the hair-care sub-brand launch, the 7-to-2-day onboarding cut). The follow-ups are the strongest part, especially P07's explicit downshift ('a smaller ask than a call') and P10's three-metric menu. Weaknesses: several note asks are generic advice requests ('What would you tell a consultant moving into payments product?', 'What skill should an engineer... build first?'), no note offers an easy out, and every follow-up opens with the same 'a narrower question' line. Phrasing like 'is a problem I want to understand better' and 'raised a question for me' is slightly stiff."
+    },
+    {
+     "entry": "entry-6",
+     "would_reply": 6.5,
+     "hook": 7,
+     "ask_quality": 7.4,
+     "human_voice": 7.2,
+     "brevity_format": 8.3,
+     "followup_quality": 5.8,
+     "gate_failures": 0,
+     "best_message": "P08 follow-up: \"Hi Shreya, HUL taught us to sell through distributors, Meesho sells through resellers. Did that background help your product thinking at Meesho or did you have to rebuild from scratch?\" (a genuine insider insight only an ex-HUL person would offer; the best single follow-up in the competition)",
+     "worst_message": "P07 follow-up: \"Hi Aditya, health-tech is crowded with Practo style players. What's one thing a doctor sees in a product that a non clinician PM usually misses?\" (to the head of product at a Practo competitor, the opening line reads as a dig at his company)",
+     "comments": "Good hooks and some excellent insider follow-ups (P08, and P02 on Razorpay to CRED). Cultural register is off: 'Hey' to a 9-year GPM at CRED and to other senior strangers is too casual for an Indian cold note. Some follow-ups are risky: the Practo dig, the slightly patronising 'a COEP grad building growth at Groww is a nice Pune story', and P10 claiming 'I work with product analytics at Myntra' when she is now doing an MBA. Missing hyphens ('non product', 'first time investors') read human but careless. Follow-ups have no easy out and no reference to the first note."
+    },
+    {
+     "entry": "entry-1",
+     "would_reply": 6.2,
+     "hook": 6.8,
+     "ask_quality": 7,
+     "human_voice": 6,
+     "brevity_format": 8,
+     "followup_quality": 5.6,
+     "gate_failures": 0,
+     "best_message": "P04 follow-up: \"Hi Priya, following up. Having cut restaurant onboarding from 7 days to 2 at Zomato, I'm curious whether onboarding was a big part of the Swiggy redesign too. Happy to share how I approached it if useful. No worries if busy.\" (the only give-first offer in the field)",
+     "worst_message": "P05 follow-up: \"Hi Vikram, a gentle nudge. As someone who went from founder to leading AI Platform product, what's one habit that mattered most for staying close to the tech? A short reply would mean a lot. Understand if your calendar is full.\" (clich\u00e9 opener plus mild guilt to a Director)",
+     "comments": "The notes are competent: hook first, short sender line, one question. But 'Curious:' sits on every ask and they blur together. Follow-ups bring the scores down. 'Following up' opens most of them, 'a gentle nudge' and 'no pressure at all' are stock phrases, 'a short reply would mean a lot' adds guilt, and several re-state the sender's background instead of adding something new. P02's follow-up ask ('what separates PMs who do this well') is vague. Credit for 'Hi Dr. Menon', which is the right register in India, and for P04's offer to share."
+    },
+    {
+     "entry": "entry-7",
+     "would_reply": 4.8,
+     "hook": 5.5,
+     "ask_quality": 4.5,
+     "human_voice": 5.5,
+     "brevity_format": 8,
+     "followup_quality": 3.8,
+     "gate_failures": 1,
+     "best_message": "P02 follow-up: \"Hi Neha, a quick follow-up on my note. I'm still thinking about your point on trust in payment failures. Is there one thing you would suggest I read or look at to understand that space better?\" (the ask stays small and is easy to answer)",
+     "worst_message": "P01 note: \"Hi Rahul, fellow IIM Ahmedabad alum here. Like you, I'm moving from a brand management background into product...\" (factually wrong: Rahul came from category management at Flipkart, not brand management. Wrong personalization fails a hard gate)",
+     "comments": "Asks are open-ended and hard to answer in a line ('How did you make that transition?', 'What shapes your approach to that problem?', 'How is the team thinking about measuring search quality', which also fishes for internal information). Follow-ups are the template 'following up on my earlier note... would you share here or on a short call / 10 minutes', which makes the ask bigger after silence. Sender-first openings ('I'm Karan, an ISB 2025 grad...') in most notes. P09's 'fellow D2C founder turned product person' overclaims, since Ishaan is not a PM yet. One hard-gate failure (P01)."
+    },
+    {
+     "entry": "entry-3",
+     "would_reply": 3.5,
+     "hook": 4.5,
+     "ask_quality": 2,
+     "human_voice": 4.5,
+     "brevity_format": 7,
+     "followup_quality": 3,
+     "gate_failures": 0,
+     "best_message": "P08 note: \"Hi Shreya, I'm Nikhil, MBA IIM Lucknow 2025 and a fellow HUL management trainee alum (ex-sales officer). I saw you moved from HUL to product at Meesho, which is the switch I'm hoping to make. Would love to connect.\" (the strong shared tie carries it, despite no ask)",
+     "worst_message": "P03 follow-up: \"Hi Arjun, following up on my note. I'm exploring product roles in B2B SaaS and Freshworks is high on my list. Do you have any product openings coming up that suit a supply chain professional from Asian Paints? I'd be happy to share my profile. Thanks!\" (a direct job ask, offers a profile, and puts the research burden on the recruiter)",
+     "comments": "All 10 notes are 'I'm X, credentials..., would love to connect': sender-first, no ask (0 on ask quality), and stock adjectives ('inspiring', 'fascinating', 'great read'). Every follow-up makes the ask bigger, usually to a 15-minute call, and P03 asks a recruiter outright for openings. Follow-ups run 40 to 55 words, use exclamation marks and lean on 'following up on my note'. P05 and P07 call a senior Director's path 'inspiring', which reads as flattery from a template. No technical gate failures, but in practice nothing here should be sent."
+    }
+   ],
+   "ranking": [
+    "entry-5",
+    "entry-4",
+    "entry-2",
+    "entry-6",
+    "entry-1",
+    "entry-7",
+    "entry-3"
+   ],
+   "best_ideas_to_graft": "Grafts onto entry-5, the winner:\n(1) From entry-4: build follow-ups on a verified profile fact the note did not use, such as 'you moved from Razorpay to CRED, is consumer payments a different muscle than merchant?' or the Uber Eats to Swiggy move. This beats a narrower version of the same question, because it gives the recipient a fresh reason to reply. Also copy entry-4's unpolished, uneven sentences to fix entry-5's template feel.\n(2) From entry-6: one line of insider insight only this sender could write ('HUL taught us to sell through distributors, Meesho sells through resellers'), used where there is a shared employer or a similar transition (P08, P09).\n(3) From entry-2: the explicit downshift line ('a smaller ask than a call') whenever the first ask was large, and a menu of options as the question ('click-through, conversion, or reformulation rate?'), which makes a reply nearly effortless.\n(4) From entry-1: a give-first offer in the follow-up ('Happy to share how I approached it if useful') for pairs where the candidate has directly relevant work (P04 onboarding, P10 analytics). Also use 'Dr. Menon', the safer register for a doctor in India.\n(5) From entry-2: the most concrete proof point (the hair-care sub-brand launch) instead of a bare tenure line.\n(6) Vary or drop entry-5's repeated 'Fine if you're busy' and 'one line is plenty, and no worries if not' tags across the 10 messages, so the set does not read as a template when it is compared in alumni WhatsApp groups. Keep exactly one easy out per message, phrased differently each time."
+  },
+  {
+   "lens": "rubric-auditor",
+   "scores": [
+    {
+     "entry": "entry-5",
+     "would_reply": 7.2,
+     "hook": 7.2,
+     "ask_quality": 7.6,
+     "human_voice": 5.8,
+     "brevity_format": 8,
+     "followup_quality": 7.6,
+     "gate_failures": 0,
+     "best_message": "P01 note: 'Hi Rahul, your post on PMs, not category teams, now owning quick commerce assortment made me curious. I'm Asha, IIMA '25 (you're '19), 3 years in HUL brand management. What did you learn first moving from Flipkart category to product? Fine if you're busy.'",
+     "worst_message": "P09 note: '...What did you drop first from the founder mindset? Fine if you're busy, a one-line reply helps.' (comma splice, two easy-outs stacked). Runner-up: P03 follow-up 'In your weekly updates, which skill from non-product backgrounds gets noticed first...', which mixes up his public posts with his private screening.",
+     "comments": "0 gate failures. Notes are 219-255 chars and follow-ups 34-39 words. Every note has one specific, expert-matched question. Every follow-up narrows the ask and ends with an easy out, the best follow-up structure in the field per the rubric (adds value, same-size ask, graceful close). P01 handles the alumni tie best of all entries. Weaknesses: all 10 notes end 'Fine if you're busy/swamped' and all 10 follow-ups open 'a narrower question (after my note)'. Sent in volume, that is a template tell. Notes P05-P08 put 'I'm Name, school' before the hook. 'Stayed with me' and 'hit home' are mild stock phrases. P04 follow-up assumes the redesign covered onboarding drop-offs, and P09 implies a direct snacks-to-Rapido move. Both are minor assumptions, not gate-level. No entry states send timing, so cadence is neutral for everyone."
+    },
+    {
+     "entry": "entry-2",
+     "would_reply": 7,
+     "hook": 6.9,
+     "ask_quality": 7,
+     "human_voice": 6.8,
+     "brevity_format": 8.4,
+     "followup_quality": 7.3,
+     "gate_failures": 0,
+     "best_message": "P10 follow-up: 'Hi Manish, a narrower question. For semantic ranking, which single metric would you trust most to show search got better: click-through, conversion, or reformulation rate? One line is plenty.' (the multiple-choice options make it nearly effortless to reply). Close second: P07 follow-up 'a smaller ask than a call', which downsizes after silence.",
+     "worst_message": "P07 note: 'Hi Aditya, I'm Fatima, IIM Calcutta 2025... Would you be open to a 15-minute chat sometime this month?' (opens with the sender, asks a cold, thin-profile Head of Product for time in a first touch)",
+     "comments": "0 gate failures. The plainest prose among the top entries, with almost no stock vocabulary. Notes are 204-247 chars and follow-ups 27-37 words. Asks are specific and answerable, with two exceptions: P07 asks for a call in the first touch, and P02 is a broad 'what would you tell a consultant'. Follow-ups really do narrow the question, and P07 is a textbook de-escalation. Weaknesses: 'a narrower question' opens 9 of 10 follow-ups (template). About half the follow-ups have no easy out or graceful close (P01, P03, P08). P07 and P08 notes lead with the sender. P01 and P02 notes never flag the IIMA overlap as shared. The P06 follow-up invents a sender detail not in pairs.json ('I have seen drop-off at first payment')."
+    },
+    {
+     "entry": "entry-4",
+     "would_reply": 6.8,
+     "hook": 7.4,
+     "ask_quality": 7.8,
+     "human_voice": 7.3,
+     "brevity_format": 9,
+     "followup_quality": 5.6,
+     "gate_failures": 1,
+     "best_message": "P10 note: 'Hi Manish, saw you share that Flipkart search is moving to semantic ranking. I spent 3 years as a data analyst at Myntra, so ranking metrics are familiar ground. How do you judge whether semantic ranking beats the old setup, beyond clicks?' ('beyond clicks' signals real expertise)",
+     "worst_message": "P04 follow-up: 'Hi Priya, you worked on restaurant partners at Uber Eats before Swiggy...' (GATE FAIL: pairs.json says only that she joined Swiggy from Uber Eats India. Her role there is invented.)",
+     "comments": "1 gate failure (P04 follow-up, fabricated personalization). The best notes in the field: hook first, no 'I'm Name' preamble, one proof point, one sharp question ('Which failure state do you think most payment apps still handle worst?'). Notes are 212-242 chars and follow-ups 18-26 words, the tightest of all entries. Follow-ups bring genuinely new angles from a second profile fact (Razorpay to CRED, COEP to Groww, 6 years at Flipkart). But they never mention the earlier note, never give an easy out and never close the thread, so they lose on context and graceful close. P01 'same MBA school as you' is oddly coy and wastes the IIMA tie. The P06 note invents a sender detail ('watching first-time users drop off'). Without the gate this entry would challenge for first."
+    },
+    {
+     "entry": "entry-1",
+     "would_reply": 6.4,
+     "hook": 6.5,
+     "ask_quality": 6.9,
+     "human_voice": 5.9,
+     "brevity_format": 7.6,
+     "followup_quality": 5.9,
+     "gate_failures": 0,
+     "best_message": "P04 follow-up: 'Hi Priya, following up. Having cut restaurant onboarding from 7 days to 2 at Zomato, I'm curious whether onboarding was a big part of the Swiggy redesign too. Happy to share how I approached it if useful. No worries if busy.' (gives something back, has an easy out)",
+     "worst_message": "P05 follow-up: 'Hi Vikram, a gentle nudge. ...A short reply would mean a lot. Understand if your calendar is full.' (nudge clich\u00e9 plus mild guilt)",
+     "comments": "0 gate failures. Notes are solid but dense (222-279 chars, P01 nearly at the 300 cap). The structure is identical every time: hook, 'I'm Name, school, years', 'Curious:'. The 'Curious:' colon tic shows up in most notes. Stock phrases: 'sharp framing', 'stuck with me', 'hit home', 'resonated', 'a gentle nudge', 'would mean a lot'. Six follow-ups open 'following up'. P02's follow-up is vague ('what separates PMs who do this well') and has no question mark. P10 tells a Flipkart SPM she is 'keen on product analytics or PM at Flipkart', an implicit job mention in a cold note. P01 never flags the IIMA overlap. P06 follow-up invents a sender detail ('I've seen first-time users drop off early'). Easy outs are present in most messages, which is good."
+    },
+    {
+     "entry": "entry-6",
+     "would_reply": 6.2,
+     "hook": 7,
+     "ask_quality": 7.4,
+     "human_voice": 6.2,
+     "brevity_format": 8.5,
+     "followup_quality": 5.6,
+     "gate_failures": 1,
+     "best_message": "P08 follow-up: 'Hi Shreya, HUL taught us to sell through distributors, Meesho sells through resellers. Did that background help your product thinking at Meesho or did you have to rebuild from scratch?' (the most insider observation in the whole competition)",
+     "worst_message": "P09 follow-up: 'Hi Kabir, I'm at ISB now after the coffee brand closed. In your first PM role at Rapido...' (GATE FAIL: pairs.json does not say Rapido is his first PM role)",
+     "comments": "1 gate failure (P09 follow-up, unverifiable personalization). Strong hook-first notes with expert questions, 203-237 chars. Follow-ups are short and bring new observations (P02 merchant vs consumer, P08 distributors vs resellers). But none mention the earlier note and none give an easy out. P10 misstates the sender twice: 'I'm a data analyst at Myntra' (present tense, she has since done her MBA) and 'I work with product analytics at Myntra' (invented role and tense). 'Hey' to a GPM and other senior strangers is too casual for India. 'A COEP grad building growth at Groww is a nice Pune story' is patronising. P06 follow-up assumes 'engineering days'. Other tells: a 'Curious,' tic and 'fascinates me'."
+    },
+    {
+     "entry": "entry-7",
+     "would_reply": 4,
+     "hook": 4.6,
+     "ask_quality": 4,
+     "human_voice": 5,
+     "brevity_format": 7.4,
+     "followup_quality": 3,
+     "gate_failures": 1,
+     "best_message": "P09 note: 'Hi Kabir, I'm Ishaan, an ISB MBA. I ran a D2C coffee brand that shut down in 2024, and I saw your own D2C snacks story and your posts on founder-to-PM transitions. What did you find hardest about making that switch?'",
+     "worst_message": "P01 note: 'Hi Rahul, fellow IIM Ahmedabad alum here. Like you, I'm moving from a brand management background into product...' (GATE FAIL: Rahul came from category management, not brand management)",
+     "comments": "1 gate failure (P01, wrong fact about the recipient). Notes open with 'I'm Name, an X MBA' (sender-first). Asks are broad and can't be answered in a line or two ('What shapes your approach to that problem?', 'How did you make that transition?', 'Could I ask you a question or two'). Stock praise: 'sharp', 'great read', 'fascinating', 'stood out'. All 10 follow-ups open 'following up on my (earlier) note' or 'a gentle/quick follow-up'. They restate the original ask with no new value, and 7 of 10 escalate to 'a short call' or '10 minutes'. P09 follow-up calls Ishaan a 'product person', which he isn't yet."
+    },
+    {
+     "entry": "entry-3",
+     "would_reply": 3,
+     "hook": 4,
+     "ask_quality": 1.6,
+     "human_voice": 4,
+     "brevity_format": 6.6,
+     "followup_quality": 2.4,
+     "gate_failures": 0,
+     "best_message": "P04 note: 'Hi Priya, I'm Rohan, ex-Zomato analyst (MBA FMS Delhi 2025). I built a tool that cut restaurant onboarding from 7 days to 2, so your post on the partner app redesign really caught my eye. Would love to connect.' (strong proof point, but still no ask)",
+     "worst_message": "P03 follow-up: 'Do you have any product openings coming up that suit a supply chain professional from Asian Paints? I'd be happy to share my profile. Thanks!' (straight job ask, no package)",
+     "comments": "0 gate failures, but the worst entry on substance. All 10 notes are 'I'm Name, credentials... Would love to connect' with no ask at all, which scores 0 on the rubric's ask criterion. Every note is sender-first. Glossy stock words: 'inspiring' (x2), 'fascinating', 'really resonated', 'great read', and exclamation marks. Follow-ups run 38-55 words, re-send the intro, and escalate to '15 minutes' or 'a short chat' in 8 of 10, plus a job-openings ask in P03 and 'two or three questions' in P02. No new value and pushy closes ('Thank you!')."
+    }
+   ],
+   "ranking": [
+    "entry-5",
+    "entry-2",
+    "entry-4",
+    "entry-1",
+    "entry-6",
+    "entry-7",
+    "entry-3"
+   ],
+   "best_ideas_to_graft": "Winner is entry-5. Ideas to graft onto it:\n(1) From entry-4 and entry-6: drop the 'I'm Name, school 'yy' preamble, since LinkedIn already shows the name. Open on the hook and give one proof point, e.g. entry-4 P02 'I spent 2 years at Bain on consumer and retail'. That fixes entry-5's sender-first notes P05-P08 and frees about 30 chars.\n(2) From entry-4 and entry-6: base each follow-up on a second, verified profile fact rather than only narrowing the first question. Examples: entry-6 P08 'HUL taught us to sell through distributors, Meesho sells through resellers', entry-4/6 P02 'Razorpay to CRED, merchant vs consumer'. Keep only facts that appear in pairs.json, to avoid the gate failures in entry-4 P04 and entry-6 P09.\n(3) From entry-2 P10: multiple-choice follow-ups ('click-through, conversion, or reformulation rate?') cut reply effort to a single word.\n(4) From entry-2 P07: when the first ask was larger, say so and shrink it ('a smaller ask than a call').\n(5) From entry-4: cut follow-ups to about 20-25 words. Entry-5's 34-39 words are fine, but shorter is better.\n(6) From entry-1 P04: offer something back ('Happy to share how I approached it if useful') when the sender has a matching proof point.\n(7) Kill entry-5's template tics. Vary or drop 'Fine if you're busy' (10/10 notes) and 'a narrower question after my note' (10/10 follow-ups). Use one easy out per message, never two (P09).\n(8) From entry-6 P01: name shared ties outright ('fellow IIM Ahmedabad alum'). Entry-5 already does this best with '(you're '19)'; apply the same explicitness to P06 (Pune) and P08 (HUL MT).\nNone of the seven entries states send timing or the 5-7 business-day gap, so add a cadence line to win the 20% cadence weight.\nLength caveat: all 70 notes are under LinkedIn's 300-char premium cap, so I passed them. Under the 200-char free-account cap, every note fails."
+  }
+ ]
+}

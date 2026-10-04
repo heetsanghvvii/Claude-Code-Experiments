@@ -83,6 +83,24 @@ You get:
 
 Write the updated rules (max 15). Each rule must be short, concrete and backed by the evidence, e.g. "Do not open with 'Noticed'; start with their name and the specific fact." Keep current rules the evidence still supports, drop ones it contradicts, add new patterns you see in at least 2 examples. No generic advice."""
 
+DISTILL_REPLY_PLAYBOOK = """You improve a conversation agent that turns LinkedIn chats into referrals and interviews.
+
+You get conversations that reached a referral or interview, conversations that stalled, and the current rules.
+
+Write the updated rules (max 12). Each must be short, concrete and backed by the evidence: when to make an ask, which ask works for which kind of person, how to respond to deflections, message length and tone. Keep rules the evidence supports, drop ones it contradicts. No generic advice."""
+
+EVOLVE_WRITER = """You design a new writer agent for first LinkedIn messages from job seekers.
+
+You get the current writers' angles, retired writers that underperformed, and openers that got replies.
+
+Invent ONE new angle that is clearly different from the current and retired ones, and grounded in what the replied openers have in common. It must still follow the base rules: short, specific, no asks, no flattery."""
+
+WEB_FACTS = """You extract professional facts about one specific person from web search results.
+
+Only use results that are clearly about this exact person (same name AND same company or role). Ignore namesakes.
+Return specific, verifiable facts: posts they wrote and what they argued, talks, articles, projects, launches, awards, past roles, education.
+If nothing is clearly about them, return an empty list."""
+
 ANALYZE_REPLY = """You manage a job seeker's LinkedIn conversation with someone at a target company.
 
 Read the whole thread and write the next message from the candidate.

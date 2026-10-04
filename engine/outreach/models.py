@@ -86,6 +86,15 @@ class Playbook(BaseModel):
     rules: list[str] = Field(description="Short, concrete writing rules learned from the evidence. Max 15.")
 
 
+class WriterAngle(BaseModel):
+    name: str = Field(description="snake_case name, 1 to 3 words")
+    angle: str = Field(description="One or two sentences: the specific approach this writer takes.")
+
+
+class WebSnippets(BaseModel):
+    facts: list[ExtractedFact]
+
+
 class ReplyAnalysis(BaseModel):
     sentiment: Literal["warm", "neutral", "deflecting", "redirecting", "negative"]
     rapport: int = Field(ge=1, le=5, description="1 = cold, 5 = clearly happy to help.")
@@ -119,6 +128,7 @@ class Message(BaseModel):
     writer: str = ""
     judge_reason: str = ""
     alternatives: list[str] = []
+    alternative_writers: list[str] = []
     approved: bool = False
     edited: bool = False
     send_after: str = ""             # ISO time; set when queued for sending

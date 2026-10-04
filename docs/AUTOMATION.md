@@ -1,39 +1,49 @@
 # Automated Pipeline
 
-Your old Clay + LGM + GPT pipeline, rebuilt with Claude as the brain and Supabase as memory.
+Our own stack: no Clay, no LGM Pro. Claude is the brain, Supabase is the memory, LGM Basic sends,
+Claude in Chrome moves messages in and out of LGM.
 
 ```
-Clay table (companies -> people -> LinkedIn enrichment: posts, education, jobs, projects, bio)
-   | export CSV
-   v
-clay-import      Claude turns each row into facts, buckets the person
-generate         hooks + 3 writer agents + judge -> Message 1
-approve          (you) quick review
-export-lgm       CSV with Message 1 as customAttribute1 -> import into LGM audience
+discover        public LinkedIn results (Brave if BRAVE_API_KEY is set, else Claude web search),
+                each person bucketed: hiring manager, team member, recruiter, alumni, senior connector
+enrich-web      public posts, talks, articles per person -> facts   (our own Clay)
+prospect-add    optional: LinkedIn "Save to PDF" for the top prospects, for full career detail
+generate        hooks + writer agents chosen by Thompson sampling + judge -> Message 1
+approve         (you) quick review; --alt N teaches the judge, --body edits teach the writers
+export-lgm      CSV with Message 1 as customAttribute1 -> import into an LGM Basic audience
    |
-LGM campaign     invite with note {{customAttribute1}}
+LGM campaign    invite with note {{customAttribute1}}
    |
    |  every 3 hours: Claude in Chrome
-   |    1. copies new LGM inbox replies  -> Supabase `inbound_replies`
-   |    2. sends due rows from `outbox`  -> LGM inbox, stamps `sent_at`
+   |    1. sends due rows from Supabase `outbox` via the LGM inbox, stamps `sent_at`
+   |    2. copies new LGM inbox replies -> Supabase `inbound_replies`
    v
-sync (hourly)    reads replies, drafts the next message from the whole thread,
-                 queues it in `outbox` with a delay (auto-send) or holds it for approval
+sync (hourly)   drafts the next message from the whole thread, queues it with a delay
+                (auto-send) or holds it for approval; negative replies always wait for you.
+                Then runs self-learning when enough new evidence has arrived.
 ```
 
-Negative replies are never auto-sent; they wait for you.
+## Self-learning
 
-## One-time setup
+| Signal | What learns |
+|---|---|
+| Opener got a reply or not | Writer selection per prospect type (Thompson sampling); writers under half the best reply rate after 10 sends are retired; new writer angles are evolved from openers that got replies (max 5 writers) |
+| You edit a draft | Opener playbook: rules fed to every writer and the judge |
+| You pick an alternative over the judge's pick | Judge sees your recent overrides and learns your taste |
+| Conversation reached referral/interview or stalled | Reply playbook and per-ask success rates fed to the reply agent |
 
-1. Environment variables in the Claude Code cloud environment:
-   - `ANTHROPIC_API_KEY`
-   - `SUPABASE_URL` = `https://elgypbjgsvkiulwhefbk.supabase.co`
-   - `SUPABASE_SERVICE_ROLE_KEY` = Supabase dashboard > outbound-engine > Project Settings > API Keys > `service_role` (secret)
-   - `BRAVE_API_KEY` (only if using Brave discovery instead of Clay)
-2. Per candidate: `python -m outreach.cli settings <candidate> --auto-send on --delay 45`
-3. LGM: create an audience per candidate and a campaign: visit profile, then invite with note `{{customAttribute1}}`.
-4. Hourly `sync`: a scheduled Claude Code routine that runs `cd engine && python -m outreach.cli sync`.
-5. Every 3 hours: the Claude in Chrome scheduled task below.
+Learning runs automatically inside `sync` every 10 new signals; `learn` forces it, `stats` shows it.
+
+## Setup status
+
+Done by Claude (Supabase connector): project `outbound-engine`, all tables, access rules, engine token hash.
+
+Needs the environment settings (only the account owner can change these):
+1. Network access: allow `*.supabase.co` (and `api.search.brave.com` if using Brave).
+2. Environment variables: `ANTHROPIC_API_KEY`, `SUPABASE_URL`, `SUPABASE_KEY`, `ENGINE_TOKEN`
+   (values in `.env.example`; the token is given to you separately).
+3. Per candidate: `python -m outreach.cli settings <candidate> --auto-send on --delay 45`
+4. LGM Basic: one audience per candidate, campaign: visit profile, then invite with note `{{customAttribute1}}`.
 
 ## Claude in Chrome scheduled task (every 3 hours)
 

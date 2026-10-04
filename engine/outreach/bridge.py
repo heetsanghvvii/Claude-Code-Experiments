@@ -16,7 +16,7 @@ import re
 import uuid
 from datetime import datetime, timedelta, timezone
 
-from . import messages, store
+from . import feedback, messages, store
 from .models import Candidate, Message, Prospect
 
 AUTO_SEND_SENTIMENTS = {"warm", "neutral", "redirecting"}
@@ -123,14 +123,16 @@ def find_prospect(candidates: list[Candidate], linkedin_url: str, name: str) -> 
     return matches[0] if len(matches) == 1 else None
 
 
-def handle_reply(c: Candidate, p: Prospect, text: str):
+def handle_reply(c: Candidate, p: Prospect, text: str, guidance: str | None = None):
     """Log their reply, draft ours, and queue it if auto-send rules allow. Returns the analysis."""
     now = _now()
     step = max((m.step for m in p.messages), default=0) + 1
     p.messages.append(Message(direction="inbound", step=step, body=text, created_at=_iso(now)))
     if p.status in ("message_ready", "approved", "sent", "accepted"):
         p.status = "replied"
-    result = messages.next_reply(c, p)
+    if guidance is None:
+        guidance = feedback.reply_guidance([store.load(cid) for cid in store.list_ids()])
+    result = messages.next_reply(c, p, guidance)
     draft = Message(direction="outbound", step=step + 1, body=result.next_message, ask_type=result.ask_type,
                     created_at=_iso(now))
     if c.auto_send and result.sentiment in AUTO_SEND_SENTIMENTS:
@@ -150,6 +152,7 @@ def sync() -> dict:
     ids = store.list_ids()
     candidates = {cid: store.load(cid) for cid in ids}
     stats = {"replies": 0, "queued": 0, "held": 0, "unmatched": 0, "sent_recorded": 0}
+    reply_notes = None
 
     for row in pending_inbound():
         found = find_prospect(list(candidates.values()), row.get("linkedin_url", ""), row.get("prospect_name", ""))
@@ -162,7 +165,9 @@ def sync() -> dict:
         if last_in and last_in.strip() == row["text"].strip():
             _mark_inbound(row["id"], "duplicate")
             continue
-        result = handle_reply(c, p, row["text"])
+        if reply_notes is None:
+            reply_notes = feedback.reply_guidance(list(candidates.values()))
+        result = handle_reply(c, p, row["text"], reply_notes)
         stats["replies"] += 1
         queued = p.messages[-1].approved
         stats["queued" if queued else "held"] += 1
@@ -184,4 +189,8 @@ def sync() -> dict:
                     p.status = "sent"
                 stats["sent_recorded"] += 1
                 store.save(c)
+
+    learned = feedback.learn(list(candidates.values()))
+    if learned:
+        stats["learned"] = {k: v for k, v in learned.items() if k in ("evidence", "retired", "spawned")}
     return stats

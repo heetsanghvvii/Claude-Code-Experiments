@@ -65,6 +65,9 @@ def fake(monkeypatch, tmp_path):
                                winner_index=1, reason="Most specific question")
         if schema is Playbook:
             calls["distill"] += 1
+            if system == prompts.DISTILL_REPLY_PLAYBOOK:
+                assert "REACHED A REFERRAL OR INTERVIEW:\nME: Hey Rahul, edited" in content
+                return Playbook(rules=["Ask about their team only after they share something specific."])
             assert "SENT: Hey Rahul, edited" in content
             return Playbook(rules=["Start with their name and the specific fact."])
         if schema is ReplyAnalysis:
@@ -139,7 +142,7 @@ def test_full_pipeline(fake, capsys):
     out = capsys.readouterr().out
     assert f"{winner_writer:<16}1/1  100%" in out
 
-    cli.main(["learn"])                                                   # 1 edit + 1 outcome < 5: refuses
+    cli.main(["learn"])                                                   # 3 signals < 5: refuses
     assert calls["distill"] == 0
     monkeypatch_min = feedback.MIN_EVIDENCE
     feedback.MIN_EVIDENCE = 2
@@ -147,8 +150,11 @@ def test_full_pipeline(fake, capsys):
         cli.main(["learn"])
     finally:
         feedback.MIN_EVIDENCE = monkeypatch_min
+    assert calls["distill"] == 2
     assert feedback.playbook() == ["Start with their name and the specific fact."]
 
-    # Learned rules and winning openers now flow into the next generation.
-    guidance = feedback.guidance([store.load(cid)])
+    # Learned rules and winning openers flow into writers/judge; reply rules into the reply agent.
+    everyone = [store.load(cid)]
+    guidance = feedback.guidance(everyone)
     assert "Start with their name" in guidance and edited in guidance
+    assert "Ask about their team only after" in feedback.reply_guidance(everyone)

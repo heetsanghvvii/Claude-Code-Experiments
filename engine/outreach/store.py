@@ -1,7 +1,9 @@
 """Persistence. One JSON document per candidate, plus a few shared documents.
 
-Uses Supabase (table `engine_state`) when SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set,
-so scheduled runs in fresh cloud sessions see the same state. Falls back to local files.
+Uses Supabase (table `engine_state`) when SUPABASE_URL, SUPABASE_KEY (the public publishable key)
+and ENGINE_TOKEN are set, so scheduled runs in fresh cloud sessions see the same state.
+Row-level security only lets requests carrying the right x-engine-token through (migration 0003).
+Falls back to local files.
 """
 
 from __future__ import annotations
@@ -22,17 +24,17 @@ SHARED_DOCS = {"feedback"}
 
 
 def _supabase() -> tuple[str, dict] | None:
-    url, key = os.environ.get("SUPABASE_URL"), os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
-    if not (url and key):
+    url, key, token = (os.environ.get(k) for k in ("SUPABASE_URL", "SUPABASE_KEY", "ENGINE_TOKEN"))
+    if not (url and key and token):
         return None
-    return url.rstrip("/") + "/rest/v1", {"apikey": key, "Authorization": f"Bearer {key}"}
+    return url.rstrip("/") + "/rest/v1", {"apikey": key, "x-engine-token": token}
 
 
 def rest(method: str, table: str, *, params: dict | None = None, json_body=None, prefer: str = "") -> list | None:
     """Call Supabase's REST API. Raises if Supabase is not configured."""
     cfg = _supabase()
     if cfg is None:
-        raise RuntimeError("Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY")
+        raise RuntimeError("Set SUPABASE_URL, SUPABASE_KEY and ENGINE_TOKEN")
     base, headers = cfg
     if prefer:
         headers = {**headers, "Prefer": prefer}

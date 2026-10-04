@@ -53,3 +53,31 @@ def parse(system: str, content: list[dict] | str, schema: type[T], effort: str =
     if response.parsed_output is None:
         raise RuntimeError(f"No structured output (stop_reason={response.stop_reason})")
     return response.parsed_output
+
+
+class _Result(BaseModel):
+    title: str
+    url: str
+    description: str
+
+
+class _Results(BaseModel):
+    results: list[_Result]
+
+
+def web_search(query: str, max_results: int = 10) -> list[dict]:
+    """Search via Claude's server-side web search tool. Used when no Brave key is set."""
+    response = client().beta.messages.parse(
+        model=MODEL,
+        max_tokens=16000,
+        system="Run the web search exactly as given and return the results you found. Do not invent results.",
+        messages=[{"role": "user", "content": f"Search: {query}\nReturn up to {max_results} results."}],
+        tools=[{"type": "web_search_20260209", "name": "web_search", "max_uses": 2}],
+        output_format=_Results,
+        output_config={"effort": "low"},
+        betas=["server-side-fallback-2026-07-01"],
+        fallbacks="default",
+    )
+    if response.parsed_output is None:
+        return []
+    return [r.model_dump() for r in response.parsed_output.results]

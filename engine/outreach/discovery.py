@@ -9,7 +9,7 @@ from dataclasses import dataclass
 import httpx
 
 from . import llm, prompts
-from .models import BucketDecision, Candidate
+from .models import BucketDecision, Candidate, ExtractedFact, Prospect, WebSnippets
 
 BRAVE_URL = "https://api.search.brave.com/res/v1/web/search"
 
@@ -45,9 +45,10 @@ def _parse_title(title: str) -> tuple[str, str]:
 
 
 def brave_search(query: str, count: int = 20) -> list[dict]:
+    """Brave Search when BRAVE_API_KEY is set (about 1,000 free searches/month), else Claude web search."""
     key = os.environ.get("BRAVE_API_KEY")
     if not key:
-        raise RuntimeError("Set BRAVE_API_KEY (free $5/month credits at brave.com/search/api)")
+        return llm.web_search(query, max_results=count)
     response = httpx.get(
         BRAVE_URL,
         params={"q": query, "count": count},
@@ -87,3 +88,29 @@ def classify(candidate: Candidate, hit: SearchHit) -> BucketDecision:
         f"Person at {hit.company}:\nName: {hit.full_name}\nHeadline: {hit.headline}\nSnippet: {hit.snippet}"
     )
     return llm.parse(prompts.CLASSIFY_BUCKET, text, BucketDecision, effort="low")
+
+
+def _slug(linkedin_url: str) -> str:
+    m = re.search(r"linkedin\.com/in/([^/?#]+)", linkedin_url or "")
+    return m.group(1) if m else ""
+
+
+def web_facts(prospect: Prospect) -> list[ExtractedFact]:
+    """Our own enrichment: public posts, talks and articles via search. No LinkedIn login."""
+    queries = [f'site:linkedin.com/posts "{prospect.full_name}"', f'"{prospect.full_name}" "{prospect.company}"']
+    slug = _slug(prospect.linkedin_url)
+    if slug:
+        queries.insert(0, f"site:linkedin.com/posts/{slug}")
+    seen, lines = set(), []
+    for q in queries:
+        for r in brave_search(q, count=10):
+            url = r.get("url", "")
+            if url in seen:
+                continue
+            seen.add(url)
+            lines.append(f"- {r.get('title', '')} | {r.get('description', '')} | {url}")
+    if not lines:
+        return []
+    text = (f"Person: {prospect.full_name}, {prospect.headline} at {prospect.company}\n"
+            f"LinkedIn: {prospect.linkedin_url}\n\nSEARCH RESULTS:\n" + "\n".join(lines[:30]))
+    return llm.parse(prompts.WEB_FACTS, text, WebSnippets, effort="low").facts

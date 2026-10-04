@@ -46,3 +46,27 @@ def test_opener_rejects_missing_name_and_length():
 
 def test_parse_linkedin_title():
     assert _parse_title("Rahul Shah - Product Manager - Zepto | LinkedIn") == ("Rahul Shah", "Product Manager - Zepto")
+
+
+def test_web_facts_uses_profile_slug_and_dedupes(monkeypatch):
+    from outreach import discovery, llm
+    from outreach.models import ExtractedFact, Prospect, WebSnippets
+    queries = []
+
+    def search(q, count=20):
+        queries.append(q)
+        return [{"url": "https://www.linkedin.com/posts/rahulshah_pricing-123", "title": "Rahul on pricing", "description": "Why we killed discounts"}]
+
+    seen = {}
+
+    def parse(system, content, schema, effort="medium"):
+        seen["content"] = content
+        return WebSnippets(facts=[ExtractedFact(kind="post", text="Posted that Zepto killed blanket discounts")])
+
+    monkeypatch.setattr(discovery, "brave_search", search)
+    monkeypatch.setattr(llm, "parse", parse)
+    p = Prospect(id="r", full_name="Rahul Shah", company="Zepto", linkedin_url="https://in.linkedin.com/in/rahulshah/")
+    facts = discovery.web_facts(p)
+    assert queries[0] == "site:linkedin.com/posts/rahulshah"
+    assert seen["content"].count("rahulshah_pricing-123") == 1
+    assert facts[0].kind == "post"

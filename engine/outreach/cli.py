@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from . import bridge, discovery, feedback, hooks, messages, profiles, store
-from .models import Bucket, Candidate, Message, Prospect
+from .models import Bucket, Candidate, Fact, Message, Prospect
 
 STATUSES = [
     "discovered", "shortlisted", "enriched", "message_ready", "approved", "sent", "accepted",
@@ -91,7 +91,8 @@ def cmd_prospect_add(a):
 def cmd_generate(a):
     c = store.load(a.candidate)
     targets = [p for p in c.prospects if p.status == "enriched" and (not a.id or p.id == a.id)]
-    guidance = feedback.guidance([store.load(cid) for cid in store.list_ids()])
+    everyone = [store.load(cid) for cid in store.list_ids()]
+    guidance, judge_notes = feedback.guidance(everyone), feedback.judge_guidance()
     for p in targets:
         p.hooks = hooks.find(c, p)
         if not p.hooks:
@@ -99,7 +100,8 @@ def cmd_generate(a):
             print(f"{p.full_name}: no legitimate hook, skipped")
             store.save(c)
             continue
-        msg, problems = messages.write_opener(c, p, p.hooks[0], guidance)
+        writers = feedback.choose_writers(everyone, p.bucket.value)
+        msg, problems = messages.write_opener(c, p, p.hooks[0], guidance, writers, judge_notes)
         p.messages = [msg]
         p.status = "message_ready"
         store.save(c)
@@ -108,14 +110,20 @@ def cmd_generate(a):
         print(f"  WINNER [{msg.writer}]: {msg.body}")
         if msg.judge_reason:
             print(f"  Why: {msg.judge_reason}")
-        for alt in msg.alternatives:
-            print(f"  alt: {alt}")
+        for i, (alt, w) in enumerate(zip(msg.alternatives, msg.alternative_writers), start=1):
+            print(f"  alt {i} [{w}]: {alt}")
 
 
 def cmd_approve(a):
     c = store.load(a.candidate)
     p = store.get_prospect(c, a.id)
     msg = p.messages[-1]
+    if a.alt:
+        # Operator prefers a losing draft: the judge learns from this.
+        alt_body, alt_writer = msg.alternatives[a.alt - 1], msg.alternative_writers[a.alt - 1]
+        feedback.record_judge_miss(f"{p.full_name}, {p.headline} at {p.company}", msg.body, alt_body)
+        msg.alternatives[a.alt - 1], msg.alternative_writers[a.alt - 1] = msg.body, msg.writer
+        msg.body, msg.writer = alt_body, alt_writer
     if a.body and a.body.strip() != msg.body.strip():
         if msg.step == 1:
             feedback.record_edit(msg.body, a.body, msg.writer, p.hooks[0].hook_type if p.hooks else "", p.bucket.value)
@@ -189,10 +197,10 @@ def cmd_funnel(a):
             print(f"    {b:<17}{by_bucket[(b, True)]}/{total}")
 
 
-CLAY_NAME_COLS = ("full name", "name", "person name")
-CLAY_URL_COLS = ("linkedin profile", "linkedin url", "linkedin", "profile url", "linkedin profile url")
-CLAY_COMPANY_COLS = ("company", "company name", "company domain")
-CLAY_TITLE_COLS = ("title", "job title", "headline")
+NAME_COLS = ("full name", "name", "person name")
+URL_COLS = ("linkedin profile", "linkedin url", "linkedin", "profile url", "linkedin profile url")
+COMPANY_COLS = ("company", "company name", "company domain")
+TITLE_COLS = ("title", "job title", "headline")
 
 
 def _pick(row: dict, names: tuple[str, ...]) -> str:
@@ -200,32 +208,46 @@ def _pick(row: dict, names: tuple[str, ...]) -> str:
     return next((lower[n].strip() for n in names if lower.get(n)), "")
 
 
-def cmd_clay_import(a):
-    """Import a Clay table export (CSV): one row per person, any enrichment columns."""
+def cmd_import_csv(a):
+    """Import any people list (CSV): one row per person, any extra columns become facts."""
     c = store.load(a.candidate)
     known = {bridge.normalize_url(p.linkedin_url) for p in c.prospects}
     with open(a.file, newline="") as f:
         rows = list(csv.DictReader(f))
     added = 0
     for row in rows:
-        url = _pick(row, CLAY_URL_COLS)
+        url = _pick(row, URL_COLS)
         if bridge.normalize_url(url) in known:
             continue
         text = "\n".join(f"{k}: {v}" for k, v in row.items() if v and v.strip())
         extracted = profiles.extract_text(text)
-        p = Prospect(id=store.new_id(extracted.full_name or _pick(row, CLAY_NAME_COLS)),
-                     full_name=_pick(row, CLAY_NAME_COLS) or extracted.full_name,
-                     headline=_pick(row, CLAY_TITLE_COLS) or extracted.headline,
-                     company=_pick(row, CLAY_COMPANY_COLS) or extracted.current_company,
-                     linkedin_url=url, location=extracted.location, source="clay", status="enriched")
+        p = Prospect(id=store.new_id(extracted.full_name or _pick(row, NAME_COLS)),
+                     full_name=_pick(row, NAME_COLS) or extracted.full_name,
+                     headline=_pick(row, TITLE_COLS) or extracted.headline,
+                     company=_pick(row, COMPANY_COLS) or extracted.current_company,
+                     linkedin_url=url, location=extracted.location, source="csv", status="enriched")
         decision = discovery.classify(c, discovery.SearchHit(p.full_name, p.headline, url, text[:500], p.company))
         p.bucket, p.bucket_reason = decision.bucket, decision.reason
-        p.facts = profiles.to_facts(extracted, "prospect", f"p:{p.id}", "clay")
+        p.facts = profiles.to_facts(extracted, "prospect", f"p:{p.id}", "csv")
         c.prospects.append(p)
         known.add(bridge.normalize_url(url))
         added += 1
         store.save(c)
     print(f"Imported {added} of {len(rows)} rows")
+
+
+def cmd_enrich_web(a):
+    c = store.load(a.candidate)
+    targets = [p for p in c.prospects if p.status == "discovered" and (not a.id or p.id == a.id)]
+    for p in targets:
+        facts = discovery.web_facts(p)
+        start = len(p.facts) + 1
+        p.facts += [Fact(id=f"p:{p.id}:{start + i}", owner="prospect", kind=f.kind, text=f.text, source="web")
+                    for i, f in enumerate(facts)]
+        if len(p.facts) >= a.min_facts:
+            p.status = "enriched"
+        store.save(c)
+        print(f"{p.full_name}: {len(facts)} web facts -> {p.status}")
 
 
 def cmd_export_lgm(a):
@@ -279,13 +301,18 @@ def cmd_mark_sent(a):
 
 def cmd_learn(a):
     """Rewrite the writing playbook from operator edits and reply outcomes."""
-    rules = feedback.distill([store.load(cid) for cid in store.list_ids()])
-    if rules is None:
-        print(f"Not enough evidence yet (need {feedback.MIN_EVIDENCE} edits or sent openers).")
+    summary = feedback.learn([store.load(cid) for cid in store.list_ids()], force=True)
+    if summary is None:
+        print(f"Not enough evidence yet (need {feedback.MIN_EVIDENCE} signals).")
         return
-    print("New playbook:")
-    for r in rules:
-        print(f"  - {r}")
+    for key in ("playbook", "reply_playbook"):
+        if summary.get(key):
+            print(f"{key}:")
+            for r in summary[key]:
+                print(f"  - {r}")
+    for key in ("retired", "spawned"):
+        if summary.get(key):
+            print(f"{key} writers: {', '.join(summary[key])}")
 
 
 def cmd_stats(a):
@@ -300,9 +327,21 @@ def cmd_stats(a):
         print("Edits needed by writer:")
         for writer, n in edits_by_writer.most_common():
             print(f"  {writer:<16}{n}")
+    print("Active writers: " + ", ".join(data["writers"]))
+    if data["retired"]:
+        print("Retired writers: " + ", ".join(data["retired"]))
+    asks = feedback.ask_stats([store.load(cid) for cid in store.list_ids()])
+    if asks:
+        print("Asks that led to referral/interview:")
+        for ask, (adv, n) in sorted(asks.items()):
+            print(f"  {ask:<16}{adv}/{n}")
     if data["playbook"]:
-        print("Current playbook:")
+        print("Opener playbook:")
         for r in data["playbook"]:
+            print(f"  - {r}")
+    if data["reply_playbook"]:
+        print("Reply playbook:")
+        for r in data["reply_playbook"]:
             print(f"  - {r}")
 
 
@@ -356,6 +395,7 @@ def main(argv=None):
     s.add_argument("candidate")
     s.add_argument("id")
     s.add_argument("--body")
+    s.add_argument("--alt", type=int, help="Use alternative draft N instead of the judge's pick")
     s.set_defaults(fn=cmd_approve)
 
     s = sub.add_parser("status", help="Set prospect status")
@@ -379,10 +419,16 @@ def main(argv=None):
     s.add_argument("candidate")
     s.set_defaults(fn=cmd_funnel)
 
-    s = sub.add_parser("clay-import", help="Import enriched people from a Clay table CSV export")
+    s = sub.add_parser("import-csv", help="Import a people list from CSV (any enrichment columns)")
     s.add_argument("candidate")
     s.add_argument("file")
-    s.set_defaults(fn=cmd_clay_import)
+    s.set_defaults(fn=cmd_import_csv)
+
+    s = sub.add_parser("enrich-web", help="Enrich discovered prospects from public web results (no LinkedIn login)")
+    s.add_argument("candidate")
+    s.add_argument("--id")
+    s.add_argument("--min-facts", type=int, default=3, help="Facts needed to mark a prospect enriched")
+    s.set_defaults(fn=cmd_enrich_web)
 
     s = sub.add_parser("export-lgm", help="CSV of approved openers for LGM audience import")
     s.add_argument("candidate")

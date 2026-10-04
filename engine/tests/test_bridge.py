@@ -63,6 +63,7 @@ class FakePostgrest:
         return True
 
     def __call__(self, method, url, params=None, json=None, headers=None, timeout=None):
+        assert headers["x-engine-token"] == "eng_x" and headers["apikey"] == "sb_publishable_x"
         table = url.rsplit("/", 1)[1]
         rows = self.tables[table]
         if method == "GET":
@@ -95,7 +96,8 @@ def env(request, monkeypatch, tmp_path):
     if request.param == "supabase":
         fake = FakePostgrest()
         monkeypatch.setenv("SUPABASE_URL", "https://x.supabase.co")
-        monkeypatch.setenv("SUPABASE_SERVICE_ROLE_KEY", "k")
+        monkeypatch.setenv("SUPABASE_KEY", "sb_publishable_x")
+        monkeypatch.setenv("ENGINE_TOKEN", "eng_x")
         monkeypatch.setattr(store.httpx, "request", fake)
     else:
         monkeypatch.delenv("SUPABASE_URL", raising=False)
@@ -147,18 +149,18 @@ def test_review_mode_holds_until_approved(env, capsys):
     assert len(rows) == 1 and rows[0]["body"].startswith("Thanks Rahul")
 
 
-def test_clay_import_and_lgm_export(env, tmp_path, monkeypatch):
+def test_csv_import_and_lgm_export(env, tmp_path, monkeypatch):
     _seed()
-    csv_path = tmp_path / "clay.csv"
+    csv_path = tmp_path / "people.csv"
     with csv_path.open("w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["Full Name", "LinkedIn Profile", "Company", "Job Title", "Recent Posts", "Education"])
         w.writerow(["Neha Rao", "https://www.linkedin.com/in/neharao", "Zepto", "Senior PM", "Post on pricing", "ISB 2019"])
         w.writerow(["Rahul Shah", "https://in.linkedin.com/in/rahulshah", "Zepto", "PM", "", ""])   # already known
-    cli.main(["clay-import", "asha-1", str(csv_path)])
+    cli.main(["import-csv", "asha-1", str(csv_path)])
     c = store.load("asha-1")
     neha = next(p for p in c.prospects if p.full_name == "Neha Rao")
-    assert len(c.prospects) == 2 and neha.status == "enriched" and neha.source == "clay"
+    assert len(c.prospects) == 2 and neha.status == "enriched" and neha.source == "csv"
     assert neha.facts[0].id == f"p:{neha.id}:1" and neha.bucket.value == "team_member"
 
     neha.status = "approved"

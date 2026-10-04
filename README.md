@@ -7,14 +7,14 @@ North star: **interviews per 100 targeted prospects**.
 - Launch checklist: [`docs/LAUNCH_PLAN.md`](docs/LAUNCH_PLAN.md)
 - Client intake: [`docs/INTAKE.md`](docs/INTAKE.md)
 - Database schema: [`supabase/migrations/`](supabase/migrations/)
-- Automated Clay + LGM pipeline and the Chrome task: [`docs/AUTOMATION.md`](docs/AUTOMATION.md)
+- Automated pipeline, self-learning and the Chrome task: [`docs/AUTOMATION.md`](docs/AUTOMATION.md)
 
 ## Pipeline
 
 ```
 Intake (CV + LinkedIn PDF + targets)
-  -> discover   public LinkedIn results via Brave Search, sorted into buckets
-  -> enrich     LinkedIn "Save to PDF" per shortlisted person, parsed into facts
+  -> discover   public LinkedIn results (Brave or Claude web search), sorted into buckets
+  -> enrich     public posts/articles via search (enrich-web), optional LinkedIn "Save to PDF"
   -> generate   hooks (must cite a real fact on both sides), ranked; 3 writer agents draft Message 1
                 in parallel, rule checks drop bad drafts, a judge agent picks the winner
   -> approve    human review
@@ -90,4 +90,4 @@ python -m outreach.cli funnel asha-mehta-1a2b3c
 python -m outreach.cli export asha-mehta-1a2b3c
 ```
 
-State lives in the Supabase project `outbound-engine` (table `engine_state`) when `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are set, otherwise in local JSON under `engine/data/`.
+State lives in the Supabase project `outbound-engine` (table `engine_state`) when `SUPABASE_URL`, `SUPABASE_KEY` and `ENGINE_TOKEN` are set, otherwise in local JSON under `engine/data/`.

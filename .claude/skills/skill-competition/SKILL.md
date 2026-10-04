@@ -55,6 +55,8 @@ Call the Workflow tool with the script in [references/workflow-template.js](refe
 }
 ```
 
+Model choice follows the `model-router` skill: builders `sonnet`/`medium`, render `haiku`/`low`, judges `opus`/`high` (set `model`/`effort` on every agent in the script).
+
 Rules: entry ids are anonymous and assigned in shuffled order (not grouped by source). Judges never see skill names, NOTES.md or design-spec files. Three judges, distinct lenses from the rubric. Run it in the background and continue with other work; do not poll.
 
 If the workflow fails part-way, fix the script and resume with `resumeFromRunId` (completed agents return cached results). A builder that fails or returns nothing is recorded as DNF; never block on it.

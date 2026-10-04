@@ -31,13 +31,13 @@ const builds = await parallel(A.contestants.map(c => () => agent(
 4. Self-check once: render your output (${A.renderHint}), look at the images with the Read tool, fix everything in one batch, confirm once, stop.
 5. Never publish, deploy, purchase, commit or push. Never mention your skill inside the deliverable. Do not run downloaded binaries or call paid external APIs.
 Return the structured summary.`,
-  { label: `build:${c.id}`, phase: 'Build', schema: BUILD_SCHEMA }
+  { label: `build[${A.builderModel || 'sonnet'}]:${c.id}`, phase: 'Build', schema: BUILD_SCHEMA, model: A.builderModel || 'sonnet', effort: 'medium' }
 ).then(r => ({ id: c.id, skill: c.skill, build: r }))))
 
 phase('Render')
 const render = await agent(
   `In ${A.root}, run: ${A.renderCmd}. If it fails, fix the cause and rerun (do not modify any entry's deliverable). Return the JSON report verbatim.`,
-  { label: 'render', phase: 'Render' })
+  { label: 'render[haiku]', phase: 'Render', model: 'haiku', effort: 'low' })
 
 const crit = Object.keys(A.criteria)
 const scoreProps = { entry: { type: 'string' }, brief_violations: { type: 'string' }, strengths: { type: 'string' }, weaknesses: { type: 'string' } }
@@ -61,7 +61,7 @@ ${A.viewInstructions}
 Do not open NOTES.md, design-spec or any file that reveals how an entry was made. An entry with no render scores 1 on everything.
 Render report: ${String(render).slice(0, 6000)}
 Score every entry 1-10 on: ${crit.join(', ')}. List brief violations. Be harsh, specific and use the full scale. Rank all entries, best first.`,
-  { label: `judge:${l.key}`, phase: 'Judge', schema: JUDGE_SCHEMA, effort: 'high' }
+  { label: `judge[opus]:${l.key}`, phase: 'Judge', schema: JUDGE_SCHEMA, model: 'opus', effort: 'high' }
 ).then(r => ({ lens: l.key, ...r }))))
 
 return {

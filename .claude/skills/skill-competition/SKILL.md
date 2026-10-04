@@ -59,6 +59,8 @@ Rules: entry ids are anonymous and assigned in shuffled order (not grouped by so
 
 If the workflow fails part-way, fix the script and resume with `resumeFromRunId` (completed agents return cached results). A builder that fails or returns nothing is recorded as DNF; never block on it.
 
+**Never let a run stay dead.** An interrupt from the user ends background runs. Right after launching, schedule a watchdog check-in (`send_later`, about 20 minutes; repeat each time it fires until the run completes). On every check-in, and on every new user message: check the run's `journal.jsonl` and recent `agent-*.jsonl` activity; if the run is no longer progressing and did not complete, resume it immediately with the same script and args plus `resumeFromRunId`, and tell the user in one line. Never ask whether to resume.
+
 ## 4b. Show every output on the user's screen (mandatory)
 
 The user must see each output in this conversation as soon as it exists, without asking:

@@ -1,8 +1,24 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index" },
-    { "source": "/crm", "destination": "/crm/index.html" }
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/crm",
+      "destination": "/crm/index.html"
+    }
   ],
-  "functions": { "api/index.py": { "maxDuration": 300 } },
-  "crons": [{ "path": "/api/cron/sync", "schedule": "30 3 * * *" }]
+  "functions": {
+    "api/index.py": {
+      "maxDuration": 300,
+      "includeFiles": "outreach/**"
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/sync",
+      "schedule": "30 3 * * *"
+    }
+  ]
 }

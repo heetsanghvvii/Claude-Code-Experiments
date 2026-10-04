@@ -1,0 +1,555 @@
+{
+ "render": "[{\"entry\":\"entry-1\",\"view\":\"desktop\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-1\",\"view\":\"mobile\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-10\",\"view\":\"desktop\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-10\",\"view\":\"mobile\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-11\",\"view\":\"desktop\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-11\",\"view\":\"mobile\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-12\",\"view\":\"desktop\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-12\",\"view\":\"mobile\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-2\",\"view\":\"desktop\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-2\",\"view\":\"mobile\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-3\",\"view\":\"desktop\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-3\",\"view\":\"mobile\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-4\",\"view\":\"desktop\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-4\",\"view\":\"mobile\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-5\",\"view\":\"desktop\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-5\",\"view\":\"mobile\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-6\",\"view\":\"desktop\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-6\",\"view\":\"mobile\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-7\",\"view\":\"desktop\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-7\",\"view\":\"mobile\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-8\",\"view\":\"desktop\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-8\",\"view\":\"mobile\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-9\",\"view\":\"desktop\",\"horizontal_overflow\":false,\"errors\":[]},{\"entry\":\"entry-9\",\"view\":\"mobile\",\"horizontal_overflow\":false,\"errors\":[]}]",
+ "judgements": [
+  {
+   "lens": "design-director",
+   "scores": [
+    {
+     "entry": "entry-9",
+     "visual_design": 9,
+     "copy_clarity": 8,
+     "conversion": 9,
+     "mobile": 8,
+     "brand_fit": 8,
+     "code_quality": 8,
+     "brief_violations": "None hard. All four prices, the exact CTA label (6 times), the FAQ, the footer email, no em dashes or exclamation marks, no external assets. Small liberties: a 'BY HAND' stamp and 'a person will answer' overclaim manual work a little. Mobile puts Standard first in the pricing order.",
+     "strengths": "The only entry with a truly original concept. It is built like an airmail letter: pale blue paper, perforated edges, a red Knock stamp with a postmark that carries the tagline, and a 'To' address line in the hero that takes target companies inline. That hero field is the best conversion idea in the field. A condensed grotesque headline beside serif body text gives it a voice no other entry has. The sample target-list table under the fold makes the service concrete. The 'Still waiting / return to sender' stamp on the problem list is witty, and the navy How it works band gives the page rhythm. It renders fully in the harness on both views.",
+     "weaknesses": "The red stamp and 'FOLD HERE' rule sit at the edge of playful, slightly louder than 'calm premium'. The blue-on-blue hero has lower contrast on the small caption text. The Why it works rows are a plain list next to the inventive sections. On mobile the stamp crowds the headline."
+    },
+    {
+     "entry": "entry-2",
+     "visual_design": 7,
+     "copy_clarity": 9,
+     "conversion": 8,
+     "mobile": 8,
+     "brand_fit": 7,
+     "code_quality": 6,
+     "brief_violations": "No hard violations. Exact CTA label, all prices, FAQ, form and footer are present. The problem card's illustrative reply ('Our team is hiring for exactly this, let me put you in touch') implies an outcome Knock cannot promise yet.",
+     "strengths": "The most finished execution. The deep green hero with a glowing open door is lovely. The problem section pairs 'Applied, no response' rows with a reply card. The Why it works grid ('60 people', '1:1 every message, one reader', 'Talk first, ask later', 'Proven playbook, borrowed') gets the facts across without inventing stats. Good letter-style example message, tidy pricing with duration and people grids, and a confident dark intake band. The copy is the sharpest in the field.",
+     "weaknesses": "It lands squarely in the generic template look this brief warns about: dark green, brass and gold, an italic Fraunces serif, cream sections. Everything is executed well, but you have seen it before. The page is a 364 KB client-rendered React bundle, so the static HTML has 33 characters of text: nothing without JS, poor for SEO and resilience. The success state relies on JS role=status only."
+    },
+    {
+     "entry": "entry-8",
+     "visual_design": 8,
+     "copy_clarity": 8,
+     "conversion": 8,
+     "mobile": 7,
+     "brand_fit": 8,
+     "code_quality": 7,
+     "brief_violations": "None found. Exact CTA label, all prices, FAQ, form and footer email are present. No em dashes, exclamation marks or invented stats.",
+     "strengths": "The best hero illustration concept: a 10x6 grid of outlined arch doors with one lit and open ('Every company has a door. We find the one that opens'). It is clever, restrained and on-brand. A real process diagram in How it works shows the loop between you and Knock. The Portal vs Door split in the problem section is clear, and the line 'Four steps. You hold the key at every one.' is good.",
+     "weaknesses": "The cream, condensed serif italic, green and gold palette is the familiar template look. The scroll-reveal is fragile: in the harness's full-page captures the How it works, Why it works and pricing cards render invisible. It works when scrolled, but print, full-page capture and some crawlers miss it. The why-it-works icon cards are generic."
+    },
+    {
+     "entry": "entry-1",
+     "visual_design": 7,
+     "copy_clarity": 8,
+     "conversion": 8,
+     "mobile": 8,
+     "brand_fit": 8,
+     "code_quality": 8,
+     "brief_violations": "None found. Exact CTA label, all prices, FAQ, form and footer email are present.",
+     "strengths": "Disciplined and calm. A modern grotesque on a pale sage ground avoids the serif-and-brass cliche. The arch-framed 'Your target list' card (hiring manager, alum two batches ahead, also moved from brand management, director who can introduce) shows the product better than any door drawing. The 60-dot block in Why it works is a nice visual for '60 hand-picked people'. The annotated example message, with numbered underlines explaining why it works, is excellent. Clean pricing and a short form. It renders fully and reads well at 390px.",
+     "weaknesses": "It is safe to the point of looking like a SaaS template. The typography is competent but not memorable. The problem section is thin, just two short columns with lots of empty space. The hero headline is set small for the space it has. The FAQ and form sections feel like a default kit."
+    },
+    {
+     "entry": "entry-3",
+     "visual_design": 7,
+     "copy_clarity": 8,
+     "conversion": 7,
+     "mobile": 7,
+     "brand_fit": 8,
+     "code_quality": 8,
+     "brief_violations": "None found. Exact CTA label (7 times), all prices, FAQ, form and footer email are present.",
+     "strengths": "A strong typographic hero in a heavy display serif at big scale, with a door and brass knocker. The problem section's grid of closed arches with one lit door ('Most doors stay shut to a cold application') is a good idea. The large 'Why it works' headline, '60 hand-picked people. Not 6,000 messages.' in two tones, has real presence. Good How it works timeline and a dark intake band. It renders fully.",
+     "weaknesses": "Green and gold again, close to the template look. The hero door is cropped awkwardly on mobile and pushes content down. The hero subline mixes grey and bold black mid-sentence, which looks unfinished. Why it works and the pricing cards are fairly plain. The headline weight and the body sans feel mismatched."
+    },
+    {
+     "entry": "entry-5",
+     "visual_design": 7,
+     "copy_clarity": 8,
+     "conversion": 8,
+     "mobile": 8,
+     "brand_fit": 7,
+     "code_quality": 6,
+     "brief_violations": "None hard. Exact CTA label, all prices, FAQ, form and footer email are present. The hero shows an invented reply from 'Rahul' ('Happy to chat. Free Thursday evening?'), labeled 'Example reply' but still a made-up outcome.",
+     "strengths": "Distinct from the serif pack: a heavy grotesque headline, monospace labels, green with mustard. The door motif runs through the page well ('Door 01-04' step tags, 'Pick how many doors to knock on'). The struck-through 'Not 6,000 messages', the faded 'Applied / No reply' list, and the letter-style example message with 'Draft 1, awaiting your approval' are all good. It renders fully and stacks cleanly on mobile.",
+     "weaknesses": "The hero door reads like a cabinet or fridge, and the mono typewriter labels push the tone toward tech tooling instead of private concierge. The success message is not in an aria-live region, so screen readers are not told the form went through. There is only a single focus-visible rule. The FAQ heading 'What people ask before they start' hints at a user base that does not exist yet."
+    },
+    {
+     "entry": "entry-4",
+     "visual_design": 7,
+     "copy_clarity": 8,
+     "conversion": 8,
+     "mobile": 6,
+     "brand_fit": 8,
+     "code_quality": 7,
+     "brief_violations": "None found. Exact CTA label (8 times), all prices, FAQ, form and footer email are present.",
+     "strengths": "A beautiful hero: a high-contrast serif with italic 'conversations.', and a door with two annotation cards ('Priya, Senior PM / Alum, same school' and 'Your reason to talk'). A dark problem band with a scrolling marquee of 'Application #... NO RESPONSE' rows. A good closing band repeats the north-star line. The a11y work is thorough (no-js fallback, reduced-motion override, aria-live, aria-expanded).",
+     "weaknesses": "In the harness's full-page captures almost everything after the hero is invisible: How it works, Why it works, the example message, pricing and the form fields all depend on scroll-reveal. That is a real fragility. The problem headline starts at 28% opacity line by line, which fails contrast until it is revealed. The marquee adds motion to a page meant to feel calm. Mobile hides the header CTA behind a hamburger. Cream, serif, green and gold is familiar."
+    },
+    {
+     "entry": "entry-7",
+     "visual_design": 7,
+     "copy_clarity": 7,
+     "conversion": 7,
+     "mobile": 6,
+     "brand_fit": 8,
+     "code_quality": 7,
+     "brief_violations": "None found. Exact CTA label, all prices, FAQ, form and footer email are present.",
+     "strengths": "An elegant condensed serif and a dark arch card in the hero listing who sits behind every company ('The hiring manager owns the role', 'Your alumni remember the campus'). That is a smart way to explain the people. The arch-shaped intake card is a nice touch. Numbered sections (01-07) give the page order, and the big '60 / 6,000' moment is good.",
+     "weaknesses": "Most sections render blank in the harness full-page captures, because content depends on scroll-reveal. The headline breaks to four lines on desktop. The tone sits within the generic cream, green and gold set. The '06 Questions' label reads like six FAQs when there are five. The example message section is small and under-weighted."
+    },
+    {
+     "entry": "entry-10",
+     "visual_design": 6,
+     "copy_clarity": 8,
+     "conversion": 7,
+     "mobile": 6,
+     "brand_fit": 7,
+     "code_quality": 7,
+     "brief_violations": "None found. Exact CTA label, all prices, FAQ, form and footer email are present. 'Researched by hand' slightly overclaims manual work.",
+     "strengths": "A clear hero target-list card with real 'shared reason' lines, labeled Illustrative. Good copy throughout ('Tell us where you want to knock', 'Fewer doors. The right ones.'). A dark example-message band with three numbered annotations, and a tidy 60 / 1:1 / 'Talk, then ask' / Outbound grid. JS validation with aria-invalid.",
+     "weaknesses": "It is the most interchangeable of the cream, Fraunces italic and forest green entries, and nothing about it is memorable. How it works, Why it works and the pricing cards are invisible in the harness captures because of the reveal. The inputs have no required attributes, so everything rests on JS. Large empty bands sit between sections."
+    },
+    {
+     "entry": "entry-12",
+     "visual_design": 6,
+     "copy_clarity": 7,
+     "conversion": 7,
+     "mobile": 5,
+     "brand_fit": 7,
+     "code_quality": 6,
+     "brief_violations": "None hard. All prices and the exact CTA label are present. The problem section shows an invented reply ('Happy to share what helped. Free for a call Thursday?'), labeled illustrative. The form adds a seventh package field beyond the spec.",
+     "strengths": "A refined serif hero with an open green door and 'Shared reason to talk' card. The huge '60 people.' typographic moment in Why it works is a bold bit of hierarchy. The Portal vs Person split is effective. Having a package selector in the form is a reasonable conversion idea.",
+     "weaknesses": "The harness captures are nearly blank from the problem section to the footer on both views, including the form. The reveal is the most fragile in the field. On mobile, a sticky bottom CTA covers the hero card, and the header CTA is gone. It is in the generic cream, serif and green look. It uses a custom accordion instead of details, and has only one aria-live region."
+    },
+    {
+     "entry": "entry-6",
+     "visual_design": 5,
+     "copy_clarity": 7,
+     "conversion": 6,
+     "mobile": 5,
+     "brand_fit": 6,
+     "code_quality": 6,
+     "brief_violations": "None found. Exact CTA label, all prices, FAQ, form and footer email are present.",
+     "strengths": "A black and amber palette with Cormorant italic is at least different from the green crowd. The open black door spilling light is clean and simple. Numbered step cards and a dark intake band. The copy is solid ('Knock on the right door' as the form headline).",
+     "weaknesses": "In the harness captures the entire page after the hero renders as empty dark and cream slabs, including the form. Cormorant at hero size looks thin and wedding-invitation rather than premium career service. The door illustration is clip-art simple. The Why it works and pricing layouts are generic, and the page has the least visual identity of all the entries."
+    },
+    {
+     "entry": "entry-11",
+     "visual_design": 5,
+     "copy_clarity": 6,
+     "conversion": 5,
+     "mobile": 4,
+     "brand_fit": 5,
+     "code_quality": 5,
+     "brief_violations": "The primary CTA has an up-right arrow icon, which signals an external link for an on-page scroll. Otherwise all prices, the label, FAQ and footer are present.",
+     "strengths": "The hero illustration of five arches with one opening in orange is pleasant. When scrolled, the bento How it works and Why it works cards and the sticky pill nav are well made. Pricing cards list the inclusions per tier.",
+     "weaknesses": "It looks the most like an AI-generated SaaS template: a floating pill nav with a circular arrow button, bento cards, cream with burnt-orange italic serif. That undercuts the 'not an AI tool' brief. It has the worst harness render, with almost the entire page, form included, invisible on desktop and mobile. On mobile the hero visual and header CTA disappear behind a hamburger. The italic orange headline is overwrought."
+    }
+   ],
+   "ranking": [
+    "entry-9",
+    "entry-2",
+    "entry-8",
+    "entry-1",
+    "entry-3",
+    "entry-5",
+    "entry-4",
+    "entry-7",
+    "entry-10",
+    "entry-12",
+    "entry-6",
+    "entry-11"
+   ],
+   "best_ideas_to_graft": "1. Entry-9's 'To:' address line in the hero, which takes target companies inline and carries them into the intake form. It is the strongest conversion device in the field and fits the outreach idea. Its airmail and stamp identity (perforated edge, postmark carrying the tagline) is also the most ownable base for a brand kit. 2. Entry-8's grid of 60 arch doors with one lit open ('Every company has a door. We find the one that opens'), which turns '60 hand-picked people' into a picture without inventing a stat. 3. Entry-1's arch-framed 'Your target list' card and entry-7's 'behind every target company' list (hiring manager owns the role, alumni remember the campus). Both make the service concrete. 4. Entry-1's annotated example message, with numbered underlines explaining why each line works. 5. Entry-2's Why it works grid ('1:1 every message, one reader', 'Talk first, ask later', 'Proven playbook, borrowed'), which gets the facts across without numbers. 6. Entry-9's 'Still waiting / return to sender' stamp and entry-5's 'Pick how many doors to knock on' pricing headline, for door and letter metaphors used with restraint. 7. Entry-4's closing band repeating the north-star promise before the footer. Process note: six entries (4, 6, 7, 10, 11, 12) hide content behind IntersectionObserver reveals that render blank in full-page captures. Any graft should show content by default and only enhance it with motion."
+  },
+  {
+   "lens": "target-user",
+   "scores": [
+    {
+     "entry": "entry-2",
+     "visual_design": 9,
+     "copy_clarity": 8,
+     "conversion": 8,
+     "mobile": 8,
+     "brand_fit": 9,
+     "code_quality": 6,
+     "brief_violations": "No em dashes, no exclamation marks, exact CTA label, Google Fonts only. Minor: the 'Proven, playbook borrowed' tile makes a claim nobody can check yet. The success state promises a list 'within two working days', an SLA the brief never gave. The problem-section reply card ('Happy to chat. Our team is hiring for exactly this') is labelled illustrative but still suggests outcomes.",
+     "strengths": "The most premium of the twelve: deep green and brass, a Fraunces italic headline and a glowing open-door illustration. It reads as a private concierge, not software. The problem section shows rows of 'Applied, no response', which hits hard if you have sent 200 applications. The dark example-message section has 'Approved by you / Sent from your LinkedIn' footers that build trust. Pricing hierarchy is clear (Most popular in a brass badge) and the done-for-you card sits beside it. 'We do not guarantee replies. We do guarantee the work' is the most honest line in the competition. FAQ and form are polished, and the form has labels, aria-invalid, a role=status success state and a personalised thank-you.",
+     "weaknesses": "It is a 364KB React bundle and renders nothing without JS, which is fragile and heavy on a phone. On mobile the hero illustration falls below the fold and the page runs about 10,600px. 'See how it works' is low-contrast text on dark green. The success-state SLA is invented."
+    },
+    {
+     "entry": "entry-1",
+     "visual_design": 8,
+     "copy_clarity": 9,
+     "conversion": 8,
+     "mobile": 8,
+     "brand_fit": 7,
+     "code_quality": 9,
+     "brief_violations": "None found. Exact CTA label used six times, no em dashes or exclamation marks, no invented stats, footer email present, done-for-you from Rs 14,999 included.",
+     "strengths": "The clearest page in 5 seconds: the hero card ('Your target list: Hiring manager, Growth product / Owns the APM role you want / Same school, two batches ahead') shows the product instead of describing it, and is labelled as an illustration. The example message carries numbered annotations (specific to him, a genuine shared reason, one easy question) that teach the method. A 60-dot grid makes '60 hand-picked people' concrete. The CTA repeats in every pricing card. Code is the cleanest: focus-visible outlines, aria-describedby errors, aria-invalid, role=status success, a reduced-motion guard and a no-js fallback for reveals.",
+     "weaknesses": "A neutral grotesk on pale grey-green feels closer to a well-made SaaS template than a premium concierge, so it is less warm and human than entries 2 and 3. The hero arch is a decorative block with empty space above the card. The FAQ and pricing sections are visually flat. Little brand personality beyond the door icon."
+    },
+    {
+     "entry": "entry-3",
+     "visual_design": 8,
+     "copy_clarity": 8,
+     "conversion": 7,
+     "mobile": 8,
+     "brand_fit": 9,
+     "code_quality": 8,
+     "brief_violations": "None found. CTA label exact, no em dashes or exclamation marks, no stats, Google Fonts only.",
+     "strengths": "A confident, very large serif headline and a crafted green door with a brass knocker: the tagline turned into an image. The problem section's grid of shut arches with one golden door is the best metaphor visual in the field. The how-it-works timeline and the approval callout read well. Pricing is clean with a dark highlighted Standard tier, and 'We promise the work, done properly' is honest. The form section is titled with the CTA itself. Calm and human throughout. The form has aria-live success, aria-invalid and focus styling.",
+     "weaknesses": "The desktop nav has no section links, only the CTA, so a skeptic cannot jump to pricing or FAQ. Pale sage on sage loses a little contrast in the subline. The hero door is large but says nothing about the service; entry-1's list card explains more. Pricing is a little cramped on desktop."
+    },
+    {
+     "entry": "entry-9",
+     "visual_design": 8,
+     "copy_clarity": 8,
+     "conversion": 9,
+     "mobile": 8,
+     "brand_fit": 6,
+     "code_quality": 8,
+     "brief_violations": "Minor: 'A proven way to reach busy people' is an unbacked claim. Otherwise clean: exact CTA label, no em dashes or exclamation marks, no stats.",
+     "strengths": "The best conversion mechanics. The hero has an inline 'To: your target companies' field next to Get my target list, so the first action is typing the companies you dream of, which is low friction and emotionally sticky. Below the fold line sits a sample target-list table (who, where, shared reason, status) labelled 'Sample for illustration'. On mobile, pricing puts Standard first. The airmail and postage-stamp concept ('BY HAND', 'RETURN TO SENDER' on the ignored applications) is original and on-message. Accessibility is solid: labelled quick field, aria-live success, aria-invalid.",
+     "weaknesses": "Powder blue with a red stamp and condensed bold type is more quirky editorial than calm premium, and drifts from the green/cream concierge feel. The stamp glyph is odd. The page is busy (perforated borders, stamps, fold lines) and the 'still waiting' stamp is a bit gimmicky. The mobile hero placeholder truncates ('e.g. Zepto,')."
+    },
+    {
+     "entry": "entry-5",
+     "visual_design": 7,
+     "copy_clarity": 8,
+     "conversion": 7,
+     "mobile": 8,
+     "brand_fit": 7,
+     "code_quality": 7,
+     "brief_violations": "The hero card shows an 'example reply' from Rahul ('Happy to chat. Free Thursday evening?'). It is labelled, but it implies an outcome Knock cannot yet show. Invented SLA 'We reply by email within one working day'. No em dashes, exclamation marks or stats.",
+     "strengths": "Complete and fully rendered. A bold grotesk headline with mustard 'Start conversations.' is high impact on mobile. The struck-through 'Not 6,000 messages' is a good touch. The 'Door 01-04' step tags tie into the brand. The example letter on dark green has 'Shared / Ask' annotations and an illustrative disclaimer. The pricing block puts done-for-you in a tinted card, and the free-extra-week line sits under pricing. The form is clean with focus rings and aria-invalid.",
+     "weaknesses": "Monospace typewriter eyebrows ('FOR MBA GRADS AND FUTURE PMS IN INDIA') feel like a dev tool and work against 'premium, human'. Mustard on pale mint is borderline for AA. The hero door with a 'PRODUCT \u00b7 ZEPTO' label is clunky. The success state has no aria-live, so it relies on focus. Visually it is less refined than the top four."
+    },
+    {
+     "entry": "entry-8",
+     "visual_design": 5,
+     "copy_clarity": 7,
+     "conversion": 4,
+     "mobile": 4,
+     "brand_fit": 7,
+     "code_quality": 4,
+     "brief_violations": "Reveal-on-scroll (.rv opacity:0, no fallback) leaves the four steps, the why-it-works grid (an empty beige box), the example message card and all three pricing cards invisible in both captures, so required sections effectively do not render. 'A proven craft' is an unbacked claim.",
+     "strengths": "The hero art is beautiful: a 10x6 grid of arched doors with one lit (07\u00b703), captioned 'Every company has a door. We find the one that opens.' The problem section's portal-versus-door split card is smart. Headings ('Four steps. You hold the key at every one.') are well written. FAQ and form render and are clean.",
+     "weaknesses": "The page breaks exactly where the persuasion should happen. A skeptical phone user scrolls into blank space and an empty box where the steps, example and prices should be, which reads as broken or scammy. Never default content to opacity 0 without a robust fallback."
+    },
+    {
+     "entry": "entry-10",
+     "visual_design": 5,
+     "copy_clarity": 7,
+     "conversion": 4,
+     "mobile": 4,
+     "brand_fit": 7,
+     "code_quality": 4,
+     "brief_violations": "Reveal animation hides the four steps, the example message itself (only its annotations show), the why-it-works items and the pricing cards in both captures, so those required sections are missing as rendered. Invented 'within two working days' SLA.",
+     "strengths": "The hero target-list card ('Shared reason: same school, two batches apart', 'Researched by hand', 'ILLUSTRATIVE' badge) is a strong 5-second explainer. Fraunces italics feel warm and premium. Problem copy is good. FAQ, done-for-you card and form render cleanly.",
+     "weaknesses": "The example section shows three bullets about a message you cannot see. 'Pick the length of your search' sits above a void with no prices. Large empty bands on mobile. Same fragile reveal pattern as 8 even though a no-js class exists."
+    },
+    {
+     "entry": "entry-4",
+     "visual_design": 4,
+     "copy_clarity": 6,
+     "conversion": 3,
+     "mobile": 3,
+     "brand_fit": 7,
+     "code_quality": 5,
+     "brief_violations": "How it works, why it works, the example message, pricing and the intake form all render blank in both captures (data-reveal and split-word headings at opacity 0), so required sections are missing as seen. The problem statement sits at 0.28 opacity before its reveal, which fails contrast.",
+     "strengths": "Elegant hero: a high-contrast serif with a green italic 'conversations.', a door with knocker and annotation chips ('Priya, Senior PM / Alum, same school', 'Your reason to talk'). The scrolling marquee of 'Application #4194 \u00b7 Product Analyst \u00b7 NO RESPONSE' is a clever problem visual. The most thorough focus-visible coverage and aria-live regions in the source, plus a no-js fallback.",
+     "weaknesses": "Over-engineered motion (split-word headings, cursor glow cards, line reveals) left most of the page invisible. The form section shows one lone CTA button with no fields. For a spam-wary user this looks unfinished."
+    },
+    {
+     "entry": "entry-7",
+     "visual_design": 4,
+     "copy_clarity": 6,
+     "conversion": 4,
+     "mobile": 3,
+     "brand_fit": 7,
+     "code_quality": 4,
+     "brief_violations": "Problem, how it works, why it works, the example message and pricing all render blank (.reveal opacity:0, no fallback), so required sections are missing as seen. Invented 'within two working days' SLA.",
+     "strengths": "A refined condensed-serif hero and the best hero data card: 'Behind every target company: the hiring manager owns the role, the team knows what it needs, your alumni remember the campus, senior people can introduce you'. That card explains who Knock reaches in one glance. The FAQ is styled nicely, the arch-shaped form card is on-brand, and the closing 'Knock on the right door.' band is strong.",
+     "weaknesses": "Around 5,000px of blank green and cream between hero and FAQ. The form fields hug the arch's left edge with tight padding on desktop. The '06 QUESTIONS' numbering implies sections the user never saw."
+    },
+    {
+     "entry": "entry-6",
+     "visual_design": 3,
+     "copy_clarity": 4,
+     "conversion": 2,
+     "mobile": 2,
+     "brand_fit": 6,
+     "code_quality": 3,
+     "brief_violations": "Every section between hero and footer (problem, how it works, why it works, example, packages, FAQ, intake form) renders as empty colour bands in both captures (.rv opacity:0, no no-js fallback). As seen, required sections and the form are missing.",
+     "strengths": "The source copy is among the best ('It is not you. It is the channel.', 'Spam is volume without a reason. We are the opposite.', 'a person will reply'), with a role-labelled step sequence and a good success state. The hero is elegant: Cormorant serif, an amber italic, a minimalist open black door with a 'Priya, Product Lead' chip.",
+     "weaknesses": "A user sees a hero, then about 5,500px of nothing, then a footer. Zero conversion path beyond the hero button, which scrolls to a blank form. Thin Cormorant at small sizes also hurts phone legibility."
+    },
+    {
+     "entry": "entry-12",
+     "visual_design": 3,
+     "copy_clarity": 3,
+     "conversion": 2,
+     "mobile": 2,
+     "brand_fit": 6,
+     "code_quality": 3,
+     "brief_violations": "Everything below the hero renders blank in both captures, so problem, steps, why, example, packages, FAQ and form are missing as seen. Invented 'within two working days' SLA.",
+     "strengths": "Hero craft is good: a didone serif, a glowing arched door, and a 'Shared reason to talk: same move you are making' card that explains the method. Source semantics are reasonable (labels, no-js fallback, focus-visible).",
+     "weaknesses": "Blank page after the fold. On mobile there is no header CTA at the top. The 'Product lead, your target company' chip pushes against the card edge at 390px, and the sticky CTA overlaps the hero illustration. Nothing to trust or act on."
+    },
+    {
+     "entry": "entry-11",
+     "visual_design": 2,
+     "copy_clarity": 3,
+     "conversion": 1,
+     "mobile": 2,
+     "brand_fit": 5,
+     "code_quality": 3,
+     "brief_violations": "Every section below the hero, including the intake form, renders blank on both viewports (.rv with opacity 0, a 48px translate and an 8px blur). The mobile hero illustration is also missing. As seen, nearly all required sections and the form are absent.",
+     "strengths": "The desktop hero is stylish: a floating pill nav, a rust italic serif, a row of arches with one open in amber ('Not every door. The right one.'). The closing 'Knock on the right door.' footer is nice.",
+     "weaknesses": "The most broken page in the field. A huge empty dark slab, then about 6,000px of nothing. The blur-plus-translate reveal is heavy on low-end Android. The floating pill nav and arrow-in-circle buttons feel like a trendy SaaS template more than a calm concierge. The form never renders, so it cannot convert."
+    }
+   ],
+   "ranking": [
+    "entry-2",
+    "entry-1",
+    "entry-3",
+    "entry-9",
+    "entry-5",
+    "entry-8",
+    "entry-10",
+    "entry-4",
+    "entry-7",
+    "entry-6",
+    "entry-12",
+    "entry-11"
+   ],
+   "best_ideas_to_graft": "Start from entry-2's look: deep green (#163029-ish) with brass/gold accents on warm cream, a Fraunces serif with italic emphasis and a Figtree-style humanist sans, and the open-door-with-light illustration. Take entry-2's honesty line too ('We do not guarantee replies. We do guarantee the work') and its example card footers ('Approved by you / Sent from your LinkedIn'). Add these:\n1) Entry-9's hero inline 'To: your target companies' field next to Get my target list, carried into the full form. It is the best low-friction first step.\n2) Entry-1's hero 'Your target list' card (role / reason it matters, labelled as an illustration), or entry-7's 'Behind every target company' card. Either explains the product in 5 seconds.\n3) Entry-1's numbered annotations on the Rahul message (specific to him / genuine shared reason / one easy question) and its 60-dot grid for '60 hand-picked people'.\n4) Entry-3's grid of shut arches with one golden door for the problem section, or entry-8's 10x6 door grid with one lit. Entry-4's marquee of 'Application #4194 \u00b7 NO RESPONSE' and entry-2's 'Applied, no response' rows also hit the frustrated applicant hard.\n5) Entry-9's mobile pricing order (Standard first) and the CTA repeated in every price card.\n6) Entry-6's copy: 'It is not you. It is the channel.', 'Spam is volume without a reason.', 'Still unsure? Write to hello@knock.careers and a person will reply.'\n7) Entry-1's code: focus-visible outlines, aria-describedby errors plus aria-invalid, a role=status success state that moves focus, a reduced-motion guard.\nHard rule from this round: never default content to opacity 0 behind IntersectionObserver reveals. Seven of twelve entries (4, 6, 7, 8, 10, 11, 12) rendered blank sections because of this. Do not invent SLAs ('within two working days'), outcome replies, or the word 'proven'.\nFor the brand kit: the field converged on green plus brass on cream, a serif display face with italic accents, and the arch-door motif, which supports that as Knock's identity."
+  },
+  {
+   "lens": "accessibility-auditor",
+   "scores": [
+    {
+     "entry": "entry-2",
+     "visual_design": 9,
+     "copy_clarity": 9,
+     "conversion": 9,
+     "mobile": 9,
+     "brand_fit": 9,
+     "code_quality": 7,
+     "brief_violations": "None hard. 'Proven, playbook borrowed' and '1:1' set as display stats next to '60' read like stat tiles and edge toward claims. The 364KB React bundle is allowed by the brief, but it renders the whole page in JS, so with JS off the page is blank.",
+     "strengths": "Most premium and complete page in the set. Deep green and brass, serif italic headline, a glowing half-open door, all on-brand. Every section in the brief renders in the screenshots. The problem section shows a stack of 'Applied, no response' rows answered by a 'Happy to chat' card. Pricing cards have a clean duration/people grid. The Done-for-you option sits next to the 'Every package includes' list. The FAQ has an intro line with the contact email. The form has placeholders, a personalised success message ('Thank you, {name}. We are on it.') with role=status, a skip link and details/summary FAQ. The scroll respects reduced motion.",
+     "weaknesses": "Rendering depends entirely on JS, with no static HTML fallback. Heavy bundle for a landing page. Tailwind focus-visible:outline-none appears in places and relies on ring replacements. The stat-style headings in 'Why it works' sit close to invented proof."
+    },
+    {
+     "entry": "entry-3",
+     "visual_design": 9,
+     "copy_clarity": 9,
+     "conversion": 7,
+     "mobile": 9,
+     "brand_fit": 9,
+     "code_quality": 8,
+     "brief_violations": "None found. No em dashes, no exclamation marks, correct CTA label on all 7 instances, Google Fonts only, no invented stats.",
+     "strengths": "Confident editorial serif and an illustrated green door with a brass knocker. The problem section has a smart visual: a wall of shut arches with one lit door. Every section renders with no scroll-reveal gating, so the page is robust. Example message has highlighted annotations. Clean pricing plus a Done-for-you card. Form has labels, aria-describedby errors, aria-live success, a skip link and reduced-motion support. Light JS.",
+     "weaknesses": "The header has no section navigation, only logo and CTA, so How it works, Packages and FAQ can't be reached from the top. The 'Every package includes' list is set as small pills that read like tags. The mobile hero door illustration takes a lot of height. No sticky CTA on mobile."
+    },
+    {
+     "entry": "entry-9",
+     "visual_design": 8,
+     "copy_clarity": 9,
+     "conversion": 9,
+     "mobile": 8,
+     "brand_fit": 7,
+     "code_quality": 9,
+     "brief_violations": "None hard. The playful 'STILL WAITING / RETURN TO SENDER' stamp and the bright red postage stamp stretch 'calm' a little, but nothing breaks the rules.",
+     "strengths": "Most original concept: a letter or postcard with 'To:' and an inline target-companies field plus CTA in the hero, the strongest above-the-fold conversion of any entry. A sample target-list table (who, where, shared reason, status) explains the product immediately. On mobile the Standard plan comes first. Best form accessibility: aria-live, aria-invalid, describedby on every field, an inline hero form, a skip link and reduced-motion support.",
+     "weaknesses": "The powder-blue, navy and red palette is less warm and premium than the green and brass entries and feels more editorial or startup. The 'FOLD HERE' and stamp details are cute but busy. The hero input uses autocomplete=off. The postmark animation adds motion near the headline."
+    },
+    {
+     "entry": "entry-5",
+     "visual_design": 7,
+     "copy_clarity": 8,
+     "conversion": 8,
+     "mobile": 8,
+     "brand_fit": 7,
+     "code_quality": 7,
+     "brief_violations": "None found.",
+     "strengths": "Clear, fully visible page. Bold grotesk headline with a brass 'Start conversations.' line. The door has a 'Product, Zepto' plaque and an example reply card. Problem list with NO REPLY tags, then 'Sound familiar?'. Struck-through 'Not 6,000 messages' is a nice touch. Pricing shows days and people as tabular numbers. The success state is personalised with the user's companies and gets focus.",
+     "weaknesses": "Monospace eyebrow labels ('DOOR 01', 'DRAFT 1, AWAITING YOUR APPROVAL') feel like a developer tool, which undercuts the 'not an AI tool' brief. No aria-live on success or errors. Only 1 aria-describedby, so most error messages are not tied to their fields. The success-heading text swap is not announced. A single reduced-motion block."
+    },
+    {
+     "entry": "entry-1",
+     "visual_design": 6,
+     "copy_clarity": 8,
+     "conversion": 8,
+     "mobile": 8,
+     "brand_fit": 6,
+     "code_quality": 8,
+     "brief_violations": "None found.",
+     "strengths": "Every section renders and is easy to scan. The reveal moves elements with transform only, so content is never invisible. That's the most robust scroll motion of any entry. The arch-framed target-list card makes the hero concrete. Footnoted annotations on the example message. Solid form: labels, aria-describedby, aria-live, a skip link and scroll-margin.",
+     "weaknesses": "Generic SaaS template look: grotesk sans, flat green, icon-in-circle step list and a bento grid. It reads like a software product, not a private concierge. The 60-dot grid is decorative filler. Long mobile scroll with large blank padding. The success heading has outline:none."
+    },
+    {
+     "entry": "entry-10",
+     "visual_design": 6,
+     "copy_clarity": 8,
+     "conversion": 7,
+     "mobile": 6,
+     "brand_fit": 8,
+     "code_quality": 6,
+     "brief_violations": "None found in source.",
+     "strengths": "Excellent hero: an 'Your target list, ILLUSTRATIVE' card with shared reasons, '4 of 60 people, researched by hand'. It explains the service at a glance and is on-brand. Content is gated behind a .js class, so it degrades safely without JS. Good form: aria-invalid, describedby, a sample-list next-steps list and reduced motion. Copy is warm and specific.",
+     "weaknesses": "In both the desktop and mobile full captures, the How it works steps, Why it works grid, example message card and pricing cards are invisible because IntersectionObserver keeps them at opacity 0. The page looks broken and half-empty, and the most important evidence, the packages, can't be seen. Large dead vertical bands."
+    },
+    {
+     "entry": "entry-8",
+     "visual_design": 7,
+     "copy_clarity": 8,
+     "conversion": 6,
+     "mobile": 6,
+     "brand_fit": 8,
+     "code_quality": 5,
+     "brief_violations": "None found in source.",
+     "strengths": "Best hero metaphor in the field: a grid of 60 arched doors with one lit ('07 \u00b7 03'), and the caption 'Every company has a door. We find the one that opens.' Elegant condensed serif italic. The portal-vs-door comparison card in the problem section is strong. The form renders, with role=status success that gets focus.",
+     "weaknesses": ".rv{opacity:0} is applied unconditionally, with no .js or no-js gate. If the script fails, the steps, why-it-works, example message and pricing cards stay invisible. In the captures, the steps, a large blank Why panel, the message card and all three price cards are missing. No aria-describedby on form errors. The mobile page is very long with big empty gaps."
+    },
+    {
+     "entry": "entry-12",
+     "visual_design": 6,
+     "copy_clarity": 9,
+     "conversion": 5,
+     "mobile": 5,
+     "brand_fit": 8,
+     "code_quality": 6,
+     "brief_violations": "None found in source.",
+     "strengths": "Beautiful hero: a glowing door, a 'Shared reason to talk' card and refined serif italic. Source copy is among the best ('First message, 32 words', 'It is not you. It is the channel.'). The form has a radio package picker plus an edit-details success state. The FAQ uses buttons with aria-expanded and aria-controls. A no-js fallback exists.",
+     "weaknesses": "Every section below the hero, including the intake form, is blank in both captures because of reveal gating. On mobile the header drops the CTA, and a floating sticky 'Get my target list' button covers the hero illustration card. Collapsed FAQ answers use grid 0fr without visibility:hidden, so screen readers still read them. Global :focus{outline:none}, though focus-visible covers it."
+    },
+    {
+     "entry": "entry-4",
+     "visual_design": 5,
+     "copy_clarity": 8,
+     "conversion": 5,
+     "mobile": 5,
+     "brand_fit": 6,
+     "code_quality": 6,
+     "brief_violations": "None hard in source. Motion load (cursor-tracking glow cards, door parallax, split-word headings, pulsing rings, scrolling application ticker) conflicts with the 'calm' brief.",
+     "strengths": "Strong hero: Didone serif, a door with Priya and 'Your reason to talk' cards. A no-js fallback and a reduced-motion override exist. Mobile menu has aria-expanded and Escape handling. Rich ARIA on the form.",
+     "weaknesses": "Most content is invisible in both full captures: steps, why grid, example message, all pricing and the form. The page is a sequence of empty beige bands. A dim, low-opacity 'Portals are a queue' line fails contrast while it waits for reveal. On mobile, a hamburger replaces the header CTA. Over-animated for a calm, premium service."
+    },
+    {
+     "entry": "entry-7",
+     "visual_design": 5,
+     "copy_clarity": 8,
+     "conversion": 5,
+     "mobile": 5,
+     "brand_fit": 7,
+     "code_quality": 4,
+     "brief_violations": "None found in source.",
+     "strengths": "Distinctive condensed serif and an arch card listing 'The hiring manager / The team / Your alumni / Senior people' with roles. The arch-shaped form card is a nice brand echo. The closing 'Knock on the right door.' band is strong.",
+     "weaknesses": ".reveal{opacity:0} is applied unconditionally with no no-JS gate, so all content depends on JS. In the captures, the problem, how-it-works, why, example and pricing sections are blank, and the form's left-column heading is missing. That's the most fragile implementation among the readable entries. aria-describedby is only used twice. Huge empty vertical space on desktop and mobile."
+    },
+    {
+     "entry": "entry-6",
+     "visual_design": 4,
+     "copy_clarity": 8,
+     "conversion": 4,
+     "mobile": 4,
+     "brand_fit": 7,
+     "code_quality": 5,
+     "brief_violations": "None found in source.",
+     "strengths": "Elegant Cormorant headline with a copper italic and a minimalist open-door line drawing with a Priya card. Copy in source is warm and complete, with a 3-step after-submit explainer. A no-js class fallback and focus management exist.",
+     "weaknesses": "After the hero, both captures show almost nothing: giant black and cream blocks with no text, including the intake form. A visitor or reviewer sees an apparently empty page. Inputs have no placeholders on name and email. The arrow glyph in the CTA is a text character read aloud by screen readers. Contrast of copper on cream is borderline at small sizes."
+    },
+    {
+     "entry": "entry-11",
+     "visual_design": 4,
+     "copy_clarity": 8,
+     "conversion": 3,
+     "mobile": 3,
+     "brand_fit": 6,
+     "code_quality": 4,
+     "brief_violations": "None hard in source. A '\u2197' external-link arrow on every 'Get my target list' button wrongly signals leaving the site, and an extra 'Why it works' nav item.",
+     "strengths": "Refined pill nav and an editorial serif. The five-arches hero card with one open door ('Not every door. The right one.') is on concept. Form errors are written clearly in source.",
+     "weaknesses": "Worst rendering: nearly the whole page is blank in both captures, including the form, and on mobile even the hero illustration is missing above the fold, leaving a large empty area. Reveal uses filter:blur(8px) plus 48px translate, which isn't compositor-only. input:focus{outline:none} relies on a wrapper ring. Placeholder #8C8276 is low contrast. The \u2197 icon on the CTA is misleading."
+    }
+   ],
+   "ranking": [
+    "entry-2",
+    "entry-3",
+    "entry-9",
+    "entry-5",
+    "entry-1",
+    "entry-10",
+    "entry-8",
+    "entry-12",
+    "entry-4",
+    "entry-7",
+    "entry-6",
+    "entry-11"
+   ],
+   "best_ideas_to_graft": "1) Entry-9's hero 'To: [your target companies]' field next to the CTA: it starts the intake above the fold and pre-fills the form. 2) Entry-10's 'Your target list, ILLUSTRATIVE' hero card, with a shared reason per person and '4 of 60 people, researched by hand', is the clearest product explanation. Entry-9's sample table (who / where / shared reason / status) also works. 3) Entry-8's 60-door grid with one lit door ('Every company has a door. We find the one that opens.') as the signature visual. 4) Entry-2's palette and door illustration (deep green, brass, light spilling from a half-open arch) and its pricing grid of duration and people contacted. 5) Entry-3's problem visual: a wall of closed arches with one lit. 6) Entry-12's 'First message, 32 words' caption and the radio package picker in the form. 7) Entry-5's struck-through 'Not 6,000 messages' and the success message personalised with the user's companies. 8) Entry-1's transform-only reveal, where content is never set to opacity 0. Use this pattern, or gate on a .js class as entry-10 does, so content can never be hidden; 7 of 12 entries failed full-page capture because of opacity-0 scroll reveals. 9) Entry-9's mobile order with Standard first, and its accessible form (aria-live, aria-describedby on every field, focus moved to the first error)."
+  }
+ ],
+ "mapping": [
+  {
+   "id": "entry-1",
+   "skill": "Taste"
+  },
+  {
+   "id": "entry-2",
+   "skill": "web-artifacts-builder+theme-factory"
+  },
+  {
+   "id": "entry-3",
+   "skill": "Anthropic frontend-design"
+  },
+  {
+   "id": "entry-4",
+   "skill": "xiaopu web-design"
+  },
+  {
+   "id": "entry-5",
+   "skill": "artifact-design"
+  },
+  {
+   "id": "entry-6",
+   "skill": "UI/UX Pro Max"
+  },
+  {
+   "id": "entry-7",
+   "skill": "Claude Design"
+  },
+  {
+   "id": "entry-8",
+   "skill": "canvas-design+artifact-diagramming"
+  },
+  {
+   "id": "entry-9",
+   "skill": "impeccable"
+  },
+  {
+   "id": "entry-10",
+   "skill": "uizze"
+  },
+  {
+   "id": "entry-11",
+   "skill": "soft-skill"
+  },
+  {
+   "id": "entry-12",
+   "skill": "Emil Kowalski"
+  }
+ ],
+ "criteria": {
+  "visual_design": 25,
+  "copy_clarity": 20,
+  "conversion": 20,
+  "mobile": 15,
+  "brand_fit": 10,
+  "code_quality": 10
+ }
+}

@@ -1,0 +1,254 @@
+[
+  {
+    "entry": "entry-9",
+    "skill": "impeccable",
+    "score": 8.28,
+    "spread": 0.45,
+    "judges": 3,
+    "criteria": {
+      "visual_design": 8.3,
+      "copy_clarity": 8.3,
+      "conversion": 9.0,
+      "mobile": 8.0,
+      "brand_fit": 7.0,
+      "code_quality": 8.3
+    },
+    "violations": [
+      "design-director: None hard. All four prices, the exact CTA label (6 times), the FAQ, the footer email, no em dashes or exclamation marks, no external assets. Small liberties: a 'BY HAND' stamp and 'a person will answer' overclaim manual work a little. Mobile puts Standard first in the pricing order.",
+      "target-user: Minor: 'A proven way to reach busy people' is an unbacked claim. Otherwise clean: exact CTA label, no em dashes or exclamation marks, no stats.",
+      "accessibility-auditor: None hard. The playful 'STILL WAITING / RETURN TO SENDER' stamp and the bright red postage stamp stretch 'calm' a little, but nothing breaks the rules."
+    ],
+    "rank": 1
+  },
+  {
+    "entry": "entry-2",
+    "skill": "web-artifacts-builder+theme-factory",
+    "score": 8.2,
+    "spread": 1.15,
+    "judges": 3,
+    "criteria": {
+      "visual_design": 8.3,
+      "copy_clarity": 8.7,
+      "conversion": 8.3,
+      "mobile": 8.3,
+      "brand_fit": 8.3,
+      "code_quality": 6.3
+    },
+    "violations": [
+      "design-director: No hard violations. Exact CTA label, all prices, FAQ, form and footer are present. The problem card's illustrative reply ('Our team is hiring for exactly this, let me put you in touch') implies an outcome Knock cannot promise yet.",
+      "target-user: No em dashes, no exclamation marks, exact CTA label, Google Fonts only. Minor: the 'Proven, playbook borrowed' tile makes a claim nobody can check yet. The success state promises a list 'within two working days', an SLA the brief never gave. The problem-section reply card ('Happy to chat. Our team is hiring for exactly this') is labelled illustrative but still suggests outcomes.",
+      "accessibility-auditor: None hard. 'Proven, playbook borrowed' and '1:1' set as display stats next to '60' read like stat tiles and edge toward claims. The 364KB React bundle is allowed by the brief, but it renders the whole page in JS, so with JS off the page is blank."
+    ],
+    "rank": 2
+  },
+  {
+    "entry": "entry-3",
+    "skill": "Anthropic frontend-design",
+    "score": 7.93,
+    "spread": 1.1,
+    "judges": 3,
+    "criteria": {
+      "visual_design": 8.0,
+      "copy_clarity": 8.3,
+      "conversion": 7.0,
+      "mobile": 8.0,
+      "brand_fit": 8.7,
+      "code_quality": 8.0
+    },
+    "violations": [
+      "design-director: None found. Exact CTA label (7 times), all prices, FAQ, form and footer email are present.",
+      "target-user: None found. CTA label exact, no em dashes or exclamation marks, no stats, Google Fonts only.",
+      "accessibility-auditor: None found. No em dashes, no exclamation marks, correct CTA label on all 7 instances, Google Fonts only, no invented stats."
+    ],
+    "rank": 3
+  },
+  {
+    "entry": "entry-1",
+    "skill": "Taste",
+    "score": 7.75,
+    "spread": 0.9,
+    "judges": 3,
+    "criteria": {
+      "visual_design": 7.0,
+      "copy_clarity": 8.3,
+      "conversion": 8.0,
+      "mobile": 8.0,
+      "brand_fit": 7.0,
+      "code_quality": 8.3
+    },
+    "violations": [
+      "design-director: None found. Exact CTA label, all prices, FAQ, form and footer email are present.",
+      "target-user: None found. Exact CTA label used six times, no em dashes or exclamation marks, no invented stats, footer email present, done-for-you from Rs 14,999 included.",
+      "accessibility-auditor: None found."
+    ],
+    "rank": 4
+  },
+  {
+    "entry": "entry-5",
+    "skill": "artifact-design",
+    "score": 7.45,
+    "spread": 0.2,
+    "judges": 3,
+    "criteria": {
+      "visual_design": 7.0,
+      "copy_clarity": 8.0,
+      "conversion": 7.7,
+      "mobile": 8.0,
+      "brand_fit": 7.0,
+      "code_quality": 6.7
+    },
+    "violations": [
+      "design-director: None hard. Exact CTA label, all prices, FAQ, form and footer email are present. The hero shows an invented reply from 'Rahul' ('Happy to chat. Free Thursday evening?'), labeled 'Example reply' but still a made-up outcome.",
+      "target-user: The hero card shows an 'example reply' from Rahul ('Happy to chat. Free Thursday evening?'). It is labelled, but it implies an outcome Knock cannot yet show. Invented SLA 'We reply by email within one working day'. No em dashes, exclamation marks or stats.",
+      "accessibility-auditor: None found."
+    ],
+    "rank": 5
+  },
+  {
+    "entry": "entry-8",
+    "skill": "canvas-design+artifact-diagramming",
+    "score": 6.55,
+    "spread": 2.6,
+    "judges": 3,
+    "criteria": {
+      "visual_design": 6.7,
+      "copy_clarity": 7.7,
+      "conversion": 6.0,
+      "mobile": 5.7,
+      "brand_fit": 7.7,
+      "code_quality": 5.3
+    },
+    "violations": [
+      "design-director: None found. Exact CTA label, all prices, FAQ, form and footer email are present. No em dashes, exclamation marks or invented stats.",
+      "target-user: Reveal-on-scroll (.rv opacity:0, no fallback) leaves the four steps, the why-it-works grid (an empty beige box), the example message card and all three pricing cards invisible in both captures, so required sections effectively do not render. 'A proven craft' is an unbacked claim.",
+      "accessibility-auditor: None found in source."
+    ],
+    "rank": 6
+  },
+  {
+    "entry": "entry-10",
+    "skill": "uizze",
+    "score": 6.25,
+    "spread": 1.65,
+    "judges": 3,
+    "criteria": {
+      "visual_design": 5.7,
+      "copy_clarity": 7.7,
+      "conversion": 6.0,
+      "mobile": 5.3,
+      "brand_fit": 7.3,
+      "code_quality": 5.7
+    },
+    "violations": [
+      "design-director: None found. Exact CTA label, all prices, FAQ, form and footer email are present. 'Researched by hand' slightly overclaims manual work.",
+      "target-user: Reveal animation hides the four steps, the example message itself (only its annotations show), the why-it-works items and the pricing cards in both captures, so those required sections are missing as rendered. Invented 'within two working days' SLA.",
+      "accessibility-auditor: None found in source."
+    ],
+    "rank": 7
+  },
+  {
+    "entry": "entry-4",
+    "skill": "xiaopu web-design",
+    "score": 5.87,
+    "spread": 2.9,
+    "judges": 3,
+    "criteria": {
+      "visual_design": 5.3,
+      "copy_clarity": 7.3,
+      "conversion": 5.3,
+      "mobile": 4.7,
+      "brand_fit": 7.0,
+      "code_quality": 6.0
+    },
+    "violations": [
+      "design-director: None found. Exact CTA label (8 times), all prices, FAQ, form and footer email are present.",
+      "target-user: How it works, why it works, the example message, pricing and the intake form all render blank in both captures (data-reveal and split-word headings at opacity 0), so required sections are missing as seen. The problem statement sits at 0.28 opacity before its reveal, which fails contrast.",
+      "accessibility-auditor: None hard in source. Motion load (cursor-tracking glow cards, door parallax, split-word headings, pulsing rings, scrolling application ticker) conflicts with the 'calm' brief."
+    ],
+    "rank": 8
+  },
+  {
+    "entry": "entry-7",
+    "skill": "Claude Design",
+    "score": 5.73,
+    "spread": 2.4,
+    "judges": 3,
+    "criteria": {
+      "visual_design": 5.3,
+      "copy_clarity": 7.0,
+      "conversion": 5.3,
+      "mobile": 4.7,
+      "brand_fit": 7.3,
+      "code_quality": 5.0
+    },
+    "violations": [
+      "design-director: None found. Exact CTA label, all prices, FAQ, form and footer email are present.",
+      "target-user: Problem, how it works, why it works, the example message and pricing all render blank (.reveal opacity:0, no fallback), so required sections are missing as seen. Invented 'within two working days' SLA.",
+      "accessibility-auditor: None found in source."
+    ],
+    "rank": 9
+  },
+  {
+    "entry": "entry-12",
+    "skill": "Emil Kowalski",
+    "score": 5.25,
+    "spread": 3.5,
+    "judges": 3,
+    "criteria": {
+      "visual_design": 5.0,
+      "copy_clarity": 6.3,
+      "conversion": 4.7,
+      "mobile": 4.0,
+      "brand_fit": 7.0,
+      "code_quality": 5.0
+    },
+    "violations": [
+      "design-director: None hard. All prices and the exact CTA label are present. The problem section shows an invented reply ('Happy to share what helped. Free for a call Thursday?'), labeled illustrative. The form adds a seventh package field beyond the spec.",
+      "target-user: Everything below the hero renders blank in both captures, so problem, steps, why, example, packages, FAQ and form are missing as seen. Invented 'within two working days' SLA.",
+      "accessibility-auditor: None found in source."
+    ],
+    "rank": 10
+  },
+  {
+    "entry": "entry-6",
+    "skill": "UI/UX Pro Max",
+    "score": 4.72,
+    "spread": 2.65,
+    "judges": 3,
+    "criteria": {
+      "visual_design": 4.0,
+      "copy_clarity": 6.3,
+      "conversion": 4.0,
+      "mobile": 3.7,
+      "brand_fit": 6.3,
+      "code_quality": 4.7
+    },
+    "violations": [
+      "design-director: None found. Exact CTA label, all prices, FAQ, form and footer email are present.",
+      "target-user: Every section between hero and footer (problem, how it works, why it works, example, packages, FAQ, intake form) renders as empty colour bands in both captures (.rv opacity:0, no no-js fallback). As seen, required sections and the form are missing.",
+      "accessibility-auditor: None found in source."
+    ],
+    "rank": 11
+  },
+  {
+    "entry": "entry-11",
+    "skill": "soft-skill",
+    "score": 4.03,
+    "spread": 2.65,
+    "judges": 3,
+    "criteria": {
+      "visual_design": 3.7,
+      "copy_clarity": 5.7,
+      "conversion": 3.0,
+      "mobile": 3.0,
+      "brand_fit": 5.3,
+      "code_quality": 4.0
+    },
+    "violations": [
+      "design-director: The primary CTA has an up-right arrow icon, which signals an external link for an on-page scroll. Otherwise all prices, the label, FAQ and footer are present.",
+      "target-user: Every section below the hero, including the intake form, renders blank on both viewports (.rv with opacity 0, a 48px translate and an 8px blur). The mobile hero illustration is also missing. As seen, nearly all required sections and the form are absent.",
+      "accessibility-auditor: None hard in source. A '\u2197' external-link arrow on every 'Get my target list' button wrongly signals leaving the site, and an extra 'Why it works' nav item."
+    ],
+    "rank": 12
+  }
+]

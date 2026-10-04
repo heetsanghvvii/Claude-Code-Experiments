@@ -1,0 +1,40 @@
+# Claude Video: Python Dependencies
+# Last updated: 2026-04-01
+#
+# Core scripts (stock_search, stock_download, analyze_contrast, scene_planner,
+# audio_prepare, tts_generate) use stdlib only: no external deps required.
+#
+# The packages below are optional, needed only for specific sub-skills.
+# Install all: pip install -r requirements.txt
+# Install group: pip install -r requirements.txt --only-binary :all:
+
+# --- AI Video Generation ---
+google-genai>=1.67.0,<2.0.0        # Veo 3.x video generation + Gemini TTS
+
+# --- Captioning (speech-to-text) ---
+faster-whisper>=1.0.0,<2.0.0       # CTranslate2-based Whisper (GPU)
+whisperx>=3.1.0,<4.0.0             # Word-level timestamps for karaoke captions
+
+# --- AI Enhancement ---
+# NOTE: PyTorch must be installed separately for CUDA support.
+#   See: https://pytorch.org/get-started/locally/
+#   Example: pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+realesrgan>=0.3.0,<1.0.0           # Real-ESRGAN 4x upscaling
+basicsr>=1.4.2,<2.0.0              # Required by Real-ESRGAN
+
+# --- AI Audio Enhancement ---
+demucs>=4.0.0,<5.0.0               # Source separation (vocals, drums, bass, other)
+deepfilternet>=0.5.0,<1.0.0        # AI noise reduction (superior to FFmpeg anlmdn)
+
+# --- Web Screenshots ---
+playwright>=1.56.0,<2.0.0          # Browser automation for web capture
+
+# --- Scene Detection ---
+scenedetect>=0.6.0,<1.0.0          # PySceneDetect for cut detection
+
+# --- Image Processing ---
+Pillow>=10.0.0,<12.0.0             # Image manipulation (thumbnails, crops)
+
+# --- Utilities ---
+requests>=2.32.0,<3.0.0            # HTTP client (stock downloads, API calls)
+                                    # >= 2.32.0 for CVE-2024-35195 fix

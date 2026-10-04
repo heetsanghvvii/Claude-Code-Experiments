@@ -13,5 +13,10 @@ Project skills live in `.claude/skills/` and load automatically in Claude Code s
 | [emilkowalski/skills](https://github.com/emilkowalski/skills) @ `e8a175d` | `emil-design-eng`, `animate`, `animate-expo`, `animation-vocabulary`, `improve-animations`, `review-animations`, `find-animation-opportunities`, `apple-design`, `break-ui`, `prototype`, `pick-ui-library`, `mobile-native`, `write-swift`, `ask-sonner` | Interface design and animation: easing, interactions, polished UI |
 | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) @ `063bee9` | `web-design-guidelines` | Accessibility, forms, focus states, UX details |
 | [ootto-ai/claude-content-skills](https://github.com/ootto-ai/claude-content-skills) @ `07b5294` | 52 skills (`viral-hook-writer`, `reel-scripter`, `caption-and-hashtags`, `content-calendar`, `carousel-builder`, ...) | Hooks, scripts, captions, reels, IG content planning |
+| [AgriciDaniel/claude-video](https://github.com/AgriciDaniel/claude-video) @ `4253a2b` | `claude-video` + 15 `claude-video-*` skills, 3 agents in `.claude/agents/` | FFmpeg editing, captions, shorts, export, analysis (run `/video setup` for deps) |
+| [browser-use/video-use](https://github.com/browser-use/video-use) @ `b877063` | `video-use`, `manim-video` | Edit raw footage by conversation; Manim explainers |
+| [remotion-dev/skills](https://github.com/remotion-dev/skills) @ `0b5db9d` | 12 `remotion-*` skills | Programmatic video with Remotion |
+| [anthropics/skills](https://github.com/anthropics/skills) @ `8a1541c` | `frontend-design`, `mcp-builder`, `webapp-testing`, `doc-coauthoring`, `internal-comms` | Only skills not already in the account plugin |
+| [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) @ `839872f` | `i-have-adhd` | Short, action-first output (`/i-have-adhd`) |
 
-Upstream licenses are in `third_party_licenses/`. Jev's optional PreToolUse hook (`.claude/skills/claude-x-jev/hooks/pre-tool-gate.sh`) is not enabled.
+Upstream licenses are in `third_party_licenses/`. Jev's optional PreToolUse hook (`.claude/skills/claude-x-jev/hooks/pre-tool-gate.sh`) and claude-video hooks are not enabled.

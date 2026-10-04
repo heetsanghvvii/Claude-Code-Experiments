@@ -1,0 +1,52 @@
+[
+  {
+    "pair": "P01",
+    "note": "Hi Rahul, your post on PMs now owning quick commerce assortment stuck with me. I'm moving from brand management at HUL into product, same MBA school as you. Did your Flipkart category instincts carry over, or did you have to unlearn some?",
+    "followup": "Hi Rahul, curious about one thing from your assortment post: when a PM and the old category view disagree, what metric usually settles it?"
+  },
+  {
+    "pair": "P02",
+    "note": "Hi Neha, saw your meetup talk on designing trust into payment failures. I spent 2 years at Bain on consumer and retail and I'm moving toward fintech product. Which failure state do you think most payment apps still handle worst?",
+    "followup": "Hi Neha, you moved from Razorpay to CRED. Is designing a payment experience for consumers a different muscle than building for merchants?"
+  },
+  {
+    "pair": "P03",
+    "note": "Hi Arjun, I follow your weekly hiring updates at Freshworks. I'm an XLRI 2024 grad with 4 years in supply chain at Asian Paints, aiming at B2B SaaS product. Do product hires there ever come from operations backgrounds like mine?",
+    "followup": "Hi Arjun, when you scan for product candidates, what's one signal in a profile that makes you stop and read further?"
+  },
+  {
+    "pair": "P04",
+    "note": "Hi Priya, your post on partner app redesign learnings was useful. I spent 2 years at Zomato and built a tool that cut restaurant onboarding from 7 days to 2, so partner friction is familiar. What surprised you most after the redesign shipped?",
+    "followup": "Hi Priya, you worked on restaurant partners at Uber Eats before Swiggy. What's one partner pain point that looks the same across both?"
+  },
+  {
+    "pair": "P05",
+    "note": "Hi Vikram, I'm an IIM Bangalore 2025 grad, 3 years as a software engineer at TCS, now drawn to AI product. You built a voice AI startup before Microsoft. What changes most between building one AI product and running a platform?",
+    "followup": "Hi Vikram, as a former founder now leading an AI platform, what do you wish engineers moving into product understood earlier?"
+  },
+  {
+    "pair": "P06",
+    "note": "Hi Tanvi, another Pune person here. Your article on retention loops for first-time investors was a good read. I spent 2 years in ed-tech sales watching first-time users drop off. Which loop do you find moves retention most in the first weeks?",
+    "followup": "Hi Tanvi, you went from COEP in Pune to growth at Groww. Was there a point where you realised growth was the PM path for you?"
+  },
+  {
+    "pair": "P07",
+    "note": "Hi Aditya, I did 3 years of healthcare consulting at Deloitte, then my MBA at IIM Calcutta, and I want to work in health-tech product. You went from doctor to PM. What did your clinical background change about how you prioritise features?",
+    "followup": "Hi Aditya, in health-tech, which is harder to get right early: the clinician's workflow or the patient's experience?"
+  },
+  {
+    "pair": "P08",
+    "note": "Hi Shreya, fellow HUL management trainee here. I was a sales officer there and did my MBA at IIM Lucknow. You made the jump from HUL into product at Meesho. What was the hardest HUL habit to drop in the new role?",
+    "followup": "Hi Shreya, which HUL skill ended up being unexpectedly useful at Meesho, even though it's a very different business?"
+  },
+  {
+    "pair": "P09",
+    "note": "Hi Kabir, I follow your posts on founder to PM moves. I ran a D2C coffee brand that shut down in 2024, and you went through something similar with snacks. What founder habit was hardest to unlearn once you were a PM?",
+    "followup": "Hi Kabir, at Rapido, which part of the consumer product feels closest to running your own brand, and which feels furthest?"
+  },
+  {
+    "pair": "P10",
+    "note": "Hi Manish, saw you share that Flipkart search is moving to semantic ranking. I spent 3 years as a data analyst at Myntra, so ranking metrics are familiar ground. How do you judge whether semantic ranking beats the old setup, beyond clicks?",
+    "followup": "Hi Manish, after 6 years on Flipkart, what's one search problem that semantic ranking doesn't fix on its own?"
+  }
+]

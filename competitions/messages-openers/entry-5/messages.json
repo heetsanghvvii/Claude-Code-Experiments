@@ -1,0 +1,52 @@
+[
+ {
+  "pair": "P01",
+  "note": "Hi Rahul, your post on PMs, not category teams, now owning quick commerce assortment made me curious. I'm Asha, IIMA '25 (you're '19), 3 years in HUL brand management. What did you learn first moving from Flipkart category to product? Fine if you're busy.",
+  "followup": "Hi Rahul, one narrower question on your assortment post. Which call was hardest to hand over from category to product, pricing or SKU selection? A one-line answer is plenty, and no worries if not."
+ },
+ {
+  "pair": "P02",
+  "note": "Hi Neha, your fintech meetup talk on designing trust into payment failures stayed with me. I'm Karan, ISB '25, 2 years at Bain on consumer and retail. What is one failure state you think most payment apps still get wrong? Fine if you're swamped.",
+  "followup": "Hi Neha, a narrower version of my question. When a payment fails, what is the first thing a user needs to see to keep trusting the app? One line from you would help a lot, and no pressure."
+ },
+ {
+  "pair": "P03",
+  "note": "Hi Arjun, I follow your weekly hiring updates. I'm Meera, XLRI '24, 4 years in supply chain at Asian Paints, keen on B2B SaaS product work. What do Freshworks product teams value most in someone moving from operations? One line is plenty.",
+  "followup": "Hi Arjun, a narrower question after my note. In your weekly updates, which skill from non-product backgrounds gets noticed first when you read profiles for product? Happy with a one-line reply, and fine if not."
+ },
+ {
+  "pair": "P04",
+  "note": "Hi Priya, your post on partner app redesign learnings caught my eye. I'm Rohan, FMS '25. At Zomato I built a tool that cut restaurant onboarding from 7 days to 2. What was the hardest part of onboarding partners at Swiggy? Fine if busy.",
+  "followup": "Hi Priya, a narrower question from my side. In the partner app redesign, did onboarding drop-offs show up mostly in setup or in the first week of orders? A short answer would be great, and no worries if not."
+ },
+ {
+  "pair": "P05",
+  "note": "Hi Vikram, I'm Ananya, IIMB '25, 3 years as a software engineer at TCS, now moving toward AI product. You built a voice AI startup that was acquired in 2022. What did you learn as a founder that you now use building AI platforms? Fine if busy.",
+  "followup": "Hi Vikram, a narrower question after my note. When you moved from founding a voice AI startup to platform product at Microsoft, what changed most in how you pick what to build? One line is plenty, and no pressure."
+ },
+ {
+  "pair": "P06",
+  "note": "Hi Tanvi, I'm Siddharth, SPJIMR '25, also from Pune. Your article on retention loops for first-time investors got me thinking after 2 years in ed-tech sales. What is one retention mistake you see new growth teams make? Fine if you're busy.",
+  "followup": "Hi Tanvi, a narrower question on your retention loops article. For a first-time investor, which moment decides whether they come back after the first week? A one-line answer would help, and no worries if not."
+ },
+ {
+  "pair": "P07",
+  "note": "Hi Aditya, I'm Fatima, IIM Calcutta '25, 3 years in healthcare consulting at Deloitte. Your move from doctor to product head is the path I'm trying to understand. What did you wish you knew before starting in product? Fine if you're busy.",
+  "followup": "Hi Aditya, a narrower question after my note. From your doctor to product switch, which clinical habit has helped you most in product decisions? A one-line reply is plenty, and no pressure at all."
+ },
+ {
+  "pair": "P08",
+  "note": "Hi Shreya, a fellow HUL management trainee here. I'm Nikhil, IIM Lucknow '25, ex HUL sales officer. You went from HUL to product at Meesho. What was the first skill you had to build from scratch? Fine if you're swamped.",
+  "followup": "Hi Shreya, a narrower question after my note. Which HUL habit helped most in your first months in product at Meesho, and which did you have to drop? One line is plenty, and no worries if not."
+ },
+ {
+  "pair": "P09",
+  "note": "Hi Kabir, your posts on founder-to-PM moves hit home. I'm Ishaan, ISB '25. I ran a D2C coffee brand that shut in 2024 after 40 lakh at peak. What did you drop first from the founder mindset? Fine if you're busy, a one-line reply helps.",
+  "followup": "Hi Kabir, a narrower question after my note. When you moved from your snacks brand to product at Rapido, what did you find hardest about working without full ownership? One line is plenty, and no pressure."
+ },
+ {
+  "pair": "P10",
+  "note": "Hi Manish, I saw your update that Flipkart search is moving to semantic ranking. I'm Divya, IIMK '25, 3 years as a data analyst at Myntra. Which metric do you watch first to judge a ranking change like that? Fine if you're swamped.",
+  "followup": "Hi Manish, a narrower question on semantic ranking. Do you judge it more by query-level relevance or by what shoppers do after the first results page? A one-line answer helps, and no worries if you're busy."
+ }
+]

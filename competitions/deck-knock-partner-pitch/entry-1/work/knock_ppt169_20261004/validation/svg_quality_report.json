@@ -1,0 +1,874 @@
+{
+  "schema": "ppt-master.svg-quality-report.v1",
+  "stage": "final",
+  "target": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004",
+  "source_fingerprint": {
+    "algorithm": "sha256",
+    "digest": "d3ddf4bb77e49ac9368f8eb3327fc24cf20ab57ea25ab31c0f6a35edd2bf1948",
+    "file_count": 12,
+    "files": [
+      {
+        "file": "01_cover.svg",
+        "sha256": "3bc82a002d5ea3da82156d2338bf428e8bb90fc278552e0a0ff4917bc57611f5"
+      },
+      {
+        "file": "02_problem.svg",
+        "sha256": "0d4f7f87bd13ebf98c4f193bd033c1f231e110b317e554a9204bc29ea631bf2e"
+      },
+      {
+        "file": "03_what_works.svg",
+        "sha256": "251bbae6d699bdbc278175306478cce1846ee69cde933e211c61290292b2fbff"
+      },
+      {
+        "file": "04_how_it_works.svg",
+        "sha256": "377289e3f0feacac8fb9039853ac0943bf1726841953cc8c9ab23f086970c723"
+      },
+      {
+        "file": "05_example_message.svg",
+        "sha256": "c91334bef7fc9c5f38f5473d3533aa2daa33f4ae68bd760b94a17ebff4945f2b"
+      },
+      {
+        "file": "06_not_spam.svg",
+        "sha256": "a744cc26a1806823adaa78affa324a085ab81c5073acddd0219422d3804cea5b"
+      },
+      {
+        "file": "07_packages.svg",
+        "sha256": "af4443acdfb50417b7efeb2960381f7b281b3cd44d194e642e7c3059c2ec2a7e"
+      },
+      {
+        "file": "08_partnership.svg",
+        "sha256": "b5a03eca63cf2780e4ff429fe70c7f1d8f66a7cefbbddb685b6046a0566293fb"
+      },
+      {
+        "file": "09_low_risk.svg",
+        "sha256": "30704433f031e61366c6d4c057063c896ab4de96c6a19a3b821d36854263f224"
+      },
+      {
+        "file": "10_measurement.svg",
+        "sha256": "00589b8e355f133bcf5656a3d90fbb4e7401bf7b9f0a45d17130d25d34c48deb"
+      },
+      {
+        "file": "11_pilot_timeline.svg",
+        "sha256": "e281f1f9ea0ba3fbf5a085c14b89d47059eb7dd00331d0b2c8e5e7e6e12f2986"
+      },
+      {
+        "file": "12_next_step.svg",
+        "sha256": "69f5c22f9a7a876761f28bd6a15bdab840787d095804515f8f954b09b6b1f298"
+      }
+    ]
+  },
+  "summary": {
+    "total": 12,
+    "passed": 12,
+    "warnings": 0,
+    "errors": 0
+  },
+  "issue_types": {},
+  "categories": {
+    "blocking": {
+      "count": 0,
+      "issues": []
+    },
+    "introduced": {
+      "count": 0,
+      "issues": []
+    },
+    "inherited": {
+      "count": 0,
+      "issues": []
+    },
+    "source-import": {
+      "count": 0,
+      "summary": {
+        "warning_count": 0,
+        "by_code": {}
+      }
+    }
+  },
+  "drift": {
+    "colors": {},
+    "fonts": {},
+    "sizes": {}
+  },
+  "carrier_receipt": {
+    "scope": "informational-not-a-quota",
+    "pages": 12,
+    "totals": {
+      "text_elements": 209,
+      "image_placements": 0,
+      "icons": 0,
+      "svg_geometry_elements": 168,
+      "preset_shapes": 11,
+      "page_frame_elements": 14,
+      "marker_uses": 6,
+      "inline_emphasis_runs": 14,
+      "gradient_uses": 4,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "pages_with": {
+      "images": 0,
+      "icons": 0,
+      "presets": 5,
+      "charts": 0,
+      "tables": 0,
+      "formulas": 0,
+      "inline_emphasis_runs": 4,
+      "gradient_uses": 2,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "relationship_pages": null,
+    "geometry_elements": {
+      "circle": 16,
+      "ellipse": 0,
+      "line": 24,
+      "path": 4,
+      "polygon": 1,
+      "polyline": 0,
+      "rect": 123
+    },
+    "preset_names": {
+      "chevron": 3,
+      "homePlate": 4,
+      "round2SameRect": 3,
+      "wedgeRoundRectCallout": 1
+    },
+    "native_objects": {
+      "chart": 0,
+      "formula_block": 0,
+      "formula_inline": 0,
+      "other": 0,
+      "table": 0
+    },
+    "image_page_max_frame_share_range": []
+  },
+  "project_issues": {
+    "template": [],
+    "animation": [],
+    "illustration": [],
+    "communication_trace": [],
+    "pptx_structure": []
+  },
+  "files": [
+    {
+      "file": "01_cover.svg",
+      "path": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004/svg_output/01_cover.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 6,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 1,
+            "gradient_uses": 2,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 5,
+              "circle": 3,
+              "ellipse": 0,
+              "line": 0,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 1
+            },
+            "preset_shapes": 2,
+            "preset_names": {
+              "round2SameRect": 2
+            },
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Georgia"
+        ],
+        "text_elements": 6,
+        "tspan_elements": 3
+      },
+      "passed": true,
+      "source_sha256": "3bc82a002d5ea3da82156d2338bf428e8bb90fc278552e0a0ff4917bc57611f5"
+    },
+    {
+      "file": "02_problem.svg",
+      "path": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004/svg_output/02_problem.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 12,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 78,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 0,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Georgia"
+        ],
+        "text_elements": 12,
+        "tspan_elements": 4
+      },
+      "passed": true,
+      "source_sha256": "0d4f7f87bd13ebf98c4f193bd033c1f231e110b317e554a9204bc29ea631bf2e"
+    },
+    {
+      "file": "03_what_works.svg",
+      "path": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004/svg_output/03_what_works.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 17,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 4,
+              "circle": 8,
+              "ellipse": 0,
+              "line": 6,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 6
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Georgia"
+        ],
+        "text_elements": 17,
+        "tspan_elements": 0
+      },
+      "passed": true,
+      "source_sha256": "251bbae6d699bdbc278175306478cce1846ee69cde933e211c61290292b2fbff"
+    },
+    {
+      "file": "04_how_it_works.svg",
+      "path": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004/svg_output/04_how_it_works.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 19,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 1,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 3,
+              "circle": 1,
+              "ellipse": 0,
+              "line": 0,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 1
+            },
+            "preset_shapes": 4,
+            "preset_names": {
+              "chevron": 3,
+              "homePlate": 1
+            },
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Georgia"
+        ],
+        "text_elements": 19,
+        "tspan_elements": 9
+      },
+      "passed": true,
+      "source_sha256": "377289e3f0feacac8fb9039853ac0943bf1726841953cc8c9ab23f086970c723"
+    },
+    {
+      "file": "05_example_message.svg",
+      "path": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004/svg_output/05_example_message.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 19,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 5,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 2,
+              "circle": 3,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 1,
+            "preset_names": {
+              "wedgeRoundRectCallout": 1
+            },
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Georgia"
+        ],
+        "text_elements": 19,
+        "tspan_elements": 12
+      },
+      "passed": true,
+      "source_sha256": "c91334bef7fc9c5f38f5473d3533aa2daa33f4ae68bd760b94a17ebff4945f2b"
+    },
+    {
+      "file": "06_not_spam.svg",
+      "path": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004/svg_output/06_not_spam.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 21,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 3,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 4,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Georgia"
+        ],
+        "text_elements": 21,
+        "tspan_elements": 2
+      },
+      "passed": true,
+      "source_sha256": "a744cc26a1806823adaa78affa324a085ab81c5073acddd0219422d3804cea5b"
+    },
+    {
+      "file": "07_packages.svg",
+      "path": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004/svg_output/07_packages.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 28,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 7,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 11,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 4,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Georgia"
+        ],
+        "text_elements": 28,
+        "tspan_elements": 8
+      },
+      "passed": true,
+      "source_sha256": "af4443acdfb50417b7efeb2960381f7b281b3cd44d194e642e7c3059c2ec2a7e"
+    },
+    {
+      "file": "08_partnership.svg",
+      "path": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004/svg_output/08_partnership.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 26,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 4,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Georgia"
+        ],
+        "text_elements": 26,
+        "tspan_elements": 6
+      },
+      "passed": true,
+      "source_sha256": "b5a03eca63cf2780e4ff429fe70c7f1d8f66a7cefbbddb685b6046a0566293fb"
+    },
+    {
+      "file": "09_low_risk.svg",
+      "path": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004/svg_output/09_low_risk.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 19,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 3,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Georgia"
+        ],
+        "text_elements": 19,
+        "tspan_elements": 3
+      },
+      "passed": true,
+      "source_sha256": "30704433f031e61366c6d4c057063c896ab4de96c6a19a3b821d36854263f224"
+    },
+    {
+      "file": "10_measurement.svg",
+      "path": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004/svg_output/10_measurement.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 16,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 5,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 1,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Georgia"
+        ],
+        "text_elements": 16,
+        "tspan_elements": 4
+      },
+      "passed": true,
+      "source_sha256": "00589b8e355f133bcf5656a3d90fbb4e7401bf7b9f0a45d17130d25d34c48deb"
+    },
+    {
+      "file": "11_pilot_timeline.svg",
+      "path": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004/svg_output/11_pilot_timeline.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 21,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 3,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 0,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 3,
+            "preset_names": {
+              "homePlate": 3
+            },
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Georgia"
+        ],
+        "text_elements": 21,
+        "tspan_elements": 5
+      },
+      "passed": true,
+      "source_sha256": "e281f1f9ea0ba3fbf5a085c14b89d47059eb7dd00331d0b2c8e5e7e6e12f2986"
+    },
+    {
+      "file": "12_next_step.svg",
+      "path": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/work/knock_ppt169_20261004/svg_output/12_next_step.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 5,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 2,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 2,
+              "circle": 1,
+              "ellipse": 0,
+              "line": 1,
+              "polyline": 0,
+              "polygon": 1,
+              "path": 2
+            },
+            "preset_shapes": 1,
+            "preset_names": {
+              "round2SameRect": 1
+            },
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Georgia"
+        ],
+        "text_elements": 5,
+        "tspan_elements": 2
+      },
+      "passed": true,
+      "source_sha256": "69f5c22f9a7a876761f28bd6a15bdab840787d095804515f8f954b09b6b1f298"
+    }
+  ]
+}

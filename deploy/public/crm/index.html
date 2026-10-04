@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Knock Desk</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky top bar + tab strip; summary tiles first, detail tables below. Operator console, scanned not read. */
+:root{
+  --bg:#f4f6f5; --panel:#ffffff; --ink:#14211c; --muted:#5b6b64; --line:#dde3e0;
+  --accent:#1f5a43; --accent-ink:#ffffff; --brass:#8a5a12;
+  --ok:#1d7a4f; --warn:#a46a00; --bad:#b3261e; --chip:#e8eeeb;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Figtree",ui-sans-serif,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1513; --panel:#16201c; --ink:#e3ebe7; --muted:#9aaba3; --line:#26332e;
+  --accent:#5fbf95; --accent-ink:#06130d; --brass:#d9a54a; --ok:#5fbf95; --warn:#e0b04a; --bad:#ef7b72; --chip:#1f2b26; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1513; --panel:#16201c; --ink:#e3ebe7; --muted:#9aaba3; --line:#26332e;
+  --accent:#5fbf95; --accent-ink:#06130d; --brass:#d9a54a; --ok:#5fbf95; --warn:#e0b04a; --bad:#ef7b72; --chip:#1f2b26; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--body)}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:0 48px}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:1180px;margin:0 auto;padding:12px 16px}
+.brand{font:700 22px/1 var(--display);letter-spacing:-.01em}
+.brand small{font:500 12px var(--mono);color:var(--muted);margin-left:8px}
+.spacer{flex:1}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;max-width:1180px;margin:0 auto;padding:0 16px}
+nav.tabs button{background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);font:600 14px var(--body);padding:10px 12px;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+button.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:8px 14px;font:600 14px var(--body);cursor:pointer}
+button.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+button.btn:disabled{opacity:.5;cursor:default}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+h2{font:700 20px/1.2 var(--display);margin:28px 0 12px;text-wrap:balance}
+h3{font:600 15px var(--body);margin:0 0 8px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.tile .k{color:var(--muted);font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.tile .v{font:600 28px/1.1 var(--mono);font-variant-numeric:tabular-nums;margin-top:6px}
+.tile.alert{border-color:var(--warn)}
+.tile.alert .v{color:var(--warn)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+tr.click{cursor:pointer}
+tr.click:hover td{background:var(--chip)}
+.chip{display:inline-block;padding:2px 8px;border-radius:99px;background:var(--chip);font:500 12px var(--mono);white-space:nowrap}
+.chip.ok{color:var(--ok)} .chip.warn{color:var(--warn)} .chip.bad{color:var(--bad)}
+.muted{color:var(--muted)}
+.empty{padding:24px;text-align:center;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:820px){.grid2{grid-template-columns:1fr}}
+.thread{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.msg{max-width:85%;padding:10px 12px;border-radius:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.out{align-self:flex-end;background:var(--accent);color:var(--accent-ink)}
+.msg.in{align-self:flex-start;background:var(--chip)}
+.msg .meta{display:block;font:500 11px var(--mono);opacity:.75;margin-top:4px}
+textarea,input,select{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+textarea{min-height:90px;resize:vertical}
+label{display:block;font-weight:600;font-size:13px;margin:10px 0 4px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;z-index:10}
+.login{max-width:380px;margin:12vh auto 0}
+ul.rules{margin:0;padding-left:18px} ul.rules li{margin:4px 0}
+.mono{font-family:var(--mono);font-size:13px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="top" id="topbar" hidden>
+  <div class="bar">
+    <div class="brand">Knock <small>operator desk</small></div>
+    <div class="spacer"></div>
+    <span class="muted mono" id="asof"></span>
+    <button class="btn ghost" id="refresh" type="button">Refresh</button>
+    <button class="btn ghost" id="pull" type="button">Import sign-ups</button>
+    <button class="btn" id="sync" type="button">Run sync</button>
+  </div>
+  <nav class="tabs" role="tablist" id="tabs"></nav>
+</header>
+
+<main class="wrap">
+  <section class="login panel" id="login">
+    <h2 style="margin-top:0">Knock desk</h2>
+    <p class="muted">Enter the operator password to see candidates, conversations and the send queue.</p>
+    <form id="loginform">
+      <label for="pw">Operator password</label>
+      <input id="pw" type="password" autocomplete="current-password" required>
+      <div class="row" style="margin-top:12px"><button class="btn" type="submit">Open desk</button></div>
+      <p class="muted" id="loginerr" role="alert"></p>
+    </form>
+  </section>
+  <div id="app" hidden></div>
+</main>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+const TABS = [["overview","Overview"],["candidates","Candidates"],["queue","Send queue"],["replies","Replies"],["signups","Sign-ups"],["learning","Learning"],["spend","Spend"]];
+let KEY = ""; let DATA = null; let TAB = "overview"; let OPEN = null;
+try { KEY = localStorage.getItem("knock_crm_key") || ""; } catch (e) {}
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ist = iso => iso ? new Date(iso).toLocaleString("en-IN", {timeZone:"Asia/Kolkata", day:"2-digit", month:"short", hour:"2-digit", minute:"2-digit"}) + " IST" : "";
+const pct = v => v == null ? "–" : v + "%";
+function toast(t){ const el=$("#toast"); el.textContent=t; el.hidden=false; clearTimeout(toast.t); toast.t=setTimeout(()=>el.hidden=true,3500); }
+
+async function api(path, opts={}){
+  const r = await fetch(path, {...opts, headers:{"content-type":"application/json","x-crm-key":KEY,...(opts.headers||{})}});
+  if (r.status === 401) { logout("Wrong password. Try again."); throw new Error("unauthorized"); }
+  const body = await r.json().catch(()=>({}));
+  if (!r.ok) throw new Error(body.detail || ("Request failed (" + r.status + ")"));
+  return body;
+}
+function logout(msg){ try{localStorage.removeItem("knock_crm_key")}catch(e){} KEY=""; $("#app").hidden=true; $("#topbar").hidden=true; $("#login").hidden=false; $("#loginerr").textContent=msg||""; }
+
+$("#loginform").addEventListener("submit", async e => {
+  e.preventDefault(); KEY = $("#pw").value.trim();
+  try { await load(); try{localStorage.setItem("knock_crm_key",KEY)}catch(e){} } catch(err) { if (err.message !== "unauthorized") $("#loginerr").textContent = err.message; }
+});
+
+async function load(){
+  DATA = await api("/api/crm/summary");
+  $("#login").hidden = true; $("#app").hidden = false; $("#topbar").hidden = false;
+  $("#asof").textContent = "Updated " + ist(DATA.as_of);
+  render();
+}
+
+function tabs(){
+  $("#tabs").innerHTML = TABS.map(([id,label]) => {
+    let badge = "";
+    const k = DATA.kpis;
+    if (id==="queue" && k.outbox_due) badge = " (" + k.outbox_due + ")";
+    if (id==="signups" && k.new_signups) badge = " (" + k.new_signups + ")";
+    if (id==="candidates" && k.awaiting_approval) badge = " (" + k.awaiting_approval + ")";
+    return `<button role="tab" type="button" aria-selected="${TAB===id}" data-tab="${id}">${label}${badge}</button>`;
+  }).join("");
+}
+$("#tabs").addEventListener("click", e => { const b=e.target.closest("[data-tab]"); if(!b) return; TAB=b.dataset.tab; OPEN=null; history.replaceState(null,"","#"+TAB); render(); });
+
+function tile(k,v,alert){ return `<div class="tile${alert?" alert":""}"><div class="k">${k}</div><div class="v">${v}</div></div>`; }
+const statusChip = s => `<span class="chip ${["interview","offer","referral","conversation","replied"].includes(s)?"ok":["no_response","declined","skipped"].includes(s)?"bad":["message_ready"].includes(s)?"warn":""}">${esc(s)}</span>`;
+
+function overview(){
+  const k = DATA.kpis;
+  return `<h2>Today</h2><div class="tiles">
+    ${tile("Need approval",k.awaiting_approval,k.awaiting_approval>0)}
+    ${tile("Due to send",k.outbox_due,k.outbox_due>0)}
+    ${tile("New sign-ups",k.new_signups,k.new_signups>0)}
+    ${tile("Unmatched replies",k.unmatched_replies,k.unmatched_replies>0)}
+  </div>
+  <h2>Funnel, all candidates</h2><div class="tiles">
+    ${tile("Candidates",k.candidates)}${tile("Targeted",k.targeted)}${tile("Contacted",k.contacted)}
+    ${tile("Replied",k.replied)}${tile("Reply rate",pct(k.reply_rate))}${tile("Conversations",k.conversations)}
+    ${tile("Referrals",k.referrals)}${tile("Interviews",k.interviews)}${tile("Interviews / 100",k.interviews_per_100??"–")}
+    ${tile("Claude spend","$"+k.spend_usd)}
+  </div>` + candidatesTable();
+}
+
+function candidatesTable(){
+  const c = DATA.candidates;
+  if (!c.length) return `<h2>Candidates</h2><div class="panel empty">No candidates yet. Import website sign-ups or run <span class="mono">candidate-add</span> from the engine; they appear here.</div>`;
+  return `<h2>Candidates</h2><div class="panel tablewrap"><table><thead><tr><th>Candidate</th><th>Targets</th><th class="num">Targeted</th><th class="num">Contacted</th><th class="num">Replied</th><th class="num">Interviews</th><th class="num">Per 100</th><th>Needs you</th></tr></thead><tbody>
+  ${c.map(x=>`<tr class="click" data-cand="${esc(x.id)}"><td><b>${esc(x.name)}</b><br><span class="muted mono">${esc(x.tier)}${x.auto_send?" · auto-send":""}</span></td><td>${esc((x.target_companies||[]).join(", "))}</td><td class="num">${x.targeted}</td><td class="num">${x.contacted}</td><td class="num">${x.replied}</td><td class="num">${x.interviews}</td><td class="num">${x.interviews_per_100??"–"}</td><td>${x.awaiting_approval?`<span class="chip warn">${x.awaiting_approval} to approve</span>`:""}</td></tr>`).join("")}
+  </tbody></table></div>`;
+}
+
+async function openCandidate(id){
+  OPEN = {id, data: await api("/api/crm/candidates/" + encodeURIComponent(id)), prospect:null};
+  TAB = "candidates"; render();
+}
+
+function candidateDetail(){
+  const d = OPEN.data, s = d.summary;
+  const list = d.prospects.map(p=>`<tr class="click" data-prospect="${esc(p.id)}"><td><b>${esc(p.name)}</b><br><span class="muted">${esc(p.headline||"")}${p.company?" · "+esc(p.company):""}</span></td><td><span class="chip">${esc(p.bucket)}</span></td><td>${statusChip(p.status)}${p.held_draft?' <span class="chip warn">draft held</span>':""}</td><td class="muted">${esc(p.hook)}</td></tr>`).join("");
+  const p = OPEN.prospect && d.prospects.find(x=>x.id===OPEN.prospect);
+  return `<div class="row" style="margin-top:20px"><button class="btn ghost" type="button" data-back>All candidates</button></div>
+  <h2>${esc(s.name)}</h2><div class="tiles">${tile("Targeted",s.targeted)}${tile("Contacted",s.contacted)}${tile("Replied",s.replied)}${tile("Referrals",s.referrals)}${tile("Interviews",s.interviews)}${tile("To approve",s.awaiting_approval,s.awaiting_approval>0)}</div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="panel tablewrap">${d.prospects.length?`<table><thead><tr><th>Person</th><th>Type</th><th>Status</th><th>Reason to talk</th></tr></thead><tbody>${list}</tbody></table>`:'<div class="empty">No prospects yet. Run discover for this candidate.</div>'}</div>
+    <div class="panel">${p?thread(p):'<div class="empty">Pick a person to see the conversation and approve drafts.</div>'}</div>
+  </div>`;
+}
+
+function thread(p){
+  const msgs = p.messages.map(m=>`<div class="msg ${m.direction==="outbound"?"out":"in"}">${esc(m.body)}<span class="meta">${m.direction==="outbound"?(m.sent_at?"sent "+ist(m.sent_at):m.approved?("approved"+(m.send_after?", sends "+ist(m.send_after):"")):"draft"):"reply"}${m.writer?" · "+esc(m.writer):""}</span></div>`).join("");
+  const last = p.messages[p.messages.length-1];
+  const canApprove = last && last.direction==="outbound" && !last.approved;
+  return `<h3>${esc(p.name)}</h3><p class="muted" style="margin:0">${esc(p.headline||"")} ${p.linkedin_url?`· <span class="mono">${esc(p.linkedin_url)}</span>`:""}</p>
+  <div class="thread">${msgs||'<div class="empty">No messages yet.</div>'}</div>
+  ${canApprove?`<label for="draft">Edit before approving</label><textarea id="draft">${esc(last.body)}</textarea><div class="row" style="margin-top:8px"><button class="btn" type="button" data-approve="${esc(p.id)}">Approve</button></div>`:""}
+  <label for="status">Set status</label><div class="row"><select id="status">${["sent","accepted","replied","conversation","referral","interview","offer","no_response","declined","skipped"].map(s=>`<option ${s===p.status?"selected":""}>${s}</option>`).join("")}</select><button class="btn ghost" type="button" data-setstatus="${esc(p.id)}">Save status</button></div>
+  <label for="reply">Paste their reply</label><textarea id="reply" placeholder="Their message, exactly as written"></textarea><div class="row" style="margin-top:8px"><button class="btn ghost" type="button" data-reply="${esc(p.id)}">Log reply</button><span class="muted">The next sync drafts your answer.</span></div>`;
+}
+
+function queue(){
+  const now = new Date().toISOString();
+  const rows = DATA.outbox;
+  if (!rows.length) return `<h2>Send queue</h2><div class="panel empty">Nothing queued. Approved follow-ups land here with a send time, for the Chrome task or you to send from La Growth Machine.</div>`;
+  return `<h2>Send queue</h2><div class="panel tablewrap"><table><thead><tr><th>To</th><th>Message</th><th>Send after</th><th></th></tr></thead><tbody>
+  ${rows.map(r=>`<tr><td><b>${esc(r.prospect_name)}</b><br><span class="muted mono">${esc(r.linkedin_url)}</span></td><td style="white-space:pre-wrap;max-width:460px">${esc(r.body)}</td><td>${ist(r.send_after)}${!r.sent_at&&r.send_after<=now?' <span class="chip warn">due</span>':""}</td><td>${r.sent_at?`<span class="chip ok">sent ${ist(r.sent_at)}</span>`:`<button class="btn ghost" type="button" data-sent="${r.id}">Mark sent</button>`}</td></tr>`).join("")}
+  </tbody></table></div>`;
+}
+
+function replies(){
+  const rows = DATA.inbound;
+  return `<h2>Replies</h2><div class="panel tablewrap">${rows.length?`<table><thead><tr><th>From</th><th>Message</th><th>Received</th><th>Result</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${esc(r.prospect_name)}</b><br><span class="muted mono">${esc(r.linkedin_url)}</span></td><td style="white-space:pre-wrap;max-width:460px">${esc(r.text)}</td><td>${ist(r.received_at)}</td><td>${r.processed_at?`<span class="chip ${r.result==="unmatched"?"bad":"ok"}">${esc(r.result)}</span>`:'<span class="chip warn">waiting for sync</span>'}</td></tr>`).join("")}</tbody></table>`:'<div class="empty">No replies yet.</div>'}</div>`;
+}
+
+function signups(){
+  const rows = DATA.intake;
+  return `<h2>Website sign-ups</h2><div class="panel tablewrap">${rows.length?`<table><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Companies</th><th>Package</th><th>When</th><th>Status</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${esc(r.full_name)}</b></td><td class="mono">${esc(r.email)}</td><td>${esc(r.target_role)}</td><td>${esc(r.target_companies)}</td><td>${esc(r.package||"")}</td><td>${ist(r.created_at)}</td><td>${r.processed_at?`<span class="chip ok">imported</span>`:'<span class="chip warn">new</span>'}</td></tr>`).join("")}</tbody></table>`:'<div class="empty">No sign-ups yet. They arrive from the "Get my target list" form on the website.</div>'}</div>`;
+}
+
+function learning(){
+  const L = DATA.learning;
+  const ws = Object.entries(L.writers).map(([w,a])=>{ const s=L.writer_stats[w]||{replied:0,sent:0}; return `<tr><td><b>${esc(w)}</b><br><span class="muted">${esc(a)}</span></td><td class="num">${s.replied}/${s.sent}</td></tr>`; }).join("");
+  const asks = Object.entries(L.ask_stats).map(([a,s])=>`<tr><td>${esc(a)}</td><td class="num">${s.advanced}/${s.total}</td></tr>`).join("");
+  return `<h2>Writer agents</h2><div class="grid2"><div class="panel tablewrap"><table><thead><tr><th>Active writer</th><th class="num">Replies / sent</th></tr></thead><tbody>${ws}</tbody></table>
+  ${Object.keys(L.retired).length?`<p class="muted">Retired: ${esc(Object.keys(L.retired).join(", "))}</p>`:""}<p class="muted">${L.edits} edits learned · ${L.judge_overrides} judge overrides</p></div>
+  <div class="panel tablewrap"><table><thead><tr><th>Ask type</th><th class="num">Led to referral / interview</th></tr></thead><tbody>${asks||'<tr><td colspan="2" class="muted">No asks sent yet.</td></tr>'}</tbody></table></div></div>
+  <div class="grid2" style="margin-top:16px"><div class="panel"><h3>Opener rules learned</h3>${L.playbook.length?`<ul class="rules">${L.playbook.map(r=>`<li>${esc(r)}</li>`).join("")}</ul>`:'<p class="muted">Learned after the first 5 results.</p>'}</div>
+  <div class="panel"><h3>Conversation rules learned</h3>${L.reply_playbook.length?`<ul class="rules">${L.reply_playbook.map(r=>`<li>${esc(r)}</li>`).join("")}</ul>`:'<p class="muted">Learned once conversations reach referrals or stall.</p>'}</div></div>`;
+}
+
+function spend(){
+  const rows = DATA.spend.slice().reverse();
+  return `<h2>Claude spend</h2><div class="tiles">${tile("Total","$"+DATA.kpis.spend_usd)}${tile("In rupees","₹"+Math.round(DATA.kpis.spend_usd*88).toLocaleString("en-IN"))}</div>
+  <div class="panel tablewrap" style="margin-top:16px">${rows.length?`<table><thead><tr><th>When</th><th>Command</th><th>Candidate</th><th class="num">Calls</th><th class="num">USD</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${ist(r.at)}</td><td class="mono">${esc(r.command)}</td><td>${esc(r.candidate||"")}</td><td class="num">${r.calls}</td><td class="num">${(r.usd||0).toFixed(3)}</td></tr>`).join("")}</tbody></table>`:'<div class="empty">No Claude calls recorded yet.</div>'}</div>`;
+}
+
+function render(){
+  tabs();
+  const views = {overview, candidates: () => OPEN ? candidateDetail() : candidatesTable(), queue, replies, signups, learning, spend};
+  $("#app").innerHTML = (views[TAB] || overview)();
+}
+
+$("#app").addEventListener("click", async e => {
+  const t = e.target.closest("[data-cand],[data-prospect],[data-back],[data-approve],[data-sent],[data-setstatus],[data-reply]");
+  if (!t) return;
+  try {
+    if (t.dataset.cand) return openCandidate(t.dataset.cand);
+    if (t.dataset.back !== undefined) { OPEN = null; return render(); }
+    if (t.dataset.prospect) { OPEN.prospect = t.dataset.prospect; return render(); }
+    if (t.dataset.approve) {
+      t.disabled = true;
+      const r = await api(`/api/crm/candidates/${encodeURIComponent(OPEN.id)}/prospects/${encodeURIComponent(t.dataset.approve)}/approve`, {method:"POST", body: JSON.stringify({body: $("#draft").value})});
+      toast(r.send_after ? "Approved. Sends after " + ist(r.send_after) : "Approved");
+      return openCandidate(OPEN.id).then(()=>{ OPEN.prospect = t.dataset.approve; render(); });
+    }
+    if (t.dataset.setstatus) {
+      await api(`/api/crm/candidates/${encodeURIComponent(OPEN.id)}/prospects/${encodeURIComponent(t.dataset.setstatus)}/status`, {method:"POST", body: JSON.stringify({status: $("#status").value})});
+      toast("Status saved"); const keep = t.dataset.setstatus; await openCandidate(OPEN.id); OPEN.prospect = keep; return render();
+    }
+    if (t.dataset.reply) {
+      const p = OPEN.data.prospects.find(x=>x.id===t.dataset.reply); const text = $("#reply").value.trim();
+      if (!text) return toast("Paste their reply first");
+      await api("/api/crm/inbound", {method:"POST", body: JSON.stringify({linkedin_url: p.linkedin_url, name: p.name, text})});
+      toast("Reply logged. Run sync to draft your answer."); $("#reply").value = ""; return;
+    }
+    if (t.dataset.sent) { t.disabled = true; await api(`/api/crm/outbox/${t.dataset.sent}/sent`, {method:"POST"}); toast("Marked sent"); return load(); }
+  } catch (err) { if (err.message !== "unauthorized") toast(err.message); t.disabled = false; }
+});
+
+async function action(btn, path, done){
+  btn.disabled = true;
+  try { const r = await api(path, {method:"POST"}); toast(done(r)); await load(); }
+  catch (err) { if (err.message !== "unauthorized") toast(err.message); }
+  finally { btn.disabled = false; }
+}
+$("#refresh").addEventListener("click", () => load().then(()=>toast("Up to date")).catch(err=>toast(err.message)));
+$("#sync").addEventListener("click", e => action(e.target, "/api/crm/sync", r => `Sync done: ${r.replies||0} replies, ${r.queued||0} queued, ${r.held||0} held`));
+$("#pull").addEventListener("click", e => action(e.target, "/api/crm/intake-pull", r => `${(r.created||[]).length} sign-up(s) imported`));
+
+const h = location.hash.slice(1); if (TABS.some(([id])=>id===h)) TAB = h;
+if (KEY) load().catch(()=>{});
+</script>
+</body>
+</html>

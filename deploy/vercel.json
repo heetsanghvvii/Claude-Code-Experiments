@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index" },
+    { "source": "/crm", "destination": "/crm/index.html" }
+  ],
+  "functions": { "api/index.py": { "maxDuration": 300 } },
+  "crons": [{ "path": "/api/cron/sync", "schedule": "30 3 * * *" }]
+}

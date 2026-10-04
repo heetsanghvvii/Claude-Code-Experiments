@@ -1,0 +1,22 @@
+/* Knock brand tokens. Import or copy into any Knock web page, deck or email template. */
+:root {
+  /* Colour */
+  --knock-ivory: #F4EFE6;      /* primary background */
+  --knock-paper: #FBF8F2;      /* cards, raised surfaces */
+  --knock-ink: #1B2A22;        /* primary text, dark backgrounds */
+  --knock-forest: #2E4A3B;     /* emphasis, primary buttons */
+  --knock-brass: #A8773F;      /* accent: labels, numbers, the knocker */
+  --knock-brass-soft: #D9B98C; /* accent on dark backgrounds */
+  --knock-sage: #7F9184;       /* tertiary marks */
+  --knock-muted: #5B6A60;      /* secondary text */
+  --knock-line: rgba(27, 42, 34, 0.14);
+
+  /* Type */
+  --knock-font-display: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --knock-font-body: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --knock-label-tracking: 0.18em;  /* uppercase labels only */
+
+  /* Shape */
+  --knock-radius: 4px;
+  --knock-radius-pill: 40px;
+}

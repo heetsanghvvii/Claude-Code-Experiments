@@ -1,0 +1,52 @@
+[
+  {
+    "pair": "P01",
+    "note": "Hi Rahul, your post on PMs, not category teams, owning quick commerce assortment is close to my own move. I'm Asha, IIMA 2025, 3 years in HUL brand management (launched a hair-care sub-brand). What helped most in your category-to-product switch?",
+    "followup": "Hi Rahul, a narrower version of my question. When you moved from category management into product, which skill carried over most, and which did you have to build from scratch?"
+  },
+  {
+    "pair": "P02",
+    "note": "Hi Neha, your fintech meetup talk on designing trust into payment failures is a problem I want to understand better. I'm Karan, ISB 2025, ex-Bain (2 years, consumer and retail). What would you tell a consultant moving into payments product?",
+    "followup": "Hi Neha, a narrower question on your talk. When a payment fails, what is the first thing the screen should tell the user to keep their trust? A one-line answer would be plenty."
+  },
+  {
+    "pair": "P03",
+    "note": "Hi Arjun, I follow your weekly Freshworks updates for product and design. I'm Meera, XLRI 2024, 4 years in supply chain at Asian Paints, aiming at B2B SaaS product. What do product teams value in someone coming from operations?",
+    "followup": "Hi Arjun, one narrower question. For someone from supply chain moving toward B2B SaaS product, which single project type tells a product team the most about how that person thinks?"
+  },
+  {
+    "pair": "P04",
+    "note": "Hi Priya, your post on partner app redesign learnings is relevant to my work. I'm Rohan, FMS 2025. At Zomato I built a tool that cut restaurant onboarding from 7 days to 2. What was the hardest thing to get right in the redesign?",
+    "followup": "Hi Priya, a narrower question. In restaurant onboarding, which step do partners most often get stuck on? I cut onboarding from 7 days to 2 at Zomato and I'm curious if Swiggy sees the same pattern."
+  },
+  {
+    "pair": "P05",
+    "note": "Hi Vikram, you went from founding a voice AI startup to leading AI Platform product at Microsoft India. I'm Ananya, IIMB 2025, 3 years as an engineer at TCS. What skill should an engineer moving into AI product build first?",
+    "followup": "Hi Vikram, a narrower question. Coming from engineering, is it better to learn product by owning a small AI feature end to end, or by working closely with a PM? A one-line view would help a lot."
+  },
+  {
+    "pair": "P06",
+    "note": "Hi Tanvi, your article on retention loops for first-time investors raised a question for me. I'm Siddharth, SPJIMR 2025, 2 years in ed-tech sales, aiming at growth product. Which loop in it is hardest for a new app to copy?",
+    "followup": "Hi Tanvi, a narrower question. For a first-time investor, which moment in the first week matters most for retention? Coming from ed-tech sales, I have seen drop-off at first payment and wonder if it is similar."
+  },
+  {
+    "pair": "P07",
+    "note": "Hi Aditya, I'm Fatima, IIM Calcutta 2025, with 3 years in healthcare consulting at Deloitte. Your path from doctor to Head of Product at a health-tech startup is the one I'm curious about. Would you be open to a 15-minute chat sometime this month?",
+    "followup": "Hi Aditya, a smaller ask than a call. From your doctor-to-product move, what is one thing clinical experience gave you that a consultant would find hard to learn? A line or two is plenty."
+  },
+  {
+    "pair": "P08",
+    "note": "Hi Shreya, I'm Nikhil, IIM Lucknow 2025 and ex-HUL sales officer. I did the same HUL management trainee programme as you. After HUL you moved to product at Meesho. What was the first gap you had to close?",
+    "followup": "Hi Shreya, a narrower question. Coming from HUL, which MT-programme habit helped you most in product work at Meesho, and which one did you have to drop?"
+  },
+  {
+    "pair": "P09",
+    "note": "Hi Kabir, your posts on founder-to-PM transitions are close to my situation. I ran a D2C coffee brand (40 lakh revenue at peak, shut down in 2024) and am now at ISB. How did you frame a shut-down brand for product teams?",
+    "followup": "Hi Kabir, a narrower question. If you had one minute to explain a shut-down D2C brand to a product team, which lesson would you lead with? I'd value your view as someone who has done it."
+  },
+  {
+    "pair": "P10",
+    "note": "Hi Manish, your note that Flipkart search is moving to semantic ranking raised a question for me. I'm Divya, IIMK 2025, 3 years as a data analyst at Myntra. How would you measure whether semantic ranking is better for users?",
+    "followup": "Hi Manish, a narrower question. For semantic ranking, which single metric would you trust most to show search got better: click-through, conversion, or reformulation rate? One line is plenty."
+  }
+]

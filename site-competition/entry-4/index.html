@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knock · Knock on the right door</title>
+<meta name="description" content="Knock finds the hiring managers, team members and alumni at your target companies, researches each one, and starts real conversations that turn into referrals and interviews.">
+<meta name="theme-color" content="#F5F0E7">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F0E7; --surface:#FFFDF8; --surface-alt:#ECE5D8; --surface-hover:#FBF7EF;
+  --ink:#17201C; --ink-2:#1F2B26;
+  --border:#DCD3C3; --border-hover:#B9AD98; --border-ink:#34413B;
+  --text:#1C1B18; --text-secondary:#4A463F; --text-tertiary:#6B655A;
+  --text-on-ink:#F5F0E7; --text-on-ink-muted:#C9BFAE;
+  --accent:#1F4A3A; --accent-hover:#163829; --accent-soft:#DDE6DF;
+  --brass:#8A5420; --brass-light:#D9A86A; --glow:#F2C98A;
+  --bg-rgb:245,240,231; --ink-rgb:23,32,28; --accent-rgb:31,74,58; --glow-rgb:242,201,138; --text-rgb:28,27,24;
+  --success:#2F6B47; --error:#A23B2A; --warning:#8A5420;
+  --font-display:'Fraunces','Iowan Old Style','Palatino Linotype',Georgia,serif;
+  --font-body:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --pad:clamp(16px,4vw,40px);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text-secondary);font:400 1.0625rem/1.65 var(--font-body);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.05;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+img,svg{display:block;max-width:100%}
+h1,h2,h3{font-family:var(--font-display);color:var(--text);font-weight:500;margin:0;font-optical-sizing:auto}
+p{margin:0}
+em{font-style:italic}
+.container{width:100%;max-width:1200px;margin-inline:auto;padding-inline:var(--pad)}
+.narrow{max-width:800px}
+section{position:relative}
+.section{padding-block:clamp(80px,11vw,140px)}
+.skip{position:absolute;left:12px;top:-60px;z-index:200;background:var(--accent);color:var(--surface);padding:.7rem 1rem;border-radius:10px;text-decoration:none;font-weight:600}
+.skip:focus{top:12px;outline:3px solid var(--brass);outline-offset:2px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* type */
+.eyebrow{display:inline-flex;align-items:center;gap:.7rem;font:600 .78rem/1.2 var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin-bottom:1.25rem}
+.eyebrow::before{content:"";width:24px;height:1px;background:currentColor}
+.h2{font-size:clamp(2rem,4.2vw,3.4rem);line-height:1.05;letter-spacing:-.02em}
+.h2 em{color:var(--accent)}
+.lead{font-size:clamp(1.0625rem,1.4vw,1.2rem);max-width:58ch;margin-top:1.25rem}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.w>span{display:inline-block}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:48px;padding:.85rem 1.4rem;border-radius:999px;font:600 1rem/1 var(--font-body);text-decoration:none;cursor:pointer;border:1px solid transparent;transition:background .25s,transform .25s var(--ease),box-shadow .25s,color .25s,border-color .25s;white-space:nowrap}
+.btn-primary{background:var(--accent);color:var(--surface);box-shadow:0 1px 0 rgba(var(--text-rgb),.08),0 8px 24px -10px rgba(var(--accent-rgb),.55)}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 14px 30px -12px rgba(var(--accent-rgb),.6)}
+.btn-primary:active{transform:translateY(0) scale(.98)}
+.btn-primary:focus-visible{outline:3px solid var(--brass);outline-offset:3px}
+.btn-primary:disabled{background:var(--border-hover);cursor:not-allowed;transform:none;box-shadow:none}
+.btn-ghost{background:transparent;color:var(--text);border-color:var(--border-hover)}
+.btn-ghost:hover{background:var(--surface);border-color:var(--text)}
+.btn-ghost:active{transform:scale(.98)}
+.btn-ghost:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.btn .arrow{width:18px;height:18px;flex:none}
+.btn:hover .arrow,.btn:focus-visible .arrow{animation:knock .55s ease-out}
+.btn-sm{min-height:44px;padding:.65rem 1.1rem;font-size:.95rem}
+a.link{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.22em;transition:text-decoration-thickness .2s,color .2s}
+a.link:hover{text-decoration-thickness:2px;color:var(--accent-hover)}
+a.link:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;height:68px;display:flex;align-items:center;border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+.nav.scrolled,.nav.menu-open{background:rgba(var(--bg-rgb),.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom-color:var(--border)}
+.nav .container{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.brand{display:inline-flex;align-items:center;gap:.55rem;text-decoration:none;color:var(--text);font:500 1.5rem/1 var(--font-display);letter-spacing:-.02em;min-height:44px}
+.brand:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:6px}
+.brand svg{width:22px;height:28px}
+.brand:hover .door-mark{animation:knock .55s ease-out}
+.nav-links{display:flex;align-items:center;gap:1.75rem}
+.nav-links a:not(.btn){color:var(--text-secondary);text-decoration:none;font-weight:500;font-size:.98rem;padding:.6rem .1rem;position:relative}
+.nav-links a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:.35rem;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav-links a:not(.btn):hover{color:var(--text)}
+.nav-links a:not(.btn):hover::after{transform:scaleX(1)}
+.nav-links a:not(.btn):focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:4px}
+.menu-btn{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--border-hover);background:var(--surface);color:var(--text);cursor:pointer;align-items:center;justify-content:center}
+.menu-btn:hover{border-color:var(--text)}
+.menu-btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.menu-btn span,.menu-btn span::before,.menu-btn span::after{display:block;width:18px;height:1.5px;background:currentColor;position:relative;transition:transform .3s}
+.menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0}
+.menu-btn span::before{top:-6px}.menu-btn span::after{top:6px}
+.menu-open .menu-btn span{background:transparent}
+.menu-open .menu-btn span::before{transform:translateY(6px) rotate(45deg)}
+.menu-open .menu-btn span::after{transform:translateY(-6px) rotate(-45deg)}
+
+/* hero */
+.hero{padding-top:calc(68px + clamp(40px,7vw,96px));padding-bottom:clamp(64px,9vw,120px);overflow:hidden;
+  --mx:70%;--my:40%}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(600px circle at var(--mx) var(--my),rgba(var(--glow-rgb),.32),transparent 60%),
+             radial-gradient(900px 500px at 85% 20%,rgba(var(--glow-rgb),.22),transparent 70%);
+  transition:background .2s}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,5vw,72px);align-items:center}
+.h1{font-size:clamp(2.9rem,7.2vw,6.25rem);line-height:.98;letter-spacing:-.025em;font-variation-settings:"opsz" 144}
+.h1 em{color:var(--accent)}
+.h1 .w>span{transform:translateY(105%);animation:rise .95s var(--ease) forwards;animation-delay:calc(var(--i) * 75ms + 120ms)}
+.hero .lead{margin-top:1.75rem;font-size:clamp(1.1rem,1.5vw,1.25rem);color:var(--text-secondary)}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.5rem;margin-top:2.25rem}
+.hero-note{font-size:.95rem;color:var(--text-tertiary);display:flex;align-items:center;gap:.5rem}
+.hero-note svg{width:18px;height:18px;color:var(--accent)}
+.fade-in{opacity:0;animation:fadeUp .9s var(--ease) forwards;animation-delay:var(--fd,.75s)}
+.door-stage{position:relative;aspect-ratio:4/5;max-width:440px;width:100%;justify-self:end}
+.door-stage svg{width:100%;height:100%;overflow:visible}
+.ring{transform-box:fill-box;transform-origin:center;opacity:0;animation:ring 1.6s ease-out forwards}
+.ring.r2{animation-delay:1.55s}.ring.r1{animation-delay:1.15s}
+.door-light{transform:translateY(var(--py,0px));will-change:transform}
+.door-caption{position:absolute;left:-8%;bottom:9%;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.8rem 1rem;box-shadow:0 18px 40px -24px rgba(var(--text-rgb),.35);font-size:.9rem;line-height:1.35;color:var(--text-secondary);max-width:230px}
+.door-caption b{display:block;color:var(--text);font-weight:600}
+.door-caption2{left:auto;right:-4%;top:12%;bottom:auto}
+
+/* problem band */
+.problem{background:var(--ink);color:var(--text-on-ink-muted);overflow:hidden}
+.problem .eyebrow{color:var(--brass-light)}
+.problem .h2{color:var(--text-on-ink)}
+.marquee{position:relative;margin-block:clamp(40px,6vw,72px);display:grid;gap:14px;-webkit-mask-image:linear-gradient(90deg,transparent,var(--ink) 12%,var(--ink) 88%,transparent);mask-image:linear-gradient(90deg,transparent,var(--ink) 12%,var(--ink) 88%,transparent)}
+.marquee-row{display:flex;overflow:hidden}
+.marquee-track{display:flex;gap:14px;flex:none;padding-right:14px;animation:marquee 70s linear infinite}
+.marquee-row.rev .marquee-track{animation-direction:reverse;animation-duration:80s}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.log{flex:none;display:flex;align-items:center;gap:.9rem;background:var(--ink-2);border:1px solid var(--border-ink);border-radius:12px;padding:.75rem 1.1rem;font:500 .95rem/1.2 var(--font-body);font-variant-numeric:tabular-nums;letter-spacing:.02em;color:var(--text-on-ink-muted);white-space:nowrap}
+.log s{text-decoration-color:var(--brass-light);text-decoration-thickness:1px}
+.log .st{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-light)}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px);align-items:end}
+.statement{font-family:var(--font-display);font-size:clamp(2.6rem,6.5vw,5.5rem);line-height:1;letter-spacing:-.03em;color:var(--text-on-ink)}
+.statement em{color:var(--brass-light)}
+.reveal-lines span{display:block;opacity:.28;transition:opacity .9s var(--ease);transition-delay:calc(var(--i) * 160ms)}
+.reveal-lines.in span{opacity:1}
+.problem p.body{font-size:1.15rem;color:var(--text-on-ink-muted);max-width:46ch}
+.problem p.body + p.body{margin-top:1rem}
+
+/* how it works */
+.steps-wrap{display:grid;grid-template-columns:5fr 7fr;gap:clamp(40px,6vw,96px);align-items:start}
+.steps-intro{position:sticky;top:120px}
+.approve{display:flex;gap:.9rem;align-items:flex-start;margin-top:2rem;padding:1.1rem 1.2rem;border-radius:16px;background:var(--accent-soft);color:var(--accent);max-width:400px}
+.approve svg{width:22px;height:22px;flex:none;margin-top:2px}
+.approve p{color:var(--accent-hover);font-weight:500;line-height:1.45}
+.steps{list-style:none;margin:0;padding:0;position:relative;--progress:0}
+.steps::before,.steps::after{content:"";position:absolute;left:23px;top:24px;bottom:24px;width:2px;background:var(--border);border-radius:2px}
+.steps::after{background:var(--accent);transform-origin:top;transform:scaleY(var(--progress))}
+.step{position:relative;display:grid;grid-template-columns:48px 1fr;gap:1.5rem;padding-bottom:clamp(40px,6vw,72px)}
+.step:last-child{padding-bottom:0}
+.step-num{position:relative;z-index:1;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:2px solid var(--border-hover);font:500 1.1rem/1 var(--font-display);color:var(--text-tertiary);transition:background .4s,border-color .4s,color .4s}
+.step.lit .step-num{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.step h3{font-size:clamp(1.35rem,2vw,1.65rem);line-height:1.2;letter-spacing:-.01em;margin-top:.55rem}
+.step p{margin-top:.6rem;max-width:52ch}
+.step .who{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.chip{display:inline-flex;align-items:center;min-height:32px;padding:.3rem .8rem;border-radius:999px;border:1px solid var(--border);background:var(--surface);font-size:.88rem;font-weight:500;color:var(--text-secondary)}
+
+/* why it works bento */
+.why{background:var(--surface-alt)}
+.why-head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(36px,5vw,56px)}
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:clamp(22px,2.5vw,32px);overflow:hidden;transition:border-color .25s,transform .35s var(--ease),box-shadow .35s}
+.card::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(var(--glow-rgb),.35),transparent 60%)}
+.card:hover{border-color:var(--border-hover);transform:translateY(-3px);box-shadow:0 18px 40px -24px rgba(var(--text-rgb),.35)}
+.card:hover::before{opacity:1}
+.card>*{position:relative}
+.card h3{font-size:clamp(1.35rem,2vw,1.7rem);line-height:1.15;letter-spacing:-.015em}
+.card p{margin-top:.75rem}
+.b1{grid-column:span 4;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.b2{grid-column:span 2}.b3{grid-column:span 2}.b4{grid-column:span 4}
+.big-num{font-family:var(--font-display);font-size:clamp(4rem,9vw,7.5rem);line-height:.9;letter-spacing:-.04em;color:var(--accent)}
+.big-num small{display:block;font-family:var(--font-body);font-size:.95rem;letter-spacing:.02em;color:var(--text-tertiary);margin-top:.6rem;line-height:1.3}
+.dots{display:grid;grid-template-columns:repeat(12,1fr);gap:6px}
+.dots i{aspect-ratio:1;border-radius:50%;background:var(--accent);opacity:.9}
+.dots-note{font-size:.85rem;color:var(--text-tertiary);margin-top:.8rem}
+.card-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);margin-bottom:1.25rem}
+.card-icon svg{width:22px;height:22px}
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem;margin-top:1.25rem}
+.flow span{padding:.45rem .85rem;border-radius:999px;background:var(--bg);border:1px solid var(--border);font-size:.9rem;font-weight:500;color:var(--text)}
+.flow svg{width:16px;height:16px;color:var(--text-tertiary)}
+.flow span.last{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+
+/* example message */
+.example-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(40px,6vw,96px);align-items:center}
+.letter-wrap{position:relative}
+.letter{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:clamp(24px,3vw,36px);box-shadow:0 30px 60px -36px rgba(var(--text-rgb),.4);transform:rotate(-1deg);transition:transform .5s var(--ease)}
+.letter:hover{transform:rotate(0)}
+.letter-head{display:flex;align-items:center;gap:.9rem;padding-bottom:1.1rem;border-bottom:1px dashed var(--border)}
+.avatar{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font:600 .95rem/1 var(--font-body);flex:none}
+.letter-head b{display:block;color:var(--text);font-weight:600;line-height:1.3}
+.letter-head span{font-size:.88rem;color:var(--text-tertiary)}
+.letter blockquote{margin:1.3rem 0 0;font-family:var(--font-display);font-size:clamp(1.25rem,2.1vw,1.6rem);line-height:1.4;color:var(--text);letter-spacing:-.005em}
+.letter blockquote mark{background:linear-gradient(transparent 62%,rgba(var(--glow-rgb),.75) 62%);color:inherit;padding:0 .05em}
+.letter-foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1.4rem;padding-top:1rem;border-top:1px dashed var(--border);font-size:.85rem;color:var(--text-tertiary)}
+.letter-foot .ok{display:inline-flex;align-items:center;gap:.4rem;color:var(--success);font-weight:600}
+.letter-foot .ok svg{width:16px;height:16px}
+.notes{list-style:none;margin:2rem 0 0;padding:0;display:grid;gap:1rem}
+.notes li{display:grid;grid-template-columns:32px 1fr;gap:1rem;align-items:start}
+.notes .pin{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--brass);color:var(--brass);font:600 .85rem/1 var(--font-body)}
+.notes b{color:var(--text);font-weight:600}
+
+/* pricing */
+.pricing-head{text-align:center;max-width:720px;margin:0 auto clamp(40px,5vw,64px)}
+.pricing-head .eyebrow{justify-content:center}
+.pricing-head .lead{margin-inline:auto}
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.plan{display:flex;flex-direction:column;padding:clamp(24px,2.6vw,34px)}
+.plan.is-featured{border:2px solid var(--accent);box-shadow:0 30px 60px -30px rgba(var(--accent-rgb),.45)}
+.plan .badge{position:absolute;top:22px;right:22px;display:inline-block;padding:.4rem .75rem;border-radius:999px;background:var(--accent);color:var(--surface);font:600 .72rem/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase}
+.plan h3{font-size:1.6rem}
+.plan .meta{margin-top:.35rem;color:var(--text-tertiary);font-size:.95rem}
+.price{margin-top:1.6rem;font-family:var(--font-display);font-size:clamp(2.6rem,4vw,3.25rem);line-height:1;letter-spacing:-.03em;color:var(--text)}
+.price span{font-family:var(--font-body);font-size:.95rem;letter-spacing:0;color:var(--text-tertiary);margin-left:.35rem}
+.plan .facts{display:flex;gap:1.25rem;margin-top:1.4rem;padding-block:1rem;border-block:1px solid var(--border)}
+.plan .facts div{font-size:.88rem;color:var(--text-tertiary);line-height:1.3}
+.plan .facts b{display:block;font:500 1.5rem/1.1 var(--font-display);color:var(--text)}
+.plan .btn{margin-top:auto;width:100%}
+.plan .spacer{flex:1;min-height:1.5rem}
+.includes{margin-top:24px;display:grid;grid-template-columns:1.4fr 1fr;gap:20px}
+.includes ul{list-style:none;margin:1rem 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:.7rem 1.5rem}
+.includes li{display:flex;gap:.6rem;align-items:flex-start;color:var(--text-secondary)}
+.includes li svg{width:18px;height:18px;flex:none;color:var(--accent);margin-top:4px}
+.includes h3{font-size:1.3rem}
+.dfy{background:var(--ink);border-color:var(--ink);color:var(--text-on-ink-muted)}
+.dfy h3{color:var(--text-on-ink)}
+.dfy .price{color:var(--text-on-ink);font-size:2.2rem;margin-top:1rem}
+.dfy .price span{color:var(--text-on-ink-muted)}
+.dfy .btn-ghost{color:var(--text-on-ink);border-color:var(--border-ink);margin-top:1.25rem}
+.dfy .btn-ghost:hover{background:var(--ink-2);border-color:var(--text-on-ink)}
+.dfy .btn-ghost:focus-visible{outline-color:var(--brass-light)}
+.dfy.card:hover{border-color:var(--ink)}
+.fine{text-align:center;margin-top:1.75rem;font-size:.92rem;color:var(--text-tertiary)}
+
+/* FAQ */
+.faq{background:var(--surface-alt)}
+.faq-list{margin-top:clamp(32px,4vw,48px);border-top:1px solid var(--border-hover)}
+.faq details{border-bottom:1px solid var(--border-hover)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;min-height:64px;padding:1.1rem 0;font:500 clamp(1.15rem,1.8vw,1.35rem)/1.3 var(--font-display);color:var(--text);transition:color .2s}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{color:var(--accent)}
+.faq summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:6px}
+.faq .plus{position:relative;width:36px;height:36px;border-radius:50%;border:1px solid var(--border-hover);flex:none;transition:transform .35s var(--ease),background .25s,border-color .25s}
+.faq .plus::before,.faq .plus::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:currentColor;transform:translate(-50%,-50%)}
+.faq .plus::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq details[open] .plus{transform:rotate(45deg);background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.faq .answer{padding:0 3.5rem 1.5rem 0;max-width:62ch}
+
+/* form */
+.intake-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(40px,6vw,96px);align-items:start}
+.intake-side{position:sticky;top:120px}
+.next{list-style:none;padding:0;margin:2rem 0 0;display:grid;gap:1rem}
+.next li{display:grid;grid-template-columns:28px 1fr;gap:.8rem;align-items:start}
+.next li span{width:28px;height:28px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:600;font-size:.85rem}
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:clamp(22px,3.2vw,40px);box-shadow:0 30px 60px -40px rgba(var(--text-rgb),.4)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem 1.25rem}
+.field{display:grid;gap:.45rem}
+.field.full{grid-column:1/-1}
+.field label{font-weight:600;font-size:.95rem;color:var(--text)}
+.field .hint{font-size:.85rem;color:var(--text-tertiary)}
+.field input{width:100%;min-height:50px;padding:.8rem 1rem;border-radius:12px;border:1px solid var(--border-hover);background:var(--surface);color:var(--text);font:400 1rem var(--font-body);transition:border-color .2s,box-shadow .2s,background .2s}
+.field input::placeholder{color:var(--text-tertiary);opacity:1}
+.field input:hover{border-color:var(--text-tertiary)}
+.field input:focus-visible{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.25)}
+.field input[aria-invalid="true"]{border-color:var(--error);box-shadow:0 0 0 3px rgba(var(--text-rgb),.0)}
+.field .error{color:var(--error);font-size:.875rem;font-weight:500;min-height:0}
+.field .error:empty{display:none}
+.form-actions{margin-top:1.6rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.5rem}
+.form-actions .btn{min-width:230px}
+.privacy{font-size:.88rem;color:var(--text-tertiary);max-width:34ch}
+.success{display:none;text-align:left}
+.form-card.done form{display:none}
+.form-card.done .success{display:block;animation:fadeUp .7s var(--ease) both}
+.success .seal{width:64px;height:64px;border-radius:50%;background:var(--accent);color:var(--surface);display:grid;place-items:center;margin-bottom:1.5rem;position:relative}
+.success .seal svg{width:28px;height:28px}
+.success .seal::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:1px solid var(--accent);opacity:.4}
+.success h3{font-size:clamp(1.6rem,2.6vw,2.1rem);line-height:1.15;letter-spacing:-.015em}
+.success p{margin-top:.9rem;max-width:48ch}
+.success .btn{margin-top:1.75rem}
+
+/* closing + footer */
+.closing{text-align:center;padding-block:clamp(72px,9vw,120px)}
+.closing .h2{max-width:16ch;margin-inline:auto}
+.closing .btn{margin-top:2rem}
+footer{background:var(--ink);color:var(--text-on-ink-muted);padding-block:56px 40px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:2rem}
+.foot .brand{color:var(--text-on-ink)}
+.foot .brand:focus-visible{outline-color:var(--brass-light)}
+.foot-tag{font-family:var(--font-display);font-style:italic;font-size:1.25rem;color:var(--text-on-ink);margin-top:.6rem}
+.foot a.mail{color:var(--text-on-ink);text-underline-offset:.22em;text-decoration-thickness:1px;display:inline-flex;min-height:44px;align-items:center}
+.foot a.mail:hover{text-decoration-thickness:2px;color:var(--brass-light)}
+.foot a.mail:focus-visible{outline:2px solid var(--brass-light);outline-offset:3px;border-radius:3px}
+.foot-bottom{margin-top:40px;padding-top:24px;border-top:1px solid var(--border-ink);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;font-size:.88rem}
+.knocker{position:relative;display:inline-flex;align-items:center;gap:.6rem;background:none;border:1px solid var(--border-ink);color:var(--text-on-ink-muted);border-radius:999px;padding:.5rem .9rem .5rem .6rem;min-height:44px;cursor:pointer;font:500 .88rem var(--font-body);transition:border-color .25s,color .25s}
+.knocker svg{width:18px;height:22px;color:var(--brass-light)}
+.knocker:hover,.knocker:focus-visible{border-color:var(--brass-light);color:var(--text-on-ink)}
+.knocker:focus-visible{outline:2px solid var(--brass-light);outline-offset:3px}
+.knocker.knocking svg{animation:knock2 .9s ease-out}
+.knocker .tip{position:absolute;bottom:calc(100% + 12px);right:0;width:max-content;max-width:260px;background:var(--surface);color:var(--text);border-radius:12px;padding:.7rem .9rem;font-size:.9rem;line-height:1.35;box-shadow:0 18px 40px -20px rgba(var(--ink-rgb),.6);opacity:0;transform:translateY(6px);pointer-events:none;transition:opacity .3s,transform .3s var(--ease);text-align:left}
+.knocker .tip em{color:var(--accent)}
+.knocker.knocking .tip,.knocker:focus-visible .tip{opacity:1;transform:none}
+
+/* reveals */
+[data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--d,0) * 90ms)}
+[data-reveal].in{opacity:1;transform:none}
+.h2-split .w>span{transform:translateY(70%);opacity:0;transition:transform .8s var(--ease),opacity .8s var(--ease);transition-delay:calc(var(--i) * 55ms)}
+.h2-split.in .w>span{transform:none;opacity:1}
+.no-js [data-reveal],.no-js .h2-split .w>span,.no-js .reveal-lines span{opacity:1;transform:none}
+
+@keyframes rise{to{transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes ring{0%{transform:scale(.55);opacity:.8}100%{transform:scale(2.5);opacity:0}}
+@keyframes knock{0%,100%{transform:translateX(0)}20%{transform:translateX(3px)}40%{transform:translateX(0)}60%{transform:translateX(3px)}80%{transform:translateX(0)}}
+@keyframes knock2{0%,50%,100%{transform:rotate(0)}12%,62%{transform:rotate(-9deg)}25%,75%{transform:rotate(0)}}
+@keyframes marquee{to{transform:translateX(-100%)}}
+@keyframes doorOpen{from{transform:perspective(600px) rotateY(0)}to{transform:perspective(600px) rotateY(-14deg)}}
+.door-panel{transform-box:fill-box;transform-origin:left center;animation:doorOpen 1.4s 2.2s var(--ease) forwards}
+
+/* responsive */
+@media (max-width:1024px){
+  .hero-grid{grid-template-columns:1fr}
+  .door-stage{justify-self:center;max-width:340px}
+  .steps-wrap,.example-grid,.intake-grid,.problem-grid{grid-template-columns:1fr}
+  .steps-intro,.intake-side{position:static}
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .b1,.b4{grid-column:span 2}.b2,.b3{grid-column:span 1}
+  .includes{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  .pricing{grid-template-columns:1fr;max-width:540px;margin-inline:auto}
+  .includes{max-width:540px;margin-inline:auto}
+}
+@media (max-width:760px){
+  .menu-btn{display:inline-flex}
+  .nav-links{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:.5rem var(--pad) 1.25rem;background:var(--bg);border-bottom:1px solid var(--border)}
+  .nav-links.open{display:flex}
+  .nav-links a:not(.btn){padding:.9rem 0;border-bottom:1px solid var(--border);font-size:1.05rem}
+  .nav-links a:not(.btn)::after{display:none}
+  .nav-links .btn{margin-top:1rem}
+  .nav-cta-m{display:inline-flex}
+  .hero-actions .btn{width:100%}
+  .bento{grid-template-columns:1fr}
+  .b1,.b2,.b3,.b4{grid-column:auto}
+  .b1{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .form-actions .btn{width:100%;min-width:0}
+  .includes ul{grid-template-columns:1fr}
+  .door-caption{left:0;font-size:.85rem;max-width:200px}
+  .door-caption2{right:0;left:auto}
+  .faq .answer{padding-right:0}
+  .letter{transform:none}
+}
+@media (max-width:420px){
+  .door-stage{max-width:300px}
+  .plan .facts{gap:1rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  html{scroll-behavior:auto}
+  .h1 .w>span,.h2-split .w>span,[data-reveal],.fade-in,.reveal-lines span{transform:none!important;opacity:1!important}
+  .marquee-track{animation:none!important}
+  .ring{display:none}
+  .door-light{transform:none!important}
+}
+</style>
+</head>
+<body class="no-js">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="container">
+    <a class="brand" href="#top" aria-label="Knock, home">
+      <svg class="door-mark" viewBox="0 0 22 28" aria-hidden="true"><path d="M2 27V11a9 9 0 0 1 18 0v16" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 27V12a5 5 0 0 1 10 0v15z" fill="var(--accent)"/><circle cx="13.2" cy="19" r="1.2" fill="var(--glow)"/></svg>
+      Knock
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu"><span></span></button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#example">Example</a>
+      <a href="#packages">Packages</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-primary btn-sm" href="#intake">Get my target list</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<!-- HERO -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div>
+      <p class="eyebrow fade-in" style="--fd:.05s">A career outbound service for MBA and product roles</p>
+      <h1 class="h1" id="hero-title" data-split>Stop applying. Start <em>conversations.</em></h1>
+      <p class="lead fade-in">We find the hiring managers, team members and alumni at your target companies, research each one, and start real conversations that turn into referrals and interviews.</p>
+      <div class="hero-actions fade-in" style="--fd:.9s">
+        <a class="btn btn-primary" href="#intake" id="heroCta">Get my target list
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
+      </div>
+      <p class="hero-note fade-in" style="--fd:1.05s;margin-top:1.4rem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        You approve every message. It goes from your own LinkedIn.
+      </p>
+    </div>
+
+    <div class="door-stage fade-in" style="--fd:.4s" aria-hidden="true">
+      <svg viewBox="0 0 400 500" role="presentation">
+        <defs>
+          <radialGradient id="spill" cx="50%" cy="60%" r="60%">
+            <stop offset="0" stop-color="var(--glow)" stop-opacity=".9"/>
+            <stop offset="1" stop-color="var(--glow)" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="inside" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="var(--glow)"/>
+            <stop offset="1" stop-color="var(--brass-light)"/>
+          </linearGradient>
+          <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="var(--accent)"/>
+            <stop offset="1" stop-color="var(--accent-hover)"/>
+          </linearGradient>
+        </defs>
+        <g class="door-light"><ellipse cx="200" cy="470" rx="220" ry="60" fill="url(#spill)" opacity=".8"/></g>
+        <!-- knock rings -->
+        <circle class="ring r1" cx="248" cy="300" r="40" fill="none" stroke="var(--brass)" stroke-width="1.5"/>
+        <circle class="ring r2" cx="248" cy="300" r="40" fill="none" stroke="var(--brass)" stroke-width="1.5"/>
+        <!-- frame -->
+        <path d="M60 480V190a140 140 0 0 1 280 0v290" fill="var(--surface)" stroke="var(--border-hover)" stroke-width="2"/>
+        <path d="M84 480V196a116 116 0 0 1 232 0v284z" fill="url(#inside)"/>
+        <!-- door panel (opens slightly) -->
+        <g class="door-panel">
+          <path d="M84 480V196a116 116 0 0 1 232 0v284z" fill="url(#panel)"/>
+          <path d="M112 470V206a88 88 0 0 1 176 0v264" fill="none" stroke="var(--surface)" stroke-opacity=".14" stroke-width="2"/>
+          <rect x="128" y="330" width="144" height="110" rx="10" fill="none" stroke="var(--surface)" stroke-opacity=".14" stroke-width="2"/>
+          <circle cx="282" cy="318" r="8" fill="var(--glow)"/>
+          <!-- knocker -->
+          <circle cx="200" cy="240" r="20" fill="none" stroke="var(--glow)" stroke-width="4"/>
+          <circle cx="200" cy="218" r="5" fill="var(--glow)"/>
+        </g>
+        <!-- step -->
+        <rect x="40" y="478" width="320" height="14" rx="4" fill="var(--surface-alt)" stroke="var(--border-hover)" stroke-width="1.5"/>
+      </svg>
+      <div class="door-caption door-caption2"><b>Priya, Senior PM</b>Alum, same school. Moved from consulting.</div>
+      <div class="door-caption"><b>Your reason to talk</b>You are making the same switch she made.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem section" id="problem" aria-labelledby="problem-title">
+  <div class="container">
+    <p class="eyebrow">The problem</p>
+    <h2 class="h2 h2-split" id="problem-title" data-split style="max-width:18ch">Hundreds of applications. No callbacks.</h2>
+  </div>
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-row"><div class="marquee-track" id="row1"></div></div>
+    <div class="marquee-row rev"><div class="marquee-track" id="row2"></div></div>
+  </div>
+  <div class="container problem-grid">
+    <p class="statement reveal-lines" data-lines><span>Portals are a queue.</span><span><em>People hire people.</em></span></p>
+    <div data-reveal>
+      <p class="body">You tailor the CV, write the cover note, press apply, and wait behind thousands of others for a reply that rarely comes.</p>
+      <p class="body">Most good roles move through people first: a referral, an intro, a hiring manager who already knows your name. Knock puts you in that conversation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how" aria-labelledby="how-title">
+  <div class="container steps-wrap">
+    <div class="steps-intro">
+      <p class="eyebrow">How it works</p>
+      <h2 class="h2 h2-split" id="how-title" data-split>Four steps from a list of companies to a <em>real conversation.</em></h2>
+      <p class="lead">You bring the ambition and the target list. We do the finding, the research and the writing, and stay with you through every reply.</p>
+      <div class="approve" data-reveal>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        <p>You approve every message. Nothing is sent without your yes, and it always goes from your own LinkedIn.</p>
+      </div>
+    </div>
+    <ol class="steps" id="steps">
+      <li class="step" data-reveal>
+        <div class="step-num">1</div>
+        <div><h3>You pick your target companies and roles.</h3>
+          <p>Tell us where you want to be and what you want to do there. Ten companies or forty, product or strategy, Bengaluru or anywhere.</p></div>
+      </li>
+      <li class="step" data-reveal>
+        <div class="step-num">2</div>
+        <div><h3>We find the right people at each.</h3>
+          <p>Not a scraped list. The handful of people at each company who can actually move you forward.</p>
+          <div class="who"><span class="chip">Hiring managers</span><span class="chip">Team members</span><span class="chip">Alumni</span><span class="chip">Senior people who can introduce</span></div></div>
+      </li>
+      <li class="step" data-reveal>
+        <div class="step-num">3</div>
+        <div><h3>We write a personal first message for each person.</h3>
+          <p>We research each one and find something you genuinely share: a school, a past company, the same career switch. The message starts there.</p></div>
+      </li>
+      <li class="step" data-reveal>
+        <div class="step-num">4</div>
+        <div><h3>We guide every reply until it becomes a referral or interview.</h3>
+          <p>When someone writes back, you get a suggested reply within the day, and a clear sense of when to ask, and how.</p></div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- WHY IT WORKS -->
+<section class="why section" id="why" aria-labelledby="why-title">
+  <div class="container">
+    <div class="why-head">
+      <div>
+        <p class="eyebrow">Why it works</p>
+        <h2 class="h2 h2-split" id="why-title" data-split style="max-width:16ch">Fewer messages. <em>Better doors.</em></h2>
+      </div>
+      <p class="lead" style="max-width:44ch;margin-top:0">The opposite of mass outreach. Every choice is made for one person reading one message.</p>
+    </div>
+    <div class="bento">
+      <article class="card b1 spot" data-reveal>
+        <div>
+          <p class="big-num">60<small>hand-picked people,<br>not 6,000 messages.</small></p>
+        </div>
+        <div>
+          <div class="dots" aria-hidden="true" id="dots"></div>
+          <p class="dots-note">Each dot is a person we chose for you, with a reason.</p>
+        </div>
+      </article>
+      <article class="card b2 spot" data-reveal style="--d:1">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div>
+        <h3>Written for one person.</h3>
+        <p>No templates with a name swapped in. Each message is built around something real.</p>
+      </article>
+      <article class="card b3 spot" data-reveal style="--d:2">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 8 19.5z"/></svg></div>
+        <h3>Conversation first.</h3>
+        <p>We open with curiosity. The ask comes later, once there is a relationship to ask from.</p>
+      </article>
+      <article class="card b4 spot" data-reveal style="--d:1">
+        <h3>Built on how modern sales teams create meetings.</h3>
+        <p>Pick the right accounts, find the right people, earn the first reply, then move the conversation forward. It works for deals. It works for careers.</p>
+        <div class="flow" aria-label="Target companies, then people, then first reply, then referral or interview">
+          <span>Target companies</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span>Right people</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span>First reply</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="last">Referral or interview</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- EXAMPLE -->
+<section class="section" id="example" aria-labelledby="example-title">
+  <div class="container example-grid">
+    <div>
+      <p class="eyebrow">An example first message</p>
+      <h2 class="h2 h2-split" id="example-title" data-split>Short. Specific. <em>Easy to answer.</em></h2>
+      <p class="lead">This is the kind of message we write. Three sentences, one shared thread, one honest question.</p>
+      <ol class="notes">
+        <li data-reveal><span class="pin">1</span><p><b>It notices him.</b> His move from Flipkart to Zepto is the opening, not your CV.</p></li>
+        <li data-reveal style="--d:1"><span class="pin">2</span><p><b>It is true for you.</b> You are making a similar jump, so the reason to talk is real.</p></li>
+        <li data-reveal style="--d:2"><span class="pin">3</span><p><b>It asks nothing big.</b> One question he can answer in a minute. The referral comes later.</p></li>
+      </ol>
+    </div>
+    <div class="letter-wrap" data-reveal>
+      <figure class="letter" style="margin:0">
+        <div class="letter-head">
+          <span class="avatar" aria-hidden="true">RM</span>
+          <div><b>To Rahul M.</b><span>Product Manager at Zepto · previously Flipkart</span></div>
+        </div>
+        <blockquote>
+          <p>Hey Rahul, saw you <mark>moved from Flipkart into product at Zepto.</mark> I'm making <mark>a similar jump from brand management.</mark> Curious, <mark>what was the biggest adjustment for you?</mark></p>
+        </blockquote>
+        <figcaption class="letter-foot">
+          <span>Draft for your approval</span>
+          <span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Sent from your LinkedIn</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="section" id="packages" aria-labelledby="packages-title" style="padding-top:0">
+  <div class="container">
+    <div class="pricing-head">
+      <p class="eyebrow">Packages</p>
+      <h2 class="h2 h2-split" id="packages-title" data-split>Founding member <em>pricing.</em></h2>
+      <p class="lead">One payment, no subscription. Pick the pace that fits your search.</p>
+    </div>
+    <div class="pricing">
+      <article class="card plan spot" data-reveal>
+        <h3>Sprint</h3>
+        <p class="meta">A focused first push.</p>
+        <p class="price">Rs 2,499</p>
+        <div class="facts"><div><b>7</b>days</div><div><b>60</b>people contacted</div></div>
+        <div class="spacer"></div>
+        <a class="btn btn-ghost" href="#intake" data-plan="Sprint">Get my target list</a>
+      </article>
+      <article class="card plan is-featured spot" data-reveal style="--d:1">
+        <span class="badge">Most popular</span>
+        <h3>Standard</h3>
+        <p class="meta">Time for replies to become calls.</p>
+        <p class="price">Rs 3,999</p>
+        <div class="facts"><div><b>14</b>days</div><div><b>120</b>people contacted</div></div>
+        <div class="spacer"></div>
+        <a class="btn btn-primary" href="#intake" data-plan="Standard">Get my target list
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+      <article class="card plan spot" data-reveal style="--d:2">
+        <h3>Full search</h3>
+        <p class="meta">For a wide list of target companies.</p>
+        <p class="price">Rs 5,499</p>
+        <div class="facts"><div><b>21</b>days</div><div><b>180</b>people contacted</div></div>
+        <div class="spacer"></div>
+        <a class="btn btn-ghost" href="#intake" data-plan="Full search">Get my target list</a>
+      </article>
+    </div>
+    <div class="includes">
+      <div class="card" data-reveal>
+        <h3>Every package includes</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Your target list</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Research on every person</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Personal first messages</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Reply drafts for every conversation</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>A weekly results report</li>
+        </ul>
+      </div>
+      <div class="card dfy" data-reveal style="--d:1">
+        <h3>Done for you</h3>
+        <p>Rather not touch it at all? We run the outreach end to end, with your sign-off on the approach.</p>
+        <p class="price"><span style="margin:0 .35rem 0 0">from</span>Rs 14,999</p>
+        <a class="btn btn-ghost" href="#intake" data-plan="Done for you">Get my target list</a>
+      </div>
+    </div>
+    <p class="fine">Prices in INR. We do not promise a number of replies yet. We do promise the work.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq section" id="faq" aria-labelledby="faq-title">
+  <div class="container narrow">
+    <p class="eyebrow">Questions</p>
+    <h2 class="h2 h2-split" id="faq-title" data-split>Fair questions, <em>straight answers.</em></h2>
+    <div class="faq-list">
+      <details>
+        <summary>Is this spam?<span class="plus" aria-hidden="true"></span></summary>
+        <p class="answer">No. Spam is the same message to thousands of strangers. We contact around 60 researched people per week, and every message is written for that one person.</p>
+      </details>
+      <details>
+        <summary>Will my LinkedIn get banned?<span class="plus" aria-hidden="true"></span></summary>
+        <p class="answer">We stay well under LinkedIn's limits, and messages go from your own account at a human pace. Nothing automated runs on your profile.</p>
+      </details>
+      <details>
+        <summary>Do you write as me?<span class="plus" aria-hidden="true"></span></summary>
+        <p class="answer">Yes, in your voice and from your story. You approve every message before it goes, and you can edit anything.</p>
+      </details>
+      <details>
+        <summary>Who is this for?<span class="plus" aria-hidden="true"></span></summary>
+        <p class="answer">To start, MBA graduates and final-year students, and professionals moving into product roles. If that is you, we would like to help.</p>
+      </details>
+      <details>
+        <summary>What if nobody replies?<span class="plus" aria-hidden="true"></span></summary>
+        <p class="answer">Founding members get a free extra week if fewer than 5 people reply. We would rather keep working than leave you waiting.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- INTAKE -->
+<section class="section" id="intake" aria-labelledby="intake-title">
+  <div class="container intake-grid">
+    <div class="intake-side">
+      <p class="eyebrow">Start here</p>
+      <h2 class="h2 h2-split" id="intake-title" data-split>Tell us where you want to <em>knock.</em></h2>
+      <p class="lead">Two minutes. We will come back with the people we would contact first, and why.</p>
+      <ol class="next">
+        <li data-reveal><span>1</span><p>We review your goals and target companies.</p></li>
+        <li data-reveal style="--d:1"><span>2</span><p>We send a sample of your target list by email.</p></li>
+        <li data-reveal style="--d:2"><span>3</span><p>You choose a package only if it looks right.</p></li>
+      </ol>
+    </div>
+    <div class="form-card" id="formCard" data-reveal>
+      <form id="intakeForm" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="f-name">Full name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name">
+            <p class="error" id="e-name" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="e-email">
+            <p class="error" id="e-email" aria-live="polite"></p>
+          </div>
+          <div class="field full">
+            <label for="f-li">LinkedIn URL</label>
+            <input id="f-li" name="linkedin" type="url" inputmode="url" placeholder="linkedin.com/in/your-name" required aria-describedby="e-li">
+            <p class="error" id="e-li" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="f-role">Target role</label>
+            <input id="f-role" name="role" type="text" placeholder="Associate Product Manager" required aria-describedby="e-role">
+            <p class="error" id="e-role" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="f-city">City</label>
+            <input id="f-city" name="city" type="text" autocomplete="address-level2" placeholder="Bengaluru" required aria-describedby="e-city">
+            <p class="error" id="e-city" aria-live="polite"></p>
+          </div>
+          <div class="field full">
+            <label for="f-co">Target companies</label>
+            <input id="f-co" name="companies" type="text" placeholder="Zepto, Swiggy, CRED, Razorpay" required aria-describedby="h-co e-co">
+            <span class="hint" id="h-co">Separate with commas.</span>
+            <p class="error" id="e-co" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit">Get my target list
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <p class="privacy">We only use this to build your list. No spam, ever.</p>
+        </div>
+      </form>
+      <div class="success" id="success" role="status" aria-live="polite" tabindex="-1">
+        <div class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h3 id="successTitle">Thank you. We are on it.</h3>
+        <p id="successBody">We will review your goals and email you within 48 hours with the first people we would contact, and why.</p>
+        <button class="btn btn-ghost" type="button" id="resetForm">Edit my details</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closing" aria-labelledby="closing-title">
+  <div class="container">
+    <h2 class="h2 h2-split" id="closing-title" data-split>Interviews at your target companies, through <em>the people who work there.</em></h2>
+    <a class="btn btn-primary" href="#intake">Get my target list
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top" aria-label="Knock, back to top">
+          <svg viewBox="0 0 22 28" aria-hidden="true"><path d="M2 27V11a9 9 0 0 1 18 0v16" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 27V12a5 5 0 0 1 10 0v15z" fill="var(--brass-light)"/><circle cx="13.2" cy="19" r="1.2" fill="var(--ink)"/></svg>
+          Knock
+        </a>
+        <p class="foot-tag">Knock on the right door.</p>
+      </div>
+      <div>
+        <p style="font-size:.88rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-light);font-weight:600">Say hello</p>
+        <a class="mail" href="mailto:hello@knock.careers">hello@knock.careers</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 Knock. Made in India.</p>
+      <button class="knocker" type="button" id="knocker" aria-describedby="knockTip">
+        <svg viewBox="0 0 22 28" aria-hidden="true"><path d="M2 27V11a9 9 0 0 1 18 0v16" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="11" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        Knock twice
+        <span class="tip" id="knockTip" role="tooltip">Knock knock. Who's there? <em>Your next interview.</em></span>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.body.classList.remove('no-js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  // split headings into words
+  document.querySelectorAll('[data-split]').forEach(function(el){
+    var i = 0;
+    (function walk(node){
+      Array.prototype.slice.call(node.childNodes).forEach(function(n){
+        if(n.nodeType === 3){
+          var frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function(part){
+            if(!part) return;
+            if(/^\s+$/.test(part)){ frag.appendChild(document.createTextNode(' ')); return; }
+            var w = document.createElement('span'); w.className = 'w';
+            var s = document.createElement('span'); s.textContent = part; s.style.setProperty('--i', i++);
+            w.appendChild(s); frag.appendChild(w);
+          });
+          n.parentNode.replaceChild(frag, n);
+        } else if(n.nodeType === 1){ walk(n); }
+      });
+    })(el);
+    el.setAttribute('aria-label', el.textContent.replace(/\s+/g,' ').trim());
+  });
+
+  // marquee rows (decorative)
+  var roles = ['Associate PM','Product Analyst','Strategy Manager','APM','Growth PM','Category Manager','Product Manager','Business Analyst'];
+  function row(start){
+    var html = '';
+    for(var k=0;k<8;k++){
+      var n = start + k*37;
+      html += '<span class="log"><s>Application #' + n + ' · ' + roles[(start+k)%roles.length] + '</s><span class="st">No response</span></span>';
+    }
+    return html;
+  }
+  [['row1',112],['row2',209]].forEach(function(r){
+    var t = document.getElementById(r[0]); var h = row(r[1]);
+    t.innerHTML = h;
+    var clone = t.cloneNode(true); clone.removeAttribute('id'); t.parentNode.appendChild(clone);
+  });
+
+  // dots (60)
+  var dots = document.getElementById('dots'), dh = '';
+  for(var d=0; d<60; d++) dh += '<i></i>';
+  dots.innerHTML = dh;
+
+  // reveals
+  var targets = document.querySelectorAll('[data-reveal], .h2-split, [data-lines]');
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: .05 });
+    targets.forEach(function(el){ io.observe(el); });
+  } else { targets.forEach(function(el){ el.classList.add('in'); }); }
+
+  // nav
+  var nav = document.getElementById('nav');
+  var menuBtn = document.getElementById('menuBtn'), links = document.getElementById('navLinks');
+  function setMenu(open){
+    links.classList.toggle('open', open); nav.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', open); menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  menuBtn.addEventListener('click', function(){ setMenu(!links.classList.contains('open')); });
+  links.addEventListener('click', function(e){ if(e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && links.classList.contains('open')){ setMenu(false); menuBtn.focus(); } });
+
+  // scroll-linked: nav state, steps rail, door parallax
+  var steps = document.getElementById('steps'), stepEls = steps.querySelectorAll('.step');
+  var light = document.querySelector('.door-light');
+  var ticking = false;
+  function onScroll(){
+    ticking = false;
+    var y = window.scrollY;
+    nav.classList.toggle('scrolled', y > 24);
+    var r = steps.getBoundingClientRect(), vh = window.innerHeight;
+    var p = Math.min(1, Math.max(0, (vh * .6 - r.top) / r.height));
+    steps.style.setProperty('--progress', p.toFixed(3));
+    stepEls.forEach(function(s){ var sr = s.getBoundingClientRect(); s.classList.toggle('lit', sr.top < vh * .6); });
+    if(!reduce && light && y < vh * 1.2) light.style.setProperty('--py', (y * .15).toFixed(1) + 'px');
+  }
+  window.addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  onScroll();
+
+  // pointer effects (desktop only)
+  if(fine && !reduce){
+    var hero = document.querySelector('.hero'), pend = null;
+    hero.addEventListener('pointermove', function(e){
+      if(pend) return;
+      pend = requestAnimationFrame(function(){
+        pend = null;
+        var b = hero.getBoundingClientRect();
+        hero.style.setProperty('--mx', (e.clientX - b.left) + 'px');
+        hero.style.setProperty('--my', (e.clientY - b.top) + 'px');
+      });
+    });
+    document.querySelectorAll('.spot').forEach(function(c){
+      var f = null;
+      c.addEventListener('pointermove', function(e){
+        if(f) return;
+        f = requestAnimationFrame(function(){
+          f = null; var b = c.getBoundingClientRect();
+          c.style.setProperty('--mx', (e.clientX - b.left) + 'px');
+          c.style.setProperty('--my', (e.clientY - b.top) + 'px');
+        });
+      });
+    });
+    var cta = document.getElementById('heroCta'), mf = null;
+    cta.addEventListener('pointermove', function(e){
+      if(mf) return;
+      mf = requestAnimationFrame(function(){
+        mf = null; var b = cta.getBoundingClientRect();
+        var dx = (e.clientX - (b.left + b.width/2)) / b.width, dy = (e.clientY - (b.top + b.height/2)) / b.height;
+        cta.style.transform = 'translate(' + (dx*8).toFixed(1) + 'px,' + (dy*6 - 2).toFixed(1) + 'px)';
+      });
+    });
+    cta.addEventListener('pointerleave', function(){ cta.style.transform = ''; });
+  }
+
+  // footer knocker
+  var kn = document.getElementById('knocker'), kt;
+  function knock(){
+    kn.classList.remove('knocking'); void kn.offsetWidth; kn.classList.add('knocking');
+    clearTimeout(kt); kt = setTimeout(function(){ kn.classList.remove('knocking'); }, 2600);
+  }
+  kn.addEventListener('click', knock); kn.addEventListener('mouseenter', knock);
+
+  // form
+  var form = document.getElementById('intakeForm'), card = document.getElementById('formCard');
+  var chosenPlan = '';
+  document.querySelectorAll('[data-plan]').forEach(function(a){ a.addEventListener('click', function(){ chosenPlan = a.getAttribute('data-plan'); }); });
+  var rules = {
+    'f-name': function(v){ return v.length >= 2 ? '' : 'Please enter your full name.'; },
+    'f-email': function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? '' : 'Please enter a valid email address.'; },
+    'f-li': function(v){ return /linkedin\.com\/(in|pub)\/[^\s/]+/i.test(v) ? '' : 'Please paste your LinkedIn profile URL, like linkedin.com/in/your-name.'; },
+    'f-role': function(v){ return v.length >= 2 ? '' : 'Which role are you aiming for?'; },
+    'f-city': function(v){ return v.length >= 2 ? '' : 'Which city are you based in?'; },
+    'f-co': function(v){ return v.split(',').filter(function(s){ return s.trim(); }).length ? '' : 'Add at least one company.'; }
+  };
+  function check(id){
+    var inp = document.getElementById(id), msg = rules[id](inp.value.trim());
+    var err = document.getElementById('e-' + id.slice(2));
+    err.textContent = msg; inp.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    return !msg;
+  }
+  Object.keys(rules).forEach(function(id){
+    var inp = document.getElementById(id);
+    inp.addEventListener('blur', function(){ if(inp.value.trim()) check(id); });
+    inp.addEventListener('input', function(){ if(inp.getAttribute('aria-invalid') === 'true') check(id); });
+  });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var first = null;
+    Object.keys(rules).forEach(function(id){ if(!check(id) && !first) first = id; });
+    if(first){ document.getElementById(first).focus(); return; }
+    var name = document.getElementById('f-name').value.trim().split(/\s+/)[0];
+    var cos = document.getElementById('f-co').value.split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+    var email = document.getElementById('f-email').value.trim();
+    document.getElementById('successTitle').textContent = 'Thank you, ' + name + '. We are on it.';
+    var list = cos.length > 3 ? cos.slice(0,3).join(', ') + ' and ' + (cos.length - 3) + ' more' : cos.join(', ').replace(/, ([^,]*)$/, ' and $1');
+    document.getElementById('successBody').textContent = 'We will look at the people at ' + list + ' and email ' + email + ' within 48 hours with the first people we would contact, and why.' + (chosenPlan ? ' You were looking at ' + chosenPlan + '; we will keep that in mind.' : '');
+    card.classList.add('done');
+    var s = document.getElementById('success'); s.focus({ preventScroll: true });
+    card.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+  });
+  document.getElementById('resetForm').addEventListener('click', function(){
+    card.classList.remove('done'); document.getElementById('f-name').focus();
+  });
+})();
+</script>
+</body>
+</html>

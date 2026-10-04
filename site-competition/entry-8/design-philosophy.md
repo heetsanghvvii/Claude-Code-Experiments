@@ -1,0 +1,11 @@
+# Lit Threshold
+
+A movement about the single opening in a wall of sameness. Its world is a field of repeated, identical forms (doorways, arches, cells) set in patient rows, and somewhere within that field one form is different: slightly ajar, with warm light leaking from its edge. The eye crosses the whole field before it finds the one. Meaning is made by that search and that discovery, never by explanation.
+
+Space is architectural and quiet. Compositions are built on a strict grid of narrow vertical rhythms, like a corridor seen from the front. Negative space is generous and deliberate, a held breath around every element. Forms are pared to their perfect geometry: the rectangle with a rounded head, the thin hairline frame, the small brass point where a hand would touch. Nothing is decorative; every mark is placed as though measured twice and drawn once, the product of painstaking attention.
+
+Color is material, not digital. A warm ivory ground like heavy uncoated paper, a deep ink-green that reads almost black, and a single metal: aged brass, used sparingly, only where light or touch happens. No gradients that announce technology, no saturated glow. The one warm light is the only temperature change in the whole field, and its restraint is what makes it felt. The palette should feel meticulously calibrated, tested against itself until each tone sits exactly.
+
+Scale and rhythm come from repetition. Dozens of identical cells, rendered with master-level consistency of stroke and spacing, build a texture that rewards slow looking. Rhythm is broken exactly once per composition. Small clinical labels (index numbers, coordinates, hairline rules) sit at the edges like annotations in an architect's survey, suggesting a careful discipline that studies how doors are opened.
+
+Typography is whispered. A high-contrast serif carries the few words that matter, set large and calm; a precise sans serves as caption and measurement. Text is sparse and integrated as form, never paragraphs on the canvas. The finished work must look like it took countless hours: deeply considered, quietly expert, the kind of object a master craftsman would sign only after the last alignment was perfect.

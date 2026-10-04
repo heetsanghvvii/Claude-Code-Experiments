@@ -7,7 +7,17 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        serif: ['Fraunces', 'Georgia', 'serif'],
+        sans: ['Figtree', 'system-ui', 'sans-serif'],
+      },
       colors: {
+        ink: { DEFAULT: '#14302A', soft: '#1E4038', line: '#2E5249' },
+        paper: '#F6F1E7',
+        linen: '#ECE4D3',
+        brass: { DEFAULT: '#D4A458', deep: '#87591A' },
+        charcoal: '#1D2320',
+        moss: '#4C5A53',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

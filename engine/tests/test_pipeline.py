@@ -2,9 +2,12 @@
 
 import pytest
 
-from outreach import cli, discovery, llm, store
+import threading
+
+from outreach import cli, discovery, feedback, llm, prompts, store
 from outreach.models import (
-    BucketDecision, ExtractedFact, ExtractedProfile, HookDraft, HookSet, OpenerDraft, ReplyAnalysis,
+    BucketDecision, DraftVerdict, ExtractedFact, ExtractedProfile, HookDraft, HookSet, JudgeResult,
+    OpenerDraft, Playbook, ReplyAnalysis,
 )
 
 CANDIDATE = ExtractedProfile(
@@ -31,7 +34,8 @@ BAD_OPENER = "Hi Rahul! I came across your profile and would love a referral."
 @pytest.fixture
 def fake(monkeypatch, tmp_path):
     monkeypatch.setattr(store, "DATA_DIR", tmp_path / "data")
-    calls = {"opener": 0}
+    calls = {"opener": 0, "judge": [], "distill": 0}
+    lock = threading.Lock()
 
     def parse(system, content, schema, effort="medium"):
         if schema is ExtractedProfile:
@@ -48,8 +52,21 @@ def fake(monkeypatch, tmp_path):
                           prospect_fact_id="p:x:1", specificity=5, rarity=5, relevance=5, recency=5),
             ])
         if schema is OpenerDraft:
-            calls["opener"] += 1
-            return OpenerDraft(body=BAD_OPENER if calls["opener"] == 1 else GOOD_OPENER, style="question")
+            writer = next(w for w, angle in prompts.WRITERS.items() if angle in system)
+            with lock:
+                calls["opener"] += 1
+            if writer == "curious_peer" and "rejected" not in content:
+                return OpenerDraft(body=BAD_OPENER, style="question")   # curious_peer fails once, then fixes it
+            return OpenerDraft(body=GOOD_OPENER.replace("Curious", writer.split("_")[0].title()), style="question")
+        if schema is JudgeResult:
+            calls["judge"].append(content)
+            return JudgeResult(verdicts=[DraftVerdict(draft_index=i, reply_likelihood=4, specificity=4, human_feel=4,
+                                                      critique="ok") for i in range(3)],
+                               winner_index=1, reason="Most specific question")
+        if schema is Playbook:
+            calls["distill"] += 1
+            assert "SENT: Hey Rahul, edited" in content
+            return Playbook(rules=["Start with their name and the specific fact."])
         if schema is ReplyAnalysis:
             return ReplyAnalysis(sentiment="warm", rapport=4, redirect_to="", ask_type="opening",
                                  ask_reason="Warm reply, rapport built", next_message="That makes sense. Is your team hiring PMs?")
@@ -91,10 +108,17 @@ def test_full_pipeline(fake, capsys):
     cli.main(["generate", cid])
     p = store.get_prospect(store.load(cid), pid)
     assert len(p.hooks) == 1 and p.hooks[0].selected                     # fabricated hook rejected
-    assert calls["opener"] == 2                                           # bad draft rejected, rewritten
-    assert p.messages[0].body == GOOD_OPENER and p.status == "message_ready"
+    assert calls["opener"] == 4                                           # 3 writers + 1 rewrite of a bad draft
+    msg = p.messages[0]
+    assert len(msg.alternatives) == 2 and msg.judge_reason == "Most specific question"
+    assert msg.body not in msg.alternatives and p.status == "message_ready"
+    assert msg.writer in prompts.WRITERS
+    winner_writer = msg.writer
 
-    cli.main(["approve", cid, pid])
+    edited = "Hey Rahul, edited version. What was the hardest part of the switch?"
+    cli.main(["approve", cid, pid, "--body", edited])
+    assert feedback.load()["edits"][0]["writer"] == winner_writer
+    assert store.get_prospect(store.load(cid), pid).messages[0].edited
     cli.main(["status", cid, pid, "sent"])
     cli.main(["reply", cid, pid, "--text", "Ha, the speed. Everything ships weekly."])
     p = store.get_prospect(store.load(cid), pid)
@@ -109,3 +133,22 @@ def test_full_pipeline(fake, capsys):
 
     cli.main(["export", cid, "--out", str(tmp / "out.csv")])
     assert "Rahul Shah" in (tmp / "out.csv").read_text()
+
+    capsys.readouterr()
+    cli.main(["stats"])
+    out = capsys.readouterr().out
+    assert f"{winner_writer:<16}1/1  100%" in out
+
+    cli.main(["learn"])                                                   # 1 edit + 1 outcome < 5: refuses
+    assert calls["distill"] == 0
+    monkeypatch_min = feedback.MIN_EVIDENCE
+    feedback.MIN_EVIDENCE = 2
+    try:
+        cli.main(["learn"])
+    finally:
+        feedback.MIN_EVIDENCE = monkeypatch_min
+    assert feedback.playbook() == ["Start with their name and the specific fact."]
+
+    # Learned rules and winning openers now flow into the next generation.
+    guidance = feedback.guidance([store.load(cid)])
+    assert "Start with their name" in guidance and edited in guidance

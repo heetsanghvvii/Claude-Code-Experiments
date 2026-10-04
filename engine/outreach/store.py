@@ -33,7 +33,9 @@ def load(candidate_id: str) -> Candidate:
 
 
 def list_ids() -> list[str]:
-    return sorted(p.stem for p in DATA_DIR.glob("*.json")) if DATA_DIR.exists() else []
+    if not DATA_DIR.exists():
+        return []
+    return sorted(p.stem for p in DATA_DIR.glob("*.json") if p.stem != "feedback")
 
 
 def get_prospect(candidate: Candidate, prospect_id: str) -> Prospect:

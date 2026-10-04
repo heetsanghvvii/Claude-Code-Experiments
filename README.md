@@ -14,12 +14,30 @@ North star: **interviews per 100 targeted prospects**.
 Intake (CV + LinkedIn PDF + targets)
   -> discover   public LinkedIn results via Brave Search, sorted into buckets
   -> enrich     LinkedIn "Save to PDF" per shortlisted person, parsed into facts
-  -> generate   hooks (must cite a real fact on both sides), ranked, Message 1 written and rule-checked
+  -> generate   hooks (must cite a real fact on both sides), ranked; 3 writer agents draft Message 1
+                in parallel, rule checks drop bad drafts, a judge agent picks the winner
   -> approve    human review
   -> send       client sends (Tier 1) or LGM sends (Tier 2)
   -> reply      paste their reply, get the next message based on the whole thread
   -> funnel     conversion metrics
+  -> learn      operator edits + reply outcomes rewrite the writing playbook used by writers and judge
 ```
+
+## Writer agents and feedback loop
+
+| Writer | Angle |
+|---|---|
+| `curious_peer` | Asks about one specific decision in their career |
+| `sharp_observer` | One sharp observation about their work or post, tied to the candidate |
+| `shared_path` | Leads with the concrete overlap, then an easy question |
+
+Every opener stores which writer won, why the judge picked it, and the losing drafts.
+
+Feedback signals:
+1. **Edits**: approving with `--body` records the draft vs what you actually sent.
+2. **Outcomes**: status changes show which writers' openers get replies.
+3. **Playbook**: `learn` distills edits and outcomes into up to 15 concrete rules. Rules and recent winning openers are fed into every writer and the judge on the next `generate`.
+4. **Stats**: `stats` shows reply rate and edit count per writer.
 
 No LinkedIn login or scraping anywhere. Discovery uses public search results; profiles come from manual PDF exports.
 
@@ -62,9 +80,13 @@ python -m outreach.cli status asha-mehta-1a2b3c rahul-shah-9f8e7d sent
 # 6. They replied
 python -m outreach.cli reply asha-mehta-1a2b3c rahul-shah-9f8e7d --text "Ha, the speed. Everything ships weekly."
 
-# 7. Report
+# 7. Learn from edits and results (run weekly)
+python -m outreach.cli learn
+python -m outreach.cli stats
+
+# 8. Report
 python -m outreach.cli funnel asha-mehta-1a2b3c
 python -m outreach.cli export asha-mehta-1a2b3c
 ```
 
-Data is stored as JSON in `engine/data/` for now. Supabase replaces it with the client website (Phase 2).
+Data is stored as JSON in `engine/data/` for now. The Supabase project `outbound-engine` (Mumbai) already has the schema applied; the engine switches to it with the client website (Phase 2).

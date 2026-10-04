@@ -68,6 +68,24 @@ class OpenerDraft(BaseModel):
     style: Literal["question", "observation"]
 
 
+class DraftVerdict(BaseModel):
+    draft_index: int
+    reply_likelihood: int = Field(ge=1, le=5, description="How likely this exact person replies.")
+    specificity: int = Field(ge=1, le=5)
+    human_feel: int = Field(ge=1, le=5, description="5 = indistinguishable from a thoughtful peer.")
+    critique: str = Field(description="One line: the main weakness.")
+
+
+class JudgeResult(BaseModel):
+    verdicts: list[DraftVerdict]
+    winner_index: int
+    reason: str
+
+
+class Playbook(BaseModel):
+    rules: list[str] = Field(description="Short, concrete writing rules learned from the evidence. Max 15.")
+
+
 class ReplyAnalysis(BaseModel):
     sentiment: Literal["warm", "neutral", "deflecting", "redirecting", "negative"]
     rapport: int = Field(ge=1, le=5, description="1 = cold, 5 = clearly happy to help.")
@@ -98,7 +116,11 @@ class Message(BaseModel):
     body: str
     ask_type: str = "none"
     style: str = ""
+    writer: str = ""
+    judge_reason: str = ""
+    alternatives: list[str] = []
     approved: bool = False
+    edited: bool = False
     created_at: str
 
 

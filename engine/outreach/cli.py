@@ -10,7 +10,7 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
-from . import discovery, hooks, messages, profiles, store
+from . import discovery, feedback, hooks, messages, profiles, store
 from .models import Bucket, Candidate, Message, Prospect
 
 STATUSES = [
@@ -91,6 +91,7 @@ def cmd_prospect_add(a):
 def cmd_generate(a):
     c = store.load(a.candidate)
     targets = [p for p in c.prospects if p.status == "enriched" and (not a.id or p.id == a.id)]
+    guidance = feedback.guidance([store.load(cid) for cid in store.list_ids()])
     for p in targets:
         p.hooks = hooks.find(c, p)
         if not p.hooks:
@@ -98,20 +99,29 @@ def cmd_generate(a):
             print(f"{p.full_name}: no legitimate hook, skipped")
             store.save(c)
             continue
-        msg, problems = messages.write_opener(c, p, p.hooks[0])
+        msg, problems = messages.write_opener(c, p, p.hooks[0], guidance)
         p.messages = [msg]
         p.status = "message_ready"
         store.save(c)
         flag = f"  [CHECK: {'; '.join(problems)}]" if problems else ""
-        print(f"\n{p.full_name} ({p.bucket.value}, hook={p.hooks[0].hook_type}, score={p.hooks[0].score}){flag}\n  {msg.body}")
+        print(f"\n{p.full_name} ({p.bucket.value}, hook={p.hooks[0].hook_type}, score={p.hooks[0].score}){flag}")
+        print(f"  WINNER [{msg.writer}]: {msg.body}")
+        if msg.judge_reason:
+            print(f"  Why: {msg.judge_reason}")
+        for alt in msg.alternatives:
+            print(f"  alt: {alt}")
 
 
 def cmd_approve(a):
     c = store.load(a.candidate)
     p = store.get_prospect(c, a.id)
-    if a.body:
-        p.messages[-1].body = a.body
-    p.messages[-1].approved = True
+    msg = p.messages[-1]
+    if a.body and a.body.strip() != msg.body.strip():
+        if msg.step == 1:
+            feedback.record_edit(msg.body, a.body, msg.writer, p.hooks[0].hook_type if p.hooks else "", p.bucket.value)
+        msg.body = a.body
+        msg.edited = True
+    msg.approved = True
     p.status = "approved"
     store.save(c)
     print(f"Approved: {p.messages[-1].body}")
@@ -179,6 +189,35 @@ def cmd_funnel(a):
         for b in buckets:
             total = by_bucket[(b, True)] + by_bucket[(b, False)]
             print(f"    {b:<17}{by_bucket[(b, True)]}/{total}")
+
+
+def cmd_learn(a):
+    """Rewrite the writing playbook from operator edits and reply outcomes."""
+    rules = feedback.distill([store.load(cid) for cid in store.list_ids()])
+    if rules is None:
+        print(f"Not enough evidence yet (need {feedback.MIN_EVIDENCE} edits or sent openers).")
+        return
+    print("New playbook:")
+    for r in rules:
+        print(f"  - {r}")
+
+
+def cmd_stats(a):
+    rows = feedback.outcomes([store.load(cid) for cid in store.list_ids()])
+    data = feedback.load()
+    print(f"Sent openers: {len(rows)}, operator edits: {len(data['edits'])}")
+    print("Reply rate by writer:")
+    for writer, (replied, sent) in sorted(feedback.writer_stats(rows).items()):
+        print(f"  {writer:<16}{replied}/{sent}  {100 * replied / sent:.0f}%")
+    edits_by_writer = Counter(e["writer"] for e in data["edits"])
+    if edits_by_writer:
+        print("Edits needed by writer:")
+        for writer, n in edits_by_writer.most_common():
+            print(f"  {writer:<16}{n}")
+    if data["playbook"]:
+        print("Current playbook:")
+        for r in data["playbook"]:
+            print(f"  - {r}")
 
 
 def cmd_list(a):
@@ -253,6 +292,12 @@ def main(argv=None):
     s = sub.add_parser("funnel", help="Funnel metrics for a candidate")
     s.add_argument("candidate")
     s.set_defaults(fn=cmd_funnel)
+
+    s = sub.add_parser("learn", help="Update the writing playbook from edits and outcomes")
+    s.set_defaults(fn=cmd_learn)
+
+    s = sub.add_parser("stats", help="Writer agent performance and current playbook")
+    s.set_defaults(fn=cmd_stats)
 
     s = sub.add_parser("list", help="List candidates, or prospects for one candidate")
     s.add_argument("candidate", nargs="?")

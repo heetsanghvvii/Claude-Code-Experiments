@@ -54,6 +54,35 @@ Rules:
 Example of the right feel:
 "Hey Rahul, noticed you moved from Flipkart into product at Zepto. I'm making a similar jump from consumer brands into product. Curious, what was the biggest adjustment for you?\""""
 
+# Each writer agent gets WRITE_OPENER plus its own angle. Different angles give the judge real choices.
+WRITERS = {
+    "curious_peer": "Angle: you are genuinely curious about one specific decision or change in their career. Ask about it in a way only they can answer.",
+    "sharp_observer": "Angle: make one sharp, specific observation about their work, company move or post, connected to your own experience. End with a light question or an open thought they will want to respond to.",
+    "shared_path": "Angle: lead with the concrete thing you share (school, employer, transition). Make the overlap feel like a small coincidence worth a reply, then ask one easy question about their side of it.",
+}
+
+JUDGE_OPENERS = """You judge first LinkedIn messages from a job seeker to someone at a target company.
+
+Pick the draft this specific recipient is most likely to reply to. Judge as the recipient: a busy professional who gets generic networking messages every week.
+
+Score each draft (1 to 5):
+- reply_likelihood: would this person actually reply?
+- specificity: is it obviously written for them alone?
+- human_feel: does it read like a thoughtful peer, not a template or AI?
+
+Penalize: flattery, vague questions ("any advice?"), questions that take effort to answer, anything that hints at a job ask, stiff or salesy wording.
+
+If writing rules learned from past results are provided, apply them when judging."""
+
+DISTILL_PLAYBOOK = """You improve a message-writing system from evidence.
+
+You get:
+1. Operator edits: the AI draft and what a human changed it to before sending.
+2. Results: sent openers that got replies and ones that did not.
+3. The current rules, if any.
+
+Write the updated rules (max 15). Each rule must be short, concrete and backed by the evidence, e.g. "Do not open with 'Noticed'; start with their name and the specific fact." Keep current rules the evidence still supports, drop ones it contradicts, add new patterns you see in at least 2 examples. No generic advice."""
+
 ANALYZE_REPLY = """You manage a job seeker's LinkedIn conversation with someone at a target company.
 
 Read the whole thread and write the next message from the candidate.

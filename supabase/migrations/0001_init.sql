@@ -88,7 +88,11 @@ create table messages (
   body text not null,
   ask_type text,                           -- none, opening, referral, hiring_manager, advice, intro
   style text,                              -- question, observation
+  writer text,                             -- which writer agent produced the winning draft
+  judge_reason text,
+  alternatives text[] not null default '{}',  -- losing drafts, kept for review and learning
   approved boolean not null default false,
+  edited boolean not null default false,   -- operator changed the draft before approving
   sent_at timestamptz,
   created_at timestamptz not null default now()
 );
@@ -104,6 +108,27 @@ create table events (
   created_at timestamptz not null default now()
 );
 create index on events (candidate_id, kind);
+
+-- Feedback layer: operator edits and outcomes teach the writers.
+create table feedback_edits (
+  id bigserial primary key,
+  candidate_id uuid references candidates(id) on delete set null,
+  prospect_id uuid references prospects(id) on delete set null,
+  writer text,
+  hook_type text,
+  bucket prospect_bucket,
+  draft text not null,
+  final text not null,
+  created_at timestamptz not null default now()
+);
+
+-- Learned writing rules. Only the latest version is used.
+create table playbook_versions (
+  id bigserial primary key,
+  rules text[] not null,
+  evidence_count int not null,
+  created_at timestamptz not null default now()
+);
 
 -- Funnel per candidate.
 create view candidate_funnel with (security_invoker = true) as
@@ -144,20 +169,37 @@ alter table facts enable row level security;
 alter table hooks enable row level security;
 alter table messages enable row level security;
 alter table events enable row level security;
+-- Operator-only tables: RLS on with no client policies, so only the service role can read them.
+alter table feedback_edits enable row level security;
+alter table playbook_versions enable row level security;
 
-create policy own_candidate on candidates for select using (auth_user_id = auth.uid());
+create policy own_candidate on candidates for select using (auth_user_id = (select auth.uid()));
 create policy own_prospects on prospects for all using (
-  candidate_id in (select id from candidates where auth_user_id = auth.uid())
+  candidate_id in (select id from candidates where auth_user_id = (select auth.uid()))
 );
 create policy own_facts on facts for select using (
-  candidate_id in (select id from candidates where auth_user_id = auth.uid())
+  candidate_id in (select id from candidates where auth_user_id = (select auth.uid()))
 );
 create policy own_hooks on hooks for select using (
-  prospect_id in (select p.id from prospects p join candidates c on c.id = p.candidate_id where c.auth_user_id = auth.uid())
+  prospect_id in (select p.id from prospects p join candidates c on c.id = p.candidate_id where c.auth_user_id = (select auth.uid()))
 );
 create policy own_messages on messages for all using (
-  prospect_id in (select p.id from prospects p join candidates c on c.id = p.candidate_id where c.auth_user_id = auth.uid())
+  prospect_id in (select p.id from prospects p join candidates c on c.id = p.candidate_id where c.auth_user_id = (select auth.uid()))
 );
 create policy own_events on events for all using (
-  candidate_id in (select id from candidates where auth_user_id = auth.uid())
+  candidate_id in (select id from candidates where auth_user_id = (select auth.uid()))
 );
+
+-- Writer performance across all candidates: which agent's openers actually get replies.
+create view writer_performance with (security_invoker = true) as
+select
+  m.writer,
+  count(*) as sent,
+  count(*) filter (where p.status in ('replied','conversation','referral','interview','offer')) as replied,
+  count(*) filter (where p.status in ('interview','offer')) as interviews,
+  count(*) filter (where m.edited) as edited
+from messages m
+join prospects p on p.id = m.prospect_id
+where m.step = 1 and m.direction = 'outbound'
+  and p.status in ('sent','accepted','replied','conversation','referral','interview','offer','no_response','declined')
+group by m.writer;

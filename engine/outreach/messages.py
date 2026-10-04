@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import re
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
 from . import llm, prompts
-from .models import Candidate, Hook, Message, OpenerDraft, Prospect, ReplyAnalysis
+from .models import Candidate, Hook, JudgeResult, Message, OpenerDraft, Prospect, ReplyAnalysis
 
 MAX_OPENER_CHARS = 300  # LinkedIn connection note limit
 
@@ -54,7 +55,27 @@ def _candidate_brief(candidate: Candidate) -> str:
     return f"Candidate: {candidate.full_name}. {candidate.headline}\nTarget roles: {', '.join(candidate.target_roles)}\n{story}"
 
 
-def write_opener(candidate: Candidate, prospect: Prospect, hook: Hook, max_attempts: int = 3) -> tuple[Message, list[str]]:
+def _write_one(writer: str, base: str, first_name: str, max_attempts: int) -> tuple[str, OpenerDraft, list[str]]:
+    system = prompts.WRITE_OPENER + "\n\n" + prompts.WRITERS[writer]
+    feedback = ""
+    for _ in range(max_attempts):
+        draft = llm.parse(system, base + feedback, OpenerDraft)
+        problems = check_opener(draft.body, first_name)
+        if not problems:
+            break
+        feedback = "\n\nYour previous draft was rejected:\n" + draft.body + "\nProblems:\n- " + "\n- ".join(problems)
+    return writer, draft, problems
+
+
+def judge(base: str, drafts: list[str], guidance: str) -> JudgeResult:
+    listing = "\n".join(f"[{i}] {d}" for i, d in enumerate(drafts))
+    text = f"{base}\n\n{guidance}\n\nDRAFTS:\n{listing}" if guidance else f"{base}\n\nDRAFTS:\n{listing}"
+    return llm.parse(prompts.JUDGE_OPENERS, text, JudgeResult, effort="high")
+
+
+def write_opener(candidate: Candidate, prospect: Prospect, hook: Hook, guidance: str = "",
+                 max_attempts: int = 3) -> tuple[Message, list[str]]:
+    """Run every writer agent in parallel, drop drafts that fail the rules, let the judge pick."""
     facts = {f.id: f.text for f in candidate.facts + prospect.facts}
     first_name = prospect.full_name.split()[0] if prospect.full_name else ""
     base = (
@@ -64,17 +85,27 @@ def write_opener(candidate: Candidate, prospect: Prospect, hook: Hook, max_attem
         f"Candidate side: {facts.get(hook.candidate_fact_id, '')}\n"
         f"Recipient side: {facts.get(hook.prospect_fact_id, '')}"
     )
-    feedback = ""
-    problems: list[str] = []
-    draft = None
-    for _ in range(max_attempts):
-        draft = llm.parse(prompts.WRITE_OPENER, base + feedback, OpenerDraft)
-        problems = check_opener(draft.body, first_name)
-        if not problems:
-            break
-        feedback = "\n\nYour previous draft was rejected:\n" + draft.body + "\nProblems:\n- " + "\n- ".join(problems)
-    msg = Message(direction="outbound", step=1, body=draft.body, style=draft.style, created_at=_now())
-    return msg, problems
+    writer_input = f"{base}\n\n{guidance}" if guidance else base
+    with ThreadPoolExecutor(max_workers=len(prompts.WRITERS)) as pool:
+        results = list(pool.map(lambda w: _write_one(w, writer_input, first_name, max_attempts), prompts.WRITERS))
+
+    passing = [(w, d) for w, d, problems in results if not problems]
+    if not passing:
+        # Nothing passed the rules: return the first draft flagged for manual review.
+        w, d, problems = results[0]
+        return Message(direction="outbound", step=1, body=d.body, style=d.style, writer=w, created_at=_now()), problems
+    if len(passing) == 1:
+        w, d = passing[0]
+        return Message(direction="outbound", step=1, body=d.body, style=d.style, writer=w,
+                       judge_reason="Only draft that passed the rules", created_at=_now()), []
+
+    verdict = judge(base, [d.body for _, d in passing], guidance)
+    winner = verdict.winner_index if 0 <= verdict.winner_index < len(passing) else 0
+    w, d = passing[winner]
+    others = [x.body for i, (_, x) in enumerate(passing) if i != winner]
+    msg = Message(direction="outbound", step=1, body=d.body, style=d.style, writer=w,
+                  judge_reason=verdict.reason, alternatives=others, created_at=_now())
+    return msg, []
 
 
 def thread_text(prospect: Prospect) -> str:

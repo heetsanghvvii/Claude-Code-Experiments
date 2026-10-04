@@ -8,14 +8,16 @@ Status key: [x] done, [~] in progress, [ ] todo. (You) = founder task, (Build) =
 ## Phase 0: Foundations (week 1)
 
 - [ ] (You) Pick a name and buy the domain
-- [ ] (You) Create accounts: Anthropic API, Supabase (free), Brave Search API ($5 free credits/month), Cloudflare (free)
+- [ ] (You) Create accounts: Anthropic API, Brave Search API ($5 free credits/month), Cloudflare (free)
+- [x] (Build) Supabase project `outbound-engine` (Mumbai, free) created with schema applied
 - [ ] (You) Note your Clay credit balance and whether credits expire
 - [ ] (You) Write the intake questionnaire (see `docs/INTAKE.md`)
 - [x] (Build) Database schema (`supabase/migrations/0001_init.sql`)
 - [x] (Build) Engine: CV / LinkedIn PDF parser to structured facts
 - [x] (Build) Engine: prospect discovery via Brave Search (public LinkedIn results, no login)
 - [x] (Build) Engine: hook engine with fact citations (no citation = no hook)
-- [x] (Build) Engine: Message 1 generator with rule-based quality checks
+- [x] (Build) Engine: Message 1 from 3 parallel writer agents, rule checks, judge agent picks the winner
+- [x] (Build) Feedback layer: operator edits + reply outcomes distilled into a playbook fed back to writers
 - [x] (Build) Engine: reply classifier and next-message drafter
 - [x] (Build) Operator CLI and CSV export for Tier 1
 

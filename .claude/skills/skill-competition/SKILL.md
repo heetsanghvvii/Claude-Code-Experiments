@@ -59,6 +59,14 @@ Rules: entry ids are anonymous and assigned in shuffled order (not grouped by so
 
 If the workflow fails part-way, fix the script and resume with `resumeFromRunId` (completed agents return cached results). A builder that fails or returns nothing is recorded as DNF; never block on it.
 
+## 4b. Show every output on the user's screen (mandatory)
+
+The user must see each output in this conversation as soon as it exists, without asking:
+- **As builds finish** (any builder report, background agent notification, or the workflow's Build phase completing): immediately call `SendUserFile` with the finished deliverables, `display: "render"`, `status: "proactive"`. Websites: `entry-N/index.html`. Decks: the contact sheet `renders/entry-N-sheet.png` once rendered, plus `entry-N/deck.pdf` or `deck.pptx` (`display: "attach"` for .pptx). Caption with entry ids only, never skill names (judging is still blind).
+- **After rendering**: send the screenshots or contact sheets in one batch so the user can compare side by side.
+- **After scoring**: send `scoreboard.md`, `REPORT.md` and the winner's deliverable again, now with skill names revealed.
+- One `SendUserFile` call per batch (up to the whole field at once); never resend an unchanged file.
+
 ## 5. Score (inline)
 
 Save the workflow result to `<workdir>/results.json` (must include `mapping`, `criteria`, `judgements`) and run:
@@ -74,7 +82,7 @@ This writes `scoreboard.md` and `scoreboard.json` (weighted mean across judges; 
 1. Write `<workdir>/REPORT.md`: scoreboard, winner and why (quote the judges' strengths), runner-up ideas worth grafting (from `best_ideas_to_graft`), DNFs and vetting restrictions, cost notes, and paths to every entry and render.
 2. Publish one private Artifact page showing the scoreboard and the top entries' renders (follow the artifact-design guidance; embed images or link them). Skip only if publishing is unavailable.
 3. Commit the workdir (entries, renders, scoreboard, report; not cloned skill repos or node_modules) and push to the session's branch.
-4. Send the user one short message: winner, top 3 with scores, the artifact link, and what you would do next (for example: polish the winner with the runners-up's best ideas). Do not wait for a reply.
+4. Send the files (step 4b, scoring batch) and one short message: winner, top 3 with scores, the artifact link, and what you would do next (for example: polish the winner with the runners-up's best ideas). Do not wait for a reply.
 
 ## Defaults when unsure
 

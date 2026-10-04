@@ -17,6 +17,11 @@ def extract(pdf_paths: list[str | Path], extra_text: str = "") -> ExtractedProfi
     return llm.parse(prompts.EXTRACT_PROFILE, content, ExtractedProfile)
 
 
+def extract_text(text: str) -> ExtractedProfile:
+    """Same as extract(), for enrichment data that arrives as text (e.g. a Clay row)."""
+    return llm.parse(prompts.EXTRACT_PROFILE, f"Extract the profile facts from this data:\n\n{text}", ExtractedProfile)
+
+
 def to_facts(profile: ExtractedProfile, owner: str, prefix: str, source: str) -> list[Fact]:
     return [
         Fact(id=f"{prefix}:{i}", owner=owner, kind=f.kind, text=f.text, source=source)

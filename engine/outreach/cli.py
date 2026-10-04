@@ -10,7 +10,7 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
-from . import discovery, feedback, hooks, messages, profiles, store
+from . import bridge, discovery, feedback, hooks, messages, profiles, store
 from .models import Bucket, Candidate, Message, Prospect
 
 STATUSES = [
@@ -121,10 +121,13 @@ def cmd_approve(a):
             feedback.record_edit(msg.body, a.body, msg.writer, p.hooks[0].hook_type if p.hooks else "", p.bucket.value)
         msg.body = a.body
         msg.edited = True
-    msg.approved = True
-    p.status = "approved"
+    if msg.step == 1:
+        msg.approved = True
+        p.status = "approved"
+    else:
+        bridge.queue(c, p, msg)
     store.save(c)
-    print(f"Approved: {p.messages[-1].body}")
+    print(f"Approved: {msg.body}" + (f" (sends after {msg.send_after})" if msg.send_after else ""))
 
 
 def cmd_status(a):
@@ -139,19 +142,14 @@ def cmd_reply(a):
     """Log their reply, then draft our next message from the full thread."""
     c = store.load(a.candidate)
     p = store.get_prospect(c, a.id)
-    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    step = max((m.step for m in p.messages), default=0) + 1
-    p.messages.append(Message(direction="inbound", step=step, body=a.text, created_at=now))
-    if p.status in ("sent", "accepted", "approved"):
-        p.status = "replied"
-    result = messages.next_reply(c, p)
-    p.messages.append(Message(direction="outbound", step=step + 1, body=result.next_message,
-                              ask_type=result.ask_type, created_at=now))
+    result = bridge.handle_reply(c, p, a.text)
     store.save(c)
     print(f"Sentiment: {result.sentiment}, rapport {result.rapport}/5, ask: {result.ask_type} ({result.ask_reason})")
     if result.redirect_to:
         print(f"They pointed to: {result.redirect_to}")
-    print(f"\nDraft:\n{result.next_message}")
+    draft = p.messages[-1]
+    state = f"queued, sends after {draft.send_after}" if draft.approved else "held for approval"
+    print(f"\nDraft ({state}):\n{draft.body}")
 
 
 def cmd_export(a):
@@ -189,6 +187,94 @@ def cmd_funnel(a):
         for b in buckets:
             total = by_bucket[(b, True)] + by_bucket[(b, False)]
             print(f"    {b:<17}{by_bucket[(b, True)]}/{total}")
+
+
+CLAY_NAME_COLS = ("full name", "name", "person name")
+CLAY_URL_COLS = ("linkedin profile", "linkedin url", "linkedin", "profile url", "linkedin profile url")
+CLAY_COMPANY_COLS = ("company", "company name", "company domain")
+CLAY_TITLE_COLS = ("title", "job title", "headline")
+
+
+def _pick(row: dict, names: tuple[str, ...]) -> str:
+    lower = {k.strip().lower(): v for k, v in row.items()}
+    return next((lower[n].strip() for n in names if lower.get(n)), "")
+
+
+def cmd_clay_import(a):
+    """Import a Clay table export (CSV): one row per person, any enrichment columns."""
+    c = store.load(a.candidate)
+    known = {bridge.normalize_url(p.linkedin_url) for p in c.prospects}
+    with open(a.file, newline="") as f:
+        rows = list(csv.DictReader(f))
+    added = 0
+    for row in rows:
+        url = _pick(row, CLAY_URL_COLS)
+        if bridge.normalize_url(url) in known:
+            continue
+        text = "\n".join(f"{k}: {v}" for k, v in row.items() if v and v.strip())
+        extracted = profiles.extract_text(text)
+        p = Prospect(id=store.new_id(extracted.full_name or _pick(row, CLAY_NAME_COLS)),
+                     full_name=_pick(row, CLAY_NAME_COLS) or extracted.full_name,
+                     headline=_pick(row, CLAY_TITLE_COLS) or extracted.headline,
+                     company=_pick(row, CLAY_COMPANY_COLS) or extracted.current_company,
+                     linkedin_url=url, location=extracted.location, source="clay", status="enriched")
+        decision = discovery.classify(c, discovery.SearchHit(p.full_name, p.headline, url, text[:500], p.company))
+        p.bucket, p.bucket_reason = decision.bucket, decision.reason
+        p.facts = profiles.to_facts(extracted, "prospect", f"p:{p.id}", "clay")
+        c.prospects.append(p)
+        known.add(bridge.normalize_url(url))
+        added += 1
+        store.save(c)
+    print(f"Imported {added} of {len(rows)} rows")
+
+
+def cmd_export_lgm(a):
+    """CSV for La Growth Machine audience import, with Message 1 as a custom attribute."""
+    c = store.load(a.candidate)
+    out = Path(a.out or f"{c.id}-lgm.csv")
+    n = 0
+    with out.open("w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["firstname", "lastname", "linkedinUrl", "companyName", "jobTitle", "customAttribute1"])
+        for p in c.prospects:
+            opener = next((m for m in p.messages if m.step == 1 and m.direction == "outbound"), None)
+            if p.status != "approved" or not opener or not p.linkedin_url:
+                continue
+            first, _, last = p.full_name.partition(" ")
+            w.writerow([first, last, p.linkedin_url, p.company, p.headline, opener.body])
+            n += 1
+    print(f"Wrote {n} approved prospects to {out}. In LGM use {{{{customAttribute1}}}} as the invite note.")
+
+
+def cmd_settings(a):
+    c = store.load(a.candidate)
+    if a.auto_send is not None:
+        c.auto_send = a.auto_send == "on"
+    if a.delay is not None:
+        c.reply_delay_minutes = a.delay
+    store.save(c)
+    print(f"{c.full_name}: auto_send={'on' if c.auto_send else 'off'}, reply delay={c.reply_delay_minutes} min")
+
+
+def cmd_inbound_add(a):
+    bridge.add_inbound(a.linkedin_url or "", a.name or "", a.text)
+    print("Queued reply for next sync")
+
+
+def cmd_sync(a):
+    print(bridge.sync())
+
+
+def cmd_outbox(a):
+    rows = bridge.outbox(due_only=not a.all)
+    for r in rows:
+        print(f"[{r['id']}] {r['prospect_name']} ({r['linkedin_url']}) after {r['send_after']}\n  {r['body']}")
+    print(f"{len(rows)} message(s)")
+
+
+def cmd_mark_sent(a):
+    bridge.mark_sent(a.row_id)
+    print("Marked sent")
 
 
 def cmd_learn(a):
@@ -292,6 +378,39 @@ def main(argv=None):
     s = sub.add_parser("funnel", help="Funnel metrics for a candidate")
     s.add_argument("candidate")
     s.set_defaults(fn=cmd_funnel)
+
+    s = sub.add_parser("clay-import", help="Import enriched people from a Clay table CSV export")
+    s.add_argument("candidate")
+    s.add_argument("file")
+    s.set_defaults(fn=cmd_clay_import)
+
+    s = sub.add_parser("export-lgm", help="CSV of approved openers for LGM audience import")
+    s.add_argument("candidate")
+    s.add_argument("--out")
+    s.set_defaults(fn=cmd_export_lgm)
+
+    s = sub.add_parser("settings", help="Auto-send follow-ups and reply delay")
+    s.add_argument("candidate")
+    s.add_argument("--auto-send", choices=["on", "off"])
+    s.add_argument("--delay", type=int, help="Minutes to wait after their reply")
+    s.set_defaults(fn=cmd_settings)
+
+    s = sub.add_parser("inbound-add", help="Add a reply to the inbox queue (normally Chrome does this)")
+    s.add_argument("--linkedin-url")
+    s.add_argument("--name")
+    s.add_argument("--text", required=True)
+    s.set_defaults(fn=cmd_inbound_add)
+
+    s = sub.add_parser("sync", help="Process new replies, queue follow-ups, record sends")
+    s.set_defaults(fn=cmd_sync)
+
+    s = sub.add_parser("outbox", help="Messages due to send")
+    s.add_argument("--all", action="store_true", help="Include ones not yet due")
+    s.set_defaults(fn=cmd_outbox)
+
+    s = sub.add_parser("mark-sent", help="Mark an outbox message as sent")
+    s.add_argument("row_id")
+    s.set_defaults(fn=cmd_mark_sent)
 
     s = sub.add_parser("learn", help="Update the writing playbook from edits and outcomes")
     s.set_defaults(fn=cmd_learn)

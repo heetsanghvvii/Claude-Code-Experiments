@@ -1,12 +1,11 @@
 """Feedback layer: operator edits and real outcomes teach the writer agents.
 
-Stored globally (across all candidates) in data/feedback.json, because the patterns
+Stored globally (across all candidates) in the "feedback" document, because the patterns
 that make openers work carry over between clients.
 """
 
 from __future__ import annotations
 
-import json
 from collections import defaultdict
 from datetime import datetime, timezone
 
@@ -18,19 +17,12 @@ CONTACTED = REPLIED | {"sent", "accepted", "no_response", "declined"}
 MIN_EVIDENCE = 5  # edits + outcomes needed before distilling a playbook
 
 
-def _path():
-    return store.DATA_DIR / "feedback.json"
-
-
 def load() -> dict:
-    if _path().exists():
-        return json.loads(_path().read_text())
-    return {"edits": [], "playbook": [], "playbook_history": []}
+    return store.get_doc("feedback") or {"edits": [], "playbook": [], "playbook_history": []}
 
 
 def save(data: dict) -> None:
-    store.DATA_DIR.mkdir(parents=True, exist_ok=True)
-    _path().write_text(json.dumps(data, indent=2))
+    store.put_doc("feedback", data)
 
 
 def record_edit(draft: str, final: str, writer: str, hook_type: str, bucket: str) -> None:

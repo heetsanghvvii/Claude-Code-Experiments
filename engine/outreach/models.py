@@ -121,6 +121,8 @@ class Message(BaseModel):
     alternatives: list[str] = []
     approved: bool = False
     edited: bool = False
+    send_after: str = ""             # ISO time; set when queued for sending
+    sent_at: str = ""
     created_at: str
 
 
@@ -150,5 +152,7 @@ class Candidate(BaseModel):
     industries: list[str] = []
     story: dict = {}
     headline: str = ""
+    auto_send: bool = False          # follow-ups go to the outbox without human approval
+    reply_delay_minutes: int = 45    # wait this long after their reply before sending ours
     facts: list[Fact] = []
     prospects: list[Prospect] = []

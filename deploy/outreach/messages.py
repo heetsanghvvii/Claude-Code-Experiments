@@ -41,7 +41,7 @@ def check_opener(body: str, first_name: str) -> list[str]:
         problems.append("No exclamation marks.")
     if "—" in body or "–" in body or " - " in body:
         problems.append("No dashes used as punctuation.")
-    if first_name and first_name.lower() not in lower[:40]:
+    if first_name and first_name.lower() not in lower[:40] and "dr." not in lower[:12]:
         problems.append(f"Must greet {first_name} by first name at the start.")
     return problems
 

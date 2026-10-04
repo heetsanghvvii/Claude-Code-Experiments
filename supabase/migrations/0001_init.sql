@@ -106,7 +106,7 @@ create table events (
 create index on events (candidate_id, kind);
 
 -- Funnel per candidate.
-create view candidate_funnel as
+create view candidate_funnel with (security_invoker = true) as
 select
   c.id as candidate_id,
   c.full_name,
@@ -123,7 +123,7 @@ left join prospects p on p.candidate_id = c.id
 group by c.id, c.full_name;
 
 -- Conversion by hook type and bucket across all candidates (the dataset moat).
-create view hook_performance as
+create view hook_performance with (security_invoker = true) as
 select
   h.hook_type,
   p.bucket,

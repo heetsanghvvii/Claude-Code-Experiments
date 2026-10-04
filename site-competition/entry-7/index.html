@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knock. Knock on the right door.</title>
+<meta name="description" content="Knock finds the hiring managers, team members and alumni at your target companies and starts real conversations that turn into referrals and interviews.">
+<!--
+  DESIGN SYSTEM (declared before build)
+  Direction: "The front door". Warm editorial concierge. Paper and ink, one lacquered-green door, a brass detail.
+  Type: Instrument Serif (display, 400 + italic) / Schibsted Grotesk (text, 400 500 600).
+        Scale: 88 / 56 / 36 / 24 / 18 / 16 / 13  (fluid with clamp between mobile and desktop).
+  Colour: paper #F5F0E6, paper-2 #EBE3D3, ink #1B1A17, ink-soft #4A463E, door green #1F3B2F, brass #B08A45 (decorative only, never text on paper).
+  Backgrounds: paper for reading sections; door green for the two "turning point" sections (problem, form).
+  Rhythm: 8px grid. Section padding 96 desktop / 64 mobile. Max text width 64ch.
+  Section header pattern: small numbered label "01 / The problem" in caps + serif headline.
+  Motif: the arched door top. Used for the hero panel, the popular package, and the form.
+  Motion: one easing (cubic-bezier(.2,.7,.2,1)), 600ms reveals; off under prefers-reduced-motion.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F0E6;
+  --paper-2:#EBE3D3;
+  --line:#D6CCB8;
+  --ink:#1B1A17;
+  --ink-soft:#4A463E;
+  --door:#1F3B2F;
+  --door-2:#28493A;
+  --on-door:#F5F0E6;
+  --on-door-soft:#C9D3C8;
+  --brass:#B08A45;
+  --brass-light:#D9B877;
+  --focus:#B4471F;
+  --serif:"Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --sans:"Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --gutter:clamp(16px, 5vw, 64px);
+  --pad:clamp(64px, 10vw, 128px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.02;letter-spacing:-.01em;margin:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+.wrap{max-width:1240px;margin:0 auto;padding:0 var(--gutter)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:12px 16px;z-index:100;border-radius:6px}
+.skip:focus{left:16px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:4px}
+.on-door :focus-visible{outline-color:var(--brass-light)}
+
+/* Labels */
+.label{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:flex;gap:12px;align-items:center}
+.label span{color:var(--ink);font-variant-numeric:tabular-nums}
+.on-door .label{color:var(--on-door-soft)}
+.on-door .label span{color:var(--brass-light)}
+.label::after{content:"";height:1px;width:48px;background:currentColor;opacity:.5}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:0 26px;border-radius:999px;background:var(--door);color:var(--on-door);font:600 16px/1 var(--sans);text-decoration:none;border:0;cursor:pointer;transition:background .3s var(--ease),transform .3s var(--ease)}
+.btn:hover{background:var(--ink)}
+.btn:active{transform:translateY(1px)}
+.btn .knob{width:10px;height:10px;border-radius:50%;background:var(--brass-light);box-shadow:inset -2px -2px 0 rgba(0,0,0,.18)}
+.btn-light{background:var(--paper);color:var(--door)}
+.btn-light:hover{background:#fff}
+.btn-light .knob{background:var(--brass)}
+.textlink{font-weight:500;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;display:inline-flex;align-items:center;min-height:44px}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(245,240,230,.92);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.brand{font-family:var(--serif);font-size:32px;line-height:1;text-decoration:none;display:inline-flex;align-items:center;gap:10px;min-height:44px}
+.brand .mark{width:20px;height:28px;border-radius:10px 10px 2px 2px;background:var(--door);position:relative;flex:none}
+.brand .mark::after{content:"";position:absolute;right:4px;top:13px;width:4px;height:4px;border-radius:50%;background:var(--brass-light)}
+.nav ul{display:flex;gap:32px;list-style:none;margin:0;padding:0;font-size:15px;font-weight:500}
+.nav ul a{text-decoration:none;display:inline-flex;min-height:44px;align-items:center}
+.nav ul a:hover{text-decoration:underline;text-underline-offset:4px}
+.nav .btn{min-height:44px;padding:0 20px;font-size:15px}
+@media (max-width:860px){.nav ul{display:none}}
+@media (max-width:420px){.nav .btn .knob{display:none}.nav .btn{padding:0 16px;font-size:14px}.brand{font-size:28px}}
+
+/* Hero */
+.hero{padding:clamp(40px,7vw,96px) 0 var(--pad)}
+.hero .wrap{display:grid;grid-template-columns:1.25fr .9fr;gap:clamp(40px,6vw,96px);align-items:end}
+.hero h1{font-size:clamp(52px,8.2vw,112px);line-height:.95;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:var(--door)}
+.hero .sub{font-size:clamp(18px,1.6vw,21px);color:var(--ink-soft);max-width:34em;margin-top:28px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center;margin-top:36px}
+.hero .fine{font-size:14px;color:var(--ink-soft);margin-top:20px}
+
+.doorway{position:relative;background:var(--door);color:var(--on-door);border-radius:999px 999px 10px 10px;padding:clamp(72px,9vw,108px) clamp(24px,3vw,40px) 36px;aspect-ratio:3/4.1;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;box-shadow:0 1px 0 rgba(0,0,0,.04),0 30px 60px -30px rgba(31,59,47,.55)}
+.doorway::before{content:"";position:absolute;inset:14px;border:1px solid rgba(217,184,119,.35);border-radius:999px 999px 4px 4px;pointer-events:none}
+.doorway .knocker{position:absolute;left:50%;top:22%;transform:translateX(-50%);width:54px;height:54px;border-radius:50%;border:3px solid var(--brass-light);opacity:.9}
+.doorway .knocker::before{content:"";position:absolute;left:50%;top:-14px;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;background:var(--brass-light)}
+.doorway .cap{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-light);margin-bottom:14px;position:relative}
+.doorway ol{list-style:none;margin:0;padding:0;position:relative}
+.doorway li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0;border-top:1px solid rgba(245,240,230,.16);font-size:15px}
+.doorway li b{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2vw,26px);line-height:1.1}
+.doorway li small{color:var(--on-door-soft);font-size:13px;text-align:right}
+
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .doorway{aspect-ratio:auto;max-width:440px;width:100%;padding-top:140px}
+}
+
+/* Section scaffolding */
+section{scroll-margin-top:72px}
+.sec{padding:var(--pad) 0}
+.sec-head{display:grid;gap:20px;margin-bottom:clamp(40px,6vw,72px);max-width:880px}
+.sec-head h2{font-size:clamp(40px,5.6vw,72px)}
+.sec-head p{font-size:18px;color:var(--ink-soft);max-width:36em}
+.on-door{background:var(--door);color:var(--on-door)}
+.on-door .sec-head p{color:var(--on-door-soft)}
+
+/* Problem */
+.problem .grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid rgba(245,240,230,.2)}
+.problem .col{padding:40px 40px 8px 0}
+.problem .col + .col{padding:40px 0 8px 40px;border-left:1px solid rgba(245,240,230,.2)}
+.problem h3{font-size:clamp(30px,3.2vw,40px);margin-bottom:16px}
+.problem h3 em{color:var(--brass-light)}
+.problem p{color:var(--on-door-soft);max-width:30em}
+.queue{margin-top:28px;display:grid;gap:8px;font-size:14px;color:var(--on-door-soft)}
+.queue div{display:flex;justify-content:space-between;padding:10px 14px;border:1px dashed rgba(245,240,230,.25);border-radius:6px}
+.queue div:nth-child(2){opacity:.7}.queue div:nth-child(3){opacity:.45}
+.thread{margin-top:28px;display:grid;gap:10px;font-size:14px}
+.thread div{padding:10px 14px;border-radius:14px;max-width:85%}
+.thread .me{background:var(--paper);color:var(--ink);justify-self:end;border-bottom-right-radius:4px}
+.thread .them{background:var(--door-2);color:var(--on-door);border:1px solid rgba(245,240,230,.18);border-bottom-left-radius:4px}
+@media (max-width:760px){
+  .problem .grid{grid-template-columns:1fr}
+  .problem .col{padding:32px 0 8px}
+  .problem .col + .col{padding:32px 0 8px;border-left:0;border-top:1px solid rgba(245,240,230,.2)}
+}
+
+/* How it works */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s}
+.steps li{position:relative;padding:28px 28px 0 0;border-top:2px solid var(--ink)}
+.steps li + li{padding-left:28px;border-left:1px solid var(--line)}
+.steps .num{font-family:var(--serif);font-size:72px;line-height:1;color:var(--door)}
+.steps .who{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:18px 0 8px}
+.steps h3{font-size:28px;line-height:1.1;margin-bottom:12px}
+.steps p{color:var(--ink-soft);font-size:16px}
+.approve{margin-top:56px;display:flex;gap:20px;align-items:center;padding:24px 28px;background:var(--paper-2);border-radius:14px;max-width:760px}
+.approve .tick{flex:none;width:44px;height:44px;border-radius:50%;background:var(--door);display:grid;place-items:center}
+.approve p{font-size:17px}
+.approve strong{font-weight:600}
+@media (max-width:980px){
+  .steps{grid-template-columns:1fr 1fr;row-gap:48px}
+  .steps li:nth-child(3){padding-left:0;border-left:0}
+}
+@media (max-width:600px){
+  .steps{grid-template-columns:1fr;row-gap:0}
+  .steps li,.steps li + li{padding:24px 0 32px 76px;border-left:0;border-top:1px solid var(--line)}
+  .steps li:first-child{border-top:2px solid var(--ink)}
+  .steps .num{position:absolute;left:0;top:20px;font-size:56px}
+  .steps .who{margin-top:0}
+  .approve{padding:20px;align-items:flex-start}
+}
+
+/* Why it works */
+.why{background:var(--paper-2)}
+.why .lead{display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,5vw,72px);align-items:end;padding-bottom:48px;border-bottom:1px solid var(--line)}
+.why .big{font-family:var(--serif);font-size:clamp(96px,16vw,220px);line-height:.8;letter-spacing:-.03em;color:var(--door)}
+.why .big s{color:var(--ink-soft);text-decoration-thickness:4px;font-size:.36em;margin-left:.2em;vertical-align:.9em;opacity:.75}
+.why .lead h3{font-size:clamp(30px,3.4vw,44px);margin-bottom:12px}
+.why .lead p{color:var(--ink-soft);max-width:32em}
+.why .rest{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.why .rest div{padding:36px 32px 0 0}
+.why .rest div + div{padding-left:32px;border-left:1px solid var(--line)}
+.why .rest h3{font-size:26px;line-height:1.12;margin-bottom:10px}
+.why .rest p{color:var(--ink-soft);font-size:16px}
+@media (max-width:860px){
+  .why .lead{grid-template-columns:1fr;align-items:start}
+  .why .rest{grid-template-columns:1fr}
+  .why .rest div,.why .rest div + div{padding:28px 0;border-left:0;border-bottom:1px solid var(--line)}
+}
+
+/* Example message */
+.example .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(40px,6vw,96px);align-items:center}
+.letter{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,3vw,36px);box-shadow:0 30px 60px -40px rgba(27,26,23,.35)}
+.letter .from{display:flex;align-items:center;gap:14px;padding-bottom:18px;border-bottom:1px solid var(--paper-2);margin-bottom:20px}
+.letter .avatar{width:44px;height:44px;border-radius:50%;background:var(--paper-2);border:1px dashed var(--line);display:grid;place-items:center;font-size:10px;color:var(--ink-soft);text-align:center;line-height:1.1;flex:none}
+.letter .from b{display:block;font-weight:600;font-size:15px}
+.letter .from small{color:var(--ink-soft);font-size:13px}
+.letter .msg{font-size:clamp(19px,1.7vw,22px);line-height:1.5;color:var(--ink)}
+.letter mark{background:linear-gradient(transparent 58%, rgba(176,138,69,.32) 58%);color:inherit;padding:0 2px}
+.letter .meta{display:flex;justify-content:space-between;gap:12px;margin-top:22px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap}
+.letter .status{display:inline-flex;align-items:center;gap:8px}
+.letter .status i{width:8px;height:8px;border-radius:50%;background:var(--door)}
+.notes{list-style:none;margin:32px 0 0;padding:0;display:grid;gap:0;counter-reset:n}
+.notes li{counter-increment:n;display:grid;grid-template-columns:40px 1fr;gap:12px;padding:18px 0;border-top:1px solid var(--line)}
+.notes li::before{content:counter(n, lower-roman);font-family:var(--serif);font-style:italic;font-size:24px;line-height:1;color:var(--door)}
+.notes b{display:block;font-weight:600;margin-bottom:2px}
+.notes span{color:var(--ink-soft);font-size:16px}
+@media (max-width:900px){.example .wrap{grid-template-columns:1fr}}
+
+/* Packages */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.plan{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:18px;padding:32px 28px 28px}
+.plan h3{font-size:36px}
+.plan .days{font-size:14px;color:var(--ink-soft);margin-top:6px}
+.plan .price{font-family:var(--serif);font-size:56px;line-height:1;margin:28px 0 4px;letter-spacing:-.01em}
+.plan .price small{font-family:var(--sans);font-size:16px;font-weight:500;margin-right:6px;vertical-align:.9em}
+.plan .per{font-size:13px;color:var(--ink-soft)}
+.plan .reach{margin:24px 0 28px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:16px}
+.plan .reach b{font-family:var(--serif);font-weight:400;font-size:28px;margin-right:6px}
+.plan .btn{margin-top:auto;width:100%}
+.plan.popular{background:var(--door);color:var(--on-door);border-color:var(--door);border-radius:999px 999px 18px 18px;padding-top:72px}
+.plan.popular .days,.plan.popular .per{color:var(--on-door-soft)}
+.plan.popular .reach{border-color:rgba(245,240,230,.2)}
+.plan .tag{position:absolute;top:28px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--door);background:var(--brass-light);padding:6px 12px;border-radius:999px;white-space:nowrap}
+.includes{margin-top:40px;display:grid;grid-template-columns:auto 1fr;gap:16px 48px;align-items:start;padding:32px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.includes h3{font-size:28px}
+.includes ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.includes li{padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:15px;background:var(--paper)}
+.dfy{margin-top:40px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.dfy h3{font-size:clamp(28px,3vw,36px)}
+.dfy p{color:var(--ink-soft);max-width:34em;margin-top:6px}
+.dfy .from{font-family:var(--serif);font-size:32px;white-space:nowrap}
+.dfy .from small{font-family:var(--sans);font-size:14px;color:var(--ink-soft);margin-right:8px}
+.pricing-note{margin-top:28px;font-size:14px;color:var(--ink-soft)}
+@media (max-width:960px){
+  .plans{grid-template-columns:1fr;max-width:480px}
+  .plan.popular{order:-1}
+  .includes{grid-template-columns:1fr}
+}
+
+/* FAQ */
+.faq .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(40px,6vw,96px)}
+.faq .sec-head{margin-bottom:0;align-self:start;position:sticky;top:104px}
+details{border-top:1px solid var(--line)}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 0;font-family:var(--serif);font-size:clamp(24px,2.4vw,30px);line-height:1.15;min-height:44px}
+summary::-webkit-details-marker{display:none}
+summary .pm{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--ink);position:relative;transition:transform .3s var(--ease),background .3s}
+summary .pm::before,summary .pm::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%)}
+summary .pm::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .3s var(--ease)}
+details[open] summary .pm{background:var(--door);border-color:var(--door)}
+details[open] summary .pm::before,details[open] summary .pm::after{background:var(--on-door)}
+details[open] summary .pm::after{transform:translate(-50%,-50%) rotate(0)}
+details .a{padding:0 56px 28px 0;color:var(--ink-soft);font-size:17px;max-width:40em}
+@media (max-width:860px){.faq .wrap{grid-template-columns:1fr}.faq .sec-head{position:static}details .a{padding-right:0}}
+
+/* Form */
+.intake .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(40px,6vw,96px);align-items:start}
+.intake .sec-head{margin-bottom:0}
+.intake .after{margin-top:32px;display:grid;gap:14px;font-size:16px;color:var(--on-door-soft);list-style:none;padding:0}
+.intake .after li{display:grid;grid-template-columns:28px 1fr;gap:8px}
+.intake .after li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--brass-light);margin-top:9px}
+.formcard{background:var(--paper);color:var(--ink);border-radius:999px 999px 18px 18px;padding:clamp(88px,10vw,120px) clamp(20px,4vw,48px) clamp(28px,4vw,48px);position:relative}
+.formcard::before{content:"";position:absolute;left:50%;top:clamp(28px,4vw,44px);transform:translateX(-50%);width:36px;height:36px;border-radius:50%;border:3px solid var(--brass)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.field{display:grid;gap:8px}
+.field.full{grid-column:1/-1}
+.field label{font-size:14px;font-weight:600}
+.field label small{font-weight:400;color:var(--ink-soft)}
+.field input{width:100%;min-height:52px;padding:12px 16px;border:1px solid #9C927F;border-radius:10px;background:#fff;color:var(--ink);font:400 16px/1.3 var(--sans);transition:border-color .2s,box-shadow .2s}
+.field input::placeholder{color:#6F685B}
+.field input:focus{outline:none;border-color:var(--door);box-shadow:0 0 0 3px rgba(31,59,47,.25)}
+.field input[aria-invalid="true"]{border-color:#A3341A}
+.field .err{font-size:13px;color:#A3341A;min-height:0}
+.form .btn{grid-column:1/-1;width:100%;margin-top:8px;min-height:56px;font-size:17px}
+.form .privacy{grid-column:1/-1;font-size:13px;color:var(--ink-soft);text-align:center}
+.success{text-align:center;padding:8px 0 12px}
+.success h3{font-size:clamp(36px,4vw,48px);margin-bottom:12px}
+.success p{color:var(--ink-soft);max-width:28em;margin:0 auto}
+.success .next{margin-top:24px;text-align:left;display:grid;gap:12px;border-top:1px solid var(--line);padding-top:20px;font-size:15px}
+.success .next div{display:grid;grid-template-columns:28px 1fr;gap:8px}
+.success .next b{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1;color:var(--door)}
+[hidden]{display:none !important}
+@media (max-width:900px){.intake .wrap{grid-template-columns:1fr}}
+@media (max-width:560px){.form{grid-template-columns:1fr}.formcard{border-radius:200px 200px 18px 18px}}
+
+/* Footer */
+footer{padding:64px 0 40px}
+footer .top{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid var(--line)}
+footer .tag{font-family:var(--serif);font-size:clamp(40px,6vw,80px);line-height:1}
+footer .tag em{color:var(--door)}
+footer .bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;font-size:14px;color:var(--ink-soft)}
+
+/* Motion */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Knock, home"><span class="mark" aria-hidden="true"></span>Knock</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#example">Example</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a class="btn" href="#intake"><span class="knob" aria-hidden="true"></span>Get my target list</a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- Hero -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div>
+        <p class="label" style="margin-bottom:28px"><span>Knock</span>Career outbound for MBA grads and future PMs</p>
+        <h1 id="hero-title">Stop applying. <em>Start conversations.</em></h1>
+        <p class="sub">We find the hiring managers, team members and alumni at your target companies, research each one, and start real conversations that turn into referrals and interviews.</p>
+        <div class="actions">
+          <a class="btn" href="#intake"><span class="knob" aria-hidden="true"></span>Get my target list</a>
+          <a class="textlink" href="#how">See how it works</a>
+        </div>
+        <p class="fine">You approve every message. It goes out from your own LinkedIn.</p>
+      </div>
+
+      <aside class="doorway" aria-label="Who we find at each target company">
+        <span class="knocker" aria-hidden="true"></span>
+        <p class="cap">Behind every target company</p>
+        <ol>
+          <li><b>The hiring manager</b><small>owns the role</small></li>
+          <li><b>The team</b><small>knows what it needs</small></li>
+          <li><b>Your alumni</b><small>remember the campus</small></li>
+          <li><b>Senior people</b><small>can introduce you</small></li>
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="sec on-door problem" id="problem" aria-labelledby="problem-title">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="label"><span>01</span>The problem</p>
+        <h2 id="problem-title">Hundreds of applications. No callbacks.</h2>
+        <p>You did everything right. Polished CV, tailored cover letters, every portal. And still, silence. It is not you. It is the channel.</p>
+      </div>
+      <div class="grid">
+        <div class="col reveal">
+          <h3>Job portals are <em>a queue.</em></h3>
+          <p>Your application joins a pile, gets filtered by keywords, and waits for someone with no time to open it.</p>
+          <div class="queue" aria-hidden="true">
+            <div><span>Application submitted</span><span>Pending</span></div>
+            <div><span>Application submitted</span><span>Pending</span></div>
+            <div><span>Application submitted</span><span>Pending</span></div>
+          </div>
+        </div>
+        <div class="col reveal">
+          <h3>People hire <em>people.</em></h3>
+          <p>Most good roles move through someone who knows someone. A short, honest conversation with the right person beats a perfect application in the pile.</p>
+          <div class="thread" aria-hidden="true">
+            <div class="me">Curious, what was the biggest adjustment for you?</div>
+            <div class="them">Honestly, learning to say no. Happy to tell you more. Free on Thursday?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="sec" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="label"><span>02</span>How it works</p>
+        <h2 id="how-title">Four steps from a list of companies to a conversation.</h2>
+      </div>
+      <ol class="steps">
+        <li class="reveal">
+          <div class="num" aria-hidden="true">1</div>
+          <p class="who">You</p>
+          <h3>Pick your targets</h3>
+          <p>Tell us the companies and roles you want. Ten names or forty, we work from your list.</p>
+        </li>
+        <li class="reveal">
+          <div class="num" aria-hidden="true">2</div>
+          <p class="who">We</p>
+          <h3>Find the right people</h3>
+          <p>Hiring managers, team members, alumni and senior people who can introduce. We research each one.</p>
+        </li>
+        <li class="reveal">
+          <div class="num" aria-hidden="true">3</div>
+          <p class="who">We</p>
+          <h3>Write one message per person</h3>
+          <p>A short, personal first note built on something you genuinely share. A school, a city, a career move.</p>
+        </li>
+        <li class="reveal">
+          <div class="num" aria-hidden="true">4</div>
+          <p class="who">Together</p>
+          <h3>Guide every reply</h3>
+          <p>We draft your replies and steer each conversation until it becomes a referral or an interview.</p>
+        </li>
+      </ol>
+      <div class="approve reveal">
+        <span class="tick" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4 8-9" stroke="#F5F0E6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <p><strong>You approve every message.</strong> Nothing goes out without your yes, and it is always sent from your own LinkedIn.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why it works -->
+  <section class="sec why" id="why" aria-labelledby="why-title">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="label"><span>03</span>Why it works</p>
+        <h2 id="why-title">Fewer doors. The right ones.</h2>
+      </div>
+      <div class="lead reveal">
+        <div class="big" aria-hidden="true">60<s>6,000</s></div>
+        <div>
+          <h3>Sixty hand-picked people, not six thousand messages.</h3>
+          <p>We would rather you talk to the one person who owns the role than spray a template across a company. Quality is the whole strategy.</p>
+        </div>
+      </div>
+      <div class="rest">
+        <div class="reveal">
+          <h3>Written for one person</h3>
+          <p>Every message starts from research on that person. No templates with a name swapped in.</p>
+        </div>
+        <div class="reveal">
+          <h3>Conversation first, the ask later</h3>
+          <p>We open with genuine curiosity. Referrals come once there is a real connection, not in line one.</p>
+        </div>
+        <div class="reveal">
+          <h3>Borrowed from good sales teams</h3>
+          <p>The best sales teams create meetings this way: right people, real research, patient follow-up. We apply it to your career.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Example -->
+  <section class="sec example" id="example" aria-labelledby="example-title">
+    <div class="wrap">
+      <div>
+        <div class="sec-head reveal" style="margin-bottom:0">
+          <p class="label"><span>04</span>An example first message</p>
+          <h2 id="example-title">Short. Specific. Easy to answer.</h2>
+          <p>This is the kind of note we write. Under fifty words, about them, and it ends with a question they will enjoy answering.</p>
+        </div>
+        <ol class="notes reveal">
+          <li><div><b>A real shared reason</b><span>Both moved from a business role into product.</span></div></li>
+          <li><div><b>Something only they know</b><span>Their own experience, not a favour.</span></div></li>
+          <li><div><b>No ask yet</b><span>The referral conversation comes later, if it fits.</span></div></li>
+        </ol>
+      </div>
+      <figure class="letter reveal" style="margin:0" aria-label="Example LinkedIn message">
+        <div class="from">
+          <span class="avatar" aria-hidden="true">your<br>photo</span>
+          <div><b>You, to Rahul</b><small>Product, Zepto. Previously Flipkart</small></div>
+        </div>
+        <p class="msg">Hey Rahul, <mark>saw you moved from Flipkart into product at Zepto.</mark> I'm making a similar jump from brand management. <mark>Curious, what was the biggest adjustment for you?</mark></p>
+        <div class="meta"><span class="status"><i aria-hidden="true"></i>Approved by you</span><span>Sent from your LinkedIn</span></div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section class="sec" id="packages" aria-labelledby="packages-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="label"><span>05</span>Packages</p>
+        <h2 id="packages-title">Founding member pricing.</h2>
+        <p>One-time fee per search. Pick the pace that fits your timeline.</p>
+      </div>
+      <div class="plans">
+        <article class="plan reveal" aria-labelledby="p1">
+          <h3 id="p1">Sprint</h3>
+          <p class="days">7 days</p>
+          <p class="price"><small>Rs</small>2,499</p>
+          <p class="per">one-time</p>
+          <p class="reach"><b>60</b>people contacted</p>
+          <a class="btn" href="#intake" data-plan="Sprint"><span class="knob" aria-hidden="true"></span>Get my target list</a>
+        </article>
+        <article class="plan popular reveal" aria-labelledby="p2">
+          <span class="tag">Most popular</span>
+          <h3 id="p2">Standard</h3>
+          <p class="days">14 days</p>
+          <p class="price"><small>Rs</small>3,999</p>
+          <p class="per">one-time</p>
+          <p class="reach"><b>120</b>people contacted</p>
+          <a class="btn btn-light" href="#intake" data-plan="Standard"><span class="knob" aria-hidden="true"></span>Get my target list</a>
+        </article>
+        <article class="plan reveal" aria-labelledby="p3">
+          <h3 id="p3">Full search</h3>
+          <p class="days">21 days</p>
+          <p class="price"><small>Rs</small>5,499</p>
+          <p class="per">one-time</p>
+          <p class="reach"><b>180</b>people contacted</p>
+          <a class="btn" href="#intake" data-plan="Full search"><span class="knob" aria-hidden="true"></span>Get my target list</a>
+        </article>
+      </div>
+      <div class="includes reveal">
+        <h3>Every package includes</h3>
+        <ul>
+          <li>Your target list</li>
+          <li>Research on every person</li>
+          <li>Personal first messages</li>
+          <li>Reply drafts for every conversation</li>
+          <li>Weekly results report</li>
+        </ul>
+      </div>
+      <div class="dfy reveal">
+        <div>
+          <h3>Rather we run it for you?</h3>
+          <p>Done for you: we handle the outreach end to end, from first message to booked conversation. You still approve how you are represented.</p>
+        </div>
+        <p class="from"><small>from</small>Rs 14,999</p>
+      </div>
+      <p class="pricing-note">We do not promise a number of replies yet. We are new, and we would rather be honest than impressive.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec faq" id="faq" aria-labelledby="faq-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label"><span>06</span>Questions</p>
+        <h2 id="faq-title">Fair questions.</h2>
+        <p>Anything else, write to <a href="mailto:hello@knock.careers">hello@knock.careers</a>.</p>
+      </div>
+      <div>
+        <details>
+          <summary>Is this spam?<span class="pm" aria-hidden="true"></span></summary>
+          <div class="a"><p>No. We contact a hand-picked list of researched people, 60 in a Sprint, and every message is written for that one person. Spam is the same note sent to thousands. This is the opposite.</p></div>
+        </details>
+        <details>
+          <summary>Will my LinkedIn get banned?<span class="pm" aria-hidden="true"></span></summary>
+          <div class="a"><p>We stay well under LinkedIn's limits, and you send from your own account, at a human pace. No bots, no automation on your profile.</p></div>
+        </details>
+        <details>
+          <summary>Do you write as me?<span class="pm" aria-hidden="true"></span></summary>
+          <div class="a"><p>Yes, in your voice. And you approve every message before it goes. If something does not sound like you, we change it.</p></div>
+        </details>
+        <details>
+          <summary>Who is this for?<span class="pm" aria-hidden="true"></span></summary>
+          <div class="a"><p>To start, MBA graduates and final-year students, and professionals moving into product roles. If that is you, we would love to help.</p></div>
+        </details>
+        <details>
+          <summary>What if nobody replies?<span class="pm" aria-hidden="true"></span></summary>
+          <div class="a"><p>Founding members get a free extra week of outreach if fewer than 5 people reply.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intake -->
+  <section class="sec on-door intake" id="intake" aria-labelledby="intake-title">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="label"><span>07</span>Start here</p>
+        <h2 id="intake-title">Tell us where you want to work.</h2>
+        <p>Two minutes. We will come back with the people we would contact at your target companies.</p>
+        <ul class="after">
+          <li>We review your goals and targets personally.</li>
+          <li>You get a sample of your target list by email.</li>
+          <li>If it looks right, you pick a package. No pressure.</li>
+        </ul>
+      </div>
+      <div class="formcard">
+        <form class="form" id="form" novalidate>
+          <div class="field full">
+            <label for="name">Full name</label>
+            <input id="name" name="name" autocomplete="name" required placeholder="Ananya Iyer">
+            <span class="err" id="name-err" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@email.com">
+            <span class="err" id="email-err" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="city">City</label>
+            <input id="city" name="city" autocomplete="address-level2" required placeholder="Bengaluru">
+            <span class="err" id="city-err" aria-live="polite"></span>
+          </div>
+          <div class="field full">
+            <label for="linkedin">LinkedIn URL</label>
+            <input id="linkedin" name="linkedin" type="url" inputmode="url" required placeholder="linkedin.com/in/yourname">
+            <span class="err" id="linkedin-err" aria-live="polite"></span>
+          </div>
+          <div class="field full">
+            <label for="role">Target role</label>
+            <input id="role" name="role" required placeholder="Associate Product Manager">
+            <span class="err" id="role-err" aria-live="polite"></span>
+          </div>
+          <div class="field full">
+            <label for="companies">Target companies <small>(comma separated)</small></label>
+            <input id="companies" name="companies" required placeholder="Zepto, Swiggy, CRED, Razorpay">
+            <span class="err" id="companies-err" aria-live="polite"></span>
+          </div>
+          <input type="hidden" name="plan" id="plan">
+          <button class="btn" type="submit"><span class="knob" aria-hidden="true"></span>Get my target list</button>
+          <p class="privacy">We only use this to build your list. No spam, ever.</p>
+        </form>
+        <div class="success" id="success" hidden tabindex="-1" role="status">
+          <h3>Thank you, <span id="s-name">friend</span>.</h3>
+          <p>We have your targets. Expect an email at <b id="s-email"></b> within two working days with a first look at your list.</p>
+          <div class="next">
+            <div><b>1</b><span>We research the people at <span id="s-companies">your target companies</span>.</span></div>
+            <div><b>2</b><span>You get a sample list and a draft first message.</span></div>
+            <div><b>3</b><span>If you like it, we start.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <p class="tag">Knock on the <em>right door.</em></p>
+      <a class="btn" href="#intake"><span class="knob" aria-hidden="true"></span>Get my target list</a>
+    </div>
+    <div class="bottom">
+      <span><a class="brand" href="#top" style="font-size:24px;min-height:auto" aria-label="Knock, back to top"><span class="mark" aria-hidden="true" style="width:15px;height:21px"></span>Knock</a></span>
+      <a href="mailto:hello@knock.careers" class="textlink">hello@knock.careers</a>
+      <span>Made in India for ambitious people.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Sticky nav hairline
+  var nav=document.getElementById('nav');
+  var onScroll=function(){nav.classList.toggle('scrolled',window.scrollY>8)};
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // Reveal on scroll
+  var els=document.querySelectorAll('.reveal');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')})}
+  else{
+    var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){io.observe(e)});
+  }
+
+  // Remember which plan was chosen
+  document.querySelectorAll('[data-plan]').forEach(function(a){
+    a.addEventListener('click',function(){document.getElementById('plan').value=a.getAttribute('data-plan')});
+  });
+
+  // Form
+  var form=document.getElementById('form'),success=document.getElementById('success');
+  var rules={
+    name:function(v){return v.trim().length>1||'Please add your full name.'},
+    email:function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())||'Please add a valid email.'},
+    city:function(v){return v.trim().length>1||'Which city are you in?'},
+    linkedin:function(v){return /linkedin\.com\/.+/i.test(v.trim())||'Please paste your LinkedIn profile link.'},
+    role:function(v){return v.trim().length>1||'What role are you aiming for?'},
+    companies:function(v){return v.split(',').filter(function(s){return s.trim()}).length>0||'Add at least one company.'}
+  };
+  function check(input){
+    var r=rules[input.name](input.value),err=document.getElementById(input.name+'-err');
+    if(r===true){input.removeAttribute('aria-invalid');input.removeAttribute('aria-describedby');err.textContent='';return true}
+    input.setAttribute('aria-invalid','true');input.setAttribute('aria-describedby',input.name+'-err');err.textContent=r;return false;
+  }
+  Object.keys(rules).forEach(function(k){
+    var i=form.elements[k];
+    i.addEventListener('blur',function(){if(i.value)check(i)});
+    i.addEventListener('input',function(){if(i.getAttribute('aria-invalid'))check(i)});
+  });
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var first=null;
+    Object.keys(rules).forEach(function(k){var i=form.elements[k];if(!check(i)&&!first)first=i});
+    if(first){first.focus();return}
+    var name=form.elements.name.value.trim().split(/\s+/)[0];
+    var comps=form.elements.companies.value.split(',').map(function(s){return s.trim()}).filter(Boolean);
+    document.getElementById('s-name').textContent=name;
+    document.getElementById('s-email').textContent=form.elements.email.value.trim();
+    if(comps.length){
+      var list=comps.length>2?comps.slice(0,2).join(', ')+' and '+(comps.length-2)+' more':comps.join(' and ');
+      document.getElementById('s-companies').textContent=list;
+    }
+    form.hidden=true;success.hidden=false;success.focus();
+  });
+})();
+</script>
+</body>
+</html>

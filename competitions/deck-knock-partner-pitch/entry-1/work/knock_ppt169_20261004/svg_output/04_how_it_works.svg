@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" data-pptx-page-role="content" font-family="Arial">
+<rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F5F0E6"/>
+<g id="title" data-pptx-bounds="72 84 1136 104">
+  <text x="72" y="112" font-size="14" font-weight="bold" letter-spacing="3" fill="#B4692E">HOW KNOCK WORKS</text>
+  <text x="72" y="172" font-family="Times New Roman" font-size="40" fill="#1F1D1A">Four steps from a target list to an interview.</text>
+</g>
+<g id="owners" data-pptx-bounds="72 222 1136 40">
+  <text x="96" y="248" font-size="14" font-weight="bold" letter-spacing="3" fill="#6B655B">YOU</text>
+  <text x="390" y="248" font-size="14" font-weight="bold" letter-spacing="3" fill="#1E3B33">KNOCK, WITH YOU</text>
+  <line x1="560" y1="243" x2="1168" y2="243" stroke="#1E3B33" stroke-width="1.5"/>
+</g>
+<g id="p04-step-1" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="72 276 310 96" fill="#E6DCC8" stroke="none">
+<path d="M 72 276 L 334 276 L 382 324 L 334 372 L 72 372 L 120 324 Z"/>
+</g>
+<g id="p04-step-2" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="342 276 310 96" fill="#1E3B33" stroke="none">
+<path d="M 342 276 L 604 276 L 652 324 L 604 372 L 342 372 L 390 324 Z"/>
+</g>
+<g id="p04-step-3" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="612 276 310 96" fill="#1E3B33" stroke="none">
+<path d="M 612 276 L 874 276 L 922 324 L 874 372 L 612 372 L 660 324 Z"/>
+</g>
+<g id="p04-step-4" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="882 276 310 96" fill="#1E3B33" stroke="none">
+<path d="M 882 276 L 1144 276 L 1192 324 L 1144 372 L 882 372 L 930 324 Z"/>
+</g>
+<g id="step-marks" data-pptx-bounds="140 300 1000 48">
+  <use data-icon="tabler-outline/target" x="144" y="308" width="32" height="32" fill="#1E3B33" stroke-width="2"/>
+  <text x="192" y="336" font-family="Times New Roman" font-size="30" fill="#1E3B33">01</text>
+  <use data-icon="tabler-outline/user-search" x="414" y="308" width="32" height="32" fill="#F5F0E6" stroke-width="2"/>
+  <text x="462" y="336" font-family="Times New Roman" font-size="30" fill="#F5F0E6">02</text>
+  <use data-icon="tabler-outline/writing" x="684" y="308" width="32" height="32" fill="#F5F0E6" stroke-width="2"/>
+  <text x="732" y="336" font-family="Times New Roman" font-size="30" fill="#F5F0E6">03</text>
+  <use data-icon="tabler-outline/messages" x="954" y="308" width="32" height="32" fill="#F5F0E6" stroke-width="2"/>
+  <text x="1002" y="336" font-family="Times New Roman" font-size="30" fill="#F5F0E6">04</text>
+</g>
+<g id="step-1-copy" data-pptx-bounds="96 388 254 180">
+  <text x="96" y="418" font-size="26" font-weight="bold" fill="#1F1D1A">Pick targets</text>
+  <text x="96" y="458" font-size="22" fill="#4A463F">You choose the<tspan x="96" dy="32">companies and roles</tspan><tspan x="96" dy="32">you want.</tspan></text>
+</g>
+<g id="step-2-copy" data-pptx-bounds="366 388 254 180">
+  <text x="366" y="418" font-size="26" font-weight="bold" fill="#1F1D1A">Find the people</text>
+  <text x="366" y="458" font-size="22" fill="#4A463F">Hiring managers, team<tspan x="366" dy="32">members, alumni and</tspan><tspan x="366" dy="32">senior people who</tspan><tspan x="366" dy="32">can introduce you.</tspan></text>
+</g>
+<g id="step-3-copy" data-pptx-bounds="636 388 254 180">
+  <text x="636" y="418" font-size="26" font-weight="bold" fill="#1F1D1A">Write the note</text>
+  <text x="636" y="458" font-size="22" fill="#4A463F">One personal first<tspan x="636" dy="32">message per person,</tspan><tspan x="636" dy="32">built on something</tspan><tspan x="636" dy="32">genuinely shared.</tspan></text>
+</g>
+<g id="step-4-copy" data-pptx-bounds="906 388 280 180">
+  <text x="906" y="418" font-size="26" font-weight="bold" fill="#1F1D1A">Guide every reply</text>
+  <text x="906" y="458" font-size="22" fill="#4A463F">We help you answer<tspan x="906" dy="32">each response until it</tspan><tspan x="906" dy="32">becomes a referral</tspan><tspan x="906" dy="32">or an interview.</tspan></text>
+</g>
+<g id="approval-band" data-pptx-bounds="72 584 1136 64">
+  <rect x="72" y="588" width="1136" height="56" rx="4" fill="#B4692E" fill-opacity="0.10"/>
+  <use data-icon="tabler-outline/user-check" x="96" y="600" width="32" height="32" fill="#B4692E" stroke-width="2"/>
+  <text x="144" y="624" font-size="24" fill="#1F1D1A"><tspan font-weight="bold">You approve every message.</tspan> It is sent from your own LinkedIn account.</text>
+</g>
+<g id="footer" data-pptx-role="footer" data-pptx-bounds="72 662 300 32">
+  <text x="72" y="684" font-size="14" fill="#6B655B">Knock<tspan fill="#B4692E">   04</tspan></text>
+</g>
+</svg>

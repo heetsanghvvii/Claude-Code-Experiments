@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" data-pptx-page-role="cover" font-family="Arial">
+<rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#1E3B33"/>
+<g id="brand" data-pptx-bounds="72 44 400 60">
+  <text x="96" y="86" font-family="Times New Roman" font-size="32" fill="#F5F0E6">Knock</text>
+  <rect x="72" y="62" width="14" height="24" rx="7" fill="#C9874B"/>
+</g>
+<g id="title" data-pptx-bounds="72 180 700 400">
+  <text x="96" y="230" font-size="14" font-weight="bold" letter-spacing="3" fill="#C9874B">PARTNER PROPOSAL</text>
+  <text x="96" y="330" font-family="Times New Roman" font-size="84" fill="#F5F0E6">Knock on the<tspan x="96" dy="92">right door.</tspan></text>
+  <rect x="96" y="466" width="56" height="3" fill="#C9874B"/>
+  <text x="96" y="520" font-size="26" fill="#F5F0E6">A partnership proposal for &lt;Club name&gt;</text>
+</g>
+<g id="footer" data-pptx-bounds="72 640 640 50">
+  <text x="96" y="672" font-size="17" fill="#B9C7BF">A career outbound service for MBA students and alumni</text>
+</g>
+<g id="p01-door-frame" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="round2SameRect" data-pptx-frame="812 96 356 552" data-pptx-av-adj1="val 50000" data-pptx-av-adj2="val 0" fill="none" stroke="#C9874B" stroke-width="3">
+<path d="M 990 96 L 990 96 A 178 178 0 0 1 1168 274 L 1168 648 L 812 648 L 812 274 A 178 178 0 0 1 990 96 Z"/>
+</g>
+<g id="p01-door" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="round2SameRect" data-pptx-frame="840 124 300 524" data-pptx-av-adj1="val 50000" data-pptx-av-adj2="val 0" fill="#2F5A4E" stroke="none">
+<path d="M 990 124 L 990 124 A 150 150 0 0 1 1140 274 L 1140 648 L 840 648 L 840 274 A 150 150 0 0 1 990 124 Z"/>
+</g>
+<g id="p01-threshold" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="trapezoid" data-pptx-frame="740 648 500 72" data-pptx-av-adj="val 139000" fill="#F5F0E6" stroke="none" fill-opacity="0.08">
+<path d="M 740 720 L 840.08 648 L 1139.92 648 L 1240 720 Z"/>
+</g>
+<g id="door-details" data-pptx-bounds="980 296 120 356">
+  <line x1="990" y1="300" x2="990" y2="648" stroke="#1E3B33" stroke-width="2"/>
+  <circle cx="1060" cy="392" r="22" fill="none" stroke="#C9874B" stroke-width="5"/>
+  <circle cx="1060" cy="364" r="6" fill="#C9874B"/>
+</g>
+</svg>

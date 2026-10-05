@@ -1,0 +1,106 @@
+{
+  "roles": {
+    "body": {
+      "family": "Times New Roman",
+      "size": 22.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 4.1,
+      "latin_chars_per_100px": 9.3,
+      "caps_chars_per_100px": 6.1,
+      "digits_chars_per_100px": 8.1,
+      "citation_chars_per_100px": 8.9,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "title": {
+      "family": "Arial Narrow",
+      "size": 44.0,
+      "weight": "bold",
+      "cjk_chars_per_100px": 2.1,
+      "latin_chars_per_100px": 4.2,
+      "caps_chars_per_100px": 3.9,
+      "digits_chars_per_100px": 3.7,
+      "citation_chars_per_100px": 3.9,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "annotation": {
+      "family": "Times New Roman",
+      "size": 18.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 5.0,
+      "latin_chars_per_100px": 11.4,
+      "caps_chars_per_100px": 7.4,
+      "digits_chars_per_100px": 9.9,
+      "citation_chars_per_100px": 10.8,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "display": {
+      "family": "Arial Narrow",
+      "size": 112.0,
+      "weight": "bold",
+      "cjk_chars_per_100px": 0.8,
+      "latin_chars_per_100px": 1.7,
+      "caps_chars_per_100px": 1.5,
+      "digits_chars_per_100px": 1.5,
+      "citation_chars_per_100px": 1.5,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "footnote": {
+      "family": "Arial",
+      "size": 14.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 6.7,
+      "latin_chars_per_100px": 14.4,
+      "caps_chars_per_100px": 11.2,
+      "digits_chars_per_100px": 12.1,
+      "citation_chars_per_100px": 14.1,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "label": {
+      "family": "Arial",
+      "size": 15.0,
+      "weight": "bold",
+      "cjk_chars_per_100px": 6.3,
+      "latin_chars_per_100px": 12.9,
+      "caps_chars_per_100px": 10.3,
+      "digits_chars_per_100px": 11.4,
+      "citation_chars_per_100px": 12.8,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "lead": {
+      "family": "Times New Roman",
+      "size": 26.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 3.4,
+      "latin_chars_per_100px": 7.9,
+      "caps_chars_per_100px": 5.1,
+      "digits_chars_per_100px": 6.9,
+      "citation_chars_per_100px": 7.5,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "numeral": {
+      "family": "Arial Narrow",
+      "size": 64.0,
+      "weight": "bold",
+      "cjk_chars_per_100px": 1.5,
+      "latin_chars_per_100px": 2.9,
+      "caps_chars_per_100px": 2.7,
+      "digits_chars_per_100px": 2.6,
+      "citation_chars_per_100px": 2.7,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    }
+  },
+  "script_samples": {},
+  "source": "--role",
+  "generated_at": "2026-10-05T00:34:31Z",
+  "notes": [
+    "rates for display, label, numeral, title are measured at bold weight"
+  ]
+}

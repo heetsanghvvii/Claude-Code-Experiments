@@ -1,0 +1,82 @@
+{
+  "roles": {
+    "body": {
+      "family": "Times New Roman",
+      "size": 20.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 4.5,
+      "latin_chars_per_100px": 10.3,
+      "caps_chars_per_100px": 6.7,
+      "digits_chars_per_100px": 8.9,
+      "citation_chars_per_100px": 9.7,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "title": {
+      "family": "Arial",
+      "size": 36.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 2.6,
+      "latin_chars_per_100px": 5.6,
+      "caps_chars_per_100px": 4.4,
+      "digits_chars_per_100px": 4.7,
+      "citation_chars_per_100px": 5.5,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "kicker": {
+      "family": "Arial",
+      "size": 14.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 6.7,
+      "latin_chars_per_100px": 14.4,
+      "caps_chars_per_100px": 11.2,
+      "digits_chars_per_100px": 12.1,
+      "citation_chars_per_100px": 14.1,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "label": {
+      "family": "Arial",
+      "size": 15.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 6.3,
+      "latin_chars_per_100px": 13.5,
+      "caps_chars_per_100px": 10.5,
+      "digits_chars_per_100px": 11.4,
+      "citation_chars_per_100px": 13.2,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "lead": {
+      "family": "Times New Roman",
+      "size": 24.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 3.7,
+      "latin_chars_per_100px": 8.6,
+      "caps_chars_per_100px": 5.6,
+      "digits_chars_per_100px": 7.4,
+      "citation_chars_per_100px": 8.1,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "small": {
+      "family": "Times New Roman",
+      "size": 16.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 5.6,
+      "latin_chars_per_100px": 12.8,
+      "caps_chars_per_100px": 8.4,
+      "digits_chars_per_100px": 11.2,
+      "citation_chars_per_100px": 12.2,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    }
+  },
+  "script_samples": {},
+  "source": "--role",
+  "generated_at": "2026-10-05T00:34:32Z",
+  "notes": [
+    "every role is measured at normal weight; recalibrate a role realized as bold deck-wide with --role NAME:FAMILY:SIZE:bold: bold widens Latin and digits about 7%, while the bundled advance table gives CJK one width for both weights"
+  ]
+}

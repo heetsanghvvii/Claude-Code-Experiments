@@ -89,8 +89,8 @@ hdr = ["Package", "Price (Rs)", "People", "Founder hours", "Tool cost (Rs, e.g. 
 pk["A1"] = "Cost, price and margin per client: change the yellow cells here and on Inputs"; pk["A1"].font = Font(bold=True, size=14)
 for i, h in enumerate(hdr, 1):
     c = pk.cell(3, i, h); c.font = bold; c.alignment = Alignment(wrap_text=True)
-packs = [("Sprint, 7 days", 2499, 60, 5, 0), ("Standard, 14 days", 3999, 120, 8, 0), ("Full, 21 days", 5499, 180, 11, 0),
-         ("Done-for-you (founding)", 14999, 180, 16, 6160), ("Done-for-you (standard)", 19999, 180, 16, 6160)]
+packs = [("Sprint, 7 days", 2499, 60, 0.5, 0), ("Standard, 14 days", 3999, 120, 0.75, 0), ("Full, 21 days", 5499, 180, 1, 0),
+         ("Done-for-you (later, not offered now)", 19999, 180, 16, 6160)]
 for j, (n, p, ppl, h, tool) in enumerate(packs):
     r = 4 + j
     pk.cell(r, 1, n)
@@ -112,5 +112,5 @@ for i in range(1, 16):
     pk.column_dimensions[get_column_letter(i)].width = 14
 pk.column_dimensions["A"].width = 26
 pk["A11"] = ("Notes: Claude cost uses the step assumptions on Inputs (estimates until measured with the cost command). "
-             "Done-for-you tool cost = one La Growth Machine Basic identity month (about $70). Founder hours are estimates.")
+             "Done-for-you tool cost = one La Growth Machine Basic identity month (about $70). Founder hours = support and spot checks only (automation runs as scheduled Claude Code tasks; the client approves and sends).")
 wb.save(Path(__file__).with_name("knock-unit-economics.xlsx"))

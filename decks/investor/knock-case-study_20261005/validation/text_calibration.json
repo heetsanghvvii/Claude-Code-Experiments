@@ -1,0 +1,94 @@
+{
+  "roles": {
+    "body": {
+      "family": "Times New Roman",
+      "size": 19.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 4.7,
+      "latin_chars_per_100px": 10.8,
+      "caps_chars_per_100px": 7.1,
+      "digits_chars_per_100px": 9.4,
+      "citation_chars_per_100px": 10.3,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "title": {
+      "family": "Arial",
+      "size": 36.0,
+      "weight": "bold",
+      "cjk_chars_per_100px": 2.6,
+      "latin_chars_per_100px": 5.3,
+      "caps_chars_per_100px": 4.3,
+      "digits_chars_per_100px": 4.7,
+      "citation_chars_per_100px": 5.3,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "cover": {
+      "family": "Arial",
+      "size": 84.0,
+      "weight": "bold",
+      "cjk_chars_per_100px": 1.1,
+      "latin_chars_per_100px": 2.3,
+      "caps_chars_per_100px": 1.8,
+      "digits_chars_per_100px": 2.0,
+      "citation_chars_per_100px": 2.3,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "kicker": {
+      "family": "Arial",
+      "size": 13.0,
+      "weight": "bold",
+      "cjk_chars_per_100px": 7.2,
+      "latin_chars_per_100px": 14.7,
+      "caps_chars_per_100px": 11.8,
+      "digits_chars_per_100px": 13.0,
+      "citation_chars_per_100px": 14.6,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "label": {
+      "family": "Arial",
+      "size": 16.0,
+      "weight": "bold",
+      "cjk_chars_per_100px": 5.9,
+      "latin_chars_per_100px": 12.0,
+      "caps_chars_per_100px": 9.6,
+      "digits_chars_per_100px": 10.6,
+      "citation_chars_per_100px": 12.0,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "lead": {
+      "family": "Times New Roman",
+      "size": 24.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 3.7,
+      "latin_chars_per_100px": 8.6,
+      "caps_chars_per_100px": 5.6,
+      "digits_chars_per_100px": 7.4,
+      "citation_chars_per_100px": 8.1,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "note": {
+      "family": "Times New Roman",
+      "size": 14.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 6.4,
+      "latin_chars_per_100px": 14.7,
+      "caps_chars_per_100px": 9.5,
+      "digits_chars_per_100px": 12.8,
+      "citation_chars_per_100px": 13.9,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    }
+  },
+  "script_samples": {},
+  "source": "--role",
+  "generated_at": "2026-10-05T00:34:59Z",
+  "notes": [
+    "rates for cover, kicker, label, title are measured at bold weight"
+  ]
+}

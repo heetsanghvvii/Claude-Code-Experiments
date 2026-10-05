@@ -1,0 +1,473 @@
+{
+ "mapping": [
+  {
+   "id": "entry-1",
+   "skill": "PPT Master (hugohe3/ppt-master)"
+  },
+  {
+   "id": "entry-2",
+   "skill": "Ours: pptx (Anthropic)"
+  },
+  {
+   "id": "entry-3",
+   "skill": "Frontend Slides (zarazhangrui/frontend-slides)"
+  },
+  {
+   "id": "entry-4",
+   "skill": "Ours: canvas-design + pptx"
+  },
+  {
+   "id": "entry-5",
+   "skill": "Academic PPTX (Gabberflast/academic-pptx-skill) + pptx"
+  },
+  {
+   "id": "entry-6",
+   "skill": "Ours: theme-factory + pptx"
+  },
+  {
+   "id": "entry-7",
+   "skill": "UI/UX Pro Max slides (nextlevelbuilder)"
+  },
+  {
+   "id": "entry-8",
+   "skill": "Claude Design (jiji262/claude-design-skill)"
+  }
+ ],
+ "criteria": {
+  "storyline": 25,
+  "visual_design": 25,
+  "clarity": 20,
+  "audience_fit": 15,
+  "consistency": 10,
+  "editability": 5
+ },
+ "builds": [
+  {
+   "id": "entry-1",
+   "skill": "PPT Master (hugohe3/ppt-master)",
+   "build": {
+    "entry": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-1/deck.pptx (plus NOTES.md in the same folder)",
+    "built": true,
+    "direction": "A 12-slide 16:9 deck of native, editable PowerPoint shapes in a calm editorial \"private concierge\" look: deep green and warm paper with a brass accent, Times New Roman headlines over Arial body text, and hairline rules. The story follows the brief: portals are a numbers game, warm conversations work, Knock's 4 steps (chevrons), the Rahul message in a speech bubble with notes on why it works, why it is not spam (60 per week), the 4 packages in INR, the partnership offer (what the club gets and what Knock asks), success measured as interviews per 100 people contacted, a 3-week pilot timeline, and a close asking the club to pick 5 students, with hello@knock.careers. An arched door drawn in native shapes is closed on the cover and open on the closing slide. Nothing is invented: no numbers, customers or logos.",
+    "skill_steps_followed": "Read SKILL.md and ran attribution_guard.py (exit 0). Read routing.md and picked Generate PPTX, ordinary explicit Quick. Read the quick-generate.md planning batch (plan-core, canvas-formats, modes and visual-styles indexes, image-renderings index, icon README, chart and table vocabularies) and chose mode narrative, style editorial, canvas ppt169, no images, no notes. Read the execution core (shared-standards-core, executor-base, semantic-svg, preset-shape-vocabulary, native-shape-authoring, executor-structure, topology-assembly). Ran project_manager init --quick-generate, hand-wrote 12 flat SVGs, and made the native presets (homePlate, chevron, round2SameRect, wedgeRoundRectCallout) with preset_shape_svg.py render-batch. Ran the early gate and the final lockless svg_quality_checker (12 of 12 pass, no warnings) and reviewed the carrier receipt. Exported with svg_to_pptx.py --quick-generate --no-notes. Rendered it with render_deck.py and looked at the PNGs, fixed everything in one batch, rechecked, re-exported and confirmed with a second render. Temp files were deleted.",
+    "problems": "1) The session had been interrupted after a first export. I resumed from the SVGs already in my own entry folder rather than restarting a clean Quick run, which the skill prefers; this is disclosed in NOTES.md. 2) LibreOffice centres wrap=none auto-fit text boxes, so left-aligned titles drifted. A python-pptx post-pass on the exported file set those boxes to wrap=square and widened them toward their alignment side; all text stays editable. 3) This machine has no Georgia and its DejaVu Serif fallback is wider, so the message overflowed its bubble. I switched the serif to Times New Roman, whose metric-compatible fallback is Liberation Serif. 4) The page-number ornament rendered like a missing-glyph box, so I replaced it with a short rule and raised two small text lines. No image backends or external APIs were used, and nothing was committed or published."
+   }
+  },
+  {
+   "id": "entry-2",
+   "skill": "Ours: pptx (Anthropic)",
+   "build": {
+    "entry": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-2/deck.pptx (plus NOTES.md)",
+    "built": true,
+    "direction": "Private career concierge look: deep forest green, brass and white, with Cambria headings and Calibri body text. A door motif (frame, panel, brass knob, a strip of warm light when the door is open) repeats across the deck. There are 12 slides, each with an action title: title, problem, what works, 4 steps, example message, anti-spam guardrails, concierge vs AI tool, packages, partnership, metric, pilot timeline, close (\"Pick 5 students for the free pilot\", hello@knock.careers).",
+    "skill_steps_followed": "I wrote a pptxgenjs script as a structured deck. The theme object came first and every color is a scheme color. There are four named layouts (Title Dark, Content Light, Content Mist, Close Dark) with title and body placeholders, and the footer and slide number sit on the layouts. Each part of the story has its own section, composed shapes have objectNames, and every slide has speaker notes. After writeFile I ran applyTheme from the skill's apply_theme.js, then office/validate.py, which passed. I used markitdown to check the content: no em dashes, and the only placeholder is <Club name>. Design rules I followed: safe fonts, titles left-aligned in the same spot on every slide, no lines under titles and no edge stripes, varied layouts, a native table and native shapes. I rendered the deck to PNGs, fixed everything in one batch, re-rendered once to confirm, then deleted the temp files.",
+    "problems": "The skill says pptxgenjs is preinstalled, but it was not, so I installed it locally in the entry folder and removed it afterwards. apply_theme.js only finds pptxgenjs when NODE_PATH points to that local node_modules. The renderer does not have Cambria or Calibri and uses wider fonts instead, so I sized layouts with extra room. A font size set on a slide's placeholder is ignored because the layout's setting wins, so the close slide needed its own layout. Defects found and fixed in the first render: titles were centered, the step 3 title overlapped its text, a footnote ran into the footer, guard card titles and the Done-for-you price wrapped, and the closing title ran into its label."
+   }
+  },
+  {
+   "id": "entry-3",
+   "skill": "Frontend Slides (zarazhangrui/frontend-slides)",
+   "build": {
+    "entry": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-3/deck.html (plus /home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-3/NOTES.md)",
+    "built": true,
+    "direction": "Private career concierge look: warm ivory paper, deep forest-green ink and brass detail, with Newsreader serif headlines and Instrument Sans body text. One repeated motif, an arched door, ties the deck to the tagline. It appears on the title and closing slides, on the \"four kinds of doors\" slide, as the arched shape of the package cards, and in the door-plate page numbers. Speaker-led: 12 slides, one action title each, no invented numbers.",
+    "skill_steps_followed": "Mode A, new presentation. The brief replaced the question and style-preview steps, so I chose low density and one custom style myself, following the skill's design rules (no Inter or Roboto, no purple gradients, one committed palette, one graphic motif). The full viewport-base.css is inlined, with a fixed 1920x1080 stage scaled by one transform and slides switched by .active/.visible. The deck is one self-contained HTML file: inline CSS and JS, Google Fonts only, no CDN libraries, commented sections. The SlidePresentation controller handles keyboard, wheel and touch navigation, the progress bar sits outside the stage, reduced-motion is supported, and staggered reveals are kept calm. Inline editing is on by default (press E). Print rules add @page at 1920x1080, show every slide one per page, force all reveals visible and hide the controls. Self-check: I rendered once with render_deck.py in a temp entry-x copy, looked at the PNGs and fixed everything in one batch. I then fixed one leftover overlap on slide 3 and confirmed it. The temp folder is deleted.",
+    "problems": "The first render left too much empty space at the bottom of slides 3, 5, 10 and 11. I fixed this by adding closing lines and enlarging the door drawings and the timeline. That fix made the new closing line on slide 3 overlap the last bullet, so I tightened the bullet sizes and confirmed the fix on a re-render. Fonts load from Google Fonts, so offline viewing falls back to Georgia and Helvetica. There is a 'brand' folder in entry-3 that I did not create; I left it untouched."
+   }
+  },
+  {
+   "id": "entry-4",
+   "skill": "Ours: canvas-design + pptx",
+   "build": {
+    "entry": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-4/deck.pptx (11 slides, 16:9 LAYOUT_WIDE) plus /home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-4/NOTES.md",
+    "built": true,
+    "direction": "\"Threshold Light\": a field of hairline doors in deep ink, one of them open, with warm brass light spilling out. The palette is limited to ink, paper and brass, with Georgia headlines, Arial body text and spaced-caps kickers. A native door glyph (closed, lit, ajar, open) repeats on every slide as the motif and tracks progress through the story. Slide order: cover, problem, what already works, the 4 steps, example message, why it is not spam, packages, partnership, the metric, pilot timeline, close.",
+    "skill_steps_followed": "canvas-design: wrote the \"Threshold Light\" philosophy manifesto. Chose the subtle reference: closed doors stand for the job market, the open door for a warm conversation. Rendered 3 PNG artworks locally with Pillow (cover door field, closing door field, an illustrative applications grid) using DM Mono labels, then did one refinement pass on door proportions and light falloff. pptx: built a structured pptxgenjs deck. The theme went in first via apply_theme with 12 scheme colours. It has 4 layouts with named kicker and title placeholders, footer and slide numbers on the layouts, sections, scheme colours throughout, an objectName on every shape, and speaker notes on every slide. All text, cards, pricing and the timeline are native and editable. QA: validate.py passed. I rendered once with render_deck.py, viewed every slide and the contact sheet, and fixed these in one batch: left-aligned titles, wrapping headings that overlapped other text, a wrapped price, notes running past the margin, and timeline proportions. One re-render confirmed the fixes. Temp files (_build, _render, node_modules) were deleted.",
+    "problems": "pptxgenjs was not installed globally, so I installed it into a temp folder inside entry-4 and then deleted it. Georgia is missing from the render environment, so LibreOffice previews substitute DejaVu Serif, which is wider. Text boxes were sized with slack to allow for this. The art is flattened PNG by design; everything else is native."
+   }
+  },
+  {
+   "id": "entry-5",
+   "skill": "Academic PPTX (Gabberflast/academic-pptx-skill) + pptx",
+   "build": {
+    "entry": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-5/deck.pptx (plus /home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-5/NOTES.md)",
+    "built": true,
+    "direction": "Feels like a private concierge: deep evergreen and brass on white, Georgia headlines with Arial body text, and a drawn door as the one motif that repeats. Follows a consulting-style Situation/Complication/Resolution arc across 12 slides: problem, what already works, why students do not do it, the 4 steps, an example message, why it is not spam, packages, the partnership offer, how success is measured, the pilot timeline, and a close asking the club to pick 5 students. Every slide has an action title, and reading the titles alone tells the whole argument. All slides are native, editable PowerPoint text and shapes. The title and close slides are dark, and every slide has speaker notes. Nothing is invented: no statistics, testimonials or logos.",
+    "skill_steps_followed": "Read the academic-pptx SKILL.md, content_guidelines.md and slide_patterns.md, plus the pptx SKILL.md. Step 1: chose Structured Argument mode with the Situation/Complication/Resolution arc. Step 2: planned a slide-by-slide outline with action titles and checked that the titles alone tell the argument; the brief stood in for user approval. Step 3: communication-first design: white content slides, 3-colour palette, one exhibit per slide, left-aligned titles, about 40 words of body text per slide, no decorative icons and no lines under titles. Built with pptxgenjs as a structured deck: theme set with applyTheme, slide layouts with named title and kicker placeholders, footer and slide numbers in the layout, speaker notes on each slide. Step 4: validate.py passed. Rendered with render_deck.py on a temp entry-x copy, looked at every slide, fixed issues in one batch (centred titles, a 3-line title, font swap, package card overflow, the formula graphic), then re-rendered to confirm. The deck ends on a conclusions slide with the next step and contact. Temp files are deleted.",
+    "problems": "The render machine has no stand-ins for Calibri or Cambria that match their widths, so I switched to Arial and Georgia. Georgia previews as DejaVu Serif, which is wider than real Georgia, so PowerPoint will show more room than the renders. The Done-for-you package card took two extra small fixes after the batch to stop the price and detail lines wrapping. The last fix only shortened a label, so it was not re-rendered. The academic skill asks for 20 pt body text; secondary card text is 15 to 16 pt, while the main points stay at 18 to 20 pt. I left out the References slide on purpose: the deck cites no sources, and the brief forbids invented statistics."
+   }
+  },
+  {
+   "id": "entry-6",
+   "skill": "Ours: theme-factory + pptx",
+   "build": {
+    "entry": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-6/deck.pptx (plus NOTES.md in the same folder)",
+    "built": true,
+    "direction": "I made a custom theme called \"Brass Door\": deep evergreen and white with one brass accent, Times New Roman headings and Arial body text, to feel like a calm private concierge. The brass door-knocker ring repeats throughout as the logo, step numbers, bullets and footer, and a drawn vector door appears on the title, people and close slides. The deck has 12 slides, each with an action title: problem, what already works, the four steps, who we find, an example message, why it is not spam (the 60-people stat), packages, the partnership offer, the metric, the pilot timeline, and the next step.",
+    "skill_steps_followed": "theme-factory: I looked at the preset themes and none fit the concierge brief, so I created a custom palette and font pair, as the skill allows. The brief stood in for the showcase and approval steps. pptx: I built a structured pptxgenjs deck with a THEME object, scheme colors only, sections, two layouts (DARK, and CONTENT with a title placeholder, footer and slide number), named shapes and speaker notes, then ran writeFile and applyTheme. validate.py passed. I rendered once with the competition script, fixed everything in one batch, re-rendered to confirm, and stopped there.",
+    "problems": "pptxgenjs was not installed globally, so I installed it into a temp folder inside the entry and deleted the folder at the end. Cambria and Calibri are missing here, so the first render fell back to wide DejaVu fonts and text overflowed; switching to Times New Roman and Arial made the render match true widths. The floor-light trapezoid lost its transparency in LibreOffice, so I replaced it with a solid doorstep. I also fixed text wrapping on the package, partnership and metric cards. One small flaw is left: on the title slide, \"door.\" wraps onto its own line."
+   }
+  },
+  {
+   "id": "entry-7",
+   "skill": "UI/UX Pro Max slides (nextlevelbuilder)",
+   "build": {
+    "entry": "/home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-7/deck.html (with NOTES.md)",
+    "built": true,
+    "direction": "Private career concierge, not software. Warm paper and ink navy with one brass accent, Fraunces serif headlines and Inter body text. 12 slides, one idea each with action titles, covering problem, what works, 4 steps, an annotated example message, why it is not spam, packages, the two-sided offer, measurement, pilot timeline and the close (\"Pick 5 students\"). A line-drawn door is the recurring motif. No invented numbers, testimonials or logos.",
+    "skill_steps_followed": "1. Loaded the slides skill's create subcommand and its references: layout patterns, HTML template, copywriting formulas and slide strategies. 2. Ran the offline design-system search for \"Knock\". Kept its storytelling sequence and its CTA-at-the-end rule, and rejected its glass style as off-brand. 3. Set up CSS design tokens following the HTML template, with 1920x1080 slide sections and keyboard navigation. 4. Matched each storyline beat to a layout pattern. 5. Wrote the copy with the formulas: PAS for the problem and a single CTA at the close. 6. Drew all visuals as inline SVG/CSS instead of Chart.js. 7. Added @media print rules for one 1920x1080 slide per page. 8. Rendered once and fixed everything in one batch (body blocks centred under the titles, testimonial-like quotes reworded). Re-rendered once to confirm: 12 slides, no errors. Deleted the temp files.",
+    "problems": "Chart.js is blocked, so all charts are CSS/SVG. Google Fonts may not load in an offline renderer, in which case the headlines fall back to a system serif. On the first render, the content sat high on several slides and some quotes read like testimonials. Both are fixed. The renderer needs a folder that contains entry-* subfolders, so I passed the entry-7 folder with its temp entry-x copy inside, and deleted both afterwards."
+   }
+  },
+  {
+   "id": "entry-8",
+   "skill": "Claude Design (jiji262/claude-design-skill)",
+   "build": {
+    "entry": "entry-8: /home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-8/deck.html (12 slides, 1920x1080, @media print sets @page to 1920x1080 and prints one slide per page) plus /home/user/Claude-Code-Experiments/competitions/deck-knock-partner-pitch/entry-8/NOTES.md",
+    "built": true,
+    "direction": "A private-concierge editorial look: warm paper content slides, with deep forest green for the opening, offer and close slides, and brass as the only accent colour. Action titles are in Newsreader serif over Hanken Grotesk text, with hairline rules instead of boxes and an arched-doorway line on the title and close slides. There are 12 slides with one idea each, following the brief's storyline, plus one extra slide on how the batch stays in control. No numbers are invented and the <Club name> placeholders are kept.",
+    "skill_steps_followed": "I read SKILL.md, output-formats (slide deck) and design-principles. As the brief allowed, I skipped questions, the Core Asset Protocol, web research and variations. I wrote the design system (type scale, colours, header and footer pattern) as a comment at the top of the HTML before building. I built one HTML deck with a scaling stage, keyboard and button navigation, and print rules. I followed the craft rules: body text at 24px or more, no emoji, no gradients, no accent-stripe cards, and labelled placeholders instead of fake assets. For the self-check I rendered once with render_deck.py from a temp copy inside my entry folder, reviewed the PNGs, fixed everything in one batch, re-rendered to confirm, and deleted the temp files.",
+    "problems": "Google Fonts do not load in the offline render, so the PNGs use Times and Arial-style fallback fonts; the layout still holds. The first render showed three problems, all fixed: the approval bar on slide 4 overlapped the footer, the email on slide 12 picked up the small-caps label style, and the spacing around the placeholder on slide 7 was wrong. Because this is an HTML deck, the text is edited in code, not in PowerPoint."
+   }
+  }
+ ],
+ "render": "[{\"entry\":\"entry-1\",\"source\":\"deck.pptx\",\"slides\":12,\"errors\":[]},{\"entry\":\"entry-2\",\"source\":\"deck.pptx\",\"slides\":12,\"errors\":[]},{\"entry\":\"entry-3\",\"source\":\"deck.html\",\"slides\":12,\"errors\":[]},{\"entry\":\"entry-4\",\"source\":\"deck.pptx\",\"slides\":11,\"errors\":[]},{\"entry\":\"entry-5\",\"source\":\"deck.pptx\",\"slides\":12,\"errors\":[]},{\"entry\":\"entry-6\",\"source\":\"deck.pptx\",\"slides\":12,\"errors\":[]},{\"entry\":\"entry-7\",\"source\":\"deck.html\",\"slides\":12,\"errors\":[]},{\"entry\":\"entry-8\",\"source\":\"deck.html\",\"slides\":12,\"errors\":[]}]",
+ "judgements": [
+  {
+   "lens": "presentation-coach",
+   "scores": [
+    {
+     "entry": "entry-1",
+     "storyline": 9,
+     "visual_design": 9,
+     "clarity": 8,
+     "audience_fit": 9,
+     "consistency": 9,
+     "editability": 10,
+     "brief_violations": "None found. No em dashes, no exclamation marks, no invented numbers; the problem grid is labelled 'Illustration of the pattern, not measured data'. No speaker notes, which the brief allows.",
+     "strengths": "Best narrative bookend in the field: a closed arched door on the title becomes an open, lit door on the close ('Pick 5 students for the free pilot'). Every slide has a numbered kicker, a short action title and a one-line subtitle, so a committee can follow it in 5 minutes from the titles alone. An added slide 9, 'Low effort for the club. Proof before endorsement.', speaks directly to a committee protecting its batch's inbox and reputation (inbox, cost, control, evidence). The packages, partnership offer ('Four things for your members. Two small asks.') and measurement slides are clean and complete. The pilot timeline adds a 'club's part' row. Fully native PPTX with semantically named groups (pkg-sprint, club-gets, knock-asks); no images.",
+     "weaknesses": "Body and subtitle text is small (about 11-12pt equivalent) on several slides and would struggle on a projector. The speech-bubble tail on the message slide is skewed and looks off. Dark panels on slides 8 and 10 show a faint mis-joined line along the top edge. The two-line subtitle on almost every slide is slightly over-explained. No speaker notes for the founder."
+    },
+    {
+     "entry": "entry-8",
+     "storyline": 9,
+     "visual_design": 9,
+     "clarity": 9,
+     "audience_fit": 9,
+     "consistency": 9,
+     "editability": 5,
+     "brief_violations": "None found. Copy is clean and the measurement slide makes no promises ('We have no results to show yet, so we make no promises').",
+     "strengths": "The most refined editorial typography of all entries: a Newsreader serif with italic accents ('right door.', 'free pilot.'), generous whitespace and hairline rules. It reads like a private concierge, not software. The titles are short and confident ('Your club gets a lot. We ask for very little.'). The problem slide pairs a 4-step portal loop ('Wait. Mostly, hear nothing.') with a large 'People hire people.' A dedicated slide, 'Your students stay in control, and so does your club's name.', handles the committee's main fear. The partnership slide sits on dark green for emphasis and ends with 'That is all. Your batch's inbox stays yours.' The close is a strong two-row 'We start / Write to' layout. <Club name> placeholders are styled as visible editable chips.",
+     "weaknesses": "Delivered as HTML, not native PPTX, so a committee or founder cannot edit it in PowerPoint. The reassurance slide comes after the timeline (slide 11), late in the story, where it delays the close; it belongs next to the not-spam slide. The line-art door on the title is thin and reads faintly. Some slides (packages, measurement) are text-heavy. No 4-step visual differentiation beyond numbers."
+    },
+    {
+     "entry": "entry-7",
+     "storyline": 8,
+     "visual_design": 8,
+     "clarity": 8,
+     "audience_fit": 8,
+     "consistency": 8,
+     "editability": 5,
+     "brief_violations": "Minor scope additions not in the brief: 'For senior or complex moves' as a Done-for-you qualifier, and per-person price math ('About Rs 42 per person researched'). These are derived, not invented results, so they are not hard violations. A 'Recommended start' badge leans slightly salesy.",
+     "strengths": "A distinctive navy-and-brass palette, still calm and premium. The title art (three arches, one lit) is a good metaphor. The example message slide is the best in the field: inline numbered markers tie each phrase to its 'why it works' note. A useful audience slide ('Useful for the students and alumni searching on their own') shows the club who benefits. The four steps carry ownership tags (WITH THE STUDENT / KNOCK). The partnership title 'Your club gets four things. We ask for two.' is crisp. Native SVG icons; text is live HTML.",
+     "weaknesses": "Headline widows on several slides ('reach.', 'own.' left alone on a second line) look careless. The close slide has a large empty middle band and a weak, tiny door icon. The partnership slide leaves dead space at the bottom. Small grey body text throughout. HTML only, so no PowerPoint editability. The breadcrumb label plus kicker plus title makes three header layers, which is redundant."
+    },
+    {
+     "entry": "entry-3",
+     "storyline": 8,
+     "visual_design": 8,
+     "clarity": 7,
+     "audience_fit": 8,
+     "consistency": 8,
+     "editability": 5,
+     "brief_violations": "No hard violations. A 'Most balanced' badge on Standard is a mild sales nudge. 'Private and confidential' on the title is fine.",
+     "strengths": "The title slide is the most cinematic: huge serif 'Knock' with a glowing arch. Elegant italic-accent titles throughout. An added slide, 'Every target company has four kinds of doors' (hiring managers, team members, alumni, senior introducers), is a smart reinforcement of the door motif. The highlighted phrases in the example message work well. The partnership slide ends with 'That is all.', a strong touch. Measurement is shown as a fraction with a 'No promises yet' column.",
+     "weaknesses": "The packages slide is the weakest of the top entries: arch-topped cards leave big empty gaps, the Done-for-you price floats mid-card out of line with the other three prices, and the days/people details are visually buried. The problem slide's stacked 'Application / NO REPLY' cards look jumbled rather than designed. On slide 10 the body text nearly collides with the footer. The title arch bleeds off the bottom edge awkwardly. The arched page-number badge is fussy. HTML only."
+    },
+    {
+     "entry": "entry-4",
+     "storyline": 8,
+     "visual_design": 7,
+     "clarity": 8,
+     "audience_fit": 8,
+     "consistency": 8,
+     "editability": 8,
+     "brief_violations": "No hard violations. 11 slides, within range. The cover art contains illegible micro-labels (tiny numbers and 'Fig' text in the door grid) that read as junk.",
+     "strengths": "Strong concept art: a lit door in a grid of dark doors (title and close) shows 'the right door' instantly. The 'People hire people.' italic on the problem slide is effective. Clear action titles ('Job portals turn a search into hundreds of applications and very few replies'). The partnership slide states 'No exclusivity, no fees, no data shared without consent', which is good for a cautious committee. The packages slide adds 'Pilot students pay nothing.' Speaker notes on 11 slides.",
+     "weaknesses": "The cover, problem and close art are rasterised PNGs, so the main visuals cannot be edited and look soft. Titles render in a slab-like Georgia fallback that feels heavier and less premium than the serif entries. The door-icon bullets on the not-spam slide are tiny and meaningless. The partnership slide has a large gap under the title. Merging packages and offer pacing makes the deck feel a little rushed at 11 slides. Minor small-caption clutter."
+    },
+    {
+     "entry": "entry-5",
+     "storyline": 9,
+     "visual_design": 6,
+     "clarity": 8,
+     "audience_fit": 8,
+     "consistency": 7,
+     "editability": 9,
+     "brief_violations": "None found. Title includes 'October 2026' and audience line, which is fine.",
+     "strengths": "The most McKinsey-style storyline: full-sentence action titles that work on their own ('The club gets a free pilot and a founding price; Knock asks for one announcement and one call'). An added slide, 'Students know warm outreach works, but doing it well takes time most do not have', is the best 'why now / why us' bridge in the field. The measurement equation (Interviews / People contacted x 100 = the one number) is very clear. The close recaps three takeaways before the contact. Fully native and editable, with speaker notes on every slide.",
+     "weaknesses": "The visuals are the plainest of the field: a flat rectangular door repeated identically on title and close, and generic bordered cards. The type is inconsistent, mixing heavy bold slab serif (step numbers, package names, 'One announcement') with regular-weight serif titles. Two-line titles on nearly every slide make it feel dense and less premium than the brand voice asks for. The semicolon title on slide 9 is clunky. Not much visual hierarchy beyond cards."
+    },
+    {
+     "entry": "entry-2",
+     "storyline": 8,
+     "visual_design": 6,
+     "clarity": 8,
+     "audience_fit": 8,
+     "consistency": 7,
+     "editability": 9,
+     "brief_violations": "None hard. Slide 7 names 'AI job tool' to position against it, which is acceptable and arguably on-brief, but a comparison against an unnamed 'Mass outreach tools' category edges toward a straw man.",
+     "strengths": "Covers every storyline point with clear action titles. A smart added slide is the comparison table 'Knock is a private career concierge, not another AI job tool' (who chooses, who writes, who sends, how many, after a reply). It directly answers the audience's hype allergy. The pilot timeline adds per-phase checklists. Native PPTX with speaker notes on all 12 slides.",
+     "weaknesses": "In render the titles come out as heavy bold serif in a Cambria fallback, which feels loud and chunky rather than calm and premium. The close slide is cramped: title, subtext and email are stacked tight with no breathing room, and the door is identical to the title's. On the four steps, descriptions sit far below the headings with uneven gaps. The pale grey-green cards blur together. The measurement slide's 'Interviews / 100 people contacted' box is visually weak. Overall competent but generic."
+    },
+    {
+     "entry": "entry-6",
+     "storyline": 8,
+     "visual_design": 5,
+     "clarity": 7,
+     "audience_fit": 7,
+     "consistency": 7,
+     "editability": 9,
+     "brief_violations": "None hard. The door illustration with a big knocker ring tips toward cartoon or clip art, which is off the 'calm, premium' brief.",
+     "strengths": "Complete storyline, including an added 'We look for the people who can actually open a door' slide (four kinds of contacts). The not-spam slide is clear. The measurement slide states 'No promised numbers.' Native PPTX with notes on every slide.",
+     "weaknesses": "The weakest visual polish: the cartoonish sage door with an oversized knocker looks like clip art. Times New Roman bold titles look dated. The title slide wraps 'door.' alone onto line two. Text crowds the card edges on slides 5 and 9 ('being in your seat.' touches the card bottom; 'A co-hosted session' runs to the panel edge). The ring logo is reused as a bullet everywhere and becomes noise. Small 10x5.6in canvas with small body text. The close repeats the title art. Feels like a template, not a concierge."
+    }
+   ],
+   "ranking": [
+    "entry-1",
+    "entry-8",
+    "entry-7",
+    "entry-3",
+    "entry-4",
+    "entry-5",
+    "entry-2",
+    "entry-6"
+   ],
+   "best_ideas_to_graft": "Entry 1's door bookend: closed door on the title, open lit door on the close. Also its 'why it is safe to say yes' slide (inbox, cost, control, evidence) and named native groups for editing. Entry 8's typography and restraint: serif with italic accents, hairline rules, styled <Club name> chips, the close's 'We start / Write to' rows and 'That is all. Your batch's inbox stays yours.'. Entry 7's example message with inline numbered markers tied to each 'why it works' note, and ownership tags on the four steps (WITH THE STUDENT / KNOCK). Entry 5's bridge slide ('Students know warm outreach works, but doing it well takes time most do not have') and its explicit equation for the metric. Entry 2's 'not another AI job tool' comparison table, aimed at a hype-averse committee. Entry 3's 'four kinds of doors' slide. Entry 4's 'No exclusivity, no fees, no data shared without consent' and 'Pilot students pay nothing'. Use larger body text than any of them for projection, and add speaker notes (missing in entry 1)."
+  },
+  {
+   "lens": "design-director",
+   "scores": [
+    {
+     "entry": "entry-1",
+     "storyline": 9,
+     "visual_design": 9,
+     "clarity": 8,
+     "audience_fit": 9,
+     "consistency": 9,
+     "editability": 9,
+     "brief_violations": "None found. No em dashes, no exclamation marks, no invented numbers. The grid of applications on slide 2 is labelled 'Illustration of the pattern, not measured data'. It covers all 11 storyline beats and adds a strong 'Low effort for the club. Proof before endorsement' slide, for 12 slides in total.",
+     "strengths": "This is the most complete story and the best fit for the audience. The added slide 9 (inbox, cost, control, evidence) takes on the committee's main fear, their batch's reputation, before the measurement and pilot slides. The door motif works as bookends: a closed arched door on the title, then the same door open with warm light on the close, which pays off the tagline visually. The palette is calm and premium: deep green, cream and bronze. Every slide has a numbered eyebrow, action titles and a consistent footer. The packages slide is clean, with Done-for-you inverted and an 'In every package' band. In the message slide, bronze highlights mark the parts of the message that do the work. The deck is native PPTX with theme fonts (Times New Roman/Arial), so it renders faithfully with no font fallback. Text and shapes are fully editable, with no images.",
+     "weaknesses": "Body and caption type is small, around 9 to 11pt equivalent. Card descriptions on slides 4, 8 and 10 will be hard to read projected at the back of a room. On slide 5, the speech-bubble tail shows a visible seam where it joins the bubble. The dark panel on slide 8 has a small notch artifact on its top edge. Subtitles under every title add a third tier of hierarchy that is sometimes redundant. There are no speaker notes."
+    },
+    {
+     "entry": "entry-8",
+     "storyline": 9,
+     "visual_design": 9,
+     "clarity": 9,
+     "audience_fit": 9,
+     "consistency": 9,
+     "editability": 5,
+     "brief_violations": "Done-for-you is described as 'For senior or complex searches', a small positioning claim the brief does not make. It delivers HTML instead of the preferred PPTX. No em dashes, exclamation marks or invented numbers.",
+     "strengths": "This is the most restrained and editorial entry. The typography is large and confident, with an italic serif accent ('right door.', 'people.', 'free pilot.'). Thin rules do the structuring instead of heavy boxes. It reads best of all eight when projected, because body copy sits at a generous size. The problem slide is excellent: the four-step futility list ends in an italic 'Wait. Mostly, hear nothing.' next to a big 'People hire people.' Switching the partnership slide to dark green is a good pacing beat. The <Club name> placeholder is styled as a dashed chip, which shows clearly where to edit. The added slide 11, 'Your students stay in control, and so does your club's name', is a smart reassurance before the close. The close pairs a clean we-start / write-to table with a line-art door, opened slightly.",
+     "weaknesses": "It is an HTML deck with no contenteditable, so a founder cannot edit it in PowerPoint or Keynote. The Google Fonts failed in the render and fell back to Liberation Serif. On packages, the club-members line sits tight against the footer rule. The line-art door is thin and could vanish on a washed-out projector. The 'Knock' wordmark appears twice on the title slide."
+    },
+    {
+     "entry": "entry-3",
+     "storyline": 9,
+     "visual_design": 8,
+     "clarity": 8,
+     "audience_fit": 8,
+     "consistency": 9,
+     "editability": 5,
+     "brief_violations": "The 'MOST BALANCED' badge on the Standard package is a sales nudge the brief never makes. 'Priced for students' slightly misstates the audience, which includes alumni. It delivers HTML instead of the preferred PPTX. No em dashes, exclamation marks or invented numbers.",
+     "strengths": "The arch and door motif is the most original idea here. The arches carry through the title, the 'four kinds of doors' slide (hiring managers, team members, alumni, senior introducers, a good added beat), the arched package cards, the half-arch page-number badges and the close. The display serif with italic bronze emphasis is elegant and consistent. On the partnership slide, 'That is all.' is well judged. The measurement formula is shown as a typographic fraction. The cream and near-black palette feels like a private concierge.",
+     "weaknesses": "The arched package cards leave a large dead zone between the people count and the price. The Done-for-you price floats higher than the other three, and its 'FROM' label collides with the short divider, which reads as a layout bug. The italic accent appears in every single headline and becomes a mannerism. On slide 10, the 'batch.' text runs down into the footer zone. The title-slide arches bleed off the bottom, which is fine on screen but can look cropped in PDF. It is HTML-only, with limited editability."
+    },
+    {
+     "entry": "entry-7",
+     "storyline": 8,
+     "visual_design": 8,
+     "clarity": 8,
+     "audience_fit": 8,
+     "consistency": 8,
+     "editability": 4,
+     "brief_violations": "The packages slide adds derived per-person costs ('About Rs 42 per person researched'), a 'RECOMMENDED START' badge, 'For senior or complex moves' and 'Closer guidance on every reply' for Done-for-you. All of these embellish beyond the brief's pricing facts. It adds an extra <Institute> placeholder. It delivers HTML instead of PPTX. No em dashes or exclamation marks.",
+     "strengths": "Navy and gold is a confident, distinctive departure that still feels calm and premium. The problem slide uses a well-designed four-stage timeline (Apply, Join the pile, Get filtered, Hear nothing) with a faded final node. The added 'who it helps' slide (students, alumni, function switchers) with italic typical cases is genuinely useful to a club audience. The running header (wordmark left, section right) and 'NN / 12' folios give a polished, report-like system. The three-door title illustration, with one gold door lit, is a clean visual metaphor.",
+     "weaknesses": "Headlines wrap with orphans ('reach.', 'own.') on slides 7 and 8. The close has a huge empty band between the three steps and the email, and the small door icon sits alone in the corner. On the Done-for-you card, the subtitle collides with its divider. The packages slide is the busiest of all the entries, with bullets, per-person maths and badges, and it reads like SaaS pricing, not a concierge. Card body text is small. It is HTML with no contenteditable, so it is the hardest entry to edit."
+    },
+    {
+     "entry": "entry-4",
+     "storyline": 8,
+     "visual_design": 7,
+     "clarity": 8,
+     "audience_fit": 8,
+     "consistency": 8,
+     "editability": 8,
+     "brief_violations": "None of substance. There are 11 slides, all 11 storyline beats with nothing added. No em dashes, exclamation marks or invented numbers. The 'Illustrative' captions are honest.",
+     "strengths": "It has the strongest single image in the competition. On the title and close, one lit door in a dark grid of doors throws a beam of light, which nails 'the right door' among many. The structure is clean: numbered eyebrows, action titles and consistent footers. The partnership slide has a nice closing line: 'No exclusivity, no fees, no data shared without consent.' The packages slide carries 'Pilot students pay nothing.' Text and shapes are native and editable, and there are speaker notes on every slide.",
+     "weaknesses": "Georgia is not available to the renderer, so all headlines fell back to wide DejaVu Serif. That looks generic and clunky, not premium. The hero door-grid art is a raster PNG with tiny illegible labels baked in, which look like stray artifacts. The small door icons in the not-spam and step cards read as empty placeholder rectangles. The middle slides are plain grey boxes on off-white, competent but forgettable next to the strong bookends. The message slide in dark mode, with a heavy bronze bold message, is harder to read."
+    },
+    {
+     "entry": "entry-5",
+     "storyline": 7,
+     "visual_design": 6,
+     "clarity": 8,
+     "audience_fit": 8,
+     "consistency": 8,
+     "editability": 9,
+     "brief_violations": "No content violations. It is dated 'October 2026' on the title, which is acceptable. No em dashes, exclamation marks or invented numbers.",
+     "strengths": "It has the most consulting-style titles: full-sentence action titles that MBA committee heads will respect. The measurement formula is shown as Interviews \u00f7 People contacted \u00d7 100 = the one number. The partnership title states the deal in one line. Pricing is clear. The close recaps three takeaways next to the email. Text and shapes are fully native, with speaker notes.",
+     "weaknesses": "Slide 4 ('why students do not do it', four numbered cards) and slide 5 (Knock's four steps) are back-to-back four-part slides that say nearly the same thing, which wastes a slot. Georgia fell back to heavy bold DejaVu Serif, so the titles and close shout. That cuts against 'calm, premium'. The title door is a flat rectangle with a cream sliver and no craft. The layout is a generic card grid repeated slide after slide. Long two-line titles crowd the top of most slides."
+    },
+    {
+     "entry": "entry-2",
+     "storyline": 8,
+     "visual_design": 5,
+     "clarity": 7,
+     "audience_fit": 8,
+     "consistency": 7,
+     "editability": 8,
+     "brief_violations": "None in content. Calibri and Cambria are not installed in the render environment, so the deck renders in DejaVu fallback. Calibri and Cambria are common fonts, but the delivered render looks off-brand. No em dashes or exclamation marks.",
+     "strengths": "Slide 7, the 'Knock is a private career concierge, not another AI job tool' comparison table (mass outreach tools vs Knock: who chooses, who writes, who sends, how many, after a reply), is the most direct answer anywhere to the audience's anti-hype reflex. The measurement slide has an honest 'No promises yet' line. The partnership split is clear. It has speaker notes on all slides and native text.",
+     "weaknesses": "Visually it is the heaviest and least premium entry. Bold slab-like serif titles in the DejaVu fallback, with no eyebrows and no breathing room, look like a default template. The title slide is under-designed: the tagline and the club line are jammed together under the wordmark, and the door is just a rectangle with a cream bar. On the close, the subtitle and email are cramped right under the headline. In the step cards on slide 4, text touches the card bottoms. There is very little hierarchy between labels and body text."
+    },
+    {
+     "entry": "entry-6",
+     "storyline": 8,
+     "visual_design": 5,
+     "clarity": 7,
+     "audience_fit": 6,
+     "consistency": 7,
+     "editability": 9,
+     "brief_violations": "No content violations. The cartoonish door illustration with a knocker pulls against 'calm, premium, private concierge' but is not forbidden. No em dashes or exclamation marks.",
+     "strengths": "The added 'We look for the people who can actually open a door' slide (four target types) is a good story beat. The storyline follows the brief faithfully, with clear action titles. The measurement slide shows the formula with 'No promised numbers'. Text and shapes are fully native, with speaker notes.",
+     "weaknesses": "The illustrated door, in sage with a heavy bronze frame and knocker, reads as clip-art and childish, not private-banking premium. Layouts are cramped: titles sit right on top of content, and text runs into card edges ('A co-hosted session' hits the panel edge, Alumni copy nearly touches the box bottom). Bold Times New Roman titles look default. The title slide squeezes the headline and subtitle together, with a pill button that feels like web UI. Little whitespace means this would look crowded projected."
+    }
+   ],
+   "ranking": [
+    "entry-1",
+    "entry-8",
+    "entry-3",
+    "entry-7",
+    "entry-4",
+    "entry-5",
+    "entry-2",
+    "entry-6"
+   ],
+   "best_ideas_to_graft": "From entry-4: the lit door in a dark grid of doors, used as the hero visual on the title and close (rebuild it as native vector shapes, not a PNG). From entry-1: the closed door on the title opening to warm light on the close, and its 'Low effort for the club. Proof before endorsement.' slide. From entry-2: the 'mass outreach tools vs Knock' comparison table, to defuse the anti-AI-hype reflex. From entry-8: generous projected type sizes, rule-based tables instead of heavy boxes, the dashed <Club name> placeholder chip, and a dark-mode partnership slide as a pacing beat. From entry-3: the 'four kinds of doors' slide (hiring managers, team members, alumni, senior introducers) and the arch motif carried into page-number badges. From entry-7: the four-stage problem timeline (Apply, Join the pile, Get filtered, Hear nothing) and the 'who it helps' slide (students, alumni, switchers). From entry-5: the explicit Interviews \u00f7 People contacted \u00d7 100 formula and a three-point recap on the close. Avoid badges like 'Most balanced' or 'Recommended start', and descriptors invented for Done-for-you."
+  },
+  {
+   "lens": "club-head",
+   "scores": [
+    {
+     "entry": "entry-1",
+     "storyline": 9,
+     "visual_design": 8,
+     "clarity": 9,
+     "audience_fit": 9,
+     "consistency": 9,
+     "editability": 9,
+     "brief_violations": "None found. No em dashes, no exclamation marks, no invented numbers. The problem-slide grid is labelled 'Illustration of the pattern, not measured data'. The '\u2014' next to page numbers is a drawn rule, not text.",
+     "strengths": "Best answer to the question 'is this safe for my batch'. It adds a slide titled 'Low effort for the club. Proof before endorsement.' covering inbox, cost, control and evidence, which is exactly what a club head checks before saying yes. All 11 storyline beats are there with tight action titles ('Four things for your members. Two small asks.'). The door motif pays off: shut on the title slide, open and lit on the close. Packages are clean, with an 'In every package' bar that says what is actually bought. The partnership slide sets the club's 4 gets against Knock's 2 asks clearly. Native PowerPoint text in groups with sensible names, no images, theme fonts.",
+     "weaknesses": "Body text runs small (around 9 to 10pt at render) on the 4-step and pilot slides. No speaker notes, so a founder emailing it gets no help. The palette (dark green, cream, brass) and layouts are safe and look a lot like several other entries. The 'one number' slide puts a dark card next to two white cards and the right column feels thin."
+    },
+    {
+     "entry": "entry-8",
+     "storyline": 9,
+     "visual_design": 9,
+     "clarity": 8,
+     "audience_fit": 9,
+     "consistency": 9,
+     "editability": 5,
+     "brief_violations": "None in content. It is an HTML deck, which the brief allows but does not prefer (pptx preferred).",
+     "strengths": "The most premium, editorial typography of the field: large serif with italic accents ('right door.', 'free pilot.') feels like a private concierge, not ed-tech. The problem slide's 4-step list ending 'Wait. Mostly, hear nothing.' with 'People hire people.' beside it is the sharpest problem framing. It adds 'Your students stay in control, and so does your club's name', which speaks straight to reputation risk ('We do not message your batch directly. Students opt in.'). Packages put 'FOUNDING PRICE' above each price. The dark-green partnership slide closes with 'That is all. Your batch's inbox stays yours.' The close has a start date, the email and an ajar door. Footers and rules are consistent.",
+     "weaknesses": "The batch-safety slide comes after the timeline (slide 11), so the reassurance lands late instead of next to the ask. The timeline splits weeks 1 to 2 across two loose columns, so week 3 floats far right and the slide reads unbalanced. Empty lower thirds on several slides. HTML, so a club or founder cannot easily edit it in PowerPoint or Slides."
+    },
+    {
+     "entry": "entry-3",
+     "storyline": 9,
+     "visual_design": 9,
+     "clarity": 8,
+     "audience_fit": 8,
+     "consistency": 8,
+     "editability": 5,
+     "brief_violations": "No content violations. It is HTML, not the preferred pptx. 'MOST BALANCED' on the Standard package is a mild sales nudge that the calm brand voice discourages.",
+     "strengths": "The most distinctive visual idea: arch-shaped package cards and an arch-door motif, with a stacked 'Application / NO REPLY' card pile on the problem slide that reads instantly. Its added 'four kinds of doors' slide (hiring managers, team members, alumni, senior introducers) makes the research step concrete. The example message highlights each shared detail inline. The partnership slide ends 'That is all.', which is reassuring. The close lists 3 numbered next steps plus the email. Its 'No promises yet' line shows honesty.",
+     "weaknesses": "Price placement is uneven: the Done-for-you price sits higher than the other three because its card has no spacer, which breaks the row. 'Priced for students' plus 'Most balanced' sounds a little consumer-salesy to a skeptical club head. The title arch bleeds off the bottom of the slide, and the footer page number sits in a tiny arch that is hard to read. On the metrics slide, body copy nearly touches the footer. HTML hurts editability."
+    },
+    {
+     "entry": "entry-7",
+     "storyline": 8,
+     "visual_design": 8,
+     "clarity": 8,
+     "audience_fit": 8,
+     "consistency": 8,
+     "editability": 5,
+     "brief_violations": "HTML, not the preferred pptx. 'RECOMMENDED START' badge is a sales nudge. Adds unbriefed specifics ('For senior or complex moves', 'A full Sprint for each' pilot student). These are plausible, not fabricated claims.",
+     "strengths": "Navy and gold set it apart and still feel premium. The packages slide is the most informative: per-person cost derived from the prices ('About Rs 33 per person researched') and inclusion bullets ('Everything in Sprint'). That builds trust that it is not a black box. The 'Useful for students and alumni searching on their own' slide shows the club the use cases (off-campus, lateral, function switch). The example message footnotes 1, 2 and 3 inline. Partnership: 'Your club gets four things. We ask for two. No exclusivity. No inbox takeover.' Clear and safe. The close frames 'One decision for the committee'.",
+     "weaknesses": "The close is mostly empty navy with a small outline door bottom right, which feels unfinished next to the cover. The timeline leaves a big gap between weeks 1 to 2 and week 3, and the lower 40% of the slide is empty. The cold vs warm table on slide 3 is tiny and low-contrast. Running headers (brand top left, section top right, eyebrow, title) add clutter. HTML hurts editability."
+    },
+    {
+     "entry": "entry-4",
+     "storyline": 8,
+     "visual_design": 7,
+     "clarity": 8,
+     "audience_fit": 8,
+     "consistency": 8,
+     "editability": 6,
+     "brief_violations": "Cover, problem and close art are raster PNGs inside the pptx (3 images), against the spirit of native shapes. The cover image carries tiny baked-in labels ('Fig.', column numbers) that cannot be read or edited. 11 slides is within range.",
+     "strengths": "The light-from-an-open-door image on a grid of closed doors is the strongest single metaphor in the field, and it bookends the deck. The partnership slide adds 'That is all. No exclusivity, no fees, no data shared without consent.', which is exactly what a club head needs. The packages bar says 'Pilot students pay nothing'. The example message on a dark slide with a cream card stands out. Speaker notes on every slide. Text is native Georgia and Arial.",
+     "weaknesses": "The raster art makes the hero slides hard to edit and shows faint unreadable micro-labels. The door icons on the 'not spam' cards are almost invisible, and the card body text touches the card bottom. The example-message highlight is heavy bold brass that reads shouty, not calm. The 4-step slide's door icons are too small to carry meaning. It merges no extra beats and does not add a safety slide, so the 'why yes' argument is thinner than in entries 1 and 8."
+    },
+    {
+     "entry": "entry-5",
+     "storyline": 8,
+     "visual_design": 6,
+     "clarity": 8,
+     "audience_fit": 8,
+     "consistency": 6,
+     "editability": 9,
+     "brief_violations": "None in content. Semicolon-heavy partnership title is fine, but the title-slide hierarchy feels heavy.",
+     "strengths": "It adds a useful beat, 'Students know warm outreach works, but doing it well takes time most do not have', which explains why a club should back a paid service at all. The metrics slide is the clearest version of the formula (Interviews \u00f7 People contacted \u00d7 100 = The one number we report) and adds 'No promised results. Knock is new.' The partnership title states the whole deal in one line. The close recaps 3 benefits plus the email. Fully native pptx with speaker notes on every slide.",
+     "weaknesses": "Typography is mixed: heavy bold slab-like serif on the cover, close and card titles next to a light serif on content titles, so it feels like two decks. The door on the close is still shut, so the metaphor never pays off. Package cards and the 4-step cards look generic and template-like. Action titles run to two long lines on most slides, which is wordy for time-poor readers."
+    },
+    {
+     "entry": "entry-2",
+     "storyline": 8,
+     "visual_design": 5,
+     "clarity": 8,
+     "audience_fit": 8,
+     "consistency": 7,
+     "editability": 9,
+     "brief_violations": "Uses the phrase 'AI job tool' in a title ('not another AI job tool'). It is contrastive, but it puts the AI framing on the slide when the brief wants to avoid it. Otherwise clean.",
+     "strengths": "The 'private career concierge, not another AI job tool' comparison table (mass outreach tools vs Knock: who chooses, who writes, who sends, how many, after a reply) is the single most persuasive anti-spam device in the field. Its line 'We have no customers yet, so we will not quote a number' is disarmingly honest and builds trust. The partnership offer is clear, with checkmarks for the club's gets. Native pptx with speaker notes on every slide.",
+     "weaknesses": "Calibri and Cambria fall back to DejaVu at render, giving heavy, wide, clunky bold headings that look cheap rather than premium. The cover and close are nearly identical and sparse: a flat rectangle door that never opens, and big empty space. Many titles wrap to two heavy lines. The metric 'fraction' graphic reads like interviews divided by 100. Less visual refinement than the top half."
+    },
+    {
+     "entry": "entry-6",
+     "storyline": 7,
+     "visual_design": 5,
+     "clarity": 7,
+     "audience_fit": 7,
+     "consistency": 7,
+     "editability": 8,
+     "brief_violations": "None in content. The door illustration has a cartoon, clip-art feel that pulls away from the 'premium concierge' direction.",
+     "strengths": "Covers all beats. Adds 'We look for the people who can actually open a door', listing the 4 kinds of contacts. The partnership slide is clear (4 gets, 2 numbered asks, with a '30 minutes' detail). The timeline highlights outreach weeks well. Native pptx with speaker notes on every slide.",
+     "weaknesses": "The illustrated sage-green door with a knocker looks like a children's-book or stock-template graphic. Shut on both the cover and the close, so no payoff. Layouts are cramped: the slide-3 caption touches the cards, card text runs to the edge ('co-hosted session'), and footers are crowded. Heavy bold Times headings feel dated. Small wording slip ('for every member and alum'). The cover says 'Knock on the right door.' but the partner proposal sits in a pill button, which reads web-app, not deck. The least premium and least trustworthy-looking of the eight."
+    }
+   ],
+   "ranking": [
+    "entry-1",
+    "entry-8",
+    "entry-3",
+    "entry-7",
+    "entry-4",
+    "entry-5",
+    "entry-2",
+    "entry-6"
+   ],
+   "best_ideas_to_graft": "Graft onto entry-1, the winner.\n\n1. Entry-2's 'Mass outreach tools vs Knock' comparison table (who chooses, who writes, who sends, how many, after a reply). It is the strongest anti-spam proof, but retitle it without the words 'AI job tool'.\n2. Entry-8's 'Your students stay in control, and so does your club's name' slide, especially 'We do not message your batch directly. Students opt in.' Merge it into entry-1's safe-to-say-yes slide and place it right before the partnership ask.\n3. Entry-4's open-door light beam on a grid of closed doors, rebuilt as native shapes instead of a PNG.\n4. Entry-4 and entry-7's one-line guardrail under 'What Knock asks': 'No exclusivity. No fees. No data shared without consent.'\n5. Entry-7's derived per-person cost under each price ('About Rs 33 per person researched') and the 'Everything in Sprint +' inclusion bullets.\n6. Entry-5's explicit formula row (Interviews \u00f7 People contacted \u00d7 100 = the one number we report) and its 'Why students do not do it themselves' bridge slide.\n7. Entry-3's 4 kinds of doors (hiring managers, team members, alumni, senior introducers) to make the 'we find the right people' step concrete.\n8. Entry-2's honest line 'We have no customers yet, so we will not quote a number.'\n9. Speaker notes on every slide (entries 2, 4, 5 and 6), since the deck will often be emailed."
+  }
+ ]
+}

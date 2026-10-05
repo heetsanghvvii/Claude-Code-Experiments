@@ -1,0 +1,170 @@
+[
+  {
+    "entry": "entry-1",
+    "skill": "PPT Master (hugohe3/ppt-master)",
+    "score": 8.8,
+    "spread": 0.1,
+    "judges": 3,
+    "criteria": {
+      "storyline": 9.0,
+      "visual_design": 8.7,
+      "clarity": 8.3,
+      "audience_fit": 9.0,
+      "consistency": 9.0,
+      "editability": 9.3
+    },
+    "violations": [
+      "presentation-coach: None found. No em dashes, no exclamation marks, no invented numbers; the problem grid is labelled 'Illustration of the pattern, not measured data'. No speaker notes, which the brief allows.",
+      "design-director: None found. No em dashes, no exclamation marks, no invented numbers. The grid of applications on slide 2 is labelled 'Illustration of the pattern, not measured data'. It covers all 11 storyline beats and adds a strong 'Low effort for the club. Proof before endorsement' slide, for 12 slides in total.",
+      "club-head: None found. No em dashes, no exclamation marks, no invented numbers. The problem-slide grid is labelled 'Illustration of the pattern, not measured data'. The '\u2014' next to page numbers is a drawn rule, not text."
+    ],
+    "rank": 1
+  },
+  {
+    "entry": "entry-8",
+    "skill": "Claude Design (jiji262/claude-design-skill)",
+    "score": 8.73,
+    "spread": 0.2,
+    "judges": 3,
+    "criteria": {
+      "storyline": 9.0,
+      "visual_design": 9.0,
+      "clarity": 8.7,
+      "audience_fit": 9.0,
+      "consistency": 9.0,
+      "editability": 5.0
+    },
+    "violations": [
+      "presentation-coach: None found. Copy is clean and the measurement slide makes no promises ('We have no results to show yet, so we make no promises').",
+      "design-director: Done-for-you is described as 'For senior or complex searches', a small positioning claim the brief does not make. It delivers HTML instead of the preferred PPTX. No em dashes, exclamation marks or invented numbers.",
+      "club-head: None in content. It is an HTML deck, which the brief allows but does not prefer (pptx preferred)."
+    ],
+    "rank": 2
+  },
+  {
+    "entry": "entry-3",
+    "skill": "Frontend Slides (zarazhangrui/frontend-slides)",
+    "score": 8.07,
+    "spread": 0.7,
+    "judges": 3,
+    "criteria": {
+      "storyline": 8.7,
+      "visual_design": 8.3,
+      "clarity": 7.7,
+      "audience_fit": 8.0,
+      "consistency": 8.3,
+      "editability": 5.0
+    },
+    "violations": [
+      "presentation-coach: No hard violations. A 'Most balanced' badge on Standard is a mild sales nudge. 'Private and confidential' on the title is fine.",
+      "design-director: The 'MOST BALANCED' badge on the Standard package is a sales nudge the brief never makes. 'Priced for students' slightly misstates the audience, which includes alumni. It delivers HTML instead of the preferred PPTX. No em dashes, exclamation marks or invented numbers.",
+      "club-head: No content violations. It is HTML, not the preferred pptx. 'MOST BALANCED' on the Standard package is a mild sales nudge that the calm brand voice discourages."
+    ],
+    "rank": 3
+  },
+  {
+    "entry": "entry-7",
+    "skill": "UI/UX Pro Max slides (nextlevelbuilder)",
+    "score": 7.83,
+    "spread": 0.05,
+    "judges": 3,
+    "criteria": {
+      "storyline": 8.0,
+      "visual_design": 8.0,
+      "clarity": 8.0,
+      "audience_fit": 8.0,
+      "consistency": 8.0,
+      "editability": 4.7
+    },
+    "violations": [
+      "presentation-coach: Minor scope additions not in the brief: 'For senior or complex moves' as a Done-for-you qualifier, and per-person price math ('About Rs 42 per person researched'). These are derived, not invented results, so they are not hard violations. A 'Recommended start' badge leans slightly salesy.",
+      "design-director: The packages slide adds derived per-person costs ('About Rs 42 per person researched'), a 'RECOMMENDED START' badge, 'For senior or complex moves' and 'Closer guidance on every reply' for Done-for-you. All of these embellish beyond the brief's pricing facts. It adds an extra <Institute> placeholder. It delivers HTML instead of PPTX. No em dashes or exclamation marks.",
+      "club-head: HTML, not the preferred pptx. 'RECOMMENDED START' badge is a sales nudge. Adds unbriefed specifics ('For senior or complex moves', 'A full Sprint for each' pilot student). These are plausible, not fabricated claims."
+    ],
+    "rank": 4
+  },
+  {
+    "entry": "entry-4",
+    "skill": "Ours: canvas-design + pptx",
+    "score": 7.72,
+    "spread": 0.1,
+    "judges": 3,
+    "criteria": {
+      "storyline": 8.0,
+      "visual_design": 7.0,
+      "clarity": 8.0,
+      "audience_fit": 8.0,
+      "consistency": 8.0,
+      "editability": 7.3
+    },
+    "violations": [
+      "presentation-coach: No hard violations. 11 slides, within range. The cover art contains illegible micro-labels (tiny numbers and 'Fig' text in the door grid) that read as junk.",
+      "design-director: None of substance. There are 11 slides, all 11 storyline beats with nothing added. No em dashes, exclamation marks or invented numbers. The 'Illustrative' captions are honest.",
+      "club-head: Cover, problem and close art are raster PNGs inside the pptx (3 images), against the spirit of native shapes. The cover image carries tiny baked-in labels ('Fig.', column numbers) that cannot be read or edited. 11 slides is within range."
+    ],
+    "rank": 5
+  },
+  {
+    "entry": "entry-5",
+    "skill": "Academic PPTX (Gabberflast/academic-pptx-skill) + pptx",
+    "score": 7.45,
+    "spread": 0.4,
+    "judges": 3,
+    "criteria": {
+      "storyline": 8.0,
+      "visual_design": 6.0,
+      "clarity": 8.0,
+      "audience_fit": 8.0,
+      "consistency": 7.0,
+      "editability": 9.0
+    },
+    "violations": [
+      "presentation-coach: None found. Title includes 'October 2026' and audience line, which is fine.",
+      "design-director: No content violations. It is dated 'October 2026' on the title, which is acceptable. No em dashes, exclamation marks or invented numbers.",
+      "club-head: None in content. Semicolon-heavy partnership title is fine, but the title-slide hierarchy feels heavy."
+    ],
+    "rank": 6
+  },
+  {
+    "entry": "entry-2",
+    "skill": "Ours: pptx (Anthropic)",
+    "score": 7.2,
+    "spread": 0.5,
+    "judges": 3,
+    "criteria": {
+      "storyline": 8.0,
+      "visual_design": 5.3,
+      "clarity": 7.7,
+      "audience_fit": 8.0,
+      "consistency": 7.0,
+      "editability": 8.7
+    },
+    "violations": [
+      "presentation-coach: None hard. Slide 7 names 'AI job tool' to position against it, which is acceptable and arguably on-brief, but a comparison against an unnamed 'Mass outreach tools' category edges toward a straw man.",
+      "design-director: None in content. Calibri and Cambria are not installed in the render environment, so the deck renders in DejaVu fallback. Calibri and Cambria are common fonts, but the delivered render looks off-brand. No em dashes or exclamation marks.",
+      "club-head: Uses the phrase 'AI job tool' in a title ('not another AI job tool'). It is contrastive, but it puts the AI framing on the slide when the brief wants to avoid it. Otherwise clean."
+    ],
+    "rank": 7
+  },
+  {
+    "entry": "entry-6",
+    "skill": "Ours: theme-factory + pptx",
+    "score": 6.7,
+    "spread": 0.3,
+    "judges": 3,
+    "criteria": {
+      "storyline": 7.7,
+      "visual_design": 5.0,
+      "clarity": 7.0,
+      "audience_fit": 6.7,
+      "consistency": 7.0,
+      "editability": 8.7
+    },
+    "violations": [
+      "presentation-coach: None hard. The door illustration with a big knocker ring tips toward cartoon or clip art, which is off the 'calm, premium' brief.",
+      "design-director: No content violations. The cartoonish door illustration with a knocker pulls against 'calm, premium, private concierge' but is not forbidden. No em dashes or exclamation marks.",
+      "club-head: None in content. The door illustration has a cartoon, clip-art feel that pulls away from the 'premium concierge' direction."
+    ],
+    "rank": 8
+  }
+]

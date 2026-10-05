@@ -9,20 +9,24 @@ Environment (Vercel project settings):
 
 from __future__ import annotations
 
+import hashlib
 import hmac
+import io
 import os
 import re
 import sys
+import uuid
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from typing import Annotated, Literal
 
-from fastapi import FastAPI, Header, HTTPException, Request
+from fastapi import FastAPI, File, Form, Header, HTTPException, Request, UploadFile
 from pydantic import BaseModel, Field
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # the copied `outreach` package
 
-from outreach import bridge, feedback, store  # noqa: E402
+from outreach import bridge, feedback, profiles, store  # noqa: E402
 from outreach.models import Candidate  # noqa: E402
 
 app = FastAPI(title="Knock API", docs_url=None, redoc_url=None)
@@ -268,3 +272,343 @@ def crm_intake_pull(x_crm_key: str | None = Header(default=None)):
 def cron_sync(authorization: str | None = Header(default=None)):
     _check("CRON_SECRET", (authorization or "").removeprefix("Bearer "))
     return _run_sync()
+
+
+# ---------- public: client onboarding (/start) ----------
+# Files are uploaded one at a time (each request stays under Vercel's 4.5 MB body limit), then the
+# answers are submitted with the returned file ids. PDF bytes are stored but never logged or returned.
+
+MAX_PDF_BYTES = 4 * 1024 * 1024
+MAX_TEXT_CHARS = 60_000
+FILES_PER_EMAIL_PER_DAY = 6
+SUBMITS_PER_EMAIL_PER_DAY = 5
+UNLINKED_FILES_PER_DAY = 300          # global brake on uploads that never get submitted
+UUID = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+IST = timezone(timedelta(hours=5, minutes=30))
+_upload_counts: dict[str, int] = {}   # per warm instance: sha256(email)+IST day -> uploads
+
+
+def _today_ist() -> str:
+    return datetime.now(IST).date().isoformat()
+
+
+def _since_24h() -> str:
+    return (datetime.now(timezone.utc) - timedelta(hours=24)).isoformat()
+
+
+def _recent(rows: list[dict]) -> list[dict]:
+    cutoff = _since_24h()
+    return [r for r in rows if not r.get("created_at") or str(r["created_at"]) >= cutoff]
+
+
+def _clean_filename(name: str | None) -> str:
+    name = Path(name or "file.pdf").name
+    name = re.sub(r"[\x00-\x1f\x7f]", "", name).strip() or "file.pdf"
+    return name[-200:]
+
+
+def pdf_text(data: bytes) -> str:
+    """Text layer of a PDF. Raises ValueError with a message meant for the person uploading."""
+    from pypdf import PdfReader
+
+    try:
+        reader = PdfReader(io.BytesIO(data))
+        if reader.is_encrypted and not reader.decrypt(""):
+            raise ValueError("This PDF is password protected. Please save it again without a password.")
+        text = "\n".join((page.extract_text() or "") for page in reader.pages[:40])
+    except ValueError:
+        raise
+    except Exception:
+        raise ValueError("We could not read this PDF. Please export it again and retry.")
+    text = re.sub(r"[ \t]+", " ", text).strip()
+    if len(re.findall(r"[A-Za-z]{2,}", text)) < 15:
+        raise ValueError("This looks like a scanned image, so we cannot read the text. "
+                         "Please use LinkedIn's Save to PDF (or export your CV as a PDF from Word or Google Docs).")
+    return text[:MAX_TEXT_CHARS]
+
+
+@app.post("/api/onboarding/file")
+async def onboarding_file(email: str = Form(max_length=254), kind: str = Form(), file: UploadFile = File()):
+    email = email.strip().lower()
+    if not EMAIL.match(email):
+        raise HTTPException(status_code=422, detail="Enter a valid email address first")
+    if kind not in ("linkedin_pdf", "cv"):
+        raise HTTPException(status_code=422, detail="Unknown file type")
+    data = await file.read(MAX_PDF_BYTES + 1)
+    if len(data) > MAX_PDF_BYTES:
+        raise HTTPException(status_code=413, detail="This file is larger than 4 MB. Please upload a smaller PDF.")
+    if not data or b"%PDF-" not in data[:1024]:
+        raise HTTPException(status_code=415, detail="This file is not a PDF. Please upload a PDF file.")
+    quota_key = hashlib.sha256(f"{email}|{_today_ist()}".encode()).hexdigest()
+    if _upload_counts.get(quota_key, 0) >= FILES_PER_EMAIL_PER_DAY:
+        raise HTTPException(status_code=429, detail="That is a lot of uploads for one day. Please try again tomorrow or email hello@knock.careers.")
+    unlinked = store.rest("GET", "candidate_files", params={
+        "select": "id,created_at", "onboarding_id": "is.null", "created_at": f"gte.{_since_24h()}", "limit": "1000"})
+    if len(_recent(unlinked or [])) >= UNLINKED_FILES_PER_DAY:
+        raise HTTPException(status_code=429, detail="Uploads are paused for a moment. Please try again later or email hello@knock.careers.")
+    try:
+        text = pdf_text(data)
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e))
+    file_id = str(uuid.uuid4())
+    store.rest("POST", "candidate_files", json_body={
+        "id": file_id, "onboarding_id": None, "kind": kind, "filename": _clean_filename(file.filename),
+        "size_bytes": len(data), "text_content": text, "pdf": "\\x" + data.hex()})
+    _upload_counts[quota_key] = _upload_counts.get(quota_key, 0) + 1
+    return {"ok": True, "id": file_id, "kind": kind, "filename": _clean_filename(file.filename),
+            "size_bytes": len(data), "characters": len(text)}
+
+
+def Short():
+    return Field(default="", max_length=200)
+
+
+def Long():
+    return Field(default="", max_length=1500)
+
+
+Item = Annotated[str, Field(max_length=120)]
+
+
+class Details(BaseModel):
+    full_name: str = Field(min_length=1, max_length=120)
+    email: str = Field(max_length=254)
+
+
+class Company(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+    top: bool = False
+
+
+class Answers(BaseModel):
+    roles: list[Item] = Field(default=[], max_length=2)
+    companies: list[Company] = Field(default=[], max_length=30)
+    locations: list[Item] = Field(default=[], max_length=2)
+    remote: Literal["yes", "no", ""] = ""
+    seniority: str = Short()
+    years: float | None = Field(default=None, ge=0, le=60)
+    industries: list[Item] = Field(default=[], max_length=5)
+    current_employer: str = Short()
+    avoid_companies: str = Field(default="", max_length=1000)
+    known_people: str = Field(default="", max_length=1000)
+    why_now: str = Long()
+    proud_1: str = Long()
+    proud_2: str = Long()
+    transition: str = Long()
+    roots: str = Long()
+    recent: str = Long()
+    tone: Literal["formal", "neutral", "casual", ""] = ""
+    never_say: str = Field(default="", max_length=1000)
+    approval_channel: Literal["crm", "email", "whatsapp", ""] = ""
+    approval_24h: bool = False
+
+
+class Consents(BaseModel):
+    message_approval: bool = False
+    data_use: bool = False
+    tier2: bool = False
+
+
+class OnboardingIn(BaseModel):
+    details: Details
+    answers: Answers = Answers()
+    consents: Consents = Consents()
+    file_ids: list[str] = Field(default=[], max_length=FILES_PER_EMAIL_PER_DAY)
+    package: str | None = None
+    website: str | None = None  # honeypot
+
+
+STORY_KEYS = ("why_now", "proud_1", "proud_2", "transition", "roots", "recent")
+
+
+def _specific(text: str) -> bool:
+    """A story answer counts when it names something: a number, or a proper noun after the first word."""
+    words = text.split()
+    if len(words) < 4:
+        return False
+    return bool(re.search(r"\d", text) or any(w[:1].isupper() for w in words[1:]))
+
+
+def quality_missing(answers: dict, file_kinds: list[str], consents: dict | None = None) -> list[str]:
+    """What stands between this onboarding and the research bar in docs/INTAKE.md."""
+    missing = []
+    companies = [c for c in answers.get("companies") or [] if (c.get("name") or "").strip()]
+    if len(companies) < 10:
+        missing.append(f"At least 10 target companies (you have {len(companies)})")
+    if not [r for r in answers.get("roles") or [] if r.strip()]:
+        missing.append("At least 1 target role")
+    if "linkedin_pdf" not in file_kinds:
+        missing.append("Your LinkedIn profile PDF")
+    specific = sum(1 for k in STORY_KEYS if _specific(answers.get(k) or ""))
+    if specific < 3:
+        missing.append(f"3 story answers with a specific detail such as a place, an employer or a result (you have {specific})")
+    if consents is not None and not (consents.get("message_approval") and consents.get("data_use")):
+        missing.append("Consent to message approval and data use")
+    return missing
+
+
+def _intake_for(email: str) -> dict | None:
+    rows = store.rest("GET", "intake_requests", params={"email": f"ilike.{email}", "order": "created_at.desc", "limit": "5"}) or []
+    rows = [r for r in rows if (r.get("email") or "").strip().lower() == email]
+    rows.sort(key=lambda r: (str(r.get("created_at") or ""), str(r.get("id"))), reverse=True)
+    return rows[0] if rows else None
+
+
+@app.post("/api/onboarding")
+def onboarding_submit(body: OnboardingIn):
+    if body.website:
+        return {"ok": True, "status": "incomplete", "missing": []}  # silently drop bots
+    email = body.details.email.strip().lower()
+    if not EMAIL.match(email):
+        raise HTTPException(status_code=422, detail="Enter a valid email address")
+    if not body.details.full_name.strip():
+        raise HTTPException(status_code=422, detail="Enter your full name")
+    intake_row = _intake_for(email)
+    package = body.package if body.package in PACKAGES else (intake_row or {}).get("package")
+    c = body.consents
+    if not (c.message_approval and c.data_use):
+        raise HTTPException(status_code=422, detail="Please confirm message approval and data use to continue")
+    if package == "done_for_you" and not c.tier2:
+        raise HTTPException(status_code=422, detail="Done-for-you needs your written consent to send from your LinkedIn")
+    earlier = store.rest("GET", "onboarding", params={"email": f"eq.{email}", "select": "id,created_at",
+                                                     "created_at": f"gte.{_since_24h()}"}) or []
+    if len(_recent(earlier)) >= SUBMITS_PER_EMAIL_PER_DAY:
+        raise HTTPException(status_code=429, detail="We already have several submissions from you today. Email hello@knock.careers if something is wrong.")
+
+    files = []
+    for fid in dict.fromkeys(body.file_ids):
+        if not UUID.match(fid):
+            raise HTTPException(status_code=422, detail="One of your files could not be found. Please upload it again.")
+        rows = store.rest("GET", "candidate_files", params={"id": f"eq.{fid}", "select": "id,kind,onboarding_id"}) or []
+        if not rows or rows[0].get("onboarding_id"):
+            raise HTTPException(status_code=422, detail="One of your files could not be found. Please upload it again.")
+        files.append({"id": fid, "kind": rows[0]["kind"]})
+
+    answers = body.answers.model_dump()
+    answers["roles"] = [r.strip() for r in answers["roles"] if r.strip()]
+    answers["locations"] = [x.strip() for x in answers["locations"] if x.strip()]
+    answers["companies"] = [{"name": x["name"].strip(), "top": x["top"]} for x in answers["companies"] if x["name"].strip()]
+    answers["package"] = package or ""
+    missing = quality_missing(answers, [f["kind"] for f in files])
+    status = "incomplete" if missing else "ready"
+    consents = {**c.model_dump(), "recorded_at": datetime.now(timezone.utc).isoformat(),
+                "data_retention": "deleted on request or 90 days after the engagement"}
+    onboarding_id = str(uuid.uuid4())
+    store.rest("POST", "onboarding", json_body={
+        "id": onboarding_id, "intake_id": (intake_row or {}).get("id"), "email": email,
+        "full_name": body.details.full_name.strip(), "answers": answers, "consents": consents, "status": status})
+    for f in files:
+        store.rest("PATCH", "candidate_files", params={"id": f"eq.{f['id']}"}, json_body={"onboarding_id": onboarding_id})
+    return {"ok": True, "id": onboarding_id, "status": status, "missing": missing}
+
+
+# ---------- operator CRM: onboarding ----------
+
+FILE_FIELDS = ("id", "onboarding_id", "kind", "filename", "size_bytes", "created_at")
+
+
+def _files_for(onboarding_id: str, with_text: bool = False) -> list[dict]:
+    fields = FILE_FIELDS + (("text_content",) if with_text else ())
+    rows = store.rest("GET", "candidate_files", params={"onboarding_id": f"eq.{onboarding_id}", "select": ",".join(fields)}) or []
+    return [{k: r.get(k) for k in fields} for r in rows]  # never pass pdf bytes on
+
+
+@app.get("/api/crm/onboarding")
+def crm_onboarding(x_crm_key: str | None = Header(default=None)):
+    crm_auth(x_crm_key)
+    rows = store.rest("GET", "onboarding", params={"order": "created_at.desc", "limit": "200"}) or []
+    files = store.rest("GET", "candidate_files", params={"onboarding_id": "not.is.null", "select": ",".join(FILE_FIELDS)}) or []
+    by_id: dict[str, list[dict]] = {}
+    for f in files:
+        by_id.setdefault(str(f.get("onboarding_id")), []).append({k: f.get(k) for k in FILE_FIELDS})
+    out = []
+    for r in rows:
+        fl = by_id.get(str(r["id"]), [])
+        answers = r.get("answers") or {}
+        out.append({
+            "id": r["id"], "created_at": r.get("created_at"), "email": r.get("email"), "full_name": r.get("full_name"),
+            "status": r.get("status"), "processed_at": r.get("processed_at"), "candidate_id": r.get("candidate_id"),
+            "intake_id": r.get("intake_id"), "package": answers.get("package") or "",
+            "roles": answers.get("roles") or [], "companies": len(answers.get("companies") or []),
+            "missing": quality_missing(answers, [f["kind"] for f in fl], r.get("consents") or {}),
+            "files": fl, "answers": answers,
+        })
+    return {"onboarding": out}
+
+
+@app.post("/api/crm/onboarding/{onboarding_id}/import")
+def crm_onboarding_import(onboarding_id: str, x_crm_key: str | None = Header(default=None)):
+    """Create or update the engine candidate from an onboarding submission."""
+    crm_auth(x_crm_key)
+    if not UUID.match(onboarding_id):
+        raise HTTPException(status_code=404, detail="No such onboarding")
+    rows = store.rest("GET", "onboarding", params={"id": f"eq.{onboarding_id}"}) or []
+    if not rows:
+        raise HTTPException(status_code=404, detail="No such onboarding")
+    ob = rows[0]
+    a = ob.get("answers") or {}
+    intake_row = None
+    if ob.get("intake_id") is not None:
+        found = store.rest("GET", "intake_requests", params={"id": f"eq.{ob['intake_id']}"}) or []
+        intake_row = found[0] if found else None
+
+    candidate = None
+    for cid in (ob.get("candidate_id"), (intake_row or {}).get("candidate_id")):
+        if cid:
+            try:
+                candidate = store.load(cid)
+                break
+            except KeyError:
+                pass
+    created = candidate is None
+    if created:
+        candidate = Candidate(id=store.new_id(ob["full_name"]), full_name=ob["full_name"])
+
+    companies = a.get("companies") or []
+    candidate.full_name = ob["full_name"]
+    candidate.tier = "done_for_you" if a.get("package") == "done_for_you" else "self_send"
+    candidate.target_roles = a.get("roles") or candidate.target_roles
+    candidate.target_companies = [x["name"] for x in companies] or candidate.target_companies
+    locations = list(a.get("locations") or []) + (["Remote"] if a.get("remote") == "yes" else [])
+    candidate.locations = locations or candidate.locations
+    candidate.industries = a.get("industries") or candidate.industries
+    story = {k: v for k, v in candidate.story.items() if k not in ("linkedin_text", "cv_text")}
+    story.update({
+        "email": ob.get("email", ""), "package": a.get("package") or story.get("package", ""),
+        "onboarding_id": ob["id"], "top_companies": [x["name"] for x in companies if x.get("top")],
+        "seniority": a.get("seniority", ""), "years_experience": a.get("years"),
+        "why_now": a.get("why_now", ""), "proudest": [x for x in (a.get("proud_1"), a.get("proud_2")) if x],
+        "transition": a.get("transition", ""), "roots": a.get("roots", ""), "recent": a.get("recent", ""),
+        "tone": a.get("tone", ""), "never_say": a.get("never_say", ""),
+        "off_limits": {"current_employer": a.get("current_employer", ""), "avoid_companies": a.get("avoid_companies", ""),
+                       "known_people": a.get("known_people", "")},
+        "approval_channel": a.get("approval_channel", ""),
+    })
+    if intake_row:
+        story.setdefault("intake_id", intake_row["id"])
+        if intake_row.get("linkedin_url"):
+            story.setdefault("linkedin_url", intake_row["linkedin_url"])
+    for f in _files_for(ob["id"], with_text=True):
+        key = "linkedin_text" if f["kind"] == "linkedin_pdf" else "cv_text"
+        if f.get("text_content"):
+            story[key] = f["text_content"][:20_000]
+    candidate.story = story
+
+    message = "No LinkedIn or CV text to extract facts from."
+    if profiles.pending_text(candidate):
+        if os.environ.get("ANTHROPIC_API_KEY"):
+            try:
+                n = profiles.facts_from_story_text(candidate)
+                message = f"Extracted {n} facts from the LinkedIn profile and CV."
+            except Exception:
+                message = "Fact extraction failed this time; the text is saved and extraction runs on the next sync."
+        else:
+            message = "ANTHROPIC_API_KEY is not set, so the LinkedIn and CV text is saved and fact extraction runs on the next sync."
+    store.save(candidate)
+    now = datetime.now(timezone.utc).isoformat()
+    store.rest("PATCH", "onboarding", params={"id": f"eq.{ob['id']}"},
+               json_body={"status": "imported", "processed_at": now, "candidate_id": candidate.id})
+    if intake_row and not intake_row.get("processed_at"):
+        store.rest("PATCH", "intake_requests", params={"id": f"eq.{intake_row['id']}"},
+                   json_body={"processed_at": now, "candidate_id": candidate.id})
+    return {"ok": True, "candidate_id": candidate.id, "created": created, "facts": len(candidate.facts), "message": message}

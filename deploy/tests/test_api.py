@@ -111,3 +111,176 @@ def test_intake_pull(client):
                                            "processed_at": None, "candidate_id": None, "linkedin_url": None})
     created = c.post("/api/crm/intake-pull", headers=H).json()["created"]
     assert len(created) == 1 and store.load(created[0]).target_companies == ["Zepto", "CRED"]
+
+
+# ---------- onboarding ----------
+
+def make_pdf(lines: list[str]) -> bytes:
+    """A tiny but real PDF with a text layer (Helvetica), xref offsets computed properly."""
+    ops = "BT /F1 11 Tf 72 760 Td 14 TL " + " ".join(f"({ln}) '" for ln in lines) + " ET"
+    objs = [
+        "<< /Type /Catalog /Pages 2 0 R >>",
+        "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+        "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>",
+        f"<< /Length {len(ops)} >>\nstream\n{ops}\nendstream",
+        "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+    ]
+    out, offsets = b"%PDF-1.4\n", []
+    for i, body in enumerate(objs, start=1):
+        offsets.append(len(out))
+        out += f"{i} 0 obj\n{body}\nendobj\n".encode()
+    xref = len(out)
+    out += f"xref\n0 {len(objs) + 1}\n0000000000 65535 f \n".encode()
+    out += "".join(f"{o:010d} 00000 n \n" for o in offsets).encode()
+    out += f"trailer\n<< /Size {len(objs) + 1} /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n".encode()
+    return out
+
+
+PROFILE = make_pdf(["Priya Nair", "Product Manager at Zepto, Bengaluru, 2022 to present",
+                    "Led the checkout redesign that lifted conversion by 12 percent",
+                    "Previously Associate at McKinsey and Company in Mumbai for three years",
+                    "Education: IIM Ahmedabad MBA 2020, NIT Trichy BTech 2016"])
+BLANK = make_pdf([])
+
+
+@pytest.fixture
+def ob(client):
+    import api.index as api_module
+    api_module._upload_counts.clear()
+    c, fake = client
+    fake.tables["onboarding"] = []
+    fake.tables["candidate_files"] = []
+    return c, fake
+
+
+def upload(c, data, kind="linkedin_pdf", name="Profile.pdf", email="priya@example.com"):
+    return c.post("/api/onboarding/file", data={"email": email, "kind": kind}, files={"file": (name, data, "application/pdf")})
+
+
+def test_file_upload_validation(ob):
+    c, fake = ob
+    assert upload(c, b"hello, not a pdf", name="cv.docx").status_code == 415
+    assert upload(c, b"%PDF-1.4\n" + b"0" * (4 * 1024 * 1024)).status_code == 413
+    r = upload(c, BLANK)
+    assert r.status_code == 422 and "scanned image" in r.json()["detail"]
+    assert upload(c, PROFILE, kind="photo").status_code == 422
+    assert upload(c, PROFILE, email="nope").status_code == 422
+    assert fake.tables["candidate_files"] == []
+
+    r = upload(c, PROFILE)
+    assert r.status_code == 200
+    body = r.json()
+    assert set(body) == {"ok", "id", "kind", "filename", "size_bytes", "characters"}  # never the bytes
+    row = fake.tables["candidate_files"][0]
+    assert row["id"] == body["id"] and row["onboarding_id"] is None and row["kind"] == "linkedin_pdf"
+    assert row["pdf"].startswith("\\x255044462d") and row["size_bytes"] == len(PROFILE)
+    assert "Zepto" in row["text_content"] and "IIM Ahmedabad" in row["text_content"]
+
+
+def test_file_upload_daily_limit(ob):
+    c, _ = ob
+    for _ in range(6):
+        assert upload(c, PROFILE, kind="cv").status_code == 200
+    assert upload(c, PROFILE, kind="cv").status_code == 429
+    assert upload(c, PROFILE, kind="cv", email="other@example.com").status_code == 200
+
+
+COMPANIES = [{"name": n, "top": i < 5} for i, n in enumerate(
+    ["Zepto", "CRED", "Swiggy", "Razorpay", "Meesho", "Groww", "PhonePe", "Flipkart", "Myntra", "Dunzo", "Urban Company"])]
+STORY = {"why_now": "I want to own a product end to end after three years in consulting at McKinsey.",
+         "proud_1": "Led the checkout redesign at Zepto that lifted conversion by 12 percent.",
+         "proud_2": "Built a pricing tool used by 40 category managers.",
+         "roots": "IIM Ahmedabad, NIT Trichy, grew up in Kochi, speak Malayalam and Hindi.",
+         "recent": "ok"}
+
+
+def submit(c, **over):
+    body = {"details": {"full_name": "Priya Nair", "email": "Priya@Example.com"},
+            "answers": {"roles": ["Product Manager"], "companies": COMPANIES, "locations": ["Bengaluru"], "remote": "yes",
+                        "years": 6, "tone": "neutral", "never_say": "my gap year", "approval_channel": "crm",
+                        "approval_24h": True, "current_employer": "Zepto", **STORY},
+            "consents": {"message_approval": True, "data_use": True}, "file_ids": []}
+    body.update(over)
+    return c.post("/api/onboarding", json=body)
+
+
+def test_onboarding_submit_validates_and_scores(ob):
+    c, fake = ob
+    fake.tables["intake_requests"] += [
+        {"id": 7, "full_name": "Priya", "email": "priya@example.com", "created_at": "2026-09-01T00:00:00+00:00",
+         "package": "standard", "processed_at": None, "candidate_id": None, "linkedin_url": "https://linkedin.com/in/priya"},
+        {"id": 8, "full_name": "Other", "email": "other@example.com", "created_at": "2026-09-02T00:00:00+00:00",
+         "package": "full", "processed_at": None, "candidate_id": None, "linkedin_url": None}]
+    assert submit(c, consents={"message_approval": True, "data_use": False}).status_code == 422
+    assert submit(c, details={"full_name": "Priya", "email": "bad"}).status_code == 422
+    assert submit(c, package="done_for_you").status_code == 422           # tier 2 consent missing
+    assert submit(c, file_ids=["not-a-uuid"]).status_code == 422
+    assert submit(c, website="spam").json()["ok"] and fake.tables["onboarding"] == []
+
+    r = submit(c).json()                                                   # no LinkedIn PDF yet
+    assert r["status"] == "incomplete" and r["missing"] == ["Your LinkedIn profile PDF"]
+    row = fake.tables["onboarding"][0]
+    assert row["intake_id"] == 7 and row["email"] == "priya@example.com" and row["answers"]["package"] == "standard"
+    assert row["consents"]["data_use"] is True and row["consents"]["recorded_at"]
+
+    few = submit(c, answers={"roles": [], "companies": COMPANIES[:4], "why_now": "Change"}).json()
+    assert few["status"] == "incomplete" and len(few["missing"]) == 4
+    assert "you have 4" in few["missing"][0]
+
+    fid = upload(c, PROFILE).json()["id"]
+    cv = upload(c, PROFILE, kind="cv", name="CV.pdf").json()["id"]
+    r = submit(c, file_ids=[fid, cv]).json()
+    assert r["status"] == "ready" and r["missing"] == []
+    assert {f["onboarding_id"] for f in fake.tables["candidate_files"]} == {r["id"]}
+    assert submit(c, file_ids=[fid]).status_code == 422                   # already linked to a submission
+
+    r = submit(c, package="done_for_you", consents={"message_approval": True, "data_use": True, "tier2": True})
+    assert r.status_code == 200
+
+
+def test_crm_onboarding_list_and_import(ob, monkeypatch):
+    c, fake = ob
+    fake.tables["intake_requests"].append({"id": 3, "full_name": "Priya", "email": "priya@example.com", "package": "done_for_you",
+                                           "processed_at": None, "candidate_id": None, "linkedin_url": None})
+    fid = upload(c, PROFILE).json()["id"]
+    oid = submit(c, file_ids=[fid], consents={"message_approval": True, "data_use": True, "tier2": True}).json()["id"]
+
+    assert c.get("/api/crm/onboarding").status_code == 401
+    assert c.post(f"/api/crm/onboarding/{oid}/import").status_code == 401
+    rows = c.get("/api/crm/onboarding", headers=H).json()["onboarding"]
+    assert len(rows) == 1 and rows[0]["status"] == "ready" and rows[0]["missing"] == []
+    f = rows[0]["files"][0]
+    assert f["filename"] == "Profile.pdf" and f["size_bytes"] == len(PROFILE) and "pdf" not in f and "text_content" not in f
+
+    monkeypatch.delenv("ANTHROPIC_API_KEY")
+    assert c.post("/api/crm/onboarding/00000000-0000-0000-0000-000000000000/import", headers=H).status_code == 404
+    r = c.post(f"/api/crm/onboarding/{oid}/import", headers=H).json()
+    assert r["created"] and "next sync" in r["message"]
+    cand = store.load(r["candidate_id"])
+    assert cand.tier == "done_for_you" and cand.target_roles == ["Product Manager"] and len(cand.target_companies) == 11
+    assert cand.locations == ["Bengaluru", "Remote"] and cand.story["tone"] == "neutral"
+    assert cand.story["never_say"] == "my gap year" and cand.story["off_limits"]["current_employer"] == "Zepto"
+    assert cand.story["top_companies"] == ["Zepto", "CRED", "Swiggy", "Razorpay", "Meesho"]
+    assert "Zepto" in cand.story["linkedin_text"] and cand.facts == []
+    assert fake.tables["onboarding"][0]["status"] == "imported"
+    assert fake.tables["intake_requests"][0]["candidate_id"] == cand.id
+
+    # The next sync (with Claude available) extracts facts and drops the raw text from the story.
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test")
+    from outreach.models import ExtractedFact, ExtractedProfile
+    seen = {}
+
+    def parse(system, content, schema, effort="medium"):
+        seen["content"] = content
+        return ExtractedProfile(full_name="Priya Nair", headline="PM at Zepto", current_company="Zepto", current_title="PM",
+                                location="Bengaluru", facts=[ExtractedFact(kind="employer", text="PM at Zepto since 2022")])
+
+    monkeypatch.setattr(llm, "parse", parse)
+    assert c.post("/api/crm/sync", headers=H).json()["facts_extracted"] == 1
+    cand = store.load(cand.id)
+    assert "IIM Ahmedabad" in seen["content"] and cand.headline == "PM at Zepto" and len(cand.facts) == 1
+    assert "linkedin_text" not in cand.story
+
+    # Re-import updates the same candidate and, with Claude available, extracts straight away.
+    r2 = c.post(f"/api/crm/onboarding/{oid}/import", headers=H).json()
+    assert r2["candidate_id"] == cand.id and not r2["created"] and r2["facts"] == 1 and "Extracted 1 facts" in r2["message"]

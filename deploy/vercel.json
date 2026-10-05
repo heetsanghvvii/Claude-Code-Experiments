@@ -7,6 +7,10 @@
     {
       "source": "/crm",
       "destination": "/crm/index.html"
+    },
+    {
+      "source": "/start",
+      "destination": "/start/index.html"
     }
   ],
   "functions": {

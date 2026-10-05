@@ -16,7 +16,7 @@ import re
 import uuid
 from datetime import datetime, timedelta, timezone
 
-from . import feedback, messages, store
+from . import feedback, messages, profiles, store
 from .models import Candidate, Message, Prospect
 
 AUTO_SEND_SENTIMENTS = {"warm", "neutral", "redirecting"}
@@ -198,6 +198,12 @@ def sync() -> dict:
                     p.status = "sent"
                 stats["sent_recorded"] += 1
                 store.save(c)
+
+    for c in candidates.values():                 # onboarding imports made while Claude was unavailable
+        if profiles.pending_text(c):
+            profiles.facts_from_story_text(c)
+            stats["facts_extracted"] = stats.get("facts_extracted", 0) + 1
+            store.save(c)
 
     learned = feedback.learn(list(candidates.values()))
     if learned:

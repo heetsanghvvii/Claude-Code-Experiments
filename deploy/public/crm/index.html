@@ -151,8 +151,8 @@ ul.rules{margin:0;padding-left:18px} ul.rules li{margin:4px 0}
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script>
-const TABS = [["overview","Overview"],["candidates","Candidates"],["queue","Send queue"],["replies","Replies"],["signups","Sign-ups"],["learning","Learning"],["spend","Spend"]];
-let KEY = ""; let DATA = null; let TAB = "overview"; let OPEN = null;
+const TABS = [["overview","Overview"],["candidates","Candidates"],["queue","Send queue"],["replies","Replies"],["signups","Sign-ups"],["onboarding","Onboarding"],["learning","Learning"],["spend","Spend"]];
+let KEY = ""; let DATA = null; let ONB = null; let TAB = "overview"; let OPEN = null;
 try { KEY = localStorage.getItem("knock_crm_key") || ""; } catch (e) {}
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -175,7 +175,9 @@ $("#loginform").addEventListener("submit", async e => {
 });
 
 async function load(){
+  const onb = api("/api/crm/onboarding").catch(err => { if (err.message === "unauthorized") throw err; return {onboarding: null, error: err.message}; });
   DATA = await api("/api/crm/summary");
+  ONB = await onb;
   $("#login").hidden = true; $("#app").hidden = false; $("#topbar").hidden = false;
   $("#asof").textContent = "Updated " + ist(DATA.as_of);
   render();
@@ -187,6 +189,8 @@ function tabs(){
     const k = DATA.kpis;
     if (id==="queue" && k.outbox_due) badge = " (" + k.outbox_due + ")";
     if (id==="signups" && k.new_signups) badge = " (" + k.new_signups + ")";
+    const ready = ((ONB && ONB.onboarding) || []).filter(o => o.status === "ready").length;
+    if (id==="onboarding" && ready) badge = " (" + ready + ")";
     if (id==="candidates" && k.awaiting_approval) badge = " (" + k.awaiting_approval + ")";
     return `<button role="tab" type="button" aria-selected="${TAB===id}" data-tab="${id}">${label}${badge}</button>`;
   }).join("");
@@ -267,6 +271,22 @@ function signups(){
   return `<h2>Website sign-ups</h2><div class="panel tablewrap">${rows.length?`<table><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Companies</th><th>Package</th><th>When</th><th>Status</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${esc(r.full_name)}</b></td><td class="mono">${esc(r.email)}</td><td>${esc(r.target_role)}</td><td>${esc(r.target_companies)}</td><td>${esc(r.package||"")}</td><td>${ist(r.created_at)}</td><td>${r.processed_at?`<span class="chip ok">imported</span>`:'<span class="chip warn">new</span>'}</td></tr>`).join("")}</tbody></table>`:'<div class="empty">No sign-ups yet. They arrive from the "Get my target list" form on the website.</div>'}</div>`;
 }
 
+const kb = n => n >= 1048576 ? (n/1048576).toFixed(1) + " MB" : Math.max(1, Math.round((n||0)/1024)) + " KB";
+function onboarding(){
+  const rows = ONB && ONB.onboarding;
+  if (!rows) return `<h2>Onboarding</h2><div class="panel empty">Could not load onboarding${ONB && ONB.error ? ": " + esc(ONB.error) : ""}.</div>`;
+  const chip = s => `<span class="chip ${s==="ready"?"ok":s==="incomplete"?"warn":""}">${esc(s)}</span>`;
+  return `<h2>Onboarding</h2><p class="muted" style="margin:-4px 0 12px">Submissions from the /start page. Import creates or updates the engine candidate, with facts from the LinkedIn PDF and CV.</p><div class="panel tablewrap">${rows.length?`<table><thead><tr><th>Candidate</th><th>Submitted</th><th>Status</th><th>Missing</th><th>Files</th><th>Targets</th><th></th></tr></thead><tbody>${rows.map(o=>`<tr>
+    <td><b>${esc(o.full_name)}</b><br><span class="muted mono" style="overflow-wrap:normal;word-break:break-word">${esc(o.email)}</span>${o.package?`<br><span class="muted mono">${esc(o.package)}</span>`:""}</td>
+    <td>${ist(o.created_at)}</td>
+    <td>${chip(o.status)}</td>
+    <td>${o.missing.length?`<ul class="rules">${o.missing.map(m=>`<li>${esc(m)}</li>`).join("")}</ul>`:'<span class="muted">Nothing</span>'}</td>
+    <td>${o.files.length?o.files.map(f=>`<span class="mono">${esc(f.filename)}</span><br><span class="muted">${f.kind==="linkedin_pdf"?"LinkedIn":"CV"} · ${kb(f.size_bytes)}</span>`).join("<br>"):'<span class="muted">None</span>'}</td>
+    <td>${esc((o.roles||[]).join(", "))}<br><span class="muted">${o.companies} compan${o.companies===1?"y":"ies"}</span></td>
+    <td>${o.candidate_id?`<span class="muted mono">${esc(o.candidate_id)}</span><br><button class="btn ghost" type="button" data-import="${esc(o.id)}">Re-import</button>`:`<button class="btn" type="button" data-import="${esc(o.id)}">Import</button>`}</td>
+  </tr>`).join("")}</tbody></table>`:'<div class="empty">No onboarding submissions yet. Send paying candidates to /start?email=their@email.</div>'}</div>`;
+}
+
 function learning(){
   const L = DATA.learning;
   const ws = Object.entries(L.writers).map(([w,a])=>{ const s=L.writer_stats[w]||{replied:0,sent:0}; return `<tr><td><b>${esc(w)}</b><br><span class="muted">${esc(a)}</span></td><td class="num">${s.replied}/${s.sent}</td></tr>`; }).join("");
@@ -286,12 +306,12 @@ function spend(){
 
 function render(){
   tabs();
-  const views = {overview, candidates: () => OPEN ? candidateDetail() : candidatesTable(), queue, replies, signups, learning, spend};
+  const views = {overview, candidates: () => OPEN ? candidateDetail() : candidatesTable(), queue, replies, signups, onboarding, learning, spend};
   $("#app").innerHTML = (views[TAB] || overview)();
 }
 
 $("#app").addEventListener("click", async e => {
-  const t = e.target.closest("[data-cand],[data-prospect],[data-back],[data-approve],[data-sent],[data-setstatus],[data-reply]");
+  const t = e.target.closest("[data-cand],[data-prospect],[data-back],[data-approve],[data-sent],[data-setstatus],[data-reply],[data-import]");
   if (!t) return;
   try {
     if (t.dataset.cand) return openCandidate(t.dataset.cand);
@@ -313,6 +333,7 @@ $("#app").addEventListener("click", async e => {
       await api("/api/crm/inbound", {method:"POST", body: JSON.stringify({linkedin_url: p.linkedin_url, name: p.name, text})});
       toast("Reply logged. Run sync to draft your answer."); $("#reply").value = ""; return;
     }
+    if (t.dataset.import) { t.disabled = true; const r = await api(`/api/crm/onboarding/${encodeURIComponent(t.dataset.import)}/import`, {method:"POST"}); toast((r.created ? "Candidate created. " : "Candidate updated. ") + r.message); return load(); }
     if (t.dataset.sent) { t.disabled = true; await api(`/api/crm/outbox/${t.dataset.sent}/sent`, {method:"POST"}); toast("Marked sent"); return load(); }
   } catch (err) { if (err.message !== "unauthorized") toast(err.message); t.disabled = false; }
 });

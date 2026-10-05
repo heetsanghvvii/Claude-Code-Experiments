@@ -30,6 +30,7 @@
   color-scheme:light;
 }
 *,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--text);font-size:1rem;line-height:1.55;font-variation-settings:"wdth" 100;font-stretch:100%;caret-color:var(--post);overflow-x:hidden}
 ::selection{background:var(--ink);color:var(--inland-3)}
@@ -55,7 +56,7 @@ p{margin:0;text-wrap:pretty}
 .saved:not(:empty)::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ink-3)}
 
 /* intro sheet: the airmail letter */
-.intro{padding:clamp(16px,3vw,32px) 0 0}
+.intro{padding-top:clamp(16px,3vw,32px)}
 .sheet{position:relative;background:var(--inland);border-radius:4px;padding:clamp(28px,4.4vw,56px) clamp(28px,5vw,72px);box-shadow:var(--shadow-sheet);overflow:hidden;isolation:isolate}
 .sheet::before{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px),radial-gradient(120% 70% at 85% 0%,rgba(255,255,255,.25),transparent 60%)}
 .perf{position:absolute;top:0;bottom:0;width:10px;background:radial-gradient(circle,var(--paper) 2.6px,transparent 3.2px) center top/10px 14px repeat-y}
@@ -67,9 +68,11 @@ p{margin:0;text-wrap:pretty}
 .intro .meta span{display:inline-flex;align-items:center;gap:8px}
 .intro .meta i{width:8px;height:8px;border-radius:50%;background:var(--ink);flex:none}
 .intro .meta span:first-child i{background:var(--post)}
+.intro .hero-stamp{position:absolute;right:clamp(40px,6vw,96px);top:clamp(36px,5vw,64px);width:clamp(96px,10vw,132px);transform:rotate(4deg);filter:drop-shadow(0 6px 8px rgba(14,31,58,.22))}
+@media (max-width:760px){.intro .hero-stamp{width:54px;right:22px;top:22px}.intro h1{padding-right:56px}}
 
 /* layout */
-.layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:start;padding:clamp(28px,4vw,48px) 0 clamp(56px,7vw,96px)}
+.layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:start;padding-top:clamp(28px,4vw,48px);padding-bottom:clamp(56px,7vw,96px)}
 .rail{position:sticky;top:88px}
 .progress{list-style:none;margin:0;padding:0;position:relative;counter-reset:s}
 .progress::before{content:"";position:absolute;left:15px;top:16px;bottom:16px;border-left:2px dashed var(--rule-strong)}
@@ -91,7 +94,7 @@ p{margin:0;text-wrap:pretty}
 .step{border:0;margin:0;padding:0}
 .js .step{display:none}
 .js .step.on{display:block}
-.no-js-steps .step+.step{margin-top:56px;padding-top:40px;border-top:2px dashed var(--rule)}
+html:not(.js) .step+.step{margin-top:56px;padding-top:40px;border-top:2px dashed var(--rule)}
 .step-k{font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--post)}
 .step h2{margin-top:10px;font-size:clamp(2rem,1.4rem + 2.2vw,3rem);outline:none}
 .step .intro-p{margin-top:12px;font-family:var(--serif);font-size:1.12rem;color:var(--ink-2);max-width:58ch}
@@ -161,7 +164,7 @@ fieldset.choices legend{padding:0;margin-bottom:10px}
 .mock .acts{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
 .mock .acts span{border:1.5px solid var(--ink-2);color:var(--ink-2);border-radius:99px;padding:2px 10px;font-weight:600;white-space:nowrap}
 .mock .acts span.more{border-color:var(--post);color:var(--post);box-shadow:0 0 0 3px var(--post-soft)}
-.mock .menu{position:absolute;right:12px;bottom:-58px;width:62%;min-width:150px;background:var(--white);border:1px solid var(--rule-strong);border-radius:4px;box-shadow:0 12px 24px -14px rgba(14,31,58,.7);padding:4px 0;z-index:1}
+.mock .menu{position:absolute;right:10px;bottom:-58px;width:54%;min-width:150px;background:var(--white);border:1px solid var(--rule-strong);border-radius:4px;box-shadow:0 12px 24px -14px rgba(14,31,58,.7);padding:4px 0;z-index:1}
 .mock .menu span{display:block;padding:5px 10px;color:var(--ink-3)}
 .mock .menu span.pick{background:var(--post-soft);color:var(--ink);font-weight:700}
 .mock-wrap{padding-bottom:58px}
@@ -306,6 +309,7 @@ footer a{color:var(--white)}
   <div class="intro wrap">
     <div class="sheet">
       <span class="perf l" aria-hidden="true"></span><span class="perf r" aria-hidden="true"></span>
+      <svg class="hero-stamp" viewBox="0 0 160 192" aria-hidden="true"><rect x="2" y="2" width="156" height="188" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity=".28" stroke-dasharray="5 4"/><rect x="14" y="14" width="132" height="164" fill="#B3301B"/><g transform="translate(32 26) scale(1.5)" fill="none" stroke="#FAFCFE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10h24"/><path d="M26 10v6M38 10v6"/><circle cx="32" cy="22" r="6"/><path d="M22 34a14 14 0 1 0 20 0"/><path d="M32 54v8"/><path d="M26 64h12"/></g></svg>
       <p class="eyebrow">Onboarding</p>
       <h1>The details that make every message yours.</h1>
       <p class="lede">Your LinkedIn profile, your targets and a little of your story. We use them to find the right people and write to each one as you would.</p>
@@ -919,10 +923,7 @@ footer a{color:var(--white)}
 
   // ---------- start ----------
   companies(); meter(); tier2();
-  var hs = (location.hash.match(/^#step-(\d)$/) || [])[1];
-  if (hs != null) { S.maxStep = Math.max(S.maxStep, +hs); S.step = +hs; }
   go(S.step, false);
-  if (q.get("demo") === "done") done({missing: q.get("missing") ? q.get("missing").split("|") : []});
 })();
 </script>
 </body>

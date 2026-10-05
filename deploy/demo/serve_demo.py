@@ -2,7 +2,7 @@
 
     cd deploy && ./build.sh && PYTHONPATH=.:../engine python demo/serve_demo.py
 
-Serves http://127.0.0.1:8765 (landing page at /, CRM at /crm/, password "demo").
+Serves http://127.0.0.1:8765 (landing page at /, onboarding at /start, CRM at /crm/, password "demo").
 Nothing touches a real Supabase: outreach.store's HTTP layer is replaced by an in-memory fake.
 """
 
@@ -29,6 +29,8 @@ from outreach.models import Candidate, Fact, Hook, Message, Prospect  # noqa: E4
 
 fake = FakePostgrest()
 fake.tables["intake_requests"] = []
+fake.tables["onboarding"] = []
+fake.tables["candidate_files"] = []
 
 
 def _request(method, url, params=None, json=None, headers=None, timeout=None):
@@ -199,10 +201,51 @@ fake.tables["intake_requests"] += [
      "created_at": iso(-24 * 12), "processed_at": iso(-24 * 11), "candidate_id": ananya.id},
 ]
 
+# ---- onboarding submissions (/start), shown in the CRM Onboarding tab ----
+_companies = ["Paperplane", "Cobalt Retail", "Lumen Freight", "Orchard Pay", "Tidewater Health", "Northgate Foods",
+              "Brightline Logistics", "Harbor & Pine", "Fernhill", "Quill Media", "Saffron Bank"]
+fake.tables["onboarding"] += [
+    {"id": "5b0c2f1e-8d1a-4c3e-9f57-2a6d1c0e7b11", "created_at": iso(-2), "intake_id": 1, "email": "nisha@example.com",
+     "full_name": "Nisha Verma", "status": "ready", "processed_at": None, "candidate_id": None,
+     "consents": {"message_approval": True, "data_use": True, "tier2": False},
+     "answers": {"package": "standard", "roles": ["Data Analyst", "Analytics Manager"],
+                 "companies": [{"name": n, "top": i < 5} for i, n in enumerate(_companies)],
+                 "locations": ["Hyderabad"], "remote": "yes", "years": 4, "seniority": "Mid level",
+                 "why_now": "Four years of reporting at Cobalt Retail; I want to sit closer to product decisions.",
+                 "proud_1": "Built the weekly demand forecast that cut stock-outs by 18 percent across 40 stores.",
+                 "proud_2": "Taught SQL to 25 store managers in Hyderabad over six Saturdays.",
+                 "roots": "Osmania University 2019, grew up in Warangal, speak Telugu and Hindi.",
+                 "tone": "neutral", "never_say": "salary", "approval_channel": "crm", "approval_24h": True}},
+    {"id": "8e4a7d23-1f6b-4a90-b2c8-5d3e9f1a6c42", "created_at": iso(-7), "intake_id": 2, "email": "rahul@example.com",
+     "full_name": "Rahul Menon", "status": "incomplete", "processed_at": None, "candidate_id": None,
+     "consents": {"message_approval": True, "data_use": True, "tier2": True},
+     "answers": {"package": "done_for_you", "roles": ["Marketing Manager"],
+                 "companies": [{"name": n, "top": i < 3} for i, n in enumerate(["Fernhill", "Quill Media", "Saffron Bank", "Paperplane"])],
+                 "locations": ["Chennai"], "remote": "no", "years": 7, "why_now": "Ready for a bigger brand.",
+                 "proud_1": "Launched the Quill Media podcast, now 40,000 monthly listeners.", "tone": "casual",
+                 "approval_channel": "whatsapp", "approval_24h": True}},
+]
+fake.tables["candidate_files"] += [
+    {"id": "0d9f6a1c-3b2e-4f7d-8a5c-1e2b3c4d5e61", "created_at": iso(-2), "onboarding_id": "5b0c2f1e-8d1a-4c3e-9f57-2a6d1c0e7b11",
+     "kind": "linkedin_pdf", "filename": "Profile.pdf", "size_bytes": 148_532,
+     "text_content": "Nisha Verma. Data Analyst at Cobalt Retail, Hyderabad. Osmania University.", "pdf": None},
+    {"id": "1e8a5b2d-4c3f-4a6e-9b7d-2f3a4b5c6d72", "created_at": iso(-2), "onboarding_id": "5b0c2f1e-8d1a-4c3e-9f57-2a6d1c0e7b11",
+     "kind": "cv", "filename": "Nisha_Verma_CV_2026.pdf", "size_bytes": 312_870,
+     "text_content": "Nisha Verma, analytics. Demand forecasting, SQL, Python.", "pdf": None},
+]
+
 import api.index as api_module  # noqa: E402
+from fastapi.responses import FileResponse  # noqa: E402
 
 app = api_module.app
+
+
+@app.get("/start", include_in_schema=False)
+def start_page():  # same as the /start rewrite in vercel.json
+    return FileResponse(DEPLOY / "public" / "start" / "index.html")
+
+
 app.mount("/", StaticFiles(directory=str(DEPLOY / "public"), html=True), name="static")
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8765, log_level="warning")
+    uvicorn.run(app, host="127.0.0.1", port=int(os.environ.get("PORT", "8765")), log_level="warning")

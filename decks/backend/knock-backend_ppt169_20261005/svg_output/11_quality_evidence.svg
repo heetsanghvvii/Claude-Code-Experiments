@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" font-family="Times New Roman" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 44 1090 112" font-family="Arial" font-weight="bold">
+    <text x="64" y="60" font-size="13" fill="#4A5F80">QUALITY EVIDENCE</text>
+    <text x="64" y="102" font-size="34" fill="#0E1F3A">The design is tested twice: a blind comparison of<tspan x="64" dy="40">writing approaches, and a suite that needs no model</tspan></text>
+  </g>
+  <g id="page-stamp" data-pptx-bounds="1166 24 64 76">
+    <rect x="1172" y="30" width="52" height="64" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.28" stroke-width="1"/>
+    <rect x="1178" y="36" width="40" height="52" fill="#B3301B"/>
+    <text x="1198" y="70" font-family="Arial" font-weight="bold" font-size="22" fill="#FAFCFE" text-anchor="middle">11</text>
+  </g>
+  <line id="perf" data-pptx-role="decoration" x1="64" y1="166" x2="1216" y2="166" stroke="#97B9DD" stroke-width="3" stroke-dasharray="2,7"/>
+
+  <g id="blind-heading" data-pptx-bounds="64 182 632 26" font-family="Arial" font-weight="bold" fill="#0E1F3A">
+    <text x="64" y="200" font-size="17">Blind message test: seven approaches, the same test pairs</text>
+  </g>
+  <g id="approach-chips" data-pptx-bounds="64 214 632 142" font-family="Arial" font-weight="bold" font-size="14">
+    <rect x="64" y="216" width="312" height="30" fill="#0E1F3A"/>
+    <text x="76" y="236" fill="#FAFCFE">Knock engine: 3 writers and a judge</text>
+    <rect x="388" y="216" width="308" height="30" fill="#C4D9EF"/>
+    <text x="400" y="236" fill="#0E1F3A">Hybrid playbook with self-judge</text>
+    <rect x="64" y="252" width="312" height="30" fill="#C4D9EF"/>
+    <text x="76" y="272" fill="#0E1F3A">Research playbook</text>
+    <rect x="388" y="252" width="308" height="30" fill="#C4D9EF"/>
+    <text x="400" y="272" fill="#0E1F3A">Single-writer engine</text>
+    <rect x="64" y="288" width="312" height="30" fill="#C4D9EF"/>
+    <text x="76" y="308" fill="#0E1F3A">Sales copywriting</text>
+    <rect x="388" y="288" width="308" height="30" fill="#C4D9EF"/>
+    <text x="400" y="308" fill="#0E1F3A">Five-point networking method</text>
+    <rect x="64" y="324" width="312" height="30" fill="#C4D9EF"/>
+    <text x="76" y="344" fill="#0E1F3A">Plain baseline</text>
+  </g>
+  <g id="judges-line" data-pptx-bounds="64 366 632 50" font-size="15" fill="#2B4266">
+    <text x="64" y="384">Ten test pairs. Four blind judges: a recipient, a hiring manager, an<tspan x="64" dy="20">Indian recruiter and a rubric auditor.</tspan></text>
+  </g>
+  <g id="result-band" data-pptx-bounds="64 424 632 60">
+    <rect x="64" y="424" width="632" height="60" fill="#0E1F3A"/>
+    <text x="84" y="462" font-family="Arial" font-weight="bold" font-size="24" fill="#FAFCFE">Our engine beat the six other approaches.</text>
+  </g>
+  <g id="lessons" data-pptx-bounds="64 496 632 160" font-size="15" fill="#2B4266">
+    <text x="64" y="512" font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A">What the test changed in prompts.py</text>
+    <rect x="64" y="530" width="8" height="8" fill="#0E1F3A"/>
+    <text x="82" y="540">Openers: no self-introduction, concrete batch-year ties, and a<tspan x="82" dy="20">practitioner question only that person could answer.</tspan></text>
+    <rect x="64" y="578" width="8" height="8" fill="#0E1F3A"/>
+    <text x="82" y="588">Follow-ups: a second verified fact, an insider line, either/or<tspan x="82" dy="20">questions, an openly smaller ask, an easy out.</tspan></text>
+    <rect x="64" y="626" width="8" height="8" fill="#0E1F3A"/>
+    <text x="82" y="636">Three writers plus a judge stays the default. It beat the<tspan x="82" dy="20">single-writer version of the same engine.</tspan></text>
+  </g>
+
+  <g id="tests-heading" data-pptx-bounds="740 182 476 26" font-family="Arial" font-weight="bold" fill="#0E1F3A">
+    <text x="740" y="200" font-size="17">Automated tests, no model needed</text>
+  </g>
+  <g id="tile-engine-tests" data-pptx-bounds="740 214 230 130">
+    <rect x="740" y="214" width="230" height="130" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2"/>
+    <text x="756" y="286" font-family="Arial" font-weight="bold" font-size="68" fill="#0E1F3A">36</text>
+    <text x="756" y="318" font-family="Arial" font-weight="bold" font-size="16" fill="#2B4266">engine tests</text>
+  </g>
+  <g id="tile-api-tests" data-pptx-bounds="986 214 230 130">
+    <rect x="986" y="214" width="230" height="130" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2"/>
+    <text x="1002" y="286" font-family="Arial" font-weight="bold" font-size="68" fill="#0E1F3A">7</text>
+    <text x="1002" y="318" font-family="Arial" font-weight="bold" font-size="16" fill="#2B4266">API tests</text>
+  </g>
+  <g id="tests-covered" data-pptx-bounds="740 356 476 300" font-size="16" fill="#2B4266">
+    <text x="740" y="376" font-style="italic" fill="#4A5F80">Both suites pass on the last run. They use a fake model, so they run offline.</text>
+    <rect x="740" y="395" width="8" height="8" fill="#0E1F3A"/>
+    <text x="760" y="404">No citation, no hook: invented fact ids are dropped.</text>
+    <rect x="740" y="425" width="8" height="8" fill="#0E1F3A"/>
+    <text x="760" y="434">Opener rules reject asks, spam phrases, dashes and a missing<tspan x="760" dy="21">name.</tspan></text>
+    <rect x="740" y="476" width="8" height="8" fill="#0E1F3A"/>
+    <text x="760" y="485">A reply that tries to inject a link is never auto-sent.</text>
+    <rect x="740" y="506" width="8" height="8" fill="#0E1F3A"/>
+    <text x="760" y="515">Thompson sampling favours winners and still tries new<tspan x="760" dy="21">writers.</tspan></text>
+    <rect x="740" y="557" width="8" height="8" fill="#0E1F3A"/>
+    <text x="760" y="566">Weak writers retire and a new one is spawned.</text>
+    <rect x="740" y="587" width="8" height="8" fill="#0E1F3A"/>
+    <text x="760" y="596">Follow-ups draft once, then the thread closes.</text>
+    <rect x="740" y="617" width="8" height="8" fill="#0E1F3A"/>
+    <text x="760" y="626">The API demands the password and the cron secret.</text>
+  </g>
+  <g id="source" data-pptx-bounds="64 688 900 22" font-family="Arial" font-size="13" fill="#4A5F80">
+    <text x="64" y="702">Source: competitions/messages-openers/REPORT.md, engine/tests, deploy/tests</text>
+  </g>
+</svg>

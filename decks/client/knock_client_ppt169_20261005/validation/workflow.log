@@ -207,3 +207,39 @@ stdout:
     [PPTX] /home/user/Claude-Code-Experiments/decks/client/knock-client-deck.pptx
     [REPORT] validation/knock-client-deck.report.json
 === 2026-10-05T00:46:24.968Z END run=a873e4530dbb elapsed_ms=1602 output_lines=60 retained=6 omitted=54 ===
+
+=== 2026-10-05T00:47:02.396Z PYTHON run=639e3b7edb68 ===
+cwd: /home/user/Claude-Code-Experiments/decks/client/knock_client_ppt169_20261005
+argv: ["/usr/bin/python3", "/tmp/skills/hugohe3_ppt-master/skills/ppt-master/scripts/svg_quality_checker.py", ".", "--quick-generate", "--canonical-authoring", "--stage", "final", "--json"]
+stdout:
+  [WARN] 01_cover.svg - Passed (with warnings)
+     [WARN] Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (3 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): cover-title:font-weight None -> 'bold'; text[4]:font-weight 'bold' -> None; text[5]:font-weight 'bold' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)
+     [WARN] Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow
+  [WARN] 02_problem.svg - Passed (with warnings)
+  [SUMMARY] Check Summary
+  Total files: 12
+    [OK] Fully passed: 0 (0%)
+    [WARN] With warnings: 12 (100%)
+    [ERROR] With errors: 0 (0%)
+  Provenance categories:
+    blocking: 0          hard findings; gate also requires exit 0
+    introduced: 16       advisory; new or changed
+    inherited: 0         informational; prototype-identical
+    source-import: 0     informational; source-conversion loss
+  [CARRIERS] Actual-use receipt (informational; not a quota)
+    Pages: 12 | text: 213 | images: 0 | icons: 0
+    Geometry: SVG elements 128 | native presets 57 | page-frame elements 13 | marker uses 0
+  [REPORT] JSON quality report exported: validation/svg_quality_report.json
+=== 2026-10-05T00:47:03.962Z END run=639e3b7edb68 elapsed_ms=1565 output_lines=67 retained=18 omitted=49 ===
+
+=== 2026-10-05T00:47:04.137Z PYTHON run=57fc2dcb45dd ===
+cwd: /home/user/Claude-Code-Experiments/decks/client/knock_client_ppt169_20261005
+argv: ["/usr/bin/python3", "/tmp/skills/hugohe3_ppt-master/skills/ppt-master/scripts/svg_to_pptx.py", ".", "--quick-generate", "--no-notes", "-o", "/home/user/Claude-Code-Experiments/decks/client/knock-client-deck.pptx"]
+stdout:
+  [Done] Saved: /home/user/Claude-Code-Experiments/decks/client/knock-client-deck.pptx
+    [POSTFLIGHT] status=passed-with-warnings quality_gate=passed slides=12 warning_categories=2
+    [POSTFLIGHT][WARNING] quality_introduced_warnings=16
+    [POSTFLIGHT][WARNING] unsafe_exported_font_faces=1
+    [PPTX] /home/user/Claude-Code-Experiments/decks/client/knock-client-deck.pptx
+    [REPORT] validation/knock-client-deck.report.json
+=== 2026-10-05T00:47:05.893Z END run=57fc2dcb45dd elapsed_ms=1755 output_lines=60 retained=6 omitted=54 ===

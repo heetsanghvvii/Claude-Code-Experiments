@@ -4,12 +4,12 @@
   "target": "/home/user/Claude-Code-Experiments/decks/client/knock_client_ppt169_20261005",
   "source_fingerprint": {
     "algorithm": "sha256",
-    "digest": "fdc3acd25c00f2566caf3cd5bc92d799feacda9878e8fb80ea3d0aee3812b1f8",
+    "digest": "8ceecd362b19e40b930e5752cc4a738a849d9b35eb332968eed984cb4ae22d12",
     "file_count": 12,
     "files": [
       {
         "file": "01_cover.svg",
-        "sha256": "5fa9a32c03eab6f29f7b5abf39b00ddc7cd21cac0cdff3b152695f260ea2a7f6"
+        "sha256": "512c5ccdbc8431e499bcff76f1883697f5fb9a0c03a239491e89d4a098939990"
       },
       {
         "file": "02_problem.svg",
@@ -53,7 +53,7 @@
       },
       {
         "file": "12_next-step.svg",
-        "sha256": "6a64ce426b3dd87211cc75afd8660360b9f5f436647490fa49ff44510868cc47"
+        "sha256": "891146fe57fdfabaa1d09a6015f6a89c0f3f21d40d0a8600f89214a668052ff6"
       }
     ]
   },
@@ -280,7 +280,7 @@
         "tspan_elements": 4
       },
       "passed": true,
-      "source_sha256": "5fa9a32c03eab6f29f7b5abf39b00ddc7cd21cac0cdff3b152695f260ea2a7f6"
+      "source_sha256": "512c5ccdbc8431e499bcff76f1883697f5fb9a0c03a239491e89d4a098939990"
     },
     {
       "file": "02_problem.svg",
@@ -972,7 +972,7 @@
         "tspan_elements": 2
       },
       "passed": true,
-      "source_sha256": "6a64ce426b3dd87211cc75afd8660360b9f5f436647490fa49ff44510868cc47"
+      "source_sha256": "891146fe57fdfabaa1d09a6015f6a89c0f3f21d40d0a8600f89214a668052ff6"
     }
   ]
 }

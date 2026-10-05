@@ -84,14 +84,14 @@
   .note{margin-top:34px;font-size:24px;color:var(--muted)}
 
   /* 04 how */
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:84px;border-top:2px solid var(--ink)}
-  .step{padding:36px 40px 0 0;border-right:1px solid var(--line);margin-right:40px;min-height:380px}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:64px;border-top:2px solid var(--ink)}
+  .step{padding:36px 40px 0 0;border-right:1px solid var(--line);margin-right:40px;min-height:320px}
   .step:last-child{border-right:0;margin-right:0}
   .step .num{font:400 88px/1 var(--serif);color:var(--brass)}
   .step .who{font:600 21px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:30px}
   .step h3{font:500 40px/1.15 var(--serif);margin:14px 0 18px}
   .step p{font-size:27px;line-height:1.4;color:var(--muted)}
-  .approve{margin-top:34px;display:flex;align-items:center;gap:22px;background:var(--forest);color:var(--cream);padding:26px 36px;border-radius:4px;font-size:30px}
+  .approve{margin-top:30px;display:flex;align-items:center;gap:22px;background:var(--forest);color:var(--cream);padding:26px 36px;border-radius:4px;font-size:30px}
   .approve .dot{width:16px;height:16px;border-radius:50%;background:var(--brass);flex:none}
 
   /* 05 message */
@@ -126,7 +126,7 @@
   .p{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:40px 38px 36px;display:flex;flex-direction:column;min-height:470px}
   .p .nm{font:500 44px/1.1 var(--serif)}
   .p .len{font:600 21px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:16px}
-  .p .ppl{font-size:28px;margin-top:40px;padding-top:26px;border-top:1px solid var(--line);line-height:1.35}
+  .p .ppl{font-size:28px;margin:40px 0 36px;padding-top:26px;border-top:1px solid var(--line);line-height:1.35}
   .p .ppl b{font-weight:600}
   .p .price{margin-top:auto;font:400 66px/1 var(--serif);letter-spacing:-.01em}
   .p .price small{display:block;font:500 21px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
@@ -134,6 +134,7 @@
   .p.dfy .len,.p.dfy .price small{color:rgba(243,238,229,.65)}
   .p.dfy .ppl{border-color:rgba(243,238,229,.2)}
   .pknote{margin-top:36px;display:flex;gap:18px;align-items:center;font-size:28px}
+  .pknote .ph{margin:0 4px}
   .pknote .tag{background:var(--brass);color:#fff;font:600 20px var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;border-radius:3px}
 
   /* 08 offer (dark) */
@@ -189,7 +190,7 @@
   .s-close h2 em{font-style:italic;color:var(--brass-soft)}
   .s-close .ctas{margin-top:70px;display:grid;gap:0;border-top:1px solid rgba(243,238,229,.25);max-width:980px}
   .s-close .c{display:grid;grid-template-columns:260px 1fr;padding:28px 0;border-bottom:1px solid rgba(243,238,229,.18);font-size:32px;align-items:baseline}
-  .s-close .c span{font:600 21px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:rgba(243,238,229,.6)}
+  .s-close .c > span:first-child{font:600 21px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:rgba(243,238,229,.6)}
   .s-close .mail{font:500 44px var(--serif);color:var(--brass-soft)}
 
   @media print{
@@ -320,7 +321,7 @@
     <div class="p"><div class="nm">Full search</div><div class="len">21 days</div><div class="ppl"><b>180 people</b><br>researched and contacted</div><div class="price"><small>Founding price</small>Rs 5,499</div></div>
     <div class="p dfy"><div class="nm">Done-for-you</div><div class="len">Scoped per person</div><div class="ppl">For senior or complex searches, handled end to end</div><div class="price"><small>From</small>Rs 14,999</div></div>
   </div>
-  <div class="pknote"><span class="tag">Club members</span>Founding-member pricing for everyone in <span class="ph light">&lt;Club name&gt;</span>, students and alumni.</div>
+  <div class="pknote"><span class="tag">Club members</span><span>Founding-member pricing for everyone in <span class="ph light">&lt;Club name&gt;</span>, students and alumni.</span></div>
   <div class="foot"><b>Knock</b><span>Partner proposal · 07</span></div>
 </section>
 

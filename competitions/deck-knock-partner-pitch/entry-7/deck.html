@@ -31,6 +31,11 @@ body{font-family:var(--font-body);color:var(--color-primary);-webkit-font-smooth
 .slide{position:absolute;inset:0;width:1920px;height:1080px;background:var(--color-background);overflow:hidden;
   padding:120px 140px 110px;display:none}
 .slide.active{display:block}
+/* body block centred in the space under the title */
+.slide:not(.s-title):not(.s-close).active{display:flex;flex-direction:column}
+.slide:not(.s-title):not(.s-close) > h2.title{margin-bottom:48px;flex:none}
+.slide:not(.s-title):not(.s-close) > h2.title + *{margin-top:auto !important}
+.slide:not(.s-title):not(.s-close)::after{content:"";display:block;margin-top:auto;min-height:40px}
 .slide.dark{background:var(--color-primary);color:#F4EFE6}
 
 /* ---------- chrome ---------- */
@@ -232,6 +237,7 @@ p.body{font-size:23px;line-height:1.5;color:var(--color-secondary)}
   .deck{transform:none !important;width:1920px;height:auto}
   .slide{display:block !important;position:relative;inset:auto;page-break-after:always;break-after:page;
     -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .slide:not(.s-title):not(.s-close){display:flex !important;flex-direction:column}
   .slide:last-child{page-break-after:auto;break-after:auto}
   .nav{display:none}
 }
@@ -395,9 +401,9 @@ p.body{font-size:23px;line-height:1.5;color:var(--color-secondary)}
   <div class="kicker">Where campus placement does not reach</div>
   <h2 class="title">Useful for the students and alumni <em>searching on their own.</em></h2>
   <div class="who3">
-    <div class="card"><div class="label">Students</div><h3>Off-campus and off-cycle searches</h3><p class="body">For roles and companies that do not come to campus, or timing that does not fit the process.</p><div class="ex2">"I want a role at a company that never visits our campus."</div></div>
-    <div class="card"><div class="label">Alumni</div><h3>Lateral moves after a few years</h3><p class="body">Busy professionals with no time to research people and write thoughtful notes every week.</p><div class="ex2">"I know where I want to go next. I don't have the hours to network properly."</div></div>
-    <div class="card"><div class="label">Both</div><h3>Function and sector switches</h3><p class="body">Brand to product, consulting to strategy, banking to startups. Where a CV alone tells the wrong story.</p><div class="ex2">"My CV says one thing. I need someone to hear why I'm switching."</div></div>
+    <div class="card"><div class="label">Students</div><h3>Off-campus and off-cycle searches</h3><p class="body">For roles and companies that do not come to campus, or timing that does not fit the process.</p><div class="ex2">Typical case: the target company never visits campus.</div></div>
+    <div class="card"><div class="label">Alumni</div><h3>Lateral moves after a few years</h3><p class="body">Busy professionals with no time to research people and write thoughtful notes every week.</p><div class="ex2">Typical case: a clear next move, but no hours to network.</div></div>
+    <div class="card"><div class="label">Both</div><h3>Function and sector switches</h3><p class="body">Brand to product, consulting to strategy, banking to startups. Where a CV alone tells the wrong story.</p><div class="ex2">Typical case: the CV says one thing, the story says another.</div></div>
   </div>
   <div class="folio">07 / 12</div>
 </section>

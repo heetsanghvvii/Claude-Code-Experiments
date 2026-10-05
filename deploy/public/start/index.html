@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Knock | Onboarding</title>
+<meta name="description" content="Your Knock onboarding: your LinkedIn profile, CV, targets and story, so every message we draft sounds like you.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#A9C7E6">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23B3301B'/%3E%3Cg fill='none' stroke='%23FAFCFE' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='32' cy='26' r='7'/%3E%3Cpath d='M22 38a12 12 0 1 0 20 0'/%3E%3C/g%3E%3C/svg%3E">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
+<style>
+/* Knock brand tokens (brand/tokens.css), inlined. Light only, like the landing page. */
+:root{
+  --inland:#A9C7E6; --inland-2:#97B9DD; --inland-3:#C4D9EF;
+  --paper:#EEF3F8; --white:#FAFCFE;
+  --ink:#0E1F3A; --ink-2:#2B4266; --ink-3:#4A5F80;
+  --post:#B3301B; --post-soft:#F3D9D2;
+  --rule:rgba(14,31,58,.2); --rule-strong:rgba(14,31,58,.55);
+  --display:"Archivo","Arial Narrow",sans-serif;
+  --text:"Archivo",system-ui,sans-serif;
+  --serif:"Source Serif 4",Georgia,serif;
+  --gutter:clamp(16px,4vw,48px);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --shadow-sheet:0 30px 60px -36px rgba(14,31,58,.55);
+  --shadow-note:0 30px 50px -30px rgba(14,31,58,.55),0 4px 10px -6px rgba(14,31,58,.3);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--text);font-size:1rem;line-height:1.55;font-variation-settings:"wdth" 100;font-stretch:100%;caret-color:var(--post);overflow-x:hidden}
+::selection{background:var(--ink);color:var(--inland-3)}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-underline-offset:.22em;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--post);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-family:var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;font-weight:800;line-height:.95;letter-spacing:-.015em;margin:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--gutter)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:var(--white);padding:10px 16px;z-index:50;text-decoration:none;font-weight:600}
+.skip:focus{top:12px}
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
+
+/* header */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;font-weight:800;font-size:1.6rem;letter-spacing:-.01em}
+.brand svg{width:30px;height:30px}
+.brand small{font:600 .72rem var(--text);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);border-left:1px solid var(--rule-strong);padding-left:12px;margin-left:4px}
+.saved{font-size:.85rem;color:var(--ink-3);display:flex;align-items:center;gap:8px;min-height:1.5em}
+.saved:not(:empty)::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ink-3)}
+
+/* intro sheet: the airmail letter */
+.intro{padding:clamp(16px,3vw,32px) 0 0}
+.sheet{position:relative;background:var(--inland);border-radius:4px;padding:clamp(28px,4.4vw,56px) clamp(28px,5vw,72px);box-shadow:var(--shadow-sheet);overflow:hidden;isolation:isolate}
+.sheet::before{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px),radial-gradient(120% 70% at 85% 0%,rgba(255,255,255,.25),transparent 60%)}
+.perf{position:absolute;top:0;bottom:0;width:10px;background:radial-gradient(circle,var(--paper) 2.6px,transparent 3.2px) center top/10px 14px repeat-y}
+.perf.l{left:clamp(6px,1.2vw,14px)}.perf.r{right:clamp(6px,1.2vw,14px)}
+.eyebrow{font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.intro h1{margin-top:14px;font-size:clamp(2.4rem,1.4rem + 4vw,4.4rem);font-variation-settings:"wdth" 70;font-stretch:70%;line-height:.92;max-width:16ch;letter-spacing:-.02em}
+.intro .lede{margin-top:18px;font-family:var(--serif);font-size:clamp(1.08rem,1rem + .35vw,1.3rem);max-width:54ch}
+.intro .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px 26px;font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.intro .meta span{display:inline-flex;align-items:center;gap:8px}
+.intro .meta i{width:8px;height:8px;border-radius:50%;background:var(--ink);flex:none}
+.intro .meta span:first-child i{background:var(--post)}
+
+/* layout */
+.layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:start;padding:clamp(28px,4vw,48px) 0 clamp(56px,7vw,96px)}
+.rail{position:sticky;top:88px}
+.progress{list-style:none;margin:0;padding:0;position:relative;counter-reset:s}
+.progress::before{content:"";position:absolute;left:15px;top:16px;bottom:16px;border-left:2px dashed var(--rule-strong)}
+.progress li{position:relative}
+.progress button{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:center;width:100%;background:none;border:0;padding:7px 0;font:inherit;color:var(--ink-3);text-align:left;cursor:default}
+.progress button:not([disabled]){cursor:pointer;color:var(--ink-2)}
+.progress button:not([disabled]):hover .lbl{text-decoration:underline}
+.progress .dot{position:relative;width:32px;height:32px;border-radius:50%;border:2px solid var(--rule-strong);background:var(--paper);display:grid;place-items:center;font:800 .95rem var(--display);font-variation-settings:"wdth" 72}
+.progress .done .dot{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.progress [aria-current="step"]{color:var(--ink)}
+.progress [aria-current="step"] .dot{border-color:var(--post);color:var(--post);background:var(--white);box-shadow:0 0 0 4px var(--post-soft)}
+.progress [aria-current="step"] .lbl{font-weight:700}
+.progress .lbl{font-size:.98rem;font-weight:500}
+.rail-note{margin-top:22px;padding-top:18px;border-top:1px solid var(--rule);font-size:.9rem;color:var(--ink-2)}
+.mini{display:none}
+
+/* the form card */
+.card{position:relative;background:var(--white);border-radius:4px;padding:clamp(22px,3.6vw,48px);box-shadow:var(--shadow-note);min-width:0}
+.step{border:0;margin:0;padding:0}
+.js .step{display:none}
+.js .step.on{display:block}
+.no-js-steps .step+.step{margin-top:56px;padding-top:40px;border-top:2px dashed var(--rule)}
+.step-k{font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--post)}
+.step h2{margin-top:10px;font-size:clamp(2rem,1.4rem + 2.2vw,3rem);outline:none}
+.step .intro-p{margin-top:12px;font-family:var(--serif);font-size:1.12rem;color:var(--ink-2);max-width:58ch}
+.group{margin-top:30px}
+.group>h3{font-size:1.45rem;line-height:1.05}
+.group>h3+.help{margin-top:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px 22px}
+.f{display:grid;gap:6px;margin-top:20px;min-width:0}
+.grid2 .f{margin-top:0}
+.group .grid2{margin-top:18px}
+.f>label,.legend{font-weight:600;font-size:.98rem}
+.f label .opt,.legend .opt{font-weight:400;color:var(--ink-3)}
+.help{font-size:.9rem;color:var(--ink-2);max-width:62ch}
+.ex{font-family:var(--serif);font-style:italic;font-size:.98rem;color:var(--ink-2);border-left:2px solid var(--inland-2);padding:2px 0 2px 12px;max-width:62ch}
+.ex b{font-family:var(--text);font-style:normal;font-weight:600;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-right:6px}
+input[type=text],input[type=email],input[type=number],select,textarea{width:100%;min-height:50px;padding:12px 14px;border:1.5px solid rgba(14,31,58,.45);border-radius:4px;background:var(--paper);font:inherit;color:var(--ink);transition:border-color .2s,box-shadow .2s,background .2s}
+textarea{min-height:96px;resize:vertical;font-family:var(--serif);font-size:1.05rem;line-height:1.5}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat;padding-right:40px}
+input::placeholder,textarea::placeholder{color:#5F7290;opacity:1}
+input:hover,select:hover,textarea:hover{border-color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink);background:var(--white);box-shadow:0 0 0 3px rgba(179,48,27,.35)}
+[aria-invalid="true"]{border-color:var(--post)!important;background:#FBF0EE!important}
+.err{font-size:.9rem;color:var(--post);font-weight:500}
+.err:empty{display:none}
+.summary{margin-top:22px;border:1.5px solid var(--post);background:#FBF0EE;border-radius:4px;padding:14px 16px;color:var(--ink)}
+.summary:empty{display:none}
+.summary b{color:var(--post)}
+.summary ul{margin:6px 0 0;padding-left:20px}
+.summary a{color:var(--ink)}
+
+/* radio and checkbox cards */
+fieldset.choices{border:0;margin:20px 0 0;padding:0;min-width:0}
+fieldset.choices legend{padding:0;margin-bottom:10px}
+.opts{display:grid;gap:10px}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opt-card{position:relative;display:grid;grid-template-columns:22px 1fr;gap:4px 12px;align-items:start;padding:14px 16px;border:1.5px solid var(--rule-strong);border-radius:4px;background:var(--paper);cursor:pointer;transition:border-color .2s,background .2s}
+.opt-card:hover{border-color:var(--ink)}
+.opt-card input{margin:3px 0 0;width:18px;height:18px;accent-color:var(--ink)}
+.opt-card .t{font-weight:600}
+.opt-card .d{grid-column:2;font-size:.9rem;color:var(--ink-2)}
+.opt-card .d.q{font-family:var(--serif);font-style:italic;font-size:.95rem}
+.opt-card:has(input:checked){border-color:var(--ink);background:var(--white);box-shadow:inset 0 0 0 1px var(--ink)}
+.opt-card:has(input:focus-visible){outline:3px solid var(--post);outline-offset:2px}
+.check{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;padding:16px 18px;border:1.5px solid var(--rule-strong);border-radius:4px;background:var(--paper);cursor:pointer;margin-top:14px}
+.check input{margin:3px 0 0;width:18px;height:18px;accent-color:var(--ink)}
+.check:has(input:checked){border-color:var(--ink);background:var(--white)}
+.check:has(input:focus-visible){outline:3px solid var(--post);outline-offset:2px}
+.check .t{font-weight:600;display:block}
+.check .d{display:block;margin-top:4px;font-size:.93rem;color:var(--ink-2)}
+.check ul{margin:8px 0 0;padding-left:18px;font-size:.93rem;color:var(--ink-2)}
+.check ul li{margin:3px 0}
+.check.inval{border-color:var(--post);background:#FBF0EE}
+
+/* files */
+.howto{margin-top:14px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:22px;align-items:center;background:var(--inland-3);border-radius:4px;padding:18px 20px}
+.howto ol{margin:0;padding:0;list-style:none;display:grid;gap:10px;counter-reset:h}
+.howto li{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;font-size:.95rem}
+.howto li::before{counter-increment:h;content:counter(h);width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--inland-3);display:grid;place-items:center;font-size:.8rem;font-weight:700}
+.howto li b{font-weight:700}
+.mock{background:var(--white);border:1px solid var(--rule);border-radius:6px;padding:14px 14px 12px;position:relative;font-size:.78rem;box-shadow:0 10px 24px -18px rgba(14,31,58,.6)}
+.mock .bnr{height:30px;border-radius:4px 4px 0 0;background:var(--inland);margin:-14px -14px 0}
+.mock .av{width:46px;height:46px;border-radius:50%;background:var(--inland-3);border:3px solid var(--white);margin-top:-22px}
+.mock .ln{height:7px;border-radius:4px;background:var(--rule);margin-top:6px}
+.mock .ln.a{width:52%;background:var(--ink-2);height:8px}
+.mock .ln.b{width:74%}
+.mock .acts{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.mock .acts span{border:1.5px solid var(--ink-2);color:var(--ink-2);border-radius:99px;padding:2px 10px;font-weight:600;white-space:nowrap}
+.mock .acts span.more{border-color:var(--post);color:var(--post);box-shadow:0 0 0 3px var(--post-soft)}
+.mock .menu{position:absolute;right:12px;bottom:-58px;width:62%;min-width:150px;background:var(--white);border:1px solid var(--rule-strong);border-radius:4px;box-shadow:0 12px 24px -14px rgba(14,31,58,.7);padding:4px 0;z-index:1}
+.mock .menu span{display:block;padding:5px 10px;color:var(--ink-3)}
+.mock .menu span.pick{background:var(--post-soft);color:var(--ink);font-weight:700}
+.mock-wrap{padding-bottom:58px}
+.drop{position:relative;margin-top:14px;border:2px dashed var(--rule-strong);border-radius:6px;background:var(--paper);padding:22px 20px;display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:center;transition:border-color .2s,background .2s}
+.drop.over{border-color:var(--post);background:#FBF0EE}
+.drop.has{border-style:solid;border-color:var(--ink);background:var(--white)}
+.drop.bad{border-color:var(--post)}
+.drop .ic{width:44px;height:52px;color:var(--ink-2)}
+.drop .main b{display:block;font-weight:600}
+.drop .main span{display:block;font-size:.9rem;color:var(--ink-2);overflow-wrap:anywhere}
+.drop input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pick-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.5em 1.1em;border:2px solid var(--ink);border-radius:99px;background:transparent;color:var(--ink);font:600 .95rem var(--text);cursor:pointer;white-space:nowrap}
+.pick-btn:hover{background:var(--ink);color:var(--white)}
+.drop:has(input:focus-visible) .pick-btn{outline:3px solid var(--post);outline-offset:3px}
+.drop .acts2{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.linkbtn{background:none;border:0;padding:4px 2px;font:600 .92rem var(--text);color:var(--ink);text-decoration:underline;text-underline-offset:.22em;cursor:pointer}
+.linkbtn:hover{color:var(--post)}
+.bar{height:4px;border-radius:2px;background:var(--rule);overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;width:0;background:var(--ink);transition:width .2s}
+
+/* companies */
+.addrow{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:50px;padding:.7em 1.4em;background:var(--ink);color:var(--white);border:2px solid var(--ink);border-radius:999px;font-family:var(--display);font-variation-settings:"wdth" 88;font-stretch:88%;font-weight:700;font-size:1.02rem;letter-spacing:.01em;cursor:pointer;text-decoration:none;transition:background .2s,border-color .2s,box-shadow .2s,transform .1s}
+.btn:hover{background:var(--post);border-color:var(--post);box-shadow:0 8px 20px -10px rgba(179,48,27,.7)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.6;cursor:progress}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--white);border-color:var(--ink);box-shadow:none}
+.btn svg{width:18px;height:18px}
+.clist{list-style:none;margin:14px 0 0;padding:0;border-top:1.5px solid var(--ink);counter-reset:c}
+.clist:empty{display:none}
+.clist li{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule)}
+.clist li::before{counter-increment:c;content:counter(c);font:800 1.05rem var(--display);font-variation-settings:"wdth" 72;color:var(--ink-3);text-align:right;font-variant-numeric:tabular-nums}
+.clist .nm{font-weight:600;overflow-wrap:anywhere}
+.clist .ctl{display:flex;gap:4px;align-items:center}
+.clist .top{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;padding:4px 10px;border:1.5px solid var(--rule-strong);border-radius:99px;cursor:pointer;white-space:nowrap;color:var(--ink-2)}
+.clist .top input{width:15px;height:15px;margin:0;accent-color:var(--post)}
+.clist .top:has(input:checked){border-color:var(--post);color:var(--post);background:var(--post-soft)}
+.clist .top:has(input:focus-visible){outline:3px solid var(--post);outline-offset:2px}
+.icb{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--rule);border-radius:4px;background:var(--paper);color:var(--ink);cursor:pointer;padding:0}
+.icb:hover{border-color:var(--ink)}
+.icb svg{width:16px;height:16px}
+.icb[disabled]{opacity:.35;cursor:default}
+.count{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.9rem;color:var(--ink-2)}
+.count b{color:var(--ink);font-variant-numeric:tabular-nums}
+.count .warn{color:var(--post)}
+
+/* story meter */
+.meter{margin-top:22px;display:flex;align-items:center;gap:14px;background:var(--inland-3);border-radius:4px;padding:12px 16px;font-size:.95rem}
+.meter .pips{display:flex;gap:6px}
+.meter .pips i{width:22px;height:8px;border-radius:2px;background:var(--white);border:1px solid var(--ink-3)}
+.meter .pips i.on{background:var(--ink);border-color:var(--ink)}
+.spec-tag{font-size:.8rem;font-weight:600;color:var(--ink-3);min-height:1.2em}
+.spec-tag.ok{color:var(--ink)}
+.spec-tag.ok::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ink);margin-right:7px;vertical-align:1px}
+
+/* review */
+.rv{margin-top:26px;border-top:1.5px solid var(--ink)}
+.rv section{display:grid;grid-template-columns:170px minmax(0,1fr) auto;gap:8px 20px;padding:16px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.rv h3{font-size:1.25rem}
+.rv dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:.95rem}
+.rv dt{color:var(--ink-3)}
+.rv dd{margin:0;overflow-wrap:anywhere}
+.bar-list{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px}
+.bar-list li{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;font-size:.98rem}
+.bar-list li i{width:22px;height:22px;border-radius:50%;border:2px solid var(--rule-strong);display:grid;place-items:center;margin-top:1px}
+.bar-list li.ok i{background:var(--ink);border-color:var(--ink)}
+.bar-list li.ok i::after{content:"";width:9px;height:5px;border:2px solid var(--white);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.bar-list li.no{color:var(--ink-2)}
+.bar-box{margin-top:26px;background:var(--inland-3);border-radius:4px;padding:18px 20px}
+.bar-box h3{font-size:1.35rem}
+.bar-box p{margin-top:6px;font-size:.95rem;color:var(--ink-2)}
+
+.nav-row{margin-top:34px;padding-top:22px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center;justify-content:space-between}
+.nav-row .r{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-left:auto}
+.nav-row small{color:var(--ink-3);font-size:.88rem}
+.form-err{margin-top:16px;color:var(--post);font-weight:500}
+.form-err:empty{display:none}
+.noscript{border:1.5px solid var(--ink);border-radius:4px;padding:14px 16px;margin-bottom:28px;background:var(--inland-3)}
+
+/* success */
+.success h2{font-size:clamp(2.4rem,1.6rem + 3vw,3.8rem)}
+.success .stamp{width:92px;transform:rotate(-6deg);filter:drop-shadow(0 6px 8px rgba(14,31,58,.22));margin-bottom:22px}
+.success .lede{margin-top:14px;font-family:var(--serif);font-size:1.2rem;color:var(--ink-2);max-width:52ch}
+.next{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:16px;max-width:60ch}
+.next li{display:grid;grid-template-columns:32px 1fr;gap:14px}
+.next li i{font-style:normal;width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--inland);display:grid;place-items:center;font-weight:700}
+.next li b{display:block}
+.next li span{color:var(--ink-2)}
+.missing{margin-top:24px;border-left:4px solid var(--post);background:#FBF0EE;padding:14px 18px;border-radius:0 4px 4px 0;max-width:62ch}
+.missing ul{margin:6px 0 0;padding-left:20px}
+
+footer{background:var(--ink);color:var(--paper);padding:36px 0 30px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;font-size:.92rem}
+footer .tag{font-family:var(--serif);font-style:italic;color:var(--inland);font-size:1.1rem}
+footer a{color:var(--white)}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .rail{position:static}
+  .progress,.rail-note{display:none}
+  .mini{display:block}
+  .howto{grid-template-columns:1fr}
+}
+.mini{position:sticky;top:64px;z-index:10;background:var(--paper);padding:12px 0 10px;margin-top:-6px}
+.mini p{display:flex;justify-content:space-between;gap:12px;font-size:.88rem;font-weight:600;color:var(--ink-2)}
+.mini p b{color:var(--ink)}
+.segs{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:8px}
+.segs i{height:5px;border-radius:2px;background:var(--rule)}
+.segs i.done{background:var(--ink)}
+.segs i.cur{background:var(--post)}
+@media (max-width:640px){
+  .grid2,.opts.three,.opts.two{grid-template-columns:1fr}
+  .drop{grid-template-columns:36px 1fr;padding:18px 16px}
+  .drop .ic{width:36px;height:44px}
+  .drop .acts2,.drop>.pick-btn{grid-column:1/-1;justify-content:flex-start}
+  .drop>.pick-btn{width:100%}
+  .rv section{grid-template-columns:1fr auto}
+  .rv section dl{grid-column:1/-1;grid-row:2}
+  .nav-row .r{width:100%;margin-left:0}
+  .nav-row .r .btn{flex:1}
+  .brand small{display:none}
+  .clist li{grid-template-columns:24px minmax(0,1fr)}
+  .clist .ctl{grid-column:2;justify-content:flex-start}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#form">Skip to the form</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Knock, home">
+      <svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="2.5" width="22" height="27" rx="2"/><circle cx="16" cy="12" r="3"/><path d="M12.6 15.2a5.2 5.2 0 1 0 6.8 0"/></svg>
+      Knock <small>onboarding</small>
+    </a>
+    <span class="saved" id="saved" role="status" aria-live="polite"></span>
+  </div>
+</header>
+
+<main id="main">
+  <div class="intro wrap">
+    <div class="sheet">
+      <span class="perf l" aria-hidden="true"></span><span class="perf r" aria-hidden="true"></span>
+      <p class="eyebrow">Onboarding</p>
+      <h1>The details that make every message yours.</h1>
+      <p class="lede">Your LinkedIn profile, your targets and a little of your story. We use them to find the right people and write to each one as you would.</p>
+      <p class="meta"><span><i aria-hidden="true"></i>About 15 minutes</span><span><i aria-hidden="true"></i>Saves on this device as you go</span><span><i aria-hidden="true"></i>Nothing is sent without your approval</span></p>
+    </div>
+  </div>
+
+  <div class="layout wrap">
+    <aside class="rail" aria-label="Progress">
+      <ol class="progress" id="progress"></ol>
+      <p class="rail-note">Stuck on something? Write to <a href="mailto:hello@knock.careers">hello@knock.careers</a> and a person will reply.</p>
+    </aside>
+
+    <div>
+      <div class="mini" id="mini" aria-hidden="true"><p><span id="mini-label"><b>Step 1 of 6</b> Your details</span><span id="mini-saved"></span></p><div class="segs" id="segs"></div></div>
+
+      <form class="card" id="form" novalidate>
+        <noscript><p class="noscript">This form needs JavaScript to upload your PDFs and send your answers. You can read every question below, then email your LinkedIn PDF, CV and answers to <a href="mailto:hello@knock.careers">hello@knock.careers</a>.</p></noscript>
+        <input class="hp" type="text" name="website" id="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <!-- 1. details -->
+        <section class="step on" data-step="0" aria-labelledby="h0">
+          <p class="step-k">Step 1 of 6</p>
+          <h2 id="h0" tabindex="-1">Your details</h2>
+          <p class="intro-p">Use the email you signed up with, so we can match this to your target list.</p>
+          <div class="summary" id="sum0" role="alert" tabindex="-1"></div>
+          <div class="grid2" style="margin-top:24px">
+            <div class="f"><label for="full_name">Full name</label><input type="text" id="full_name" data-k="details.full_name" autocomplete="name" maxlength="120" aria-describedby="full_name-err"><span class="err" id="full_name-err"></span></div>
+            <div class="f"><label for="email">Email</label><input type="email" id="email" data-k="details.email" autocomplete="email" inputmode="email" maxlength="254" aria-describedby="email-err"><span class="err" id="email-err"></span></div>
+          </div>
+          <div class="f"><label for="package">Your package <span class="opt">(if you know it)</span></label>
+            <select id="package" data-k="details.package"><option value="">Not sure yet</option><option value="sprint">Sprint, 7 days</option><option value="standard">Standard, 14 days</option><option value="full">Full search, 21 days</option><option value="done_for_you">Done-for-you, we send for you</option></select>
+            <span class="help">Done-for-you asks for one extra consent at the end.</span></div>
+          <div class="nav-row"><small>Your answers stay on this device until you submit.</small><div class="r"><button class="btn" type="button" data-next>Continue</button></div></div>
+        </section>
+
+        <!-- 2. files -->
+        <section class="step" data-step="1" aria-labelledby="h1">
+          <p class="step-k">Step 2 of 6</p>
+          <h2 id="h1" tabindex="-1">Your LinkedIn profile and CV</h2>
+          <p class="intro-p">This is where most of the reasons to talk come from: schools, employers, moves and results. PDF only, up to 4 MB each.</p>
+          <div class="summary" id="sum1" role="alert" tabindex="-1"></div>
+
+          <div class="group">
+            <h3>LinkedIn profile PDF</h3>
+            <p class="help">Required. It takes about ten seconds.</p>
+            <div class="howto">
+              <ol>
+                <li><span>Open <b>your own profile</b> on LinkedIn, on a computer.</span></li>
+                <li><span>Click <b>More</b>, next to the buttons under your name.</span></li>
+                <li><span>Choose <b>Save to PDF</b>. The file downloads, usually named Profile.pdf.</span></li>
+              </ol>
+              <div class="mock-wrap" aria-hidden="true">
+                <div class="mock">
+                  <div class="bnr"></div><div class="av"></div>
+                  <div class="ln a"></div><div class="ln b"></div>
+                  <div class="acts"><span>Open to</span><span>Add section</span><span class="more">More</span></div>
+                  <div class="menu"><span>Send profile in a message</span><span class="pick">Save to PDF</span><span>About this profile</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="drop" data-kind="linkedin_pdf" id="drop-linkedin_pdf">
+              <svg class="ic" viewBox="0 0 44 52" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 2h24l12 12v36H4z"/><path d="M28 2v12h12"/><path d="M12 30h20M12 37h20M12 44h12"/></svg>
+              <div class="main" id="st-linkedin_pdf" aria-live="polite"><b>Drag your LinkedIn PDF here</b><span>or choose it from your computer</span></div>
+              <label class="pick-btn" for="file-linkedin_pdf">Choose PDF</label>
+              <input type="file" id="file-linkedin_pdf" accept="application/pdf,.pdf" aria-describedby="err-linkedin_pdf">
+            </div>
+            <p class="err" id="err-linkedin_pdf" role="alert"></p>
+          </div>
+
+          <div class="group">
+            <h3>CV or resume <span class="opt" style="font:400 1rem var(--text);color:var(--ink-3)">(recommended)</span></h3>
+            <p class="help">Optional, but it fills gaps LinkedIn leaves, like numbers and projects. Export it as a PDF from Word or Google Docs.</p>
+            <div class="drop" data-kind="cv" id="drop-cv">
+              <svg class="ic" viewBox="0 0 44 52" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 2h24l12 12v36H4z"/><path d="M28 2v12h12"/><path d="M12 30h20M12 37h20M12 44h12"/></svg>
+              <div class="main" id="st-cv" aria-live="polite"><b>Drag your CV here</b><span>or choose it from your computer</span></div>
+              <label class="pick-btn" for="file-cv">Choose PDF</label>
+              <input type="file" id="file-cv" accept="application/pdf,.pdf" aria-describedby="err-cv">
+            </div>
+            <p class="err" id="err-cv" role="alert"></p>
+          </div>
+          <div class="nav-row"><button class="btn ghost" type="button" data-back>Back</button><div class="r"><button class="btn" type="button" data-next>Continue</button></div></div>
+        </section>
+
+        <!-- 3. targeting -->
+        <section class="step" data-step="2" aria-labelledby="h2">
+          <p class="step-k">Step 3 of 6</p>
+          <h2 id="h2" tabindex="-1">Where you want to work</h2>
+          <p class="intro-p">Exact titles and a ranked list keep the research tight. We never contact anyone you mark off-limits.</p>
+          <div class="summary" id="sum2" role="alert" tabindex="-1"></div>
+
+          <div class="group">
+            <h3>Target roles</h3>
+            <p class="help">Up to two exact job titles.</p>
+            <div class="grid2">
+              <div class="f"><label for="role1">First role</label><input type="text" id="role1" data-k="answers.roles.0" maxlength="120" placeholder="Product Manager" aria-describedby="role1-err"><span class="err" id="role1-err"></span></div>
+              <div class="f"><label for="role2">Second role <span class="opt">(optional)</span></label><input type="text" id="role2" data-k="answers.roles.1" maxlength="120" placeholder="Growth Manager"></div>
+            </div>
+          </div>
+
+          <div class="group">
+            <h3>Target companies</h3>
+            <p class="help">Add 10 to 30, most wanted first, and mark your top 5. Paste a list separated by commas or new lines if that is easier. If you have fewer than 10, add what you have and we will suggest more.</p>
+            <div class="f"><label for="company-in">Add a company</label>
+              <div class="addrow"><input type="text" id="company-in" maxlength="120" placeholder="Zepto" aria-describedby="companies-err companies-count"><button class="btn ghost" type="button" id="company-add">Add</button></div>
+            </div>
+            <ol class="clist" id="clist" aria-label="Your companies, in order"></ol>
+            <p class="count" id="companies-count" aria-live="polite"></p>
+            <span class="err" id="companies-err"></span>
+          </div>
+
+          <div class="group">
+            <h3>Location and experience</h3>
+            <div class="grid2">
+              <div class="f"><label for="loc1">City</label><input type="text" id="loc1" data-k="answers.locations.0" maxlength="120" placeholder="Bengaluru"></div>
+              <div class="f"><label for="loc2">Second city <span class="opt">(optional)</span></label><input type="text" id="loc2" data-k="answers.locations.1" maxlength="120" placeholder="Mumbai"></div>
+            </div>
+            <fieldset class="choices"><legend class="legend">Open to remote roles?</legend>
+              <div class="opts two">
+                <label class="opt-card"><input type="radio" name="remote" value="yes" data-k="answers.remote"><span class="t">Yes</span></label>
+                <label class="opt-card"><input type="radio" name="remote" value="no" data-k="answers.remote"><span class="t">No, on site or hybrid only</span></label>
+              </div>
+            </fieldset>
+            <div class="grid2" style="margin-top:20px">
+              <div class="f"><label for="years">Years of work experience</label><input type="number" id="years" data-k="answers.years" min="0" max="60" step="0.5" inputmode="decimal" placeholder="6" aria-describedby="years-err"><span class="err" id="years-err"></span></div>
+              <div class="f"><label for="seniority">Level you are aiming for</label>
+                <select id="seniority" data-k="answers.seniority"><option value="">Choose one</option><option>Entry level</option><option>Mid level</option><option>Senior</option><option>Lead or manager</option><option>Director and above</option></select></div>
+            </div>
+            <div class="f"><label for="industries">Industries <span class="opt">(optional, comma separated)</span></label><input type="text" id="industries" data-k="answers.industries_text" maxlength="300" placeholder="Fintech, quick commerce"></div>
+          </div>
+
+          <div class="group">
+            <h3>Off-limits</h3>
+            <p class="help">We never message these people or companies.</p>
+            <div class="grid2">
+              <div class="f"><label for="current_employer">Current employer <span class="opt">(if any)</span></label><input type="text" id="current_employer" data-k="answers.current_employer" maxlength="200"></div>
+              <div class="f"><label for="avoid">Companies to avoid</label><input type="text" id="avoid" data-k="answers.avoid_companies" maxlength="1000" placeholder="Comma separated"></div>
+            </div>
+            <div class="f"><label for="known">People you already know at your targets</label><textarea id="known" data-k="answers.known_people" maxlength="1000" placeholder="Name and company, one per line"></textarea></div>
+          </div>
+          <div class="nav-row"><button class="btn ghost" type="button" data-back>Back</button><div class="r"><button class="btn" type="button" data-next>Continue</button></div></div>
+        </section>
+
+        <!-- 4. story -->
+        <section class="step" data-step="3" aria-labelledby="h3">
+          <p class="step-k">Step 4 of 6</p>
+          <h2 id="h3" tabindex="-1">Your story</h2>
+          <p class="intro-p">This is what makes a message personal. Short answers in your own words are perfect. Name real things: a place, an employer, a result.</p>
+          <div class="meter" id="meter" aria-live="polite"><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span><span id="meter-t">0 of 3 specific answers so far</span></div>
+
+          <div class="f"><label for="why_now">Why this move, and why now?</label>
+            <p class="ex" id="why_now-ex"><b>For example</b>After four years running warehouses in Pune, I want to build the software my team relied on every day.</p>
+            <textarea id="why_now" data-k="answers.why_now" maxlength="1500" aria-describedby="why_now-ex why_now-tag"></textarea><span class="spec-tag" id="why_now-tag"></span></div>
+          <div class="f"><label for="proud_1">Something you are proud of, with one concrete result</label>
+            <p class="ex" id="proud_1-ex"><b>For example</b>Redesigned slotting at the Chakan site and cut pick travel by 22 percent in one quarter.</p>
+            <textarea id="proud_1" data-k="answers.proud_1" maxlength="1500" aria-describedby="proud_1-ex proud_1-tag"></textarea><span class="spec-tag" id="proud_1-tag"></span></div>
+          <div class="f"><label for="proud_2">A second thing you are proud of</label>
+            <p class="ex" id="proud_2-ex"><b>For example</b>Started a Saturday Excel clinic for 30 supervisors; two of them now run their own sites.</p>
+            <textarea id="proud_2" data-k="answers.proud_2" maxlength="1500" aria-describedby="proud_2-ex proud_2-tag"></textarea><span class="spec-tag" id="proud_2-tag"></span></div>
+          <div class="f"><label for="transition">The transition you are making <span class="opt">(if any)</span></label>
+            <p class="ex" id="transition-ex"><b>For example</b>Maths teacher to product designer, or operations to product.</p>
+            <textarea id="transition" data-k="answers.transition" maxlength="1500" aria-describedby="transition-ex transition-tag" style="min-height:70px"></textarea><span class="spec-tag" id="transition-tag"></span></div>
+          <div class="f"><label for="roots">Where you come from</label>
+            <p class="help">Schools, past employers, hometown, communities, clubs, causes, languages. Each one is a possible shared reason to talk.</p>
+            <p class="ex" id="roots-ex"><b>For example</b>NIT Trichy 2016, grew up in Kochi, volunteer with a reading programme, speak Malayalam and Tamil.</p>
+            <textarea id="roots" data-k="answers.roots" maxlength="1500" aria-describedby="roots-ex roots-tag"></textarea><span class="spec-tag" id="roots-tag"></span></div>
+          <div class="f"><label for="recent">Anything recent we can mention <span class="opt">(optional)</span></label>
+            <p class="ex" id="recent-ex"><b>For example</b>A post on onboarding drop-off, a talk at a local meetup, a certification finished in August.</p>
+            <textarea id="recent" data-k="answers.recent" maxlength="1500" aria-describedby="recent-ex recent-tag" style="min-height:70px"></textarea><span class="spec-tag" id="recent-tag"></span></div>
+          <div class="nav-row"><button class="btn ghost" type="button" data-back>Back</button><div class="r"><button class="btn" type="button" data-next>Continue</button></div></div>
+        </section>
+
+        <!-- 5. preferences -->
+        <section class="step" data-step="4" aria-labelledby="h4">
+          <p class="step-k">Step 5 of 6</p>
+          <h2 id="h4" tabindex="-1">How you sound</h2>
+          <p class="intro-p">We match your voice and keep away from anything you would rather not raise.</p>
+          <div class="summary" id="sum4" role="alert" tabindex="-1"></div>
+          <fieldset class="choices" id="tone-set" aria-describedby="tone-err"><legend class="legend">Tone</legend>
+            <div class="opts three">
+              <label class="opt-card"><input type="radio" name="tone" value="formal" data-k="answers.tone"><span class="t">Formal</span><span class="d q">Dear Meera, I read your note on hiring for design.</span></label>
+              <label class="opt-card"><input type="radio" name="tone" value="neutral" data-k="answers.tone"><span class="t">Neutral</span><span class="d q">Hi Meera, your note on hiring for design stayed with me.</span></label>
+              <label class="opt-card"><input type="radio" name="tone" value="casual" data-k="answers.tone"><span class="t">Casual</span><span class="d q">Hey Meera, loved your take on hiring designers.</span></label>
+            </div>
+            <span class="err" id="tone-err"></span>
+          </fieldset>
+          <div class="f"><label for="never_say">Never say</label>
+            <p class="help">Topics or phrases to avoid, for example a layoff, a gap year or salary.</p>
+            <textarea id="never_say" data-k="answers.never_say" maxlength="1000" style="min-height:70px"></textarea></div>
+          <fieldset class="choices" aria-describedby="channel-err"><legend class="legend">Where should drafts reach you for approval?</legend>
+            <div class="opts three">
+              <label class="opt-card"><input type="radio" name="channel" value="crm" data-k="answers.approval_channel"><span class="t">A private link</span><span class="d">Review and edit every draft in one place.</span></label>
+              <label class="opt-card"><input type="radio" name="channel" value="email" data-k="answers.approval_channel"><span class="t">Email</span><span class="d">Drafts arrive in your inbox.</span></label>
+              <label class="opt-card"><input type="radio" name="channel" value="whatsapp" data-k="answers.approval_channel"><span class="t">WhatsApp summary</span><span class="d">A short daily summary with a link.</span></label>
+            </div>
+            <span class="err" id="channel-err"></span>
+          </fieldset>
+          <label class="check" id="c-24h"><input type="checkbox" id="approval_24h" data-k="answers.approval_24h" aria-describedby="approval_24h-err"><span><span class="t">I can review drafts within 24 hours</span><span class="d">Conversations go cold quickly. If you are away, tell us and we will pause.</span></span></label>
+          <span class="err" id="approval_24h-err"></span>
+          <div class="nav-row"><button class="btn ghost" type="button" data-back>Back</button><div class="r"><button class="btn" type="button" data-next>Continue</button></div></div>
+        </section>
+
+        <!-- 6. consent -->
+        <section class="step" data-step="5" aria-labelledby="h5">
+          <p class="step-k">Step 6 of 6</p>
+          <h2 id="h5" tabindex="-1">Your consent</h2>
+          <p class="intro-p">In writing, so we both know exactly what happens with your profile and your name.</p>
+          <div class="summary" id="sum5" role="alert" tabindex="-1"></div>
+          <label class="check" id="c-approval"><input type="checkbox" id="consent_approval" data-k="consents.message_approval" aria-describedby="consent_approval-err"><span><span class="t">I approve every message before it is sent</span><span class="d">Nothing goes out in my name without my yes, including follow-ups.</span></span></label>
+          <span class="err" id="consent_approval-err"></span>
+          <label class="check" id="c-data"><input type="checkbox" id="consent_data" data-k="consents.data_use" aria-describedby="consent_data-err"><span><span class="t">You may use my data to run my search</span><span class="d">Knock processes my profile, and the public profiles of people it researches, only to run my search. My data is deleted when I ask, or 90 days after the engagement ends, under India's DPDP Act.</span></span></label>
+          <span class="err" id="consent_data-err"></span>
+          <div id="tier2-wrap" hidden>
+            <label class="check" id="c-tier2"><input type="checkbox" id="consent_tier2" data-k="consents.tier2" aria-describedby="consent_tier2-err"><span><span class="t">Done-for-you: you may send from my LinkedIn</span><span class="d">I understand and agree that:</span>
+              <ul>
+                <li>Knock sends my approved messages from my LinkedIn account through La Growth Machine.</li>
+                <li>LinkedIn's User Agreement restricts automation, so my account carries some risk.</li>
+                <li>Knock keeps to conservative daily sending limits and tells me what they are.</li>
+                <li>At the first LinkedIn warning, Knock stops and switches me to sending myself.</li>
+              </ul></span></label>
+            <span class="err" id="consent_tier2-err"></span>
+          </div>
+          <div class="nav-row"><button class="btn ghost" type="button" data-back>Back</button><div class="r"><button class="btn" type="button" data-next>Review my answers</button></div></div>
+        </section>
+
+        <!-- review -->
+        <section class="step" data-step="6" aria-labelledby="h6">
+          <p class="step-k">Review</p>
+          <h2 id="h6" tabindex="-1">One look before you send</h2>
+          <p class="intro-p">You can change anything now. After you submit, write to us for changes.</p>
+          <div id="review"></div>
+          <div class="bar-box"><h3>Ready for research?</h3>
+            <p>Research starts once these are in. You can submit now either way; if something is missing we will email you once, asking for exactly that.</p>
+            <ul class="bar-list" id="barlist"></ul></div>
+          <p class="form-err" id="submit-err" role="alert"></p>
+          <div class="nav-row"><button class="btn ghost" type="button" data-back>Back</button><div class="r"><button class="btn" type="submit" id="submit">Send my onboarding <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></button></div></div>
+        </section>
+      </form>
+
+      <section class="card success" id="success" hidden aria-labelledby="ok-h" tabindex="-1">
+        <svg class="stamp" viewBox="0 0 160 192" aria-hidden="true"><rect x="2" y="2" width="156" height="188" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity=".28" stroke-dasharray="5 4"/><rect x="14" y="14" width="132" height="164" fill="#B3301B"/><g transform="translate(32 26) scale(1.5)" fill="none" stroke="#FAFCFE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10h24"/><path d="M26 10v6M38 10v6"/><circle cx="32" cy="22" r="6"/><path d="M22 34a14 14 0 1 0 20 0"/><path d="M32 54v8"/><path d="M26 64h12"/></g></svg>
+        <h2 id="ok-h">Received. Thank you<span id="ok-name"></span>.</h2>
+        <p class="lede">Your onboarding is with us. Here is what happens next.</p>
+        <ol class="next">
+          <li><i aria-hidden="true">1</i><div><b>We review it within 1 working day.</b><span>A person reads your profile, targets and story.</span></div></li>
+          <li><i aria-hidden="true">2</i><div><b>Research starts once the quality bar is met.</b><span>At least 10 companies and 1 role, your LinkedIn PDF, 3 specific story answers and your consent. If anything is missing, we send one email asking for exactly that.</span></div></li>
+          <li><i aria-hidden="true">3</i><div><b>Nothing is sent without your approval.</b><span>You see every draft first, and you can edit or skip any of them.</span></div></li>
+        </ol>
+        <div class="missing" id="missing" hidden><b>Still to come from you</b><ul id="missing-list"></ul><p class="help" style="margin-top:8px">Reply to our email with these, or write to <a href="mailto:hello@knock.careers">hello@knock.careers</a>.</p></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap"><span class="tag">Knock on the right door.</span><span>Questions: <a href="mailto:hello@knock.careers">hello@knock.careers</a></span></div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var STEPS = ["Your details","Files","Targets","Story","Preferences","Consent","Review"];
+  var KEY = "knock_onboarding_v1";
+  var MAX = 4 * 1024 * 1024;
+  var STORY = ["why_now","proud_1","proud_2","transition","roots","recent"];
+  var $ = function(s, r){ return (r || document).querySelector(s); };
+  var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var esc = function(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); };
+  var EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+  var S = {step:0, maxStep:0, details:{full_name:"",email:"",package:""},
+           answers:{roles:["",""], locations:["",""], remote:"", years:"", seniority:"", industries_text:"", current_employer:"",
+                    avoid_companies:"", known_people:"", why_now:"", proud_1:"", proud_2:"", transition:"", roots:"", recent:"",
+                    tone:"", never_say:"", approval_channel:"", approval_24h:false},
+           companies:[], consents:{message_approval:false, data_use:false, tier2:false}, files:{linkedin_pdf:null, cv:null}};
+
+  try { var saved = JSON.parse(localStorage.getItem(KEY) || "null"); if (saved && typeof saved === "object") merge(S, saved); } catch (e) {}
+  function merge(a, b){ Object.keys(b).forEach(function(k){ if (b[k] && typeof b[k] === "object" && !Array.isArray(b[k]) && a[k] && typeof a[k] === "object" && !Array.isArray(a[k])) merge(a[k], b[k]); else if (k in a) a[k] = b[k]; }); }
+
+  var q = new URLSearchParams(location.search);
+  if (q.get("email") && !S.details.email) S.details.email = q.get("email").slice(0, 254);
+  if (q.get("name") && !S.details.full_name) S.details.full_name = q.get("name").slice(0, 120);
+  if (q.get("package") && !S.details.package && /^(sprint|standard|full|done_for_you)$/.test(q.get("package"))) S.details.package = q.get("package");
+
+  var saveT;
+  function save(){
+    clearTimeout(saveT);
+    saveT = setTimeout(function(){
+      try { localStorage.setItem(KEY, JSON.stringify(S)); setSaved("Draft saved on this device"); } catch (e) { setSaved(""); }
+    }, 300);
+  }
+  function setSaved(t){ $("#saved").textContent = t; $("#mini-saved").textContent = t ? "Saved" : ""; }
+
+  function getPath(path){ return path.split(".").reduce(function(o, k){ return o == null ? o : o[k]; }, S); }
+  function setPath(path, v){ var ks = path.split("."), o = S; for (var i = 0; i < ks.length - 1; i++) o = o[ks[i]]; o[ks[ks.length - 1]] = v; }
+
+  // bind every [data-k] field to state
+  $$("[data-k]").forEach(function(el){
+    var k = el.getAttribute("data-k"), v = getPath(k);
+    if (el.type === "checkbox") el.checked = !!v;
+    else if (el.type === "radio") el.checked = el.value === v;
+    else el.value = v == null ? "" : v;
+    el.addEventListener(el.type === "checkbox" || el.type === "radio" || el.tagName === "SELECT" ? "change" : "input", function(){
+      if (el.type === "checkbox") setPath(k, el.checked);
+      else if (el.type === "radio") { if (el.checked) setPath(k, el.value); }
+      else setPath(k, el.value);
+      if (el.getAttribute("aria-invalid") === "true") clearErr(el);
+      if (k === "details.package") tier2();
+      if (STORY.indexOf(k.split(".")[1]) >= 0) meter();
+      save();
+    });
+  });
+
+  // ---------- progress ----------
+  function progress(){
+    $("#progress").innerHTML = STEPS.map(function(label, i){
+      var cur = i === S.step, done = i < S.step || (i <= S.maxStep && i !== S.step);
+      return '<li><button type="button" data-go="' + i + '"' + (i > S.maxStep ? " disabled" : "") + (cur ? ' aria-current="step"' : "") + (done && !cur ? ' class="done"' : "") +
+        '><span class="dot" aria-hidden="true">' + (i < 6 ? i + 1 : "") + '</span><span class="lbl">' + label + (done && !cur ? '<span class="sr-only"> (done)</span>' : "") + '</span></button></li>';
+    }).join("");
+    $("#segs").innerHTML = STEPS.map(function(_, i){ return '<i class="' + (i === S.step ? "cur" : i < S.step ? "done" : "") + '"></i>'; }).join("");
+    $("#mini-label").innerHTML = "<b>" + (S.step < 6 ? "Step " + (S.step + 1) + " of 6" : "Review") + "</b> " + STEPS[S.step];
+  }
+  $("#progress").addEventListener("click", function(e){ var b = e.target.closest("[data-go]"); if (b && !b.disabled) go(+b.getAttribute("data-go")); });
+
+  function go(n, focus){
+    S.step = Math.max(0, Math.min(6, n));
+    S.maxStep = Math.max(S.maxStep, S.step);
+    $$(".step").forEach(function(s){ s.classList.toggle("on", +s.getAttribute("data-step") === S.step); });
+    if (S.step === 6) review();
+    progress(); save();
+    if (focus !== false) {
+      var top = $("#form").getBoundingClientRect().top + window.scrollY - 90;
+      if (window.scrollY > top) window.scrollTo(0, Math.max(0, top));
+      var h = $("#h" + S.step); if (h) h.focus({preventScroll:true});
+    }
+  }
+
+  // ---------- validation ----------
+  function setErr(id, msg, fieldId){
+    var e = document.getElementById(id); if (e) e.textContent = msg;
+    var f = fieldId && document.getElementById(fieldId);
+    if (f) { if (f.tagName === "INPUT" || f.tagName === "TEXTAREA" || f.tagName === "SELECT") f.setAttribute("aria-invalid", "true"); else f.classList.add("inval"); }
+  }
+  function clearErr(el){
+    el.removeAttribute("aria-invalid");
+    var d = (el.getAttribute("aria-describedby") || "").split(" ");
+    d.forEach(function(id){ if (/-err$/.test(id)) { var e = document.getElementById(id); if (e) e.textContent = ""; } });
+    var card = el.closest(".check"); if (card) card.classList.remove("inval");
+  }
+  function clearStep(n){
+    var s = $('.step[data-step="' + n + '"]');
+    $$(".err", s).forEach(function(e){ if (!/^err-/.test(e.id)) e.textContent = ""; });
+    $$("[aria-invalid]", s).forEach(function(e){ e.removeAttribute("aria-invalid"); });
+    $$(".inval", s).forEach(function(e){ e.classList.remove("inval"); });
+    var sum = $("#sum" + n); if (sum) sum.innerHTML = "";
+  }
+  function validate(n){
+    clearStep(n);
+    var errs = [];
+    function add(errId, fieldId, msg){ setErr(errId, msg, fieldId); errs.push([fieldId, msg]); }
+    if (n === 0) {
+      if (!S.details.full_name.trim()) add("full_name-err", "full_name", "Enter your full name.");
+      if (!EMAIL.test(S.details.email.trim())) add("email-err", "email", "Enter a valid email address, like name@example.com.");
+    }
+    if (n === 1 && !(S.files.linkedin_pdf && S.files.linkedin_pdf.id)) {
+      setErr("err-linkedin_pdf", "Add your LinkedIn profile PDF to continue. If it will not upload, email it to hello@knock.careers.", null);
+      $("#drop-linkedin_pdf").classList.add("bad");
+      errs.push(["file-linkedin_pdf", "Your LinkedIn profile PDF is needed."]);
+    }
+    if (n === 2) {
+      if (!(S.answers.roles[0] || "").trim()) add("role1-err", "role1", "Add at least one target role.");
+      var y = S.answers.years;
+      if (y !== "" && y != null && (isNaN(+y) || +y < 0 || +y > 60)) add("years-err", "years", "Enter a number of years between 0 and 60.");
+      if (S.companies.filter(function(c){ return c.top; }).length > 5) add("companies-err", "company-in", "Mark at most 5 companies as top 5.");
+    }
+    if (n === 4) {
+      if (!S.answers.tone) add("tone-err", "tone-set", "Choose a tone.");
+      if (!S.answers.approval_channel) add("channel-err", null, "Choose where drafts should reach you.");
+      if (!S.answers.approval_24h) add("approval_24h-err", "c-24h", "Please confirm you can review drafts within 24 hours.");
+    }
+    if (n === 5) {
+      if (!S.consents.message_approval) add("consent_approval-err", "c-approval", "We need this before we can start.");
+      if (!S.consents.data_use) add("consent_data-err", "c-data", "We need this before we can start.");
+      if (S.details.package === "done_for_you" && !S.consents.tier2) add("consent_tier2-err", "c-tier2", "Done-for-you needs this consent. You can also go back and pick another package.");
+    }
+    var sum = $("#sum" + n);
+    if (errs.length && sum) {
+      sum.innerHTML = "<b>" + (errs.length === 1 ? "One thing to fix" : errs.length + " things to fix") + "</b><ul>" +
+        errs.map(function(e){ return "<li>" + (e[0] ? '<a href="#' + e[0] + '">' + esc(e[1]) + "</a>" : esc(e[1])) + "</li>"; }).join("") + "</ul>";
+      sum.focus();
+    } else if (errs.length) {
+      var f = document.getElementById(errs[0][0]); if (f) f.focus();
+    }
+    return !errs.length;
+  }
+  document.addEventListener("click", function(e){
+    var a = e.target.closest(".summary a"); if (!a) return;
+    e.preventDefault(); var t = document.getElementById(a.getAttribute("href").slice(1));
+    if (t) { var inp = t.matches("input,textarea,select") ? t : $("input", t); (inp || t).focus(); }
+  });
+
+  $("#form").addEventListener("click", function(e){
+    if (e.target.closest("[data-next]")) { if (validate(S.step)) go(S.step + 1); }
+    else if (e.target.closest("[data-back]")) go(S.step - 1);
+    else if (e.target.closest("[data-edit]")) go(+e.target.closest("[data-edit]").getAttribute("data-edit"));
+  });
+  $("#form").addEventListener("keydown", function(e){
+    if (e.key === "Enter" && e.target.matches("input[type=text],input[type=email],input[type=number]") && e.target.id !== "company-in") e.preventDefault();
+  });
+
+  // ---------- files ----------
+  function size(n){ return n >= 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(n / 1024)) + " KB"; }
+  function renderFile(kind){
+    var f = S.files[kind], st = $("#st-" + kind), drop = $("#drop-" + kind);
+    var label = kind === "cv" ? "CV" : "LinkedIn PDF";
+    drop.classList.toggle("has", !!f);
+    var old = $(".acts2", drop); if (old) old.remove();
+    $(".pick-btn", drop).hidden = !!f;
+    if (f) {
+      st.innerHTML = "<b>" + esc(f.filename) + "</b><span>" + size(f.size_bytes) + " · uploaded, we can read the text</span>";
+      var acts = document.createElement("div"); acts.className = "acts2";
+      acts.innerHTML = '<label class="pick-btn" for="file-' + kind + '">Replace</label><button type="button" class="linkbtn" data-remove="' + kind + '">Remove<span class="sr-only"> ' + label + '</span></button>';
+      drop.appendChild(acts);
+    } else {
+      st.innerHTML = "<b>Drag your " + (kind === "cv" ? "CV" : "LinkedIn PDF") + " here</b><span>or choose it from your computer</span>";
+    }
+  }
+  function fileErr(kind, msg){ $("#err-" + kind).textContent = msg; $("#drop-" + kind).classList.toggle("bad", !!msg); }
+  function upload(kind, file){
+    fileErr(kind, "");
+    if (!file) return;
+    if (!/\.pdf$/i.test(file.name) && file.type !== "application/pdf") return fileErr(kind, "That file is not a PDF. Please choose a PDF file.");
+    if (file.size > MAX) return fileErr(kind, "That file is " + size(file.size) + ". The limit is 4 MB, so please export a smaller PDF.");
+    if (!EMAIL.test(S.details.email.trim())) return fileErr(kind, "Add your email in step 1 first, so we can match the file to you.");
+    var st = $("#st-" + kind);
+    st.innerHTML = "<b>" + esc(file.name) + "</b><span>Uploading and reading the text</span><div class=\"bar\"><i></i></div>";
+    var bar = $(".bar i", st);
+    var fd = new FormData(); fd.append("email", S.details.email.trim()); fd.append("kind", kind); fd.append("file", file, file.name);
+    var x = new XMLHttpRequest();
+    x.open("POST", "/api/onboarding/file");
+    x.upload.onprogress = function(ev){ if (ev.lengthComputable && bar) bar.style.width = Math.round(90 * ev.loaded / ev.total) + "%"; };
+    x.onload = function(){
+      var body = {}; try { body = JSON.parse(x.responseText || "{}"); } catch (e) {}
+      if (x.status >= 200 && x.status < 300 && body.id) {
+        S.files[kind] = {id: body.id, filename: body.filename, size_bytes: body.size_bytes}; renderFile(kind); save();
+        if (kind === "linkedin_pdf") { var s = $("#sum1"); if (s) s.innerHTML = ""; }
+      } else {
+        renderFile(kind);
+        fileErr(kind, typeof body.detail === "string" ? body.detail : "The upload did not work (" + x.status + "). Please try again.");
+      }
+    };
+    x.onerror = function(){ renderFile(kind); fileErr(kind, "We could not reach the server. Check your connection and try again."); };
+    x.send(fd);
+  }
+  ["linkedin_pdf","cv"].forEach(function(kind){
+    var drop = $("#drop-" + kind), inp = $("#file-" + kind);
+    renderFile(kind);
+    inp.addEventListener("change", function(){ upload(kind, inp.files[0]); inp.value = ""; });
+    ["dragenter","dragover"].forEach(function(t){ drop.addEventListener(t, function(e){ e.preventDefault(); drop.classList.add("over"); }); });
+    ["dragleave","drop"].forEach(function(t){ drop.addEventListener(t, function(e){ e.preventDefault(); drop.classList.remove("over"); }); });
+    drop.addEventListener("drop", function(e){ var f = e.dataTransfer && e.dataTransfer.files; if (f && f.length) upload(kind, f[0]); });
+    drop.addEventListener("click", function(e){ var r = e.target.closest("[data-remove]"); if (r) { S.files[kind] = null; renderFile(kind); fileErr(kind, ""); save(); inp.focus(); } });
+  });
+  window.addEventListener("dragover", function(e){ e.preventDefault(); });
+  window.addEventListener("drop", function(e){ e.preventDefault(); });
+
+  // ---------- companies ----------
+  var UP = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10l4-4 4 4"/></svg>';
+  var DOWN = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>';
+  var DEL = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>';
+  function companies(focusSel){
+    var c = S.companies, tops = c.filter(function(x){ return x.top; }).length;
+    $("#clist").innerHTML = c.map(function(x, i){
+      var n = esc(x.name);
+      return '<li><span class="nm">' + n + '</span><span class="ctl">' +
+        '<label class="top"><input type="checkbox" data-top="' + i + '"' + (x.top ? " checked" : "") + (!x.top && tops >= 5 ? " disabled" : "") + '> Top 5<span class="sr-only"> for ' + n + '</span></label>' +
+        '<button type="button" class="icb" data-up="' + i + '"' + (i === 0 ? " disabled" : "") + ' aria-label="Move ' + n + ' up">' + UP + '</button>' +
+        '<button type="button" class="icb" data-down="' + i + '"' + (i === c.length - 1 ? " disabled" : "") + ' aria-label="Move ' + n + ' down">' + DOWN + '</button>' +
+        '<button type="button" class="icb" data-del="' + i + '" aria-label="Remove ' + n + '">' + DEL + '</button></span></li>';
+    }).join("");
+    var cnt = '<span><b>' + c.length + '</b> of 30 companies</span><span><b>' + tops + '</b> of 5 marked top</span>';
+    if (c.length && c.length < 10) cnt += '<span class="warn">' + (10 - c.length) + ' more to reach 10, or we will suggest some</span>';
+    $("#companies-count").innerHTML = c.length ? cnt : "";
+    if (focusSel) { var f = $(focusSel); if (f && !f.disabled) f.focus(); else { var alt = $("#clist [data-del]"); (alt || $("#company-in")).focus(); } }
+  }
+  function addCompanies(){
+    var inp = $("#company-in"), raw = inp.value;
+    var names = raw.split(/[,\n;]+/).map(function(s){ return s.trim().slice(0, 120); }).filter(Boolean);
+    var have = S.companies.map(function(c){ return c.name.toLowerCase(); });
+    var added = 0, full = false;
+    names.forEach(function(nm){
+      if (have.indexOf(nm.toLowerCase()) >= 0) return;
+      if (S.companies.length >= 30) { full = true; return; }
+      var tops = S.companies.filter(function(c){ return c.top; }).length;
+      S.companies.push({name: nm, top: tops < 5}); have.push(nm.toLowerCase()); added++;
+    });
+    $("#companies-err").textContent = full ? "That is 30, the most we can take. Keep your favourites." : "";
+    inp.value = ""; companies(); save(); inp.focus();
+  }
+  $("#company-add").addEventListener("click", addCompanies);
+  $("#company-in").addEventListener("keydown", function(e){ if (e.key === "Enter") { e.preventDefault(); addCompanies(); } });
+  $("#company-in").addEventListener("paste", function(){ setTimeout(function(){ if (/[,\n;]/.test($("#company-in").value)) addCompanies(); }, 0); });
+  $("#clist").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if (!b) return;
+    var c = S.companies, i;
+    if (b.hasAttribute("data-up")) { i = +b.getAttribute("data-up"); c.splice(i - 1, 0, c.splice(i, 1)[0]); companies('[data-up="' + (i - 1) + '"]'); }
+    else if (b.hasAttribute("data-down")) { i = +b.getAttribute("data-down"); c.splice(i + 1, 0, c.splice(i, 1)[0]); companies('[data-down="' + (i + 1) + '"]'); }
+    else if (b.hasAttribute("data-del")) { i = +b.getAttribute("data-del"); c.splice(i, 1); companies('[data-del="' + Math.min(i, c.length - 1) + '"]'); }
+    save();
+  });
+  $("#clist").addEventListener("change", function(e){
+    var t = e.target.closest("[data-top]"); if (!t) return;
+    var i = +t.getAttribute("data-top"); S.companies[i].top = t.checked; companies('[data-top="' + i + '"]'); save();
+  });
+
+  // ---------- story meter ----------
+  function specific(t){ var w = (t || "").trim().split(/\s+/).filter(Boolean); if (w.length < 4) return false; return /\d/.test(t) || w.slice(1).some(function(x){ return /^[A-Z]/.test(x); }); }
+  function storyCount(){ return STORY.filter(function(k){ return specific(S.answers[k]); }).length; }
+  function meter(){
+    var n = storyCount();
+    $$("#meter .pips i").forEach(function(p, i){ p.classList.toggle("on", i < n); });
+    $("#meter-t").textContent = n >= 3 ? n + " specific answers. That is plenty to work with." : n + " of 3 specific answers so far";
+    STORY.forEach(function(k){ var tag = $("#" + k + "-tag"), ok = specific(S.answers[k]); tag.textContent = ok ? "Specific, good" : ""; tag.classList.toggle("ok", ok); });
+  }
+
+  function tier2(){ $("#tier2-wrap").hidden = S.details.package !== "done_for_you"; }
+
+  // ---------- review ----------
+  function barItems(){
+    var roles = S.answers.roles.filter(function(r){ return r.trim(); }).length;
+    return [
+      [S.companies.length >= 10 && roles >= 1, "At least 10 target companies and 1 role", "You have " + S.companies.length + " compan" + (S.companies.length === 1 ? "y" : "ies") + " and " + roles + " role" + (roles === 1 ? "" : "s")],
+      [!!(S.files.linkedin_pdf && S.files.linkedin_pdf.id), "Your LinkedIn profile PDF", "Not uploaded yet"],
+      [storyCount() >= 3, "3 story answers with a specific detail", storyCount() + " so far"],
+      [S.consents.message_approval && S.consents.data_use, "Your consent", "Not given yet"]
+    ];
+  }
+  function review(){
+    var a = S.answers, d = S.details;
+    var pk = {"":"Not sure yet", sprint:"Sprint", standard:"Standard", full:"Full search", done_for_you:"Done-for-you"}[d.package] || d.package;
+    var tone = a.tone ? a.tone.charAt(0).toUpperCase() + a.tone.slice(1) : "Not chosen";
+    var ch = {crm:"Private link", email:"Email", whatsapp:"WhatsApp summary"}[a.approval_channel] || "Not chosen";
+    var cl = S.companies.map(function(c){ return esc(c.name) + (c.top ? " (top 5)" : ""); }).join(", ");
+    var row = function(k, v){ return "<dt>" + k + "</dt><dd>" + (v || '<span style="color:var(--ink-3)">Not given</span>') + "</dd>"; };
+    var sec = function(i, title, rows){ return '<section><h3>' + title + '</h3><dl>' + rows + '</dl><button type="button" class="linkbtn" data-edit="' + i + '">Edit<span class="sr-only"> ' + title + '</span></button></section>'; };
+    var f = function(x){ return x ? esc(x.filename) + " · " + size(x.size_bytes) : ""; };
+    $("#review").innerHTML = '<div class="rv">' +
+      sec(0, "Details", row("Name", esc(d.full_name)) + row("Email", esc(d.email)) + row("Package", esc(pk))) +
+      sec(1, "Files", row("LinkedIn", f(S.files.linkedin_pdf)) + row("CV", f(S.files.cv))) +
+      sec(2, "Targets", row("Roles", esc(a.roles.filter(Boolean).join(", "))) + row("Companies", cl) + row("Cities", esc(a.locations.filter(Boolean).join(", ")) + (a.remote === "yes" ? ", open to remote" : a.remote === "no" ? ", not remote" : "")) +
+        row("Experience", a.years !== "" && a.years != null ? esc(a.years) + " years" + (a.seniority ? ", aiming for " + esc(a.seniority.toLowerCase()) : "") : esc(a.seniority)) +
+        row("Off-limits", esc([a.current_employer, a.avoid_companies].filter(Boolean).join(", ")) + (a.known_people ? (a.current_employer || a.avoid_companies ? "; " : "") + "people you know listed" : ""))) +
+      sec(3, "Story", row("Specific answers", storyCount() + " of 6") + row("Why now", esc(a.why_now))) +
+      sec(4, "Preferences", row("Tone", tone) + row("Never say", esc(a.never_say)) + row("Approvals", ch + (a.approval_24h ? ", within 24 hours" : ""))) +
+      sec(5, "Consent", row("Approval", S.consents.message_approval ? "Every message" : "") + row("Data use", S.consents.data_use ? "Agreed, 90-day deletion" : "") + (d.package === "done_for_you" ? row("Done-for-you", S.consents.tier2 ? "Agreed" : "") : "")) +
+      "</div>";
+    $("#barlist").innerHTML = barItems().map(function(b){ return '<li class="' + (b[0] ? "ok" : "no") + '"><i aria-hidden="true"></i><span>' + b[1] + (b[0] ? '<span class="sr-only"> (done)</span>' : '<br><small style="color:var(--ink-3)">' + b[2] + "</small>") + "</span></li>"; }).join("");
+  }
+
+  // ---------- submit ----------
+  $("#form").addEventListener("submit", function(e){
+    e.preventDefault();
+    if (S.step !== 6) { if (validate(S.step)) go(S.step + 1); return; }
+    for (var i = 0; i < 6; i++) { if (!validate(i)) { go(i, false); validate(i); return; } }
+    var a = S.answers, btn = $("#submit"), err = $("#submit-err");
+    err.textContent = ""; btn.disabled = true;
+    var payload = {
+      details: {full_name: S.details.full_name.trim(), email: S.details.email.trim()},
+      package: S.details.package || null,
+      website: $("#website").value,
+      file_ids: [S.files.linkedin_pdf, S.files.cv].filter(Boolean).map(function(f){ return f.id; }),
+      consents: S.consents,
+      answers: {
+        roles: a.roles.map(function(r){ return r.trim(); }).filter(Boolean),
+        companies: S.companies, locations: a.locations.map(function(r){ return r.trim(); }).filter(Boolean),
+        remote: a.remote, seniority: a.seniority, years: a.years === "" || a.years == null ? null : +a.years,
+        industries: a.industries_text.split(",").map(function(s){ return s.trim(); }).filter(Boolean).slice(0, 5),
+        current_employer: a.current_employer, avoid_companies: a.avoid_companies, known_people: a.known_people,
+        why_now: a.why_now, proud_1: a.proud_1, proud_2: a.proud_2, transition: a.transition, roots: a.roots, recent: a.recent,
+        tone: a.tone, never_say: a.never_say, approval_channel: a.approval_channel, approval_24h: !!a.approval_24h
+      }
+    };
+    fetch("/api/onboarding", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify(payload)})
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(b){ return [r, b]; }); })
+      .then(function(rb){
+        var r = rb[0], b = rb[1];
+        if (!r.ok) {
+          var msg = typeof b.detail === "string" ? b.detail : "Some answers need another look. Please check each step.";
+          if (/files? could not be found/i.test(msg)) { S.files = {linkedin_pdf: null, cv: null}; renderFile("linkedin_pdf"); renderFile("cv"); save(); }
+          err.textContent = msg; btn.disabled = false; return;
+        }
+        done(b);
+      })
+      .catch(function(){ err.textContent = "We could not reach the server. Your answers are saved here; please try again in a minute."; btn.disabled = false; });
+  });
+
+  function done(b){
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    clearTimeout(saveT);
+    $("#form").hidden = true; $(".rail").style.visibility = "hidden"; $("#mini").hidden = true; setSaved("");
+    var first = S.details.full_name.trim().split(/\s+/)[0];
+    $("#ok-name").textContent = first ? ", " + first : "";
+    var miss = (b && b.missing) || [];
+    $("#missing").hidden = !miss.length;
+    $("#missing-list").innerHTML = miss.map(function(m){ return "<li>" + esc(m) + "</li>"; }).join("");
+    var s = $("#success"); s.hidden = false;
+    window.scrollTo(0, Math.max(0, s.getBoundingClientRect().top + window.scrollY - 90));
+    s.focus({preventScroll: true});
+  }
+
+  // ---------- start ----------
+  companies(); meter(); tier2();
+  var hs = (location.hash.match(/^#step-(\d)$/) || [])[1];
+  if (hs != null) { S.maxStep = Math.max(S.maxStep, +hs); S.step = +hs; }
+  go(S.step, false);
+  if (q.get("demo") === "done") done({missing: q.get("missing") ? q.get("missing").split("|") : []});
+})();
+</script>
+</body>
+</html>

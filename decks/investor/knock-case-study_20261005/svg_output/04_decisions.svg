@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Times New Roman" lang="en" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 36 1152 94">
+    <rect x="64" y="38" width="40" height="4" fill="#B3301B"/>
+    <text x="64" y="66" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">03  PRODUCT DECISIONS</text>
+    <text x="64" y="112" font-family="Arial" font-size="36" font-weight="bold" fill="#0E1F3A">Five decisions shaped the product, each with a reason</text>
+  </g>
+  <g id="decision-1" data-pptx-bounds="64 146 1152 96">
+    <text x="64" y="186" font-family="Arial" font-size="40" font-weight="bold" fill="#97B9DD">1</text>
+    <text x="130" y="178" font-family="Arial" font-size="21" font-weight="bold" fill="#0E1F3A">A service, not a tool</text>
+    <text x="480" y="176" font-size="19" fill="#2B4266">Candidates do not want software to operate, they want conversations.<tspan x="480" dy="26">Delivering the work, with technology behind it, matches the job they</tspan><tspan x="480" dy="26">hire Knock for. AI is how it is delivered, never the headline.</tspan></text>
+  </g>
+<line id="rule-1" data-pptx-role="decoration" x1="64" y1="240" x2="1216" y2="240" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+  <g id="decision-2" data-pptx-bounds="64 246 1152 96">
+    <text x="64" y="286" font-family="Arial" font-size="40" font-weight="bold" fill="#B3301B">2</text>
+    <text x="130" y="278" font-family="Arial" font-size="21" font-weight="bold" fill="#0E1F3A">The candidate approves<tspan x="130" dy="26">every message</tspan></text>
+    <text x="480" y="276" font-size="19" fill="#2B4266">Messages go out under a real person's name. Approval keeps them<tspan x="480" dy="26">truthful and in the candidate's own voice. It is a hard rule in</tspan><tspan x="480" dy="26">every delivery tier, and automatic sending stays off for clients.</tspan></text>
+  </g>
+<line id="rule-2" data-pptx-role="decoration" x1="64" y1="340" x2="1216" y2="340" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+  <g id="decision-3" data-pptx-bounds="64 346 1152 96">
+    <text x="64" y="386" font-family="Arial" font-size="40" font-weight="bold" fill="#97B9DD">3</text>
+    <text x="130" y="378" font-family="Arial" font-size="21" font-weight="bold" fill="#0E1F3A">Quality over volume</text>
+    <text x="480" y="376" font-size="19" fill="#2B4266">A small set of hand-picked people, never identical copy inside one<tspan x="480" dy="26">company. Careful outreach protects the few warm contacts a candidate</tspan><tspan x="480" dy="26">has, and their reputation in a tight professional network.</tspan></text>
+  </g>
+<line id="rule-3" data-pptx-role="decoration" x1="64" y1="440" x2="1216" y2="440" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+  <g id="decision-4" data-pptx-bounds="64 446 1152 96">
+    <text x="64" y="486" font-family="Arial" font-size="40" font-weight="bold" fill="#97B9DD">4</text>
+    <text x="130" y="478" font-family="Arial" font-size="21" font-weight="bold" fill="#0E1F3A">No list padding</text>
+    <text x="480" y="476" font-size="19" fill="#2B4266">Padding a list with irrelevant people to make results look better is<tspan x="480" dy="26">deceptive, so the founder rejected it. Every hook must cite a real</tspan><tspan x="480" dy="26">fact, and no shared history is ever invented.</tspan></text>
+  </g>
+<line id="rule-4" data-pptx-role="decoration" x1="64" y1="540" x2="1216" y2="540" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+  <g id="decision-5" data-pptx-bounds="64 546 1152 96">
+    <text x="64" y="586" font-family="Arial" font-size="40" font-weight="bold" fill="#97B9DD">5</text>
+    <text x="130" y="578" font-family="Arial" font-size="21" font-weight="bold" fill="#0E1F3A">Upfront pricing,<tspan x="130" dy="26">no success fee</tspan></text>
+    <text x="480" y="576" font-size="19" fill="#2B4266">Clients pay for the work, not a promised outcome, so nobody is pushed<tspan x="480" dy="26">to overpromise. Prices are stated upfront, and guarantees wait until</tspan><tspan x="480" dy="26">real outcome data exists.</tspan></text>
+  </g>
+  <g id="footer" data-pptx-bounds="64 668 1152 40">
+    <line x1="64" y1="676" x2="1216" y2="676" stroke="#4A5F80" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round" stroke-opacity="0.6"/>
+    <text x="64" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" fill="#4A5F80">KNOCK  |  CASE STUDY</text>
+    <text x="1216" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" text-anchor="end" fill="#4A5F80">04 / 13</text>
+  </g>
+</svg>

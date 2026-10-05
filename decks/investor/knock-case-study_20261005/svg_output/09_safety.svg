@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Times New Roman" lang="en" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 36 1152 94">
+    <rect x="64" y="38" width="40" height="4" fill="#B3301B"/>
+    <text x="64" y="66" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">08  SAFETY AND ETHICS</text>
+    <text x="64" y="112" font-family="Arial" font-size="36" font-weight="bold" fill="#0E1F3A">Safety and ethics are designed in, not added later</text>
+  </g>
+  <g id="linkedin-risk" data-pptx-bounds="64 150 576 480">
+    <rect x="64" y="150" width="576" height="480" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="88" y="188" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#B3301B">THE BIGGEST RISK</text>
+    <text x="88" y="228" font-family="Arial" font-size="26" font-weight="bold" fill="#0E1F3A">LinkedIn forbids automation</text>
+    <text x="88" y="268" font-size="19" fill="#2B4266">LinkedIn's User Agreement bans bots and automated<tspan x="88" dy="26">messaging, and enforcement falls on the member's</tspan><tspan x="88" dy="26">account. A restriction mid-search would be costly,</tspan><tspan x="88" dy="26">so the design avoids depending on automation.</tspan></text>
+    <rect x="88" y="386" width="270" height="220" fill="#C4D9EF"/>
+    <text x="104" y="418" font-family="Arial" font-size="18" font-weight="bold" fill="#0E1F3A">Default: self-send</text>
+    <text x="104" y="448" font-size="17" fill="#0E1F3A">The candidate sends by hand.<tspan x="104" dy="22">Knock never logs in to</tspan><tspan x="104" dy="22">LinkedIn or holds a</tspan><tspan x="104" dy="22">password. Discovery uses</tspan><tspan x="104" dy="22">public search only.</tspan></text>
+    <rect x="370" y="386" width="250" height="220" fill="#0E1F3A"/>
+    <text x="386" y="418" font-family="Arial" font-size="18" font-weight="bold" fill="#EEF3F8">Optional: automation</text>
+    <text x="386" y="448" font-size="17" fill="#BFD0E6">Treated as a real risk to<tspan x="386" dy="22">the client's account.</tspan><tspan x="386" dy="22">Written consent, a plain</tspan><tspan x="386" dy="22">risk notice, conservative</tspan><tspan x="386" dy="22">limits, and a fallback to</tspan><tspan x="386" dy="22">self-send if warned.</tspan></text>
+  </g>
+  <g id="card-injection" data-pptx-bounds="664 150 552 149">
+    <rect x="664" y="150" width="552" height="149" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="688" y="186" font-family="Arial" font-size="19" font-weight="bold" fill="#0E1F3A">Prompt injection</text>
+    <text x="688" y="216" font-size="17" fill="#2B4266">Fetched web text is data, never instructions. The browser<tspan x="688" dy="23">bridge may only paste exact approved text, and nothing that</tspan><tspan x="688" dy="23">sends or deletes is ever triggered by fetched content.</tspan></text>
+  </g>
+  <g id="card-consent" data-pptx-bounds="664 315 552 149">
+    <rect x="664" y="315" width="552" height="149" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="688" y="351" font-family="Arial" font-size="19" font-weight="bold" fill="#0E1F3A">Consent and data protection (DPDP)</text>
+    <text x="688" y="381" font-size="17" fill="#2B4266">Separate consent for clients. Only professional information<tspan x="688" dy="23">that prospects published themselves, with the source recorded.</tspan><tspan x="688" dy="23">No guessed emails or cold WhatsApp, a do-not-contact list,</tspan><tspan x="688" dy="23">and deletion after a package ends.</tspan></text>
+  </g>
+  <g id="card-truth" data-pptx-bounds="664 480 552 150">
+    <rect x="664" y="480" width="552" height="150" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="688" y="516" font-family="Arial" font-size="19" font-weight="bold" fill="#0E1F3A">Truthfulness</text>
+    <text x="688" y="546" font-size="17" fill="#2B4266">Every hook cites a real fact. No fake shared history, no<tspan x="688" dy="23">padded lists, and the intake asks for the exact programme</tspan><tspan x="688" dy="23">so a certificate is never passed off as a degree.</tspan></text>
+  </g>
+  <g id="footer" data-pptx-bounds="64 664 1152 44">
+    <line x1="64" y1="676" x2="1216" y2="676" stroke="#4A5F80" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round" stroke-opacity="0.6"/>
+    <text x="64" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" fill="#4A5F80">KNOCK  |  CASE STUDY</text>
+    <text x="1216" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" text-anchor="end" fill="#4A5F80">09 / 13</text>
+  </g>
+</svg>

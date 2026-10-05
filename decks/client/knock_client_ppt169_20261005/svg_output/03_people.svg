@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en-IN" font-family="Times New Roman" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="72 48 1000 160">
+    <rect x="72" y="52" width="44" height="6" fill="#B3301B"/>
+    <text x="72" y="90" font-family="Arial" font-size="15" font-weight="bold" letter-spacing="2.4" fill="#4A5F80">THE IDEA</text>
+    <text x="72" y="140" font-family="Arial Narrow" font-size="44" font-weight="bold" fill="#0E1F3A">People hire people,<tspan x="72" dy="52">so Knock starts with the people</tspan></text>
+  </g>
+  <g id="panel-portal" data-pptx-bounds="72 232 528 324">
+    <rect x="72" y="232" width="528" height="324" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.15" stroke-width="1"/>
+    <text x="100" y="268" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="2" fill="#4A5F80">THE PORTAL</text>
+    <text x="100" y="312" font-family="Arial Narrow" font-size="36" font-weight="bold" fill="#0E1F3A">A queue</text>
+    <circle cx="112" cy="366" r="16" fill="#0E1F3A"/>
+    <line x1="112" y1="382" x2="112" y2="408" stroke="#0E1F3A" stroke-width="2"/>
+    <text x="140" y="371" font-size="16" font-style="italic" fill="#4A5F80">introduced</text>
+    <circle cx="112" cy="424" r="15" fill="#0E1F3A"/>
+    <circle cx="166" cy="424" r="15" fill="#97B9DD"/>
+    <circle cx="220" cy="424" r="15" fill="#97B9DD"/>
+    <circle cx="274" cy="424" r="15" fill="#97B9DD"/>
+    <circle cx="328" cy="424" r="15" fill="#97B9DD"/>
+    <circle cx="382" cy="424" r="15" fill="#97B9DD"/>
+    <circle cx="436" cy="424" r="15" fill="#97B9DD"/>
+    <circle cx="490" cy="424" r="15" fill="#97B9DD"/>
+    <circle cx="544" cy="424" r="15" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="3"/>
+    <text x="544" y="462" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#0E1F3A">You</text>
+    <text x="100" y="510" font-size="19" fill="#2B4266">Someone at the front of the queue is already<tspan x="100" dy="26">talking to a person they were introduced to.</tspan></text>
+  </g>
+  <g id="panel-door" data-pptx-bounds="640 232 568 324">
+    <rect x="640" y="232" width="568" height="324" fill="#0E1F3A"/>
+    <text x="668" y="268" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="2" fill="#A9C7E6">THE DOOR</text>
+    <text x="668" y="312" font-family="Arial Narrow" font-size="36" font-weight="bold" fill="#FAFCFE">A person</text>
+    <circle cx="716" cy="424" r="24" fill="#A9C7E6"/>
+    <text x="716" y="474" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#C4D9EF">You</text>
+    <g id="p03-arrow" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="rightArrow" data-pptx-frame="752 408 316 32" data-pptx-av-adj1="val 40000" data-pptx-av-adj2="val 60000" fill="#A9C7E6" stroke="none"><path d="M 752 417.6 L 1048.8 417.6 L 1048.8 408 L 1068 424 L 1048.8 440 L 1048.8 430.4 L 752 430.4 Z"/></g>
+    <text x="910" y="392" text-anchor="middle" font-size="17" font-style="italic" fill="#C4D9EF">a real conversation</text>
+    <circle cx="1106" cy="424" r="30" fill="#FAFCFE"/>
+    <text x="1106" y="478" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#C4D9EF">Someone inside</text>
+    <text x="668" y="510" font-size="19" fill="#EEF3F8">A real conversation with someone who works<tspan x="668" dy="26">there is where referrals and interviews begin.</tspan></text>
+  </g>
+  <g id="what-knock-does" data-pptx-bounds="72 580 1136 72">
+    <text x="72" y="606" font-size="26" fill="#0E1F3A">Knock finds the right people at your target companies, researches each one,<tspan x="72" dy="38">and opens the conversation. <tspan font-weight="bold">You approve every message.</tspan></tspan></text>
+  </g>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="72 660 1136 46">
+    <line x1="72" y1="668" x2="1208" y2="668" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="72" y="696" font-family="Arial Narrow" font-size="20" font-weight="bold" fill="#0E1F3A">Knock</text>
+    <text x="1208" y="696" text-anchor="end" font-family="Arial" font-size="14" fill="#4A5F80">03 / 12</text>
+  </g>
+</svg>

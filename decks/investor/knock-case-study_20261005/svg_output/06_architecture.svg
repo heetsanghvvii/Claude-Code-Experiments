@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Times New Roman" lang="en" data-pptx-page-role="content">
+  <defs>
+    <marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <polygon points="0,0 8,4 0,8" fill="#2B4266" />
+    </marker>
+  </defs>
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8" />
+  <g id="header" data-pptx-bounds="64 36 1152 94">
+    <rect x="64" y="38" width="40" height="4" fill="#B3301B" />
+    <text x="64" y="66" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">05  SYSTEM ARCHITECTURE</text>
+    <text x="64" y="112" font-family="Arial" font-size="36" font-weight="bold" fill="#0E1F3A">The architecture keeps a human in the loop at every send</text>
+  </g>
+  <g id="col-labels" data-pptx-bounds="64 148 1152 24" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">
+    <text x="64" y="168">CANDIDATE</text>
+    <text x="400" y="168">STATE</text>
+    <text x="740" y="168">KNOCK ENGINE AND OPERATOR</text>
+  </g>
+  <g id="node-intake" data-pptx-bounds="64 190 220 100">
+    <rect x="64" y="190" width="220" height="100" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.3" stroke-width="1.5" />
+    <text x="80" y="222" font-family="Arial" font-size="18" font-weight="bold" fill="#0E1F3A">Intake form</text>
+    <text x="80" y="248" font-size="16" fill="#2B4266">Resume, targets, story<tspan x="80" dy="21">and consent, on the site</tspan></text>
+  </g>
+  <g id="node-approval" data-pptx-bounds="64 398 220 124">
+    <rect x="64" y="398" width="220" height="124" fill="#FAFCFE" stroke="#B3301B" stroke-width="3" />
+    <text x="80" y="430" font-family="Arial" font-size="18" font-weight="bold" fill="#B3301B">Approval gate</text>
+    <text x="80" y="456" font-size="16" fill="#2B4266">The candidate reads, edits<tspan x="80" dy="21">and approves each message,</tspan><tspan x="80" dy="21">and pastes replies back</tspan></text>
+  </g>
+  <g id="node-linkedin" data-pptx-bounds="64 558 220 94">
+    <rect x="64" y="558" width="220" height="94" fill="none" stroke="#2B4266" stroke-width="2" stroke-dasharray="6,5" />
+    <text x="80" y="588" font-family="Arial" font-size="18" font-weight="bold" fill="#0E1F3A">Candidate's LinkedIn</text>
+    <text x="80" y="614" font-size="16" fill="#2B4266">Outside Knock. Their own<tspan x="80" dy="21">account, their own name</tspan></text>
+  </g>
+  <g id="p06-db-can" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="can" data-pptx-frame="400 190 220 330" fill="#C4D9EF" stroke="#0E1F3A" stroke-width="2">
+<path d="M 400 217.5 A 110 27.5 0 0 0 620 217.5 L 620 492.5 A 110 27.5 0 0 1 400 492.5 Z" stroke="none" />
+<path d="M 400 217.5 A 110 27.5 0 0 1 620 217.5 A 110 27.5 0 0 1 400 217.5 Z" fill="#DCE8F5" stroke="none" />
+<path d="M 620 217.5 A 110 27.5 0 0 1 400 217.5 A 110 27.5 0 0 1 620 217.5 L 620 492.5 A 110 27.5 0 0 1 400 492.5 L 400 217.5" fill="none" />
+</g>
+  <g id="db-text" data-pptx-bounds="412 262 196 210" fill="#0E1F3A" text-anchor="middle">
+    <text x="510" y="294" font-family="Arial" font-size="22" font-weight="bold">Supabase</text>
+    <text x="510" y="326" font-size="17">One shared state:<tspan x="510" dy="23">clients, prospects,</tspan><tspan x="510" dy="23">facts and hooks,</tspan><tspan x="510" dy="23">drafts, approvals,</tspan><tspan x="510" dy="23">replies, outcomes,</tspan><tspan x="510" dy="23">cost per prospect</tspan></text>
+  </g>
+  <g id="node-engine" data-pptx-bounds="740 190 476 242">
+    <rect x="740" y="190" width="476" height="242" fill="#0E1F3A" />
+    <text x="764" y="228" font-family="Arial" font-size="22" font-weight="bold" fill="#EEF3F8">Engine (Python)</text>
+    <g font-size="17" fill="#BFD0E6">
+      <text x="764" y="268">Discovery from public<tspan x="764" dy="22">search only</tspan></text>
+      <text x="764" y="326">Enrichment: posts and<tspan x="764" dy="22">articles become facts</tspan></text>
+      <text x="764" y="384">Hooks that must cite<tspan x="764" dy="22">a real source</tspan></text>
+      <text x="988" y="268">Writers, rule checks<tspan x="988" dy="22">and a judge</tspan></text>
+      <text x="988" y="326">A learning loop from<tspan x="988" dy="22">edits and outcomes</tspan></text>
+      <text x="988" y="384">Guards: injection,<tspan x="988" dy="22">send cap, cost tracking</tspan></text>
+    </g>
+  </g>
+  <g id="node-crm" data-pptx-bounds="740 452 476 72">
+    <rect x="740" y="452" width="476" height="72" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.3" stroke-width="1.5" />
+    <text x="756" y="482" font-family="Arial" font-size="18" font-weight="bold" fill="#0E1F3A">Operator CRM and daily sync</text>
+    <text x="756" y="506" font-size="16" fill="#2B4266">Password protected, on Vercel. The founder reviews all.</text>
+  </g>
+  <g id="edge-intake" data-pptx-bounds="286 202 112 40">
+    <text x="342" y="222" font-size="13" font-style="italic" text-anchor="middle" fill="#4A5F80">targets, story</text>
+    <line x1="286" y1="236" x2="398" y2="236" stroke="#2B4266" stroke-width="2.5" marker-end="url(#ah)" />
+  </g>
+  <g id="edge-approval" data-pptx-bounds="286 424 112 40">
+    <text x="342" y="444" font-size="13" font-style="italic" text-anchor="middle" fill="#4A5F80">drafts, yes</text>
+    <line x1="286" y1="456" x2="398" y2="456" stroke="#2B4266" stroke-width="2.5" marker-start="url(#ah)" marker-end="url(#ah)" />
+  </g>
+  <g id="edge-engine" data-pptx-bounds="622 270 116 40">
+    <text x="680" y="290" font-size="13" font-style="italic" text-anchor="middle" fill="#4A5F80">facts, drafts</text>
+    <line x1="622" y1="302" x2="738" y2="302" stroke="#2B4266" stroke-width="2.5" marker-start="url(#ah)" marker-end="url(#ah)" />
+  </g>
+  <g id="edge-crm" data-pptx-bounds="622 456 116 40">
+    <text x="680" y="476" font-size="13" font-style="italic" text-anchor="middle" fill="#4A5F80">review, edit</text>
+    <line x1="622" y1="488" x2="738" y2="488" stroke="#2B4266" stroke-width="2.5" marker-start="url(#ah)" marker-end="url(#ah)" />
+  </g>
+  <g id="edge-bridge" data-pptx-bounds="500 524 150 34">
+    <line x1="510" y1="524" x2="510" y2="556" stroke="#2B4266" stroke-width="2.5" marker-end="url(#ah)" />
+    <text x="524" y="546" font-size="13" font-style="italic" fill="#4A5F80">approved text only</text>
+  </g>
+  <g id="bridge-field" data-pptx-bounds="400 562 816 88">
+    <rect x="400" y="562" width="816" height="88" fill="#C4D9EF" />
+    <text x="416" y="592" font-family="Arial" font-size="16" font-weight="bold" fill="#0E1F3A">Self-send, the default</text>
+    <text x="416" y="616" font-size="16" fill="#0E1F3A">A copy button. The candidate sends it by hand.</text>
+    <line x1="808" y1="576" x2="808" y2="636" stroke="#0E1F3A" stroke-opacity="0.3" stroke-width="1.5" />
+    <text x="824" y="592" font-family="Arial" font-size="16" font-weight="bold" fill="#0E1F3A">Browser bridge, optional</text>
+    <text x="824" y="616" font-size="16" fill="#0E1F3A">A scheduled task pastes approved text only.</text>
+  </g>
+  <g id="edge-linkedin" data-pptx-bounds="286 592 112 30">
+    <line x1="398" y1="606" x2="286" y2="606" stroke="#2B4266" stroke-width="2.5" marker-end="url(#ah)" />
+  </g>
+  <g id="footer" data-pptx-bounds="64 664 1152 44">
+    <line x1="64" y1="676" x2="1216" y2="676" stroke="#4A5F80" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round" stroke-opacity="0.6" />
+    <text x="64" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" fill="#4A5F80">KNOCK  |  CASE STUDY</text>
+    <text x="1216" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" text-anchor="end" fill="#4A5F80">06 / 13</text>
+  </g>
+</svg>

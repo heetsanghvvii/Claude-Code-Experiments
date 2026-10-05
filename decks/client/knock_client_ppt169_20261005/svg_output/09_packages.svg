@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en-IN" font-family="Times New Roman" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="72 48 1000 160">
+    <rect x="72" y="52" width="44" height="6" fill="#B3301B"/>
+    <text x="72" y="90" font-family="Arial" font-size="15" font-weight="bold" letter-spacing="2.4" fill="#4A5F80">PACKAGES</text>
+    <text x="72" y="140" font-family="Arial Narrow" font-size="44" font-weight="bold" fill="#0E1F3A">Choose a package by how long<tspan x="72" dy="52">you want us knocking</tspan></text>
+  </g>
+  <g id="card-sprint" data-pptx-bounds="72 228 360 292">
+    <rect x="72" y="228" width="360" height="292" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.15" stroke-width="1"/>
+    <text x="100" y="282" font-family="Arial Narrow" font-size="30" font-weight="bold" fill="#0E1F3A">Sprint</text>
+    <text x="100" y="310" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="2" fill="#4A5F80">7 DAYS</text>
+    <text x="100" y="392" font-family="Arial Narrow" font-weight="bold" fill="#0E1F3A"><tspan font-size="26">Rs </tspan><tspan font-size="68">2,499</tspan></text>
+    <line x1="100" y1="418" x2="404" y2="418" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="100" y="454" font-size="22" fill="#0E1F3A">60 people contacted</text>
+    <text x="100" y="484" font-size="17" font-style="italic" fill="#4A5F80">Sent by you, from your own LinkedIn</text>
+  </g>
+  <g id="card-standard" data-pptx-bounds="460 228 360 292">
+    <rect x="460" y="228" width="360" height="292" fill="#0E1F3A"/>
+    <text x="488" y="282" font-family="Arial Narrow" font-size="30" font-weight="bold" fill="#FAFCFE">Standard</text>
+    <rect x="674" y="256" width="118" height="26" fill="#A9C7E6"/>
+    <text x="733" y="273" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" letter-spacing="1.5" fill="#0E1F3A">MOST POPULAR</text>
+    <text x="488" y="310" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="2" fill="#A9C7E6">14 DAYS</text>
+    <text x="488" y="392" font-family="Arial Narrow" font-weight="bold" fill="#FAFCFE"><tspan font-size="26">Rs </tspan><tspan font-size="68">3,999</tspan></text>
+    <line x1="488" y1="418" x2="792" y2="418" stroke="#A9C7E6" stroke-opacity="0.4" stroke-width="1"/>
+    <text x="488" y="454" font-size="22" fill="#FAFCFE">120 people contacted</text>
+    <text x="488" y="484" font-size="17" font-style="italic" fill="#C4D9EF">Sent by you, from your own LinkedIn</text>
+  </g>
+  <g id="card-full" data-pptx-bounds="848 228 360 292">
+    <rect x="848" y="228" width="360" height="292" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.15" stroke-width="1"/>
+    <text x="876" y="282" font-family="Arial Narrow" font-size="30" font-weight="bold" fill="#0E1F3A">Full search</text>
+    <text x="876" y="310" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="2" fill="#4A5F80">21 DAYS</text>
+    <text x="876" y="392" font-family="Arial Narrow" font-weight="bold" fill="#0E1F3A"><tspan font-size="26">Rs </tspan><tspan font-size="68">5,499</tspan></text>
+    <line x1="876" y1="418" x2="1180" y2="418" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="876" y="454" font-size="22" fill="#0E1F3A">180 people contacted</text>
+    <text x="876" y="484" font-size="17" font-style="italic" fill="#4A5F80">Sent by you, from your own LinkedIn</text>
+  </g>
+  <g id="done-for-you" data-pptx-bounds="72 544 1136 84">
+    <rect x="72" y="544" width="1136" height="84" fill="#A9C7E6"/>
+    <text x="100" y="572" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="2" fill="#2B4266">RATHER WE HANDLED ALL OF IT?</text>
+    <text x="100" y="610" font-family="Arial Narrow" font-size="30" font-weight="bold" fill="#0E1F3A">Done for you</text>
+    <text x="440" y="582" font-size="20" fill="#0E1F3A">We run your outreach end to end, from the<tspan x="440" dy="26">first list to the booked conversation.</tspan></text>
+    <text x="1180" y="602" text-anchor="end" font-family="Arial Narrow" font-weight="bold" fill="#0E1F3A"><tspan font-size="24">From Rs </tspan><tspan font-size="40">14,999</tspan></text>
+  </g>
+  <g id="package-note" data-pptx-bounds="72 636 1136 22">
+    <text x="72" y="653" font-family="Arial" font-size="13" fill="#4A5F80">Founding member pricing. No payment now: you choose a package only if your first look at your target list looks right.</text>
+  </g>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="72 660 1136 46">
+    <line x1="72" y1="668" x2="1208" y2="668" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="72" y="696" font-family="Arial Narrow" font-size="20" font-weight="bold" fill="#0E1F3A">Knock</text>
+    <text x="1208" y="696" text-anchor="end" font-family="Arial" font-size="14" fill="#4A5F80">09 / 12</text>
+  </g>
+</svg>

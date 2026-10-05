@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Times New Roman" lang="en" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 36 1152 94">
+    <rect x="64" y="38" width="40" height="4" fill="#B3301B"/>
+    <text x="64" y="66" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">02  WHY THE OBVIOUS FIXES FAIL</text>
+    <text x="64" y="112" font-family="Arial" font-size="36" font-weight="bold" fill="#0E1F3A">Existing fixes sell advice or volume, not conversations</text>
+  </g>
+  <g id="field-advice" data-pptx-bounds="64 200 340 250">
+    <rect x="64" y="200" width="340" height="250" fill="#C4D9EF"/>
+    <text x="90" y="236" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#2B4266">ADVICE AND DOCUMENTS</text>
+    <text x="90" y="276" font-family="Arial" font-size="24" font-weight="bold" fill="#0E1F3A">Help you prepare</text>
+    <text x="90" y="318" font-size="19" fill="#0E1F3A">Mentor calls, courses and resume<tspan x="90" dy="26">rewrites. Useful, but nobody starts</tspan><tspan x="90" dy="26">a conversation for you. The work of</tspan><tspan x="90" dy="26">reaching people stays with the</tspan><tspan x="90" dy="26">candidate.</tspan></text>
+  </g>
+  <g id="field-knock" data-pptx-bounds="424 176 432 294">
+    <rect x="424" y="176" width="432" height="294" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="424" y="176" width="432" height="6" fill="#B3301B"/>
+    <text x="452" y="220" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#B3301B">KNOCK</text>
+    <text x="452" y="262" font-family="Arial" font-size="28" font-weight="bold" fill="#0E1F3A">Does the outreach itself</text>
+    <text x="452" y="308" font-size="20" fill="#0E1F3A">Researched, personal, approved messages<tspan x="452" dy="28">to named people, one at a time.</tspan><tspan x="452" dy="28">Technology does the heavy lifting.</tspan><tspan x="452" dy="28">The candidate stays in control.</tspan></text>
+  </g>
+  <g id="field-volume" data-pptx-bounds="876 200 340 250">
+    <rect x="876" y="200" width="340" height="250" fill="#0E1F3A"/>
+    <text x="902" y="236" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#A9C7E6">VOLUME</text>
+    <text x="902" y="276" font-family="Arial" font-size="24" font-weight="bold" fill="#EEF3F8">Fast, but reads cold</text>
+    <text x="902" y="318" font-size="19" fill="#BFD0E6">Automation sequences and mass-<tspan x="902" dy="26">apply tools. Template-driven, easy</tspan><tspan x="902" dy="26">to spot, and against LinkedIn's</tspan><tspan x="902" dy="26">terms. The risk lands on the</tspan><tspan x="902" dy="26">candidate's own account.</tspan></text>
+  </g>
+  <g id="insight-band" data-pptx-bounds="64 510 1152 130">
+    <rect x="64" y="510" width="1152" height="130" fill="#A9C7E6"/>
+    <text x="96" y="568" font-family="Arial" font-size="28" font-weight="bold" fill="#0E1F3A">The gap is execution, not information.</text>
+    <text x="96" y="610" font-size="20" fill="#0E1F3A">Finding, researching and writing to one person at a time is the work nobody does for the candidate.</text>
+  </g>
+  <g id="footer" data-pptx-bounds="64 664 1152 44">
+    <line x1="64" y1="676" x2="1216" y2="676" stroke="#4A5F80" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round" stroke-opacity="0.6"/>
+    <text x="64" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" fill="#4A5F80">KNOCK  |  CASE STUDY</text>
+    <text x="1216" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" text-anchor="end" fill="#4A5F80">03 / 13</text>
+  </g>
+</svg>

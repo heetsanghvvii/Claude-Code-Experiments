@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en-IN" font-family="Times New Roman" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="72 48 1000 160">
+    <rect x="72" y="52" width="44" height="6" fill="#B3301B"/>
+    <text x="72" y="90" font-family="Arial" font-size="15" font-weight="bold" letter-spacing="2.4" fill="#4A5F80">HOW IT WORKS</text>
+    <text x="72" y="140" font-family="Arial Narrow" font-size="44" font-weight="bold" fill="#0E1F3A">Four steps from a list of companies<tspan x="72" dy="52">to a conversation with someone inside</tspan></text>
+  </g>
+  <g id="step-stages" data-pptx-bounds="72 232 1129 78">
+    <g id="p04-stage-1" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="72 232 292 78" data-pptx-av-adj="val 26923" fill="#A9C7E6" stroke="none"><path d="M 72 232 L 343 232 L 364 271 L 343 310 L 72 310 L 93 271 Z"/></g>
+    <g id="p04-stage-2" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="351 232 292 78" data-pptx-av-adj="val 26923" fill="#97B9DD" stroke="none"><path d="M 351 232 L 622 232 L 643 271 L 622 310 L 351 310 L 372 271 Z"/></g>
+    <g id="p04-stage-3" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="630 232 292 78" data-pptx-av-adj="val 26923" fill="#4A5F80" stroke="none"><path d="M 630 232 L 901 232 L 922 271 L 901 310 L 630 310 L 651 271 Z"/></g>
+    <g id="p04-stage-4" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="909 232 292 78" data-pptx-av-adj="val 26923" fill="#0E1F3A" stroke="none"><path d="M 909 232 L 1180 232 L 1201 271 L 1180 310 L 909 310 L 930 271 Z"/></g>
+    <g font-family="Arial Narrow" font-size="46" font-weight="bold" text-anchor="middle">
+      <text x="218" y="287" fill="#0E1F3A">1</text>
+      <text x="497" y="287" fill="#0E1F3A">2</text>
+      <text x="776" y="287" fill="#FAFCFE">3</text>
+      <text x="1055" y="287" fill="#FAFCFE">4</text>
+    </g>
+  </g>
+  <g id="step-1" data-pptx-bounds="72 340 250 230">
+    <text x="72" y="368" font-family="Arial Narrow" font-size="26" font-weight="bold" fill="#0E1F3A">You pick<tspan x="72" dy="30">your targets</tspan></text>
+    <text x="72" y="440" font-size="20" fill="#2B4266">Tell us the companies and<tspan x="72" dy="29">roles you want. Ten</tspan><tspan x="72" dy="29">companies is plenty.</tspan></text>
+  </g>
+  <g id="step-2" data-pptx-bounds="351 340 250 230">
+    <text x="351" y="368" font-family="Arial Narrow" font-size="26" font-weight="bold" fill="#0E1F3A">We find the<tspan x="351" dy="30">right people</tspan></text>
+    <text x="351" y="440" font-size="20" fill="#2B4266">Hiring managers, future<tspan x="351" dy="29">teammates, alumni and</tspan><tspan x="351" dy="29">senior people who can</tspan><tspan x="351" dy="29">introduce you. Researched</tspan><tspan x="351" dy="29">one by one.</tspan></text>
+  </g>
+  <g id="step-3" data-pptx-bounds="630 340 250 230">
+    <text x="630" y="368" font-family="Arial Narrow" font-size="26" font-weight="bold" fill="#0E1F3A">We write to<tspan x="630" dy="30">each one</tspan></text>
+    <text x="630" y="440" font-size="20" fill="#2B4266">A short, personal first<tspan x="630" dy="29">message, built on</tspan><tspan x="630" dy="29">something you genuinely</tspan><tspan x="630" dy="29">share.</tspan></text>
+  </g>
+  <g id="step-4" data-pptx-bounds="909 340 250 230">
+    <text x="909" y="368" font-family="Arial Narrow" font-size="26" font-weight="bold" fill="#0E1F3A">We guide<tspan x="909" dy="30">every reply</tspan></text>
+    <text x="909" y="440" font-size="20" fill="#2B4266">We draft your answers and<tspan x="909" dy="29">steer each conversation</tspan><tspan x="909" dy="29">until it becomes a referral</tspan><tspan x="909" dy="29">or an interview.</tspan></text>
+  </g>
+  <g id="delivery-strip" data-pptx-bounds="72 586 1136 66">
+    <rect x="72" y="590" width="1136" height="58" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.15" stroke-width="1"/>
+    <text x="96" y="627" font-family="Arial Narrow" font-size="26" font-weight="bold" fill="#0E1F3A">You approve every message.</text>
+    <line x1="440" y1="604" x2="440" y2="634" stroke="#0E1F3A" stroke-opacity="0.25" stroke-width="1"/>
+    <text x="464" y="626" font-size="21" fill="#2B4266">Sent from your own LinkedIn, in your own name, or done for you.</text>
+  </g>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="72 660 1136 46">
+    <line x1="72" y1="668" x2="1208" y2="668" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="72" y="696" font-family="Arial Narrow" font-size="20" font-weight="bold" fill="#0E1F3A">Knock</text>
+    <text x="1208" y="696" text-anchor="end" font-family="Arial" font-size="14" fill="#4A5F80">04 / 12</text>
+  </g>
+</svg>

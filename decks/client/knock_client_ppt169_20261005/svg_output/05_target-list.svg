@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en-IN" font-family="Times New Roman" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="72 48 980 160">
+    <rect x="72" y="52" width="44" height="6" fill="#B3301B"/>
+    <text x="72" y="90" font-family="Arial" font-size="15" font-weight="bold" letter-spacing="2.4" fill="#4A5F80">YOUR TARGET LIST</text>
+    <text x="72" y="140" font-family="Arial Narrow" font-size="44" font-weight="bold" fill="#0E1F3A">Your target list names real people<tspan x="72" dy="52">and a reason to talk to each</tspan></text>
+  </g>
+  <g id="sample-tag" data-pptx-bounds="1068 50 140 46">
+    <rect x="1068" y="52" width="140" height="42" rx="2" fill="none" stroke="#0E1F3A" stroke-width="1.5"/>
+    <text x="1138" y="70" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" letter-spacing="3" fill="#0E1F3A">SAMPLE</text>
+    <text x="1138" y="86" text-anchor="middle" font-size="14" font-style="italic" fill="#2B4266">for illustration</text>
+  </g>
+  <g id="target-table" data-pptx-bounds="72 214 1136 330">
+    <text x="72" y="238" font-size="24" font-style="italic" fill="#2B4266">For a move into product at Zepto.</text>
+    <g font-family="Arial" font-size="13" font-weight="bold" letter-spacing="2" fill="#4A5F80">
+      <text x="72" y="286">WHO</text>
+      <text x="440" y="286">WHERE</text>
+      <text x="580" y="286">THE SHARED REASON TO TALK</text>
+      <text x="1010" y="286">STATUS</text>
+    </g>
+    <line x1="72" y1="298" x2="1208" y2="298" stroke="#0E1F3A" stroke-width="2"/>
+    <g id="target-row-1">
+      <text x="72" y="344" font-family="Arial Narrow" font-size="24" font-weight="bold" fill="#0E1F3A">Hiring manager, Product</text>
+      <text x="440" y="344" font-size="22" fill="#0E1F3A">Zepto</text>
+      <text x="580" y="334" font-size="21" fill="#2B4266">Both started in FMCG brand roles<tspan x="580" dy="28">before product</tspan></text>
+      <circle cx="1020" cy="338" r="5" fill="#0E1F3A"/>
+      <text x="1036" y="344" font-family="Arial" font-size="13" fill="#0E1F3A">Message drafted for you</text>
+      <line x1="72" y1="378" x2="1208" y2="378" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    </g>
+    <g id="target-row-2">
+      <text x="72" y="424" font-family="Arial Narrow" font-size="24" font-weight="bold" fill="#0E1F3A">Product manager, Growth</text>
+      <text x="440" y="424" font-size="22" fill="#0E1F3A">Zepto</text>
+      <text x="580" y="424" font-size="21" fill="#2B4266">Same college, three batches apart</text>
+      <circle cx="1020" cy="418" r="5" fill="#0E1F3A"/>
+      <text x="1036" y="424" font-family="Arial" font-size="13" fill="#0E1F3A">Message drafted for you</text>
+      <line x1="72" y1="458" x2="1208" y2="458" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    </g>
+    <g id="target-row-3">
+      <text x="72" y="504" font-family="Arial Narrow" font-size="24" font-weight="bold" fill="#0E1F3A">Senior PM, Quick commerce</text>
+      <text x="440" y="504" font-size="22" fill="#0E1F3A">Blinkit</text>
+      <text x="580" y="494" font-size="21" fill="#2B4266">Wrote about a launch you worked on as a<tspan x="580" dy="28">brand manager</tspan></text>
+      <circle cx="1020" cy="498" r="5" fill="none" stroke="#4A5F80" stroke-width="2"/>
+      <text x="1036" y="504" font-family="Arial" font-size="13" fill="#4A5F80">Researching</text>
+      <line x1="72" y1="538" x2="1208" y2="538" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    </g>
+  </g>
+  <g id="list-takeaway" data-pptx-bounds="72 562 1136 66">
+    <rect x="72" y="566" width="1136" height="58" fill="#C4D9EF"/>
+    <text x="96" y="602" font-size="22" fill="#0E1F3A">A short list of people who can actually move your application, each chosen for a reason.</text>
+  </g>
+  <g id="list-note" data-pptx-bounds="72 634 1136 24">
+    <text x="72" y="652" font-family="Arial" font-size="13" fill="#4A5F80">Sample for illustration, showing 3 of the 60 people in a Sprint. Real lists name real people.</text>
+  </g>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="72 660 1136 46">
+    <line x1="72" y1="668" x2="1208" y2="668" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="72" y="696" font-family="Arial Narrow" font-size="20" font-weight="bold" fill="#0E1F3A">Knock</text>
+    <text x="1208" y="696" text-anchor="end" font-family="Arial" font-size="14" fill="#4A5F80">05 / 12</text>
+  </g>
+</svg>

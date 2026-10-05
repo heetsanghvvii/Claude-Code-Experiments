@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" font-family="Times New Roman" data-pptx-page-role="content">
+  <defs>
+    <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="#0E1F3A"/></marker>
+  </defs>
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 44 1090 112" font-family="Arial" font-weight="bold">
+    <text x="64" y="60" font-size="13" fill="#4A5F80">WRITERS, RULES AND JUDGE</text>
+    <text x="64" y="102" font-size="34" fill="#0E1F3A">Three writers compete, rule checks filter, and a judge<tspan x="64" dy="40">picks the draft this person is most likely to answer</tspan></text>
+  </g>
+  <g id="page-stamp" data-pptx-bounds="1166 24 64 76">
+    <rect x="1172" y="30" width="52" height="64" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.28" stroke-width="1"/>
+    <rect x="1178" y="36" width="40" height="52" fill="#B3301B"/>
+    <text x="1198" y="70" font-family="Arial" font-weight="bold" font-size="22" fill="#FAFCFE" text-anchor="middle">6</text>
+  </g>
+  <line id="perf" data-pptx-role="decoration" x1="64" y1="166" x2="1216" y2="166" stroke="#97B9DD" stroke-width="3" stroke-dasharray="2,7"/>
+
+  <g id="col-input" data-pptx-bounds="64 190 224 400">
+    <rect x="64" y="190" width="190" height="400" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="64" y="190" width="190" height="44" fill="#C4D9EF"/>
+    <text x="78" y="219" font-family="Arial" font-weight="bold" font-size="18" fill="#0E1F3A">Input</text>
+    <g font-size="16" fill="#2B4266">
+      <rect x="78" y="262" width="8" height="8" fill="#0E1F3A"/>
+      <text x="94" y="270">The selected hook</text>
+      <rect x="78" y="295" width="8" height="8" fill="#0E1F3A"/>
+      <text x="94" y="303">Both cited facts</text>
+      <rect x="78" y="328" width="8" height="8" fill="#0E1F3A"/>
+      <text x="94" y="336">The candidate's<tspan x="94" dy="21">story</tspan></text>
+      <rect x="78" y="382" width="8" height="8" fill="#0E1F3A"/>
+      <text x="94" y="390">Learned playbook<tspan x="94" dy="21">rules</tspan></text>
+      <rect x="78" y="436" width="8" height="8" fill="#0E1F3A"/>
+      <text x="94" y="444">Past openers that<tspan x="94" dy="21">got replies, for feel</tspan><tspan x="94" dy="21">only</tspan></text>
+      <text x="78" y="540" font-style="italic">Writers see facts,<tspan x="78" dy="21">never raw web</tspan><tspan x="78" dy="21">pages.</tspan></text>
+    </g>
+    <line x1="256" y1="390" x2="288" y2="390" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+
+  <g id="writer-curious" data-pptx-bounds="290 190 300 124">
+    <rect x="290" y="190" width="300" height="124" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="290" y="190" width="6" height="124" fill="#0E1F3A"/>
+    <text x="306" y="218" font-family="Arial" font-weight="bold" font-size="17" fill="#0E1F3A">curious_peer</text>
+    <text x="306" y="244" font-size="16" fill="#2B4266">Genuinely curious about one specific<tspan x="306" dy="21">decision or change in their career,</tspan><tspan x="306" dy="21">asked in a way only they can answer.</tspan></text>
+  </g>
+  <g id="writer-observer" data-pptx-bounds="290 328 334 124">
+    <rect x="290" y="328" width="300" height="124" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="290" y="328" width="6" height="124" fill="#0E1F3A"/>
+    <text x="306" y="356" font-family="Arial" font-weight="bold" font-size="17" fill="#0E1F3A">sharp_observer</text>
+    <text x="306" y="382" font-size="16" fill="#2B4266">One sharp observation about their<tspan x="306" dy="21">work, move or post, tied to the</tspan><tspan x="306" dy="21">candidate's own experience, ending</tspan><tspan x="306" dy="21">on a light question.</tspan></text>
+    <line x1="592" y1="390" x2="624" y2="390" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+  <g id="writer-shared" data-pptx-bounds="290 466 300 124">
+    <rect x="290" y="466" width="300" height="124" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="290" y="466" width="6" height="124" fill="#0E1F3A"/>
+    <text x="306" y="494" font-family="Arial" font-weight="bold" font-size="17" fill="#0E1F3A">shared_path</text>
+    <text x="306" y="520" font-size="16" fill="#2B4266">Leads with the concrete thing they<tspan x="306" dy="21">share, a school, employer or</tspan><tspan x="306" dy="21">transition, then one easy question</tspan><tspan x="306" dy="21">about their side.</tspan></text>
+  </g>
+
+  <g id="col-rules" data-pptx-bounds="626 190 296 400">
+    <rect x="626" y="190" width="262" height="400" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="626" y="190" width="262" height="44" fill="#C4D9EF"/>
+    <text x="640" y="219" font-family="Arial" font-weight="bold" font-size="18" fill="#0E1F3A">Rule checks</text>
+    <g font-size="16" fill="#2B4266">
+      <text x="640" y="262" font-style="italic">Up to three attempts per writer.<tspan x="640" dy="21">Each retry is told what failed.</tspan></text>
+      <rect x="640" y="305" width="8" height="8" fill="#0E1F3A"/>
+      <text x="656" y="313">Under 300 characters</text>
+      <rect x="640" y="338" width="8" height="8" fill="#0E1F3A"/>
+      <text x="656" y="346">No banned phrases, such as<tspan x="656" dy="21">reaching out</tspan></text>
+      <rect x="640" y="392" width="8" height="8" fill="#0E1F3A"/>
+      <text x="656" y="400">No ask: job, referral, interview,<tspan x="656" dy="21">coffee</tspan></text>
+      <rect x="640" y="446" width="8" height="8" fill="#0E1F3A"/>
+      <text x="656" y="454">No exclamation marks or<tspan x="656" dy="21">dashes</tspan></text>
+      <rect x="640" y="500" width="8" height="8" fill="#0E1F3A"/>
+      <text x="656" y="508">Greets them by first name</text>
+    </g>
+    <line x1="890" y1="390" x2="922" y2="390" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+
+  <g id="col-judge" data-pptx-bounds="924 190 292 400">
+    <rect x="924" y="190" width="292" height="400" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2"/>
+    <rect x="924" y="190" width="292" height="44" fill="#0E1F3A"/>
+    <text x="940" y="219" font-family="Arial" font-weight="bold" font-size="18" fill="#FAFCFE">Judge, high effort</text>
+    <g font-size="16" fill="#2B4266">
+      <text x="940" y="262">Reads the drafts as the recipient: a<tspan x="940" dy="21">busy professional who gets generic</tspan><tspan x="940" dy="21">networking messages every week.</tspan></text>
+      <text x="940" y="335">Scores reply likelihood, specificity<tspan x="940" dy="21">and human feel, 1 to 5.</tspan></text>
+      <text x="940" y="388">Penalises flattery, vague questions<tspan x="940" dy="21">and any hint of a job ask.</tspan></text>
+      <text x="940" y="441">Sees recent cases where the operator<tspan x="940" dy="21">overruled it.</tspan></text>
+    </g>
+    <line x1="940" y1="496" x2="1200" y2="496" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="940" y="524" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">The winner is stored with its reason.<tspan x="940" dy="22">Losing drafts stay as alternatives.</tspan></text>
+  </g>
+
+  <g id="fallbacks" data-pptx-bounds="64 612 1138 54">
+    <rect x="64" y="612" width="1138" height="54" fill="#C4D9EF"/>
+    <text x="84" y="646" font-size="17" fill="#0E1F3A">Fallbacks: if no draft passes the rules, the first one returns flagged for manual review. If only one passes, it wins without a judge.</text>
+  </g>
+  <g id="source" data-pptx-bounds="64 688 760 22" font-family="Arial" font-size="13" fill="#4A5F80">
+    <text x="64" y="702">Source: engine/outreach/messages.py, prompts.py (WRITERS, JUDGE_OPENERS)</text>
+  </g>
+</svg>

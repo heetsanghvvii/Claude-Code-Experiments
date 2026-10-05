@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Times New Roman" lang="en" data-pptx-page-role="cover">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#A9C7E6" />
+  <g id="airmail-band" data-pptx-role="decoration" data-pptx-bounds="0 694 1280 20" stroke-width="12" stroke-dasharray="32,32">
+    <line x1="0" y1="704" x2="1280" y2="704" stroke="#B3301B" />
+    <line x1="32" y1="704" x2="1280" y2="704" stroke="#0E1F3A" />
+  </g>
+  <g id="title-block" data-pptx-bounds="72 76 660 420" fill="#0E1F3A">
+    <text x="72" y="96" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3">CASE STUDY</text>
+    <g font-family="Arial" font-size="72" font-weight="bold">
+      <text x="72" y="190">Knock: designing<tspan x="72" dy="76">a human-first</tspan><tspan x="72" dy="76">outreach system</tspan></text>
+    </g>
+    <text x="72" y="410" font-size="24">How one founder turned a simple insight,<tspan x="72" dy="36">people hire people, into a working system,</tspan><tspan x="72" dy="36">and the thinking behind every decision.</tspan></text>
+  </g>
+  <g id="meta" data-pptx-bounds="72 534 640 100">
+    <line x1="72" y1="548" x2="700" y2="548" stroke="#0E1F3A" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round" stroke-opacity="0.6" />
+    <text x="72" y="588" font-family="Arial" font-size="15" font-weight="bold" letter-spacing="2" fill="#0E1F3A">HEET, FOUNDER  |  MUMBAI</text>
+    <text x="72" y="618" font-size="18" fill="#2B4266">Product, engineering and operations in one pair of hands.</text>
+  </g>
+  <g id="letter" data-pptx-bounds="760 88 448 470">
+    <rect x="760" y="88" width="448" height="470" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.25" stroke-width="1" />
+    <rect id="stamp-red" x="1058" y="116" width="124" height="150" fill="#B3301B" />
+    <rect id="stamp-perforation" x="1058" y="116" width="124" height="150" fill="none" stroke="#FAFCFE" stroke-width="7" stroke-dasharray="6,8" />
+    <circle cx="1120" cy="172" r="20" fill="none" stroke="#FAFCFE" stroke-width="5" />
+    <rect x="1112" y="192" width="16" height="12" fill="#FAFCFE" />
+    <text x="1120" y="240" font-family="Arial" font-size="22" font-weight="bold" letter-spacing="2" text-anchor="middle" fill="#FAFCFE">KNOCK</text>
+    <circle cx="1010" cy="214" r="46" fill="none" stroke="#0E1F3A" stroke-width="3" stroke-opacity="0.55" />
+    <circle cx="1010" cy="214" r="37" fill="none" stroke="#0E1F3A" stroke-width="1.5" stroke-opacity="0.55" />
+    <text x="1010" y="219" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="1" text-anchor="middle" fill="#0E1F3A" fill-opacity="0.7">MUMBAI</text>
+    <line x1="1060" y1="150" x2="1196" y2="150" stroke="#0E1F3A" stroke-width="3" stroke-opacity="0.4" />
+    <line x1="1060" y1="170" x2="1196" y2="170" stroke="#0E1F3A" stroke-width="3" stroke-opacity="0.4" />
+    <line x1="1060" y1="190" x2="1196" y2="190" stroke="#0E1F3A" stroke-width="3" stroke-opacity="0.4" />
+    <text x="792" y="352" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">TO</text>
+    <text x="792" y="394" font-size="30" font-style="italic" fill="#0E1F3A">The person who hires you</text>
+    <line x1="792" y1="424" x2="1170" y2="424" stroke="#A9C7E6" stroke-width="2" />
+    <line x1="792" y1="454" x2="1170" y2="454" stroke="#A9C7E6" stroke-width="2" />
+    <line x1="792" y1="484" x2="1000" y2="484" stroke="#A9C7E6" stroke-width="2" />
+    <text x="792" y="530" font-family="Arial" font-size="22" font-weight="bold" fill="#0E1F3A">Knock on the right door.</text>
+  </g>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Times New Roman" lang="en" data-pptx-page-role="ending">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#0A1628" />
+  <g id="airmail-band" data-pptx-role="decoration" data-pptx-bounds="0 694 1280 20" stroke-width="12" stroke-dasharray="32,32">
+    <line x1="0" y1="704" x2="1280" y2="704" stroke="#B3301B" />
+    <line x1="32" y1="704" x2="1280" y2="704" stroke="#A9C7E6" />
+  </g>
+  <g id="closing-title" data-pptx-bounds="72 70 660 204" font-family="Arial" font-weight="bold">
+    <text x="72" y="96" font-size="13" letter-spacing="3" fill="#A9C7E6">WHAT THIS CASE SHOWS</text>
+    <text x="72" y="178" font-size="60" fill="#EEF3F8">Knock on the<tspan x="72" dy="66">right door.</tspan></text>
+  </g>
+  <g id="shows-list" data-pptx-bounds="72 290 660 330">
+    <line x1="72" y1="290" x2="700" y2="290" stroke="#A9C7E6" stroke-opacity="0.5" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round" />
+    <text x="72" y="334" font-family="Arial" font-size="18" font-weight="bold" fill="#E8705A">Judgement</text>
+    <text x="72" y="360" font-size="20" fill="#EEF3F8">Product decisions with reasons, including what not to build.</text>
+    <text x="72" y="418" font-family="Arial" font-size="18" font-weight="bold" fill="#A9C7E6">Systems</text>
+    <text x="72" y="444" font-size="20" fill="#EEF3F8">Research, writing, approval, sending and learning, wired end to end.</text>
+    <text x="72" y="502" font-family="Arial" font-size="18" font-weight="bold" fill="#A9C7E6">Responsibility</text>
+    <text x="72" y="528" font-size="20" fill="#EEF3F8">Safety, consent and honesty designed in from the first day.</text>
+    <text x="72" y="586" font-family="Arial" font-size="18" font-weight="bold" fill="#A9C7E6">Evidence</text>
+    <text x="72" y="612" font-size="20" fill="#EEF3F8">Choices tested in blind competitions rather than argued.</text>
+  </g>
+  <g id="contact-letter" data-pptx-bounds="800 96 408 540">
+    <rect x="800" y="96" width="408" height="540" fill="#FAFCFE" />
+    <rect id="stamp-red" x="1082" y="120" width="102" height="124" fill="#B3301B" />
+    <rect id="stamp-perforation" x="1082" y="120" width="102" height="124" fill="none" stroke="#FAFCFE" stroke-width="6" stroke-dasharray="5,7" />
+    <circle cx="1133" cy="166" r="16" fill="none" stroke="#FAFCFE" stroke-width="4" />
+    <rect x="1127" y="182" width="12" height="10" fill="#FAFCFE" />
+    <text x="1133" y="226" font-family="Arial" font-size="18" font-weight="bold" letter-spacing="2" text-anchor="middle" fill="#FAFCFE">KNOCK</text>
+    <circle cx="1040" cy="190" r="40" fill="none" stroke="#0E1F3A" stroke-width="3" stroke-opacity="0.5" />
+    <circle cx="1040" cy="190" r="32" fill="none" stroke="#0E1F3A" stroke-width="1.5" stroke-opacity="0.5" />
+    <text x="1040" y="195" font-family="Arial" font-size="11" font-weight="bold" letter-spacing="1" text-anchor="middle" fill="#0E1F3A" fill-opacity="0.65">MUMBAI</text>
+    <line x1="1086" y1="140" x2="1196" y2="140" stroke="#0E1F3A" stroke-width="3" stroke-opacity="0.35" />
+    <line x1="1086" y1="160" x2="1196" y2="160" stroke="#0E1F3A" stroke-width="3" stroke-opacity="0.35" />
+    <text x="830" y="340" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">FROM</text>
+    <text x="830" y="386" font-family="Arial" font-size="32" font-weight="bold" fill="#0E1F3A">Heet</text>
+    <text x="830" y="418" font-size="21" font-style="italic" fill="#2B4266">Founder, Mumbai</text>
+    <line x1="830" y1="446" x2="1178" y2="446" stroke="#A9C7E6" stroke-width="2" />
+    <text x="830" y="486" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">EMAIL</text>
+    <text x="830" y="518" font-family="Arial" font-size="22" font-weight="bold" fill="#0E1F3A">&lt;email&gt;</text>
+    <text x="830" y="562" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">LIVE SITE</text>
+    <text x="830" y="594" font-family="Arial" font-size="20" font-weight="bold" fill="#B3301B">knock-eosin-beta.vercel.app</text>
+  </g>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en-IN" font-family="Times New Roman" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="72 48 1000 160">
+    <rect x="72" y="52" width="44" height="6" fill="#B3301B"/>
+    <text x="72" y="90" font-family="Arial" font-size="15" font-weight="bold" letter-spacing="2.4" fill="#4A5F80">WHY IT IS NOT SPAM</text>
+    <text x="72" y="140" font-family="Arial Narrow" font-size="44" font-weight="bold" fill="#0E1F3A">60 hand-picked people and one reader<tspan x="72" dy="52">per message is the opposite of spam</tspan></text>
+  </g>
+  <g id="sixty-panel" data-pptx-bounds="72 232 380 396">
+    <rect x="72" y="232" width="380" height="396" fill="#A9C7E6"/>
+    <text x="100" y="452" font-family="Arial Narrow" font-size="200" font-weight="bold" fill="#0E1F3A">60</text>
+    <text x="100" y="508" font-size="24" fill="#0E1F3A">hand-picked people,<tspan x="100" dy="34">each chosen for a reason.</tspan><tspan x="100" dy="34" font-weight="bold">Not 6,000 messages.</tspan></text>
+  </g>
+  <g id="reasons" data-pptx-bounds="500 232 708 396">
+    <line x1="500" y1="232" x2="1208" y2="232" stroke="#0E1F3A" stroke-width="2"/>
+    <g id="reason-reader">
+      <text x="500" y="276" font-family="Arial Narrow" font-size="30" font-weight="bold" fill="#0E1F3A">One reader per message</text>
+      <text x="500" y="312" font-size="21" fill="#2B4266">Every message is written for one person. No templates with a name<tspan x="500" dy="28">swapped in. If it could be sent to anyone, we do not send it.</tspan></text>
+    </g>
+    <line x1="500" y1="364" x2="1208" y2="364" stroke="#0E1F3A" stroke-opacity="0.25" stroke-width="1"/>
+    <g id="reason-talk">
+      <text x="500" y="408" font-family="Arial Narrow" font-size="30" font-weight="bold" fill="#0E1F3A">Talk first, ask later</text>
+      <text x="500" y="444" font-size="21" fill="#2B4266">Nobody refers a stranger. We open with curiosity, earn the reply, and<tspan x="500" dy="28">ask for the referral once there is something real between you.</tspan></text>
+    </g>
+    <line x1="500" y1="496" x2="1208" y2="496" stroke="#0E1F3A" stroke-opacity="0.25" stroke-width="1"/>
+    <g id="reason-method">
+      <text x="500" y="540" font-family="Arial Narrow" font-size="30" font-weight="bold" fill="#0E1F3A">Research, relevance, follow-up</text>
+      <text x="500" y="576" font-size="21" fill="#2B4266">The way good sales teams reach busy people, applied to the one product<tspan x="500" dy="28">you know best: you.</tspan></text>
+    </g>
+    <line x1="500" y1="628" x2="1208" y2="628" stroke="#0E1F3A" stroke-opacity="0.25" stroke-width="1"/>
+  </g>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="72 660 1136 46">
+    <line x1="72" y1="668" x2="1208" y2="668" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="72" y="696" font-family="Arial Narrow" font-size="20" font-weight="bold" fill="#0E1F3A">Knock</text>
+    <text x="1208" y="696" text-anchor="end" font-family="Arial" font-size="14" fill="#4A5F80">07 / 12</text>
+  </g>
+</svg>

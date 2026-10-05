@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en-IN" font-family="Times New Roman" data-pptx-page-role="cover">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#A9C7E6"/>
+  <g id="cover-title" data-pptx-bounds="80 130 860 320">
+    <text x="80" y="152" font-family="Arial" font-size="15" font-weight="bold" letter-spacing="3" fill="#2B4266">A PRIVATE CAREER OUTREACH SERVICE</text>
+    <text x="80" y="300" font-family="Arial Narrow" font-size="100" font-weight="bold" fill="#0E1F3A">Knock on<tspan x="80" dy="106">the right door.</tspan></text>
+  </g>
+  <g id="cover-standfirst" data-pptx-bounds="80 474 700 150">
+    <text x="80" y="502" font-size="26" fill="#2B4266">We find the hiring managers, team members and<tspan x="80" dy="36">alumni at your target companies, research each</tspan><tspan x="80" dy="36">one, and start real conversations that turn into</tspan><tspan x="80" dy="36">referrals and interviews.</tspan></text>
+  </g>
+  <g id="cover-stamp" data-pptx-bounds="944 80 260 304">
+    <rect x="980" y="90" width="176" height="212" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="5,5"/>
+    <rect x="994" y="104" width="148" height="184" fill="#B3301B"/>
+    <g id="p01-door" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="round2SameRect" data-pptx-frame="1034 128 68 108" data-pptx-av-adj1="val 50000" data-pptx-av-adj2="val 0" fill="none" stroke="#FAFCFE" stroke-width="5">
+<path d="M 1068 128 L 1068 128 A 34 34 0 0 1 1102 162 L 1102 236 L 1034 236 L 1034 162 A 34 34 0 0 1 1068 128 Z"/>
+</g>
+    <circle cx="1090" cy="196" r="5" fill="#FAFCFE"/>
+    <text x="1068" y="270" text-anchor="middle" font-family="Arial Narrow" font-size="26" font-weight="bold" letter-spacing="4" fill="#FAFCFE">KNOCK</text>
+    <line x1="1060" y1="318" x2="1190" y2="318" stroke="#0E1F3A" stroke-opacity="0.55" stroke-width="2.5"/>
+    <line x1="1060" y1="332" x2="1190" y2="332" stroke="#0E1F3A" stroke-opacity="0.55" stroke-width="2.5"/>
+    <line x1="1060" y1="346" x2="1190" y2="346" stroke="#0E1F3A" stroke-opacity="0.55" stroke-width="2.5"/>
+    <circle cx="1002" cy="324" r="54" fill="#A9C7E6" fill-opacity="0.85" stroke="#0E1F3A" stroke-opacity="0.6" stroke-width="2.5"/>
+    <g font-family="Arial" font-size="11" font-weight="bold" letter-spacing="1" text-anchor="middle" fill="#0E1F3A" fill-opacity="0.7">
+      <text x="1002" y="314">KNOCK ON</text>
+      <text x="1002" y="329">THE RIGHT</text>
+      <text x="1002" y="344">DOOR</text>
+    </g>
+  </g>
+  <g id="cover-note" data-pptx-bounds="80 664 800 32">
+    <text x="80" y="688" font-family="Arial" font-size="14" fill="#2B4266">Made in India. Founding member pricing, 2026.</text>
+  </g>
+  <g id="airmail-band" data-pptx-bounds="0 704 1280 16">
+    <rect x="0" y="704" width="1280" height="16" fill="#FAFCFE"/>
+    <g id="p01-stripe-01" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="16 704 30 16" data-pptx-av-adj="val 50000" fill="#B3301B" stroke="none"><path d="M 16 720 L 24 704 L 46 704 L 38 720 Z"/></g>
+    <g id="p01-stripe-02" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="66.75 704 30 16" data-pptx-av-adj="val 50000" fill="#0E1F3A" stroke="none"><path d="M 66.75 720 L 74.75 704 L 96.75 704 L 88.75 720 Z"/></g>
+    <g id="p01-stripe-03" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="117.5 704 30 16" data-pptx-av-adj="val 50000" fill="#B3301B" stroke="none"><path d="M 117.5 720 L 125.5 704 L 147.5 704 L 139.5 720 Z"/></g>
+    <g id="p01-stripe-04" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="168.25 704 30 16" data-pptx-av-adj="val 50000" fill="#0E1F3A" stroke="none"><path d="M 168.25 720 L 176.25 704 L 198.25 704 L 190.25 720 Z"/></g>
+    <g id="p01-stripe-05" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="219 704 30 16" data-pptx-av-adj="val 50000" fill="#B3301B" stroke="none"><path d="M 219 720 L 227 704 L 249 704 L 241 720 Z"/></g>
+    <g id="p01-stripe-06" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="269.75 704 30 16" data-pptx-av-adj="val 50000" fill="#0E1F3A" stroke="none"><path d="M 269.75 720 L 277.75 704 L 299.75 704 L 291.75 720 Z"/></g>
+    <g id="p01-stripe-07" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="320.5 704 30 16" data-pptx-av-adj="val 50000" fill="#B3301B" stroke="none"><path d="M 320.5 720 L 328.5 704 L 350.5 704 L 342.5 720 Z"/></g>
+    <g id="p01-stripe-08" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="371.25 704 30 16" data-pptx-av-adj="val 50000" fill="#0E1F3A" stroke="none"><path d="M 371.25 720 L 379.25 704 L 401.25 704 L 393.25 720 Z"/></g>
+    <g id="p01-stripe-09" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="422 704 30 16" data-pptx-av-adj="val 50000" fill="#B3301B" stroke="none"><path d="M 422 720 L 430 704 L 452 704 L 444 720 Z"/></g>
+    <g id="p01-stripe-10" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="472.75 704 30 16" data-pptx-av-adj="val 50000" fill="#0E1F3A" stroke="none"><path d="M 472.75 720 L 480.75 704 L 502.75 704 L 494.75 720 Z"/></g>
+    <g id="p01-stripe-11" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="523.5 704 30 16" data-pptx-av-adj="val 50000" fill="#B3301B" stroke="none"><path d="M 523.5 720 L 531.5 704 L 553.5 704 L 545.5 720 Z"/></g>
+    <g id="p01-stripe-12" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="574.25 704 30 16" data-pptx-av-adj="val 50000" fill="#0E1F3A" stroke="none"><path d="M 574.25 720 L 582.25 704 L 604.25 704 L 596.25 720 Z"/></g>
+    <g id="p01-stripe-13" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="625 704 30 16" data-pptx-av-adj="val 50000" fill="#B3301B" stroke="none"><path d="M 625 720 L 633 704 L 655 704 L 647 720 Z"/></g>
+    <g id="p01-stripe-14" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="675.75 704 30 16" data-pptx-av-adj="val 50000" fill="#0E1F3A" stroke="none"><path d="M 675.75 720 L 683.75 704 L 705.75 704 L 697.75 720 Z"/></g>
+    <g id="p01-stripe-15" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="726.5 704 30 16" data-pptx-av-adj="val 50000" fill="#B3301B" stroke="none"><path d="M 726.5 720 L 734.5 704 L 756.5 704 L 748.5 720 Z"/></g>
+    <g id="p01-stripe-16" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="777.25 704 30 16" data-pptx-av-adj="val 50000" fill="#0E1F3A" stroke="none"><path d="M 777.25 720 L 785.25 704 L 807.25 704 L 799.25 720 Z"/></g>
+    <g id="p01-stripe-17" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="828 704 30 16" data-pptx-av-adj="val 50000" fill="#B3301B" stroke="none"><path d="M 828 720 L 836 704 L 858 704 L 850 720 Z"/></g>
+    <g id="p01-stripe-18" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="878.75 704 30 16" data-pptx-av-adj="val 50000" fill="#0E1F3A" stroke="none"><path d="M 878.75 720 L 886.75 704 L 908.75 704 L 900.75 720 Z"/></g>
+    <g id="p01-stripe-19" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="929.5 704 30 16" data-pptx-av-adj="val 50000" fill="#B3301B" stroke="none"><path d="M 929.5 720 L 937.5 704 L 959.5 704 L 951.5 720 Z"/></g>
+    <g id="p01-stripe-20" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="980.25 704 30 16" data-pptx-av-adj="val 50000" fill="#0E1F3A" stroke="none"><path d="M 980.25 720 L 988.25 704 L 1010.25 704 L 1002.25 720 Z"/></g>
+    <g id="p01-stripe-21" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="1031 704 30 16" data-pptx-av-adj="val 50000" fill="#B3301B" stroke="none"><path d="M 1031 720 L 1039 704 L 1061 704 L 1053 720 Z"/></g>
+    <g id="p01-stripe-22" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="1081.75 704 30 16" data-pptx-av-adj="val 50000" fill="#0E1F3A" stroke="none"><path d="M 1081.75 720 L 1089.75 704 L 1111.75 704 L 1103.75 720 Z"/></g>
+    <g id="p01-stripe-23" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="1132.5 704 30 16" data-pptx-av-adj="val 50000" fill="#B3301B" stroke="none"><path d="M 1132.5 720 L 1140.5 704 L 1162.5 704 L 1154.5 720 Z"/></g>
+    <g id="p01-stripe-24" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="1183.25 704 30 16" data-pptx-av-adj="val 50000" fill="#0E1F3A" stroke="none"><path d="M 1183.25 720 L 1191.25 704 L 1213.25 704 L 1205.25 720 Z"/></g>
+    <g id="p01-stripe-25" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="parallelogram" data-pptx-frame="1234 704 30 16" data-pptx-av-adj="val 50000" fill="#B3301B" stroke="none"><path d="M 1234 720 L 1242 704 L 1264 704 L 1256 720 Z"/></g>
+  </g>
+</svg>

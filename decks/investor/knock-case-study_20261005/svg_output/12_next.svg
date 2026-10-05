@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Times New Roman" lang="en" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8" />
+  <g id="header" data-pptx-bounds="64 36 1152 94">
+    <rect x="64" y="38" width="40" height="4" fill="#B3301B" />
+    <text x="64" y="66" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">11  WHAT COMES NEXT</text>
+    <text x="64" y="112" font-family="Arial" font-size="36" font-weight="bold" fill="#0E1F3A">What comes next, in order</text>
+  </g>
+<g id="p12-stage-now" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="homePlate" data-pptx-frame="64 164 360 64" data-pptx-av-adj="val 30000" fill="#B3301B" stroke="none">
+<path d="M 64 164 L 404.8 164 L 424 196 L 404.8 228 L 64 228 Z" />
+</g>
+<g id="p12-stage-next" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="homePlate" data-pptx-frame="444 164 360 64" data-pptx-av-adj="val 30000" fill="#0E1F3A" stroke="none">
+<path d="M 444 164 L 784.8 164 L 804 196 L 784.8 228 L 444 228 Z" />
+</g>
+<g id="p12-stage-later" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="homePlate" data-pptx-frame="824 164 360 64" data-pptx-av-adj="val 30000" fill="#0E1F3A" stroke="none">
+<path d="M 824 164 L 1164.8 164 L 1184 196 L 1164.8 228 L 824 228 Z" />
+</g>
+  <g id="stage-labels" data-pptx-bounds="64 174 1152 44" font-family="Arial" font-size="17" font-weight="bold" letter-spacing="2" fill="#FAFCFE">
+    <text x="88" y="202">NOW: PROVE IT</text>
+    <text x="468" y="202">NEXT: FIRST CLIENTS</text>
+    <text x="848" y="202">LATER: SCALE SAFELY</text>
+  </g>
+  <g id="stage-1-items" data-pptx-bounds="64 252 350 270" fill="#0E1F3A">
+    <rect x="68" y="267" width="8" height="8" />
+    <text x="88" y="276" font-size="18">Run the full pipeline on one real<tspan x="88" dy="23">candidate and read every edit.</tspan></text>
+    <rect x="68" y="330" width="8" height="8" />
+    <text x="88" y="339" font-size="18">Measure true cost and founder time<tspan x="88" dy="23">per message, then tune the prompts.</tspan></text>
+    <rect x="68" y="393" width="8" height="8" />
+    <text x="88" y="402" font-size="18">Offer a free pilot to student clubs.</text>
+    <rect x="68" y="433" width="8" height="8" />
+    <text x="88" y="442" font-size="18">Finalise terms and consent notices.</text>
+  </g>
+  <g id="stage-2-items" data-pptx-bounds="444 252 350 270" fill="#0E1F3A">
+    <rect x="448" y="267" width="8" height="8" />
+    <text x="468" y="276" font-size="18">Take the first paying clients on<tspan x="468" dy="23">self-send delivery.</tspan></text>
+    <rect x="448" y="330" width="8" height="8" />
+    <text x="468" y="339" font-size="18">Publish only measured, consented,<tspan x="468" dy="23">anonymised results.</tspan></text>
+    <rect x="448" y="393" width="8" height="8" />
+    <text x="468" y="402" font-size="18">Design guarantees from real data.</text>
+    <rect x="448" y="433" width="8" height="8" />
+    <text x="468" y="442" font-size="18">Build a client portal to approve,<tspan x="468" dy="23">copy, paste replies, mark outcomes.</tspan></text>
+  </g>
+  <g id="stage-3-items" data-pptx-bounds="824 252 350 270" fill="#0E1F3A">
+    <rect x="828" y="267" width="8" height="8" />
+    <text x="848" y="276" font-size="18">Legal review before offering any<tspan x="848" dy="23">automation tier.</tspan></text>
+    <rect x="828" y="330" width="8" height="8" />
+    <text x="848" y="339" font-size="18">Complete data-protection compliance.</text>
+    <rect x="828" y="370" width="8" height="8" />
+    <text x="848" y="379" font-size="18">Train an operator on the playbook.</text>
+    <rect x="828" y="410" width="8" height="8" />
+    <text x="848" y="419" font-size="18">Turn the self-send flow into a<tspan x="848" dy="23">self-serve product, keeping the</tspan><tspan x="848" dy="23">service as the premium tier.</tspan></text>
+  </g>
+  <g id="north-star" data-pptx-bounds="64 548 1152 96">
+    <rect x="64" y="548" width="1152" height="96" fill="#0E1F3A" />
+    <text x="92" y="590" font-family="Arial" font-size="24" font-weight="bold" fill="#EEF3F8">One question judges every step</text>
+    <text x="92" y="620" font-size="19" fill="#BFD0E6">Does this get the candidate into more real conversations, measured as interviews per targeted prospect?</text>
+  </g>
+  <g id="footer" data-pptx-bounds="64 664 1152 44">
+    <line x1="64" y1="676" x2="1216" y2="676" stroke="#4A5F80" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round" stroke-opacity="0.6" />
+    <text x="64" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" fill="#4A5F80">KNOCK  |  CASE STUDY</text>
+    <text x="1216" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" text-anchor="end" fill="#4A5F80">12 / 13</text>
+  </g>
+</svg>

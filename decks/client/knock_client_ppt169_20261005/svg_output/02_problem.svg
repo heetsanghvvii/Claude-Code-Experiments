@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en-IN" font-family="Times New Roman" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="72 48 1000 160">
+    <rect x="72" y="52" width="44" height="6" fill="#B3301B"/>
+    <text x="72" y="90" font-family="Arial" font-size="15" font-weight="bold" letter-spacing="2.4" fill="#4A5F80">THE PROBLEM</text>
+    <text x="72" y="140" font-family="Arial Narrow" font-size="44" font-weight="bold" fill="#0E1F3A">Hundreds of applications,<tspan x="72" dy="52">and the callbacks never come</tspan></text>
+  </g>
+  <g id="problem-lede" data-pptx-bounds="72 236 520 312">
+    <text x="72" y="276" font-size="26" fill="#2B4266">You have done everything the portals<tspan x="72" dy="38">ask. Tailored the CV, filled the forms,</tspan><tspan x="72" dy="38">clicked apply until it stopped meaning</tspan><tspan x="72" dy="38">anything.</tspan></text>
+    <line x1="72" y1="440" x2="232" y2="440" stroke="#0E1F3A" stroke-opacity="0.3" stroke-width="2"/>
+    <text x="72" y="520" font-family="Arial Narrow" font-size="72" font-weight="bold" fill="#0E1F3A">Still waiting.</text>
+  </g>
+  <g id="application-ledger" data-pptx-bounds="600 236 608 376">
+    <g id="ledger-row-1">
+      <rect x="600" y="236" width="608" height="56" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.15" stroke-width="1"/>
+      <text x="620" y="262" font-family="Arial Narrow" font-size="22" font-weight="bold" fill="#0E1F3A">Associate Product Manager</text>
+      <text x="620" y="282" font-size="16" font-style="italic" fill="#4A5F80">Applied through a job portal</text>
+      <circle cx="1016" cy="264" r="5" fill="none" stroke="#4A5F80" stroke-width="2"/>
+      <text x="1032" y="269" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="1" fill="#4A5F80">UNDER REVIEW</text>
+    </g>
+    <g id="ledger-row-2">
+      <rect x="600" y="300" width="608" height="56" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.15" stroke-width="1"/>
+      <text x="620" y="326" font-family="Arial Narrow" font-size="22" font-weight="bold" fill="#0E1F3A">Product Manager, Payments</text>
+      <text x="620" y="346" font-size="16" font-style="italic" fill="#4A5F80">Applied through a job portal</text>
+      <circle cx="1016" cy="328" r="5" fill="none" stroke="#4A5F80" stroke-width="2"/>
+      <text x="1032" y="333" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="1" fill="#4A5F80">UNDER REVIEW</text>
+    </g>
+    <g id="ledger-row-3">
+      <rect x="600" y="364" width="608" height="56" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.15" stroke-width="1"/>
+      <text x="620" y="390" font-family="Arial Narrow" font-size="22" font-weight="bold" fill="#0E1F3A">APM, Consumer</text>
+      <text x="620" y="410" font-size="16" font-style="italic" fill="#4A5F80">Applied through a careers page</text>
+      <circle cx="1016" cy="392" r="5" fill="#0E1F3A"/>
+      <text x="1032" y="397" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="1" fill="#0E1F3A">NO RESPONSE</text>
+    </g>
+    <g id="ledger-row-4">
+      <rect x="600" y="428" width="608" height="56" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.15" stroke-width="1"/>
+      <text x="620" y="454" font-family="Arial Narrow" font-size="22" font-weight="bold" fill="#0E1F3A">Product Analyst</text>
+      <text x="620" y="474" font-size="16" font-style="italic" fill="#4A5F80">Applied through a job portal</text>
+      <circle cx="1016" cy="456" r="5" fill="none" stroke="#4A5F80" stroke-width="2"/>
+      <text x="1032" y="461" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="1" fill="#4A5F80">UNDER REVIEW</text>
+    </g>
+    <g id="ledger-row-5">
+      <rect x="600" y="492" width="608" height="56" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.15" stroke-width="1"/>
+      <text x="620" y="518" font-family="Arial Narrow" font-size="22" font-weight="bold" fill="#0E1F3A">Associate PM, Growth</text>
+      <text x="620" y="538" font-size="16" font-style="italic" fill="#4A5F80">Applied through a job portal</text>
+      <circle cx="1016" cy="520" r="5" fill="#0E1F3A"/>
+      <text x="1032" y="525" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="1" fill="#0E1F3A">NO RESPONSE</text>
+    </g>
+    <g id="ledger-row-6">
+      <rect x="600" y="556" width="608" height="56" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.15" stroke-width="1"/>
+      <text x="620" y="582" font-family="Arial Narrow" font-size="22" font-weight="bold" fill="#0E1F3A">Product Manager I</text>
+      <text x="620" y="602" font-size="16" font-style="italic" fill="#4A5F80">Applied through a careers page</text>
+      <circle cx="1016" cy="584" r="5" fill="none" stroke="#4A5F80" stroke-width="2"/>
+      <text x="1032" y="589" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="1" fill="#4A5F80">UNDER REVIEW</text>
+    </g>
+  </g>
+  <g id="ledger-caption" data-pptx-bounds="600 624 608 28">
+    <text x="600" y="644" font-size="17" font-style="italic" fill="#4A5F80">Illustration of a typical search for a move into product. Not real data.</text>
+  </g>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="72 660 1136 46">
+    <line x1="72" y1="668" x2="1208" y2="668" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="72" y="696" font-family="Arial Narrow" font-size="20" font-weight="bold" fill="#0E1F3A">Knock</text>
+    <text x="1208" y="696" text-anchor="end" font-family="Arial" font-size="14" fill="#4A5F80">02 / 12</text>
+  </g>
+</svg>

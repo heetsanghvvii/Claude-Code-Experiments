@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" font-family="Times New Roman" data-pptx-page-role="content">
+  <defs>
+    <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="#0E1F3A"/></marker>
+  </defs>
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 44 1090 112" font-family="Arial" font-weight="bold">
+    <text x="64" y="60" font-size="13" fill="#4A5F80">PIPELINE</text>
+    <text x="64" y="102" font-size="34" fill="#0E1F3A">Six stages turn a company name into a reviewed<tspan x="64" dy="40">message, and any stage can drop a prospect</tspan></text>
+  </g>
+  <g id="page-stamp" data-pptx-bounds="1166 24 64 76">
+    <rect x="1172" y="30" width="52" height="64" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.28" stroke-width="1"/>
+    <rect x="1178" y="36" width="40" height="52" fill="#B3301B"/>
+    <text x="1198" y="70" font-family="Arial" font-weight="bold" font-size="22" fill="#FAFCFE" text-anchor="middle">4</text>
+  </g>
+  <line id="perf" data-pptx-role="decoration" x1="64" y1="166" x2="1216" y2="166" stroke="#97B9DD" stroke-width="3" stroke-dasharray="2,7"/>
+
+  <g id="stage-strip" data-pptx-bounds="64 186 1138 84">
+    <g id="p04-stage-1" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="homePlate" data-pptx-frame="64 186 218 84" fill="#A9C7E6" stroke="none">
+      <path d="M 64 186 L 240 186 L 282 228 L 240 270 L 64 270 Z"/>
+    </g>
+    <g id="p04-stage-2" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="248 186 218 84" fill="#A9C7E6" stroke="none">
+      <path d="M 248 186 L 424 186 L 466 228 L 424 270 L 248 270 L 290 228 Z"/>
+    </g>
+    <g id="p04-stage-3" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="432 186 218 84" fill="#A9C7E6" stroke="none">
+      <path d="M 432 186 L 608 186 L 650 228 L 608 270 L 432 270 L 474 228 Z"/>
+    </g>
+    <g id="p04-stage-4" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="616 186 218 84" fill="#A9C7E6" stroke="none">
+      <path d="M 616 186 L 792 186 L 834 228 L 792 270 L 616 270 L 658 228 Z"/>
+    </g>
+    <g id="p04-stage-5" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="800 186 218 84" fill="#A9C7E6" stroke="none">
+      <path d="M 800 186 L 976 186 L 1018 228 L 976 270 L 800 270 L 842 228 Z"/>
+    </g>
+    <g id="p04-stage-6" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="984 186 218 84" fill="#0E1F3A" stroke="none">
+      <path d="M 984 186 L 1160 186 L 1202 228 L 1160 270 L 984 270 L 1026 228 Z"/>
+    </g>
+    <g font-family="Arial" font-weight="bold" font-size="17" fill="#0E1F3A" text-anchor="middle">
+      <text x="148" y="224">1  Discover<tspan x="148" dy="22">and sort</tspan></text>
+      <text x="357" y="224">2  Enrich<tspan x="357" dy="22">from the web</tspan></text>
+      <text x="541" y="224">3  Extract<tspan x="541" dy="22">atomic facts</tspan></text>
+      <text x="725" y="224">4  Find<tspan x="725" dy="22">hooks</tspan></text>
+      <text x="909" y="224">5  Write<tspan x="909" dy="22">and judge</tspan></text>
+      <text x="1093" y="224" fill="#FAFCFE">6  Human<tspan x="1093" dy="22">approval</tspan></text>
+    </g>
+  </g>
+
+  <g id="col-discover" data-pptx-bounds="64 292 168 152" font-size="16" fill="#2B4266">
+    <text x="72" y="310">Public search results<tspan x="72" dy="21">only, never a</tspan><tspan x="72" dy="21">LinkedIn login. Each</tspan><tspan x="72" dy="21">person lands in one of</tspan><tspan x="72" dy="21">six buckets, and</tspan><tspan x="72" dy="21">irrelevant people are</tspan><tspan x="72" dy="21">dropped.</tspan></text>
+  </g>
+  <g id="col-enrich" data-pptx-bounds="248 292 168 152" font-size="16" fill="#2B4266">
+    <text x="256" y="310">Public posts, talks and<tspan x="256" dy="21">articles are searched</tspan><tspan x="256" dy="21">per person and read as</tspan><tspan x="256" dy="21">facts. Results are</tspan><tspan x="256" dy="21">untrusted text. Three</tspan><tspan x="256" dy="21">facts are needed to</tspan><tspan x="256" dy="21">continue.</tspan></text>
+  </g>
+  <g id="col-facts" data-pptx-bounds="432 292 168 152" font-size="16" fill="#2B4266">
+    <text x="440" y="310">CVs, LinkedIn<tspan x="440" dy="21">PDFs and web text</tspan><tspan x="440" dy="21">become one-line facts,</tspan><tspan x="440" dy="21">each with an id, a kind</tspan><tspan x="440" dy="21">and a source. Nothing</tspan><tspan x="440" dy="21">is inferred.</tspan></text>
+  </g>
+  <g id="col-hooks" data-pptx-bounds="616 292 168 152" font-size="16" fill="#2B4266">
+    <text x="624" y="310">Up to five reasons for<tspan x="624" dy="21">two people to talk,</tspan><tspan x="624" dy="21">each citing a candidate</tspan><tspan x="624" dy="21">fact and a prospect</tspan><tspan x="624" dy="21">fact. Below a score of</tspan><tspan x="624" dy="21">2.5 it is discarded.</tspan></text>
+  </g>
+  <g id="col-write" data-pptx-bounds="800 292 168 152" font-size="16" fill="#2B4266">
+    <text x="808" y="310">Three writer agents<tspan x="808" dy="21">draft in parallel. Rule</tspan><tspan x="808" dy="21">checks reject bad</tspan><tspan x="808" dy="21">drafts. A judge picks</tspan><tspan x="808" dy="21">the one this person is</tspan><tspan x="808" dy="21">most likely to answer.</tspan></text>
+  </g>
+  <g id="col-approve" data-pptx-bounds="984 292 168 152" font-size="16" fill="#2B4266">
+    <text x="992" y="310">A person reads the<tspan x="992" dy="21">draft, edits it or picks</tspan><tspan x="992" dy="21">an alternative, then</tspan><tspan x="992" dy="21">approves. Every edit</tspan><tspan x="992" dy="21">teaches the writers.</tspan></text>
+  </g>
+
+  <g id="status-chain" data-pptx-bounds="64 474 900 126">
+    <text x="64" y="494" font-family="Arial" font-weight="bold" font-size="14" fill="#4A5F80">PROSPECT STATUS AS IT MOVES</text>
+    <g font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A">
+      <rect x="64" y="508" width="118" height="32" rx="16" fill="#C4D9EF"/>
+      <text x="123" y="529" text-anchor="middle">discovered</text>
+      <rect x="218" y="508" width="100" height="32" rx="16" fill="#C4D9EF"/>
+      <text x="268" y="529" text-anchor="middle">enriched</text>
+      <rect x="354" y="508" width="150" height="32" rx="16" fill="#C4D9EF"/>
+      <text x="429" y="529" text-anchor="middle">message_ready</text>
+      <rect x="540" y="508" width="106" height="32" rx="16" fill="#C4D9EF"/>
+      <text x="593" y="529" text-anchor="middle">approved</text>
+      <rect x="682" y="508" width="70" height="32" rx="16" fill="#0E1F3A"/>
+      <text x="717" y="529" text-anchor="middle" fill="#FAFCFE">sent</text>
+    </g>
+    <g stroke="#0E1F3A" stroke-width="2">
+      <line x1="184" y1="524" x2="216" y2="524" marker-end="url(#arr)"/>
+      <line x1="320" y1="524" x2="352" y2="524" marker-end="url(#arr)"/>
+      <line x1="506" y1="524" x2="538" y2="524" marker-end="url(#arr)"/>
+      <line x1="648" y1="524" x2="680" y2="524" marker-end="url(#arr)"/>
+      <line x1="268" y1="542" x2="268" y2="564" marker-end="url(#arr)"/>
+    </g>
+    <rect x="218" y="566" width="100" height="32" rx="16" fill="none" stroke="#2B4266" stroke-width="2" stroke-dasharray="6,4"/>
+    <text x="268" y="587" font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A" text-anchor="middle">skipped</text>
+    <text x="334" y="588" font-size="16" fill="#2B4266">no legitimate hook, so no message is written</text>
+  </g>
+
+  <g id="takeaway" data-pptx-bounds="64 622 1138 48">
+    <rect x="64" y="622" width="1138" height="48" fill="#C4D9EF"/>
+    <text x="84" y="653" font-size="20" fill="#0E1F3A">The system prefers fewer, better messages. Stopping early is designed in.</text>
+  </g>
+  <g id="source" data-pptx-bounds="64 688 760 22" font-family="Arial" font-size="13" fill="#4A5F80">
+    <text x="64" y="702">Source: engine/outreach/cli.py, discovery.py, hooks.py, messages.py, models.py</text>
+  </g>
+</svg>

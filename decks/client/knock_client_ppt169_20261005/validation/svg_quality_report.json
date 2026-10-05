@@ -1,0 +1,988 @@
+{
+  "schema": "ppt-master.svg-quality-report.v1",
+  "stage": "final",
+  "target": "/home/user/Claude-Code-Experiments/decks/client/knock_client_ppt169_20261005",
+  "source_fingerprint": {
+    "algorithm": "sha256",
+    "digest": "1686917eefe38219f3907705fd0f9ee752fde868de7bb70e0cd280c484a95083",
+    "file_count": 12,
+    "files": [
+      {
+        "file": "01_cover.svg",
+        "sha256": "5fa9a32c03eab6f29f7b5abf39b00ddc7cd21cac0cdff3b152695f260ea2a7f6"
+      },
+      {
+        "file": "02_problem.svg",
+        "sha256": "1a9e2493c4ceb537825c3a3ca5b2e3b481390d995562d0910cd3f354ebb69ed0"
+      },
+      {
+        "file": "03_people.svg",
+        "sha256": "678d4b89d4302e9243884049c030e0d4c1b7a8f7e52122dc338428939a526916"
+      },
+      {
+        "file": "04_how-it-works.svg",
+        "sha256": "bb05f41b80012b9b2711d28a019bbc1348ede0eea27cf755a18c8392367868a2"
+      },
+      {
+        "file": "05_target-list.svg",
+        "sha256": "1839d63c3fd803bd2755d6fb82d82180ffb3fcdb826b1b98137259d10de0efc4"
+      },
+      {
+        "file": "06_first-message.svg",
+        "sha256": "ffeede0b0eaf0e737e01bf58ade86af9ddca7f4a1a029b1b9be77bccaa1ac4ef"
+      },
+      {
+        "file": "07_not-spam.svg",
+        "sha256": "e6d3aa4ae0408d836cf95e7b3d04dc058d8d9965f2b2dc03e0079838d56bc974"
+      },
+      {
+        "file": "08_each-week.svg",
+        "sha256": "a0afd226a02277fdb1c30d70c91123023f1017ea3cec2a5c46f5c04981d5ac14"
+      },
+      {
+        "file": "09_packages.svg",
+        "sha256": "51c574ab300e590f5dc3d1bf893256dd12198797d3100457c80348fbdfdac208"
+      },
+      {
+        "file": "10_honesty.svg",
+        "sha256": "628a375a7a547c8bfd0e0878d71eeaeaa258be850264f723e58a81d1ba167a78"
+      },
+      {
+        "file": "11_faq.svg",
+        "sha256": "b2181c14c5e712959347b2415f49d4c3406a40f98caf26c23cc432bbcd4602d1"
+      },
+      {
+        "file": "12_next-step.svg",
+        "sha256": "6a64ce426b3dd87211cc75afd8660360b9f5f436647490fa49ff44510868cc47"
+      }
+    ]
+  },
+  "summary": {
+    "total": 12,
+    "passed": 0,
+    "warnings": 12,
+    "errors": 0
+  },
+  "issue_types": {},
+  "categories": {
+    "blocking": {
+      "count": 0,
+      "issues": []
+    },
+    "introduced": {
+      "count": 18,
+      "issues": [
+        {
+          "file": "01_cover.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (3 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): cover-title:font-weight None -> 'bold'; text[4]:font-weight 'bold' -> None; text[5]:font-weight 'bold' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "01_cover.svg",
+          "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+        },
+        {
+          "file": "02_problem.svg",
+          "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+        },
+        {
+          "file": "03_people.svg",
+          "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+        },
+        {
+          "file": "03_people.svg",
+          "message": "<text> (x=72, y=606; text='Knock finds the righ…') exceeds <g id=\"what-knock-does\"> data-pptx-bounds on the vertical axis: content (72.0, 583.9)-(955.6, 653.1), container (72.0, 580.0)-(1208.0, 652.0), overflow horizontal 0.0%, vertical 1.5% (error above 5%); expand the root module bounds into available non-overlapping space; otherwise reflow the text"
+        },
+        {
+          "file": "04_how-it-works.svg",
+          "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+        },
+        {
+          "file": "05_target-list.svg",
+          "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+        },
+        {
+          "file": "06_first-message.svg",
+          "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+        },
+        {
+          "file": "06_first-message.svg",
+          "message": "<text> (x=846, y=604; text='One question they ca…') exceeds <g id=\"why-it-works\"> data-pptx-bounds on the vertical axis: content (846.0, 587.0)-(1155.7, 639.0), container (790.0, 232.0)-(1208.0, 632.0), overflow horizontal 0.0%, vertical 1.8% (error above 5%); expand the root module bounds into available non-overlapping space; otherwise reflow the text"
+        },
+        {
+          "file": "07_not-spam.svg",
+          "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+        },
+        {
+          "file": "08_each-week.svg",
+          "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+        },
+        {
+          "file": "09_packages.svg",
+          "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+        },
+        {
+          "file": "10_honesty.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (3 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): promise-headline:font-weight None -> 'bold'; text[4]:font-weight 'bold' -> None; text[5]:font-weight 'bold' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "10_honesty.svg",
+          "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+        },
+        {
+          "file": "11_faq.svg",
+          "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+        },
+        {
+          "file": "12_next-step.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (3 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): close-headline:font-weight None -> 'bold'; text[4]:font-weight 'bold' -> None; text[5]:font-weight 'bold' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "12_next-step.svg",
+          "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+        },
+        {
+          "file": "12_next-step.svg",
+          "message": "<text> (x=1068, y=450; text='Knock onthe right do…') exceeds <g id=\"close-signoff\"> data-pptx-bounds on the horizontal axis: content (942.8, 424.5)-(1193.2, 496.5), container (944.0, 410.0)-(1204.0, 520.0), overflow horizontal 0.5%, vertical 0.0% (error above 5%); expand the root module bounds into available non-overlapping space; otherwise reflow the text; ≈19.3 px per Latin char at 30px incl. headroom; ≈13 chars fit in 260 px"
+        }
+      ]
+    },
+    "inherited": {
+      "count": 0,
+      "issues": []
+    },
+    "source-import": {
+      "count": 0,
+      "summary": {
+        "warning_count": 0,
+        "by_code": {}
+      }
+    }
+  },
+  "drift": {
+    "colors": {},
+    "fonts": {},
+    "sizes": {}
+  },
+  "carrier_receipt": {
+    "scope": "informational-not-a-quota",
+    "pages": 12,
+    "totals": {
+      "text_elements": 213,
+      "image_placements": 0,
+      "icons": 0,
+      "svg_geometry_elements": 128,
+      "preset_shapes": 57,
+      "page_frame_elements": 13,
+      "marker_uses": 0,
+      "inline_emphasis_runs": 10,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "pages_with": {
+      "images": 0,
+      "icons": 0,
+      "presets": 4,
+      "charts": 0,
+      "tables": 0,
+      "formulas": 0,
+      "inline_emphasis_runs": 3,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "relationship_pages": null,
+    "geometry_elements": {
+      "circle": 38,
+      "ellipse": 0,
+      "line": 41,
+      "path": 0,
+      "polygon": 0,
+      "polyline": 0,
+      "rect": 49
+    },
+    "preset_names": {
+      "chevron": 4,
+      "parallelogram": 50,
+      "rightArrow": 1,
+      "round2SameRect": 2
+    },
+    "native_objects": {
+      "chart": 0,
+      "formula_block": 0,
+      "formula_inline": 0,
+      "other": 0,
+      "table": 0
+    },
+    "image_page_max_frame_share_range": []
+  },
+  "project_issues": {
+    "template": [],
+    "animation": [],
+    "illustration": [],
+    "communication_trace": [],
+    "pptx_structure": []
+  },
+  "files": [
+    {
+      "file": "01_cover.svg",
+      "path": "svg_output/01_cover.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (3 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): cover-title:font-weight None -> 'bold'; text[4]:font-weight 'bold' -> None; text[5]:font-weight 'bold' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 8,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 4,
+              "circle": 2,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 26,
+            "preset_names": {
+              "parallelogram": 25,
+              "round2SameRect": 1
+            },
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Arial Narrow",
+          "Times New Roman"
+        ],
+        "text_elements": 8,
+        "tspan_elements": 4
+      },
+      "passed": true,
+      "source_sha256": "5fa9a32c03eab6f29f7b5abf39b00ddc7cd21cac0cdff3b152695f260ea2a7f6"
+    },
+    {
+      "file": "02_problem.svg",
+      "path": "svg_output/02_problem.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 25,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 8,
+              "circle": 6,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Arial Narrow",
+          "Times New Roman"
+        ],
+        "text_elements": 25,
+        "tspan_elements": 4
+      },
+      "passed": true,
+      "source_sha256": "1a9e2493c4ceb537825c3a3ca5b2e3b481390d995562d0910cd3f354ebb69ed0"
+    },
+    {
+      "file": "03_people.svg",
+      "path": "svg_output/03_people.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow",
+        "<text> (x=72, y=606; text='Knock finds the righ…') exceeds <g id=\"what-knock-does\"> data-pptx-bounds on the vertical axis: content (72.0, 583.9)-(955.6, 653.1), container (72.0, 580.0)-(1208.0, 652.0), overflow horizontal 0.0%, vertical 1.5% (error above 5%); expand the root module bounds into available non-overlapping space; otherwise reflow the text"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 16,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 1,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 4,
+              "circle": 12,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 1,
+            "preset_names": {
+              "rightArrow": 1
+            },
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Arial Narrow",
+          "Times New Roman"
+        ],
+        "text_elements": 16,
+        "tspan_elements": 5
+      },
+      "passed": true,
+      "source_sha256": "678d4b89d4302e9243884049c030e0d4c1b7a8f7e52122dc338428939a526916"
+    },
+    {
+      "file": "04_how-it-works.svg",
+      "path": "svg_output/04_how-it-works.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 18,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 3,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 4,
+            "preset_names": {
+              "chevron": 4
+            },
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Arial Narrow",
+          "Times New Roman"
+        ],
+        "text_elements": 18,
+        "tspan_elements": 17
+      },
+      "passed": true,
+      "source_sha256": "bb05f41b80012b9b2711d28a019bbc1348ede0eea27cf755a18c8392367868a2"
+    },
+    {
+      "file": "05_target-list.svg",
+      "path": "svg_output/05_target-list.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 25,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 4,
+              "circle": 3,
+              "ellipse": 0,
+              "line": 5,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Arial Narrow",
+          "Times New Roman"
+        ],
+        "text_elements": 25,
+        "tspan_elements": 3
+      },
+      "passed": true,
+      "source_sha256": "1839d63c3fd803bd2755d6fb82d82180ffb3fcdb826b1b98137259d10de0efc4"
+    },
+    {
+      "file": "06_first-message.svg",
+      "path": "svg_output/06_first-message.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow",
+        "<text> (x=846, y=604; text='One question they ca…') exceeds <g id=\"why-it-works\"> data-pptx-bounds on the vertical axis: content (846.0, 587.0)-(1155.7, 639.0), container (790.0, 232.0)-(1208.0, 632.0), overflow horizontal 0.0%, vertical 1.8% (error above 5%); expand the root module bounds into available non-overlapping space; otherwise reflow the text"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 27,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 4,
+              "circle": 7,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Arial Narrow",
+          "Times New Roman"
+        ],
+        "text_elements": 27,
+        "tspan_elements": 8
+      },
+      "passed": true,
+      "source_sha256": "ffeede0b0eaf0e737e01bf58ade86af9ddca7f4a1a029b1b9be77bccaa1ac4ef"
+    },
+    {
+      "file": "07_not-spam.svg",
+      "path": "svg_output/07_not-spam.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 12,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 3,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 5,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Arial Narrow",
+          "Times New Roman"
+        ],
+        "text_elements": 12,
+        "tspan_elements": 6
+      },
+      "passed": true,
+      "source_sha256": "e6d3aa4ae0408d836cf95e7b3d04dc058d8d9965f2b2dc03e0079838d56bc974"
+    },
+    {
+      "file": "08_each-week.svg",
+      "path": "svg_output/08_each-week.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 19,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 2,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 7,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Arial Narrow",
+          "Times New Roman"
+        ],
+        "text_elements": 19,
+        "tspan_elements": 6
+      },
+      "passed": true,
+      "source_sha256": "a0afd226a02277fdb1c30d70c91123023f1017ea3cec2a5c46f5c04981d5ac14"
+    },
+    {
+      "file": "09_packages.svg",
+      "path": "svg_output/09_packages.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 25,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 8,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 7,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 4,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Arial Narrow",
+          "Times New Roman"
+        ],
+        "text_elements": 25,
+        "tspan_elements": 10
+      },
+      "passed": true,
+      "source_sha256": "51c574ab300e590f5dc3d1bf893256dd12198797d3100457c80348fbdfdac208"
+    },
+    {
+      "file": "10_honesty.svg",
+      "path": "svg_output/10_honesty.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (3 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): promise-headline:font-weight None -> 'bold'; text[4]:font-weight 'bold' -> None; text[5]:font-weight 'bold' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 9,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 2,
+              "circle": 3,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Arial Narrow",
+          "Times New Roman"
+        ],
+        "text_elements": 9,
+        "tspan_elements": 2
+      },
+      "passed": true,
+      "source_sha256": "628a375a7a547c8bfd0e0878d71eeaeaa258be850264f723e58a81d1ba167a78"
+    },
+    {
+      "file": "11_faq.svg",
+      "path": "svg_output/11_faq.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 11,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 1,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 3,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 4,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Arial Narrow",
+          "Times New Roman"
+        ],
+        "text_elements": 11,
+        "tspan_elements": 13
+      },
+      "passed": true,
+      "source_sha256": "b2181c14c5e712959347b2415f49d4c3406a40f98caf26c23cc432bbcd4602d1"
+    },
+    {
+      "file": "12_next-step.svg",
+      "path": "svg_output/12_next-step.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (3 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): close-headline:font-weight None -> 'bold'; text[4]:font-weight 'bold' -> None; text[5]:font-weight 'bold' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow",
+        "<text> (x=1068, y=450; text='Knock onthe right do…') exceeds <g id=\"close-signoff\"> data-pptx-bounds on the horizontal axis: content (942.8, 424.5)-(1193.2, 496.5), container (944.0, 410.0)-(1204.0, 520.0), overflow horizontal 0.5%, vertical 0.0% (error above 5%); expand the root module bounds into available non-overlapping space; otherwise reflow the text; ≈19.3 px per Latin char at 30px incl. headroom; ≈13 chars fit in 260 px"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 18,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 5,
+              "circle": 5,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 26,
+            "preset_names": {
+              "parallelogram": 25,
+              "round2SameRect": 1
+            },
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Arial Narrow",
+          "Times New Roman"
+        ],
+        "text_elements": 18,
+        "tspan_elements": 2
+      },
+      "passed": true,
+      "source_sha256": "6a64ce426b3dd87211cc75afd8660360b9f5f436647490fa49ff44510868cc47"
+    }
+  ]
+}

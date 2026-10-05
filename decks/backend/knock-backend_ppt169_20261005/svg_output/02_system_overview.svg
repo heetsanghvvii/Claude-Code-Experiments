@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" font-family="Times New Roman" data-pptx-page-role="content">
+  <defs>
+    <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto-start-reverse"><polygon points="0,0 6,3 0,6" fill="#0E1F3A"/></marker>
+  </defs>
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 44 1090 112" font-family="Arial" font-weight="bold">
+    <text x="64" y="60" font-size="13" fill="#4A5F80">SYSTEM OVERVIEW</text>
+    <text x="64" y="102" font-size="34" fill="#0E1F3A">A sign-up flows through five parts, and nothing<tspan x="64" dy="40">reaches LinkedIn without a person saying yes</tspan></text>
+  </g>
+  <g id="page-stamp" data-pptx-bounds="1166 24 64 76">
+    <rect x="1172" y="30" width="52" height="64" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.28" stroke-width="1"/>
+    <rect x="1178" y="36" width="40" height="52" fill="#B3301B"/>
+    <text x="1198" y="70" font-family="Arial" font-weight="bold" font-size="22" fill="#FAFCFE" text-anchor="middle">2</text>
+  </g>
+  <line id="perf" data-pptx-role="decoration" x1="64" y1="166" x2="1216" y2="166" stroke="#97B9DD" stroke-width="3" stroke-dasharray="2,7"/>
+
+  <g id="node-intake" data-pptx-bounds="64 186 234 210">
+    <rect x="64" y="186" width="196" height="210" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="64" y="186" width="196" height="44" fill="#C4D9EF"/>
+    <text x="76" y="215" font-family="Arial" font-weight="bold" font-size="18" fill="#0E1F3A">1  Website intake</text>
+    <text x="76" y="258" font-size="16" fill="#2B4266">A form on the landing<tspan x="76" dy="21">page posts to /</tspan><tspan x="76" dy="21">api/intake. A hidden</tspan><tspan x="76" dy="21">honeypot field drops</tspan><tspan x="76" dy="21">bots. The row lands in</tspan><tspan x="76" dy="21">intake_requests.</tspan></text>
+    <line x1="262" y1="291" x2="297" y2="291" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+  <g id="node-supabase" data-pptx-bounds="299 186 234 210">
+    <rect x="299" y="186" width="196" height="210" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="299" y="186" width="196" height="44" fill="#C4D9EF"/>
+    <text x="311" y="215" font-family="Arial" font-weight="bold" font-size="18" fill="#0E1F3A">2  Supabase</text>
+    <text x="311" y="258" font-size="16" fill="#2B4266">Postgres in Mumbai.<tspan x="311" dy="21">engine_state holds one</tspan><tspan x="311" dy="21">JSON document per</tspan><tspan x="311" dy="21">candidate.</tspan><tspan x="311" dy="21">inbound_replies and</tspan><tspan x="311" dy="21">outbox queue the</tspan><tspan x="311" dy="21">bridge.</tspan></text>
+    <line x1="497" y1="291" x2="532" y2="291" stroke="#0E1F3A" stroke-width="2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  </g>
+  <g id="node-engine" data-pptx-bounds="534 186 234 210">
+    <rect x="534" y="186" width="196" height="210" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2"/>
+    <rect x="534" y="186" width="196" height="44" fill="#0E1F3A"/>
+    <text x="546" y="215" font-family="Arial" font-weight="bold" font-size="18" fill="#FAFCFE">3  Engine</text>
+    <text x="546" y="258" font-size="16" fill="#2B4266">The outreach Python<tspan x="546" dy="21">package: discovery,</tspan><tspan x="546" dy="21">hooks, writers, judge,</tspan><tspan x="546" dy="21">reply agent and</tspan><tspan x="546" dy="21">learning, on Claude</tspan><tspan x="546" dy="21">Opus 5.5.</tspan></text>
+    <line x1="732" y1="291" x2="767" y2="291" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+  <g id="node-desk" data-pptx-bounds="769 186 234 250">
+    <rect x="769" y="186" width="196" height="210" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="769" y="186" width="196" height="44" fill="#C4D9EF"/>
+    <text x="781" y="215" font-family="Arial" font-weight="bold" font-size="18" fill="#0E1F3A">4  Knock Desk</text>
+    <text x="781" y="258" font-size="16" fill="#2B4266">Operator CRM served<tspan x="781" dy="21">by the same Vercel</tspan><tspan x="781" dy="21">project. Approve or</tspan><tspan x="781" dy="21">edit drafts, watch the</tspan><tspan x="781" dy="21">funnel and the send</tspan><tspan x="781" dy="21">queue.</tspan></text>
+    <line x1="967" y1="291" x2="1002" y2="291" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+    <line x1="867" y1="398" x2="867" y2="434" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+  <g id="node-linkedin" data-pptx-bounds="1004 186 196 250">
+    <rect x="1004" y="186" width="196" height="210" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="1004" y="186" width="196" height="44" fill="#C4D9EF"/>
+    <text x="1016" y="215" font-family="Arial" font-weight="bold" font-size="18" fill="#0E1F3A">5  LinkedIn</text>
+    <text x="1016" y="258" font-size="16" fill="#2B4266">Only a real account<tspan x="1016" dy="21">sends: the candidate's</tspan><tspan x="1016" dy="21">own, or one connected</tspan><tspan x="1016" dy="21">to La Growth</tspan><tspan x="1016" dy="21">Machine. Replies</tspan><tspan x="1016" dy="21">return the same way.</tspan></text>
+    <line x1="1102" y1="436" x2="1102" y2="398" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+
+  <g id="send-routes" data-pptx-bounds="769 436 431 232">
+    <rect x="769" y="436" width="431" height="232" fill="#C4D9EF"/>
+    <text x="781" y="462" font-family="Arial" font-weight="bold" font-size="17" fill="#0E1F3A">Two ways to send</text>
+    <rect x="781" y="476" width="192" height="180" fill="#FAFCFE"/>
+    <text x="793" y="500" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">Self-send tier</text>
+    <text x="793" y="526" font-size="16" fill="#2B4266">Candidate gets the<tspan x="793" dy="21">approved message and</tspan><tspan x="793" dy="21">sends it from their own</tspan><tspan x="793" dy="21">LinkedIn. No sender</tspan><tspan x="793" dy="21">account on our side.</tspan></text>
+    <rect x="987" y="476" width="201" height="180" fill="#FAFCFE"/>
+    <text x="999" y="500" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">Done-for-you tier</text>
+    <text x="999" y="526" font-size="16" fill="#2B4266">Approved message<tspan x="999" dy="21">waits in outbox. A</tspan><tspan x="999" dy="21">scheduled Claude in</tspan><tspan x="999" dy="21">Chrome task sends it</tspan><tspan x="999" dy="21">from La Growth</tspan><tspan x="999" dy="21">Machine and copies</tspan><tspan x="999" dy="21">replies back.</tspan></text>
+  </g>
+
+  <g id="reply-loop" data-pptx-bounds="397 398 370 170">
+    <line x1="769" y1="552" x2="397" y2="552" stroke="#0E1F3A" stroke-width="2" stroke-dasharray="8,4"/>
+    <line x1="397" y1="552" x2="397" y2="400" stroke="#0E1F3A" stroke-width="2" stroke-dasharray="8,4" marker-end="url(#arr)"/>
+    <text x="415" y="500" font-size="16" font-style="italic" fill="#2B4266">Replies return as rows in<tspan x="415" dy="21">inbound_replies. The sync job</tspan><tspan x="415" dy="21">drafts the next message.</tspan></text>
+  </g>
+
+  <g id="notes-left" data-pptx-bounds="64 440 230 245" fill="#2B4266">
+    <text x="64" y="458" font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A">Hosting</text>
+    <text x="64" y="484" font-size="16">Vercel in Mumbai (bom1):<tspan x="64" dy="21">FastAPI at /api, Knock</tspan><tspan x="64" dy="21">Desk at /crm, and a daily</tspan><tspan x="64" dy="21">sync cron.</tspan></text>
+    <text x="64" y="590" font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A">Approval gate</text>
+    <text x="64" y="616" font-size="16">Nothing reaches<tspan x="64" dy="21">LinkedIn without a</tspan><tspan x="64" dy="21">person approving the</tspan><tspan x="64" dy="21">draft.</tspan></text>
+  </g>
+  <g id="source" data-pptx-bounds="64 688 1000 22" font-family="Arial" font-size="13" fill="#4A5F80">
+    <text x="64" y="702">Source: deploy/api/index.py, deploy/vercel.json, engine/outreach/bridge.py, docs/AUTOMATION.md</text>
+  </g>
+</svg>

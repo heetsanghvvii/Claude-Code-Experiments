@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Times New Roman" lang="en" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 36 1152 94">
+    <rect x="64" y="38" width="40" height="4" fill="#B3301B"/>
+    <text x="64" y="66" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">01  THE PROBLEM INSIGHT</text>
+    <text x="64" y="112" font-family="Arial" font-size="36" font-weight="bold" fill="#0E1F3A">Job portals are a queue. People hire people.</text>
+  </g>
+  <g id="lead" data-pptx-bounds="64 164 636 80">
+    <text x="64" y="192" font-size="24" fill="#0E1F3A">A portal application joins a long queue. A referral,<tspan x="64" dy="34">or a real conversation, steps past it.</tspan></text>
+  </g>
+  <g id="insight-1" data-pptx-bounds="64 256 636 112">
+    <text x="64" y="310" font-family="Arial" font-size="44" font-weight="bold" fill="#97B9DD">1</text>
+    <text x="124" y="286" font-family="Arial" font-size="19" font-weight="bold" fill="#0E1F3A">Applying cold is getting worse</text>
+    <text x="124" y="316" font-size="19" fill="#2B4266">Applicants per role keep rising, and candidates apply<tspan x="124" dy="26">to more jobs while hearing back from fewer.</tspan></text>
+  </g>
+<line id="rule-1" data-pptx-role="decoration" x1="64" y1="372" x2="700" y2="372" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+  <g id="insight-2" data-pptx-bounds="64 384 636 112">
+    <text x="64" y="438" font-family="Arial" font-size="44" font-weight="bold" fill="#97B9DD">2</text>
+    <text x="124" y="414" font-family="Arial" font-size="19" font-weight="bold" fill="#0E1F3A">Referrals work, the usual ask does not</text>
+    <text x="124" y="444" font-size="19" fill="#2B4266"><tspan x="124">Referrers are flooded with <tspan font-style="italic" fill="#B3301B">'Hi sir, please refer me,</tspan></tspan><tspan x="124" dy="26"><tspan font-style="italic" fill="#B3301B">resume attached'</tspan>, and they learn to ignore it.</tspan></text>
+  </g>
+<line id="rule-2" data-pptx-role="decoration" x1="64" y1="500" x2="700" y2="500" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+  <g id="insight-3" data-pptx-bounds="64 512 636 100">
+    <text x="64" y="566" font-family="Arial" font-size="44" font-weight="bold" fill="#97B9DD">3</text>
+    <text x="124" y="542" font-family="Arial" font-size="19" font-weight="bold" fill="#0E1F3A">Good outreach is skilled, slow work</text>
+    <text x="124" y="572" font-size="19" fill="#2B4266">Pick the right people, find a real shared tie, write<tspan x="124" dy="26">briefly, ask one small thing, follow up once.</tspan></text>
+  </g>
+  <g id="why-now" data-pptx-bounds="740 150 476 506">
+    <rect x="740" y="150" width="476" height="506" fill="#0E1F3A"/>
+    <text x="772" y="190" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#A9C7E6">WHY NOW</text>
+    <text x="772" y="234" font-family="Arial" font-size="26" font-weight="bold" fill="#EEF3F8">The queue is longer,<tspan x="772" dy="34">and the tools are better</tspan></text>
+    <line x1="772" y1="290" x2="1184" y2="290" stroke="#A9C7E6" stroke-opacity="0.4" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round"/>
+    <text x="772" y="326" font-family="Arial" font-size="17" font-weight="bold" fill="#E8705A">Portals are saturated</text>
+    <text x="772" y="352" font-size="18" fill="#BFD0E6">Anyone can apply in a click, so an application<tspan x="772" dy="25">means little to the person reading it.</tspan></text>
+    <text x="772" y="428" font-family="Arial" font-size="17" font-weight="bold" fill="#EEF3F8">Research and writing got cheap</text>
+    <text x="772" y="454" font-size="18" fill="#BFD0E6">Models can now read, summarise and draft well<tspan x="772" dy="25">enough that a personal service is affordable.</tspan></text>
+    <text x="772" y="530" font-family="Arial" font-size="17" font-weight="bold" fill="#EEF3F8">Humans must stay visible</text>
+    <text x="772" y="556" font-size="18" fill="#BFD0E6">People cannot spot a well-written AI message,<tspan x="772" dy="25">but judge the sender harshly once told AI</tspan><tspan x="772" dy="25">wrote it. So the candidate approves and owns</tspan><tspan x="772" dy="25">every message.</tspan></text>
+  </g>
+  <g id="source-note" data-pptx-bounds="64 624 636 34">
+    <text x="64" y="636" font-size="14" font-style="italic" fill="#4A5F80">Sources: LinkedIn India research and a University of Michigan study,<tspan x="64" dy="18">as cited in Knock's research playbook. Described qualitatively.</tspan></text>
+  </g>
+  <g id="footer" data-pptx-bounds="64 664 1152 44">
+    <line x1="64" y1="676" x2="1216" y2="676" stroke="#4A5F80" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round" stroke-opacity="0.6"/>
+    <text x="64" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" fill="#4A5F80">KNOCK  |  CASE STUDY</text>
+    <text x="1216" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" text-anchor="end" fill="#4A5F80">02 / 13</text>
+  </g>
+</svg>

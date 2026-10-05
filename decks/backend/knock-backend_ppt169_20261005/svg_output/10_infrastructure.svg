@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" font-family="Times New Roman" data-pptx-page-role="content">
+  <defs>
+    <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto-start-reverse"><polygon points="0,0 6,3 0,6" fill="#0E1F3A"/></marker>
+  </defs>
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 44 1090 112" font-family="Arial" font-weight="bold">
+    <text x="64" y="60" font-size="13" fill="#4A5F80">INFRASTRUCTURE</text>
+    <text x="64" y="102" font-size="34" fill="#0E1F3A">Small on purpose: one FastAPI function, one Postgres<tspan x="64" dy="40">project and one scheduled job, all in Mumbai</tspan></text>
+  </g>
+  <g id="page-stamp" data-pptx-bounds="1166 24 64 76">
+    <rect x="1172" y="30" width="52" height="64" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.28" stroke-width="1"/>
+    <rect x="1178" y="36" width="40" height="52" fill="#B3301B"/>
+    <text x="1198" y="70" font-family="Arial" font-weight="bold" font-size="22" fill="#FAFCFE" text-anchor="middle">10</text>
+  </g>
+  <line id="perf" data-pptx-role="decoration" x1="64" y1="166" x2="1216" y2="166" stroke="#97B9DD" stroke-width="3" stroke-dasharray="2,7"/>
+
+  <g id="vercel-box" data-pptx-bounds="64 186 560 300">
+    <rect x="64" y="186" width="560" height="300" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2"/>
+    <rect x="64" y="186" width="560" height="44" fill="#0E1F3A"/>
+    <text x="80" y="215" font-family="Arial" font-weight="bold" font-size="18" fill="#FAFCFE">Vercel, Mumbai (bom1)</text>
+    <g fill="#C4D9EF">
+      <rect x="80" y="244" width="528" height="48"/>
+      <rect x="80" y="300" width="528" height="48"/>
+      <rect x="80" y="356" width="528" height="48"/>
+      <rect x="80" y="412" width="528" height="48"/>
+    </g>
+    <g font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A">
+      <text x="94" y="264">POST /api/intake</text>
+      <text x="94" y="320">/api/crm/*</text>
+      <text x="94" y="376">GET /api/cron/sync</text>
+      <text x="94" y="432">/crm</text>
+    </g>
+    <g font-size="15" fill="#2B4266">
+      <text x="94" y="283">Public sign-up form, validated, with a honeypot field</text>
+      <text x="94" y="339">Knock Desk API, behind the operator password</text>
+      <text x="94" y="395">Daily at 09:00 IST, behind a bearer secret</text>
+      <text x="94" y="451">Knock Desk, a single page with seven tabs</text>
+    </g>
+    <text x="80" y="478" font-size="15" font-style="italic" fill="#4A5F80">One function, 60 second limit, engine copied in at build.</text>
+  </g>
+
+  <g id="link-box" data-pptx-bounds="626 300 72 72" font-family="Arial" font-size="13" fill="#2B4266" text-anchor="middle">
+    <line x1="632" y1="336" x2="692" y2="336" stroke="#0E1F3A" stroke-width="2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+    <text x="662" y="326">REST</text>
+    <text x="662" y="360">token</text>
+  </g>
+
+  <g id="supabase-box" data-pptx-bounds="700 186 516 300">
+    <rect x="700" y="186" width="516" height="300" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2"/>
+    <rect x="700" y="186" width="516" height="44" fill="#C4D9EF"/>
+    <text x="716" y="215" font-family="Arial" font-weight="bold" font-size="18" fill="#0E1F3A">Supabase, Mumbai (ap-south-1)</text>
+    <g font-size="16" fill="#2B4266">
+      <rect x="716" y="250" width="8" height="8" fill="#0E1F3A"/>
+      <text x="734" y="258">Postgres with row-level security on every table.</text>
+      <rect x="716" y="284" width="8" height="8" fill="#0E1F3A"/>
+      <text x="734" y="292">The engine uses the publishable key plus a secret<tspan x="734" dy="21">x-engine-token header, so no service-role key is kept.</tspan></text>
+      <rect x="716" y="338" width="8" height="8" fill="#0E1F3A"/>
+      <text x="734" y="346">Only the SHA-256 hash of the token is stored, and<tspan x="734" dy="21">engine_authorized() checks it inside each policy.</tspan></text>
+      <rect x="716" y="392" width="8" height="8" fill="#0E1F3A"/>
+      <text x="734" y="400">The public can insert sign-ups and nothing else.</text>
+      <rect x="716" y="426" width="8" height="8" fill="#0E1F3A"/>
+      <text x="734" y="434">Same city as the function, so calls stay short.</text>
+    </g>
+  </g>
+
+  <g id="settings-box" data-pptx-bounds="64 506 560 172">
+    <rect x="64" y="506" width="560" height="172" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="80" y="531" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">Settings, by name only</text>
+    <g font-family="Arial" font-weight="bold" font-size="14" fill="#0E1F3A">
+      <text x="80" y="562">SUPABASE_URL</text>
+      <text x="80" y="606">SUPABASE_KEY</text>
+      <text x="80" y="650">ENGINE_TOKEN</text>
+      <text x="350" y="562">CRM_PASSWORD</text>
+      <text x="350" y="606">CRON_SECRET</text>
+      <text x="350" y="650">ANTHROPIC_API_KEY</text>
+    </g>
+    <g font-size="15" fill="#2B4266">
+      <text x="80" y="580">Project address</text>
+      <text x="80" y="624">Publishable key only</text>
+      <text x="80" y="668">Gates row access</text>
+      <text x="350" y="580">Knock Desk login</text>
+      <text x="350" y="624">Authorises the cron</text>
+      <text x="350" y="668">Needed for sync only</text>
+    </g>
+  </g>
+
+  <g id="desk-box" data-pptx-bounds="700 506 516 172">
+    <rect x="700" y="506" width="516" height="172" fill="#C4D9EF"/>
+    <text x="716" y="531" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">Knock Desk tabs</text>
+    <g font-family="Arial" font-weight="bold" font-size="14" fill="#0E1F3A" text-anchor="middle">
+      <rect x="716" y="548" width="96" height="30" rx="15" fill="#FAFCFE"/>
+      <text x="764" y="568">Overview</text>
+      <rect x="824" y="548" width="110" height="30" rx="15" fill="#FAFCFE"/>
+      <text x="879" y="568">Candidates</text>
+      <rect x="946" y="548" width="108" height="30" rx="15" fill="#FAFCFE"/>
+      <text x="1000" y="568">Send queue</text>
+      <rect x="1066" y="548" width="90" height="30" rx="15" fill="#FAFCFE"/>
+      <text x="1111" y="568">Replies</text>
+      <rect x="716" y="590" width="98" height="30" rx="15" fill="#FAFCFE"/>
+      <text x="765" y="610">Sign-ups</text>
+      <rect x="826" y="590" width="92" height="30" rx="15" fill="#FAFCFE"/>
+      <text x="872" y="610">Learning</text>
+      <rect x="930" y="590" width="80" height="30" rx="15" fill="#FAFCFE"/>
+      <text x="970" y="610">Spend</text>
+    </g>
+    <text x="716" y="652" font-size="16" fill="#0E1F3A">Tabs show a count when drafts or sign-ups wait for you.</text>
+  </g>
+  <g id="source" data-pptx-bounds="64 688 900 22" font-family="Arial" font-size="13" fill="#4A5F80">
+    <text x="64" y="702">Source: deploy/vercel.json, deploy/api/index.py, deploy/public/crm/index.html, supabase/migrations/0003. Regions are project settings.</text>
+  </g>
+</svg>

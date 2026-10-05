@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en-IN" font-family="Times New Roman" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="72 48 980 160">
+    <rect x="72" y="52" width="44" height="6" fill="#B3301B"/>
+    <text x="72" y="90" font-family="Arial" font-size="15" font-weight="bold" letter-spacing="2.4" fill="#4A5F80">THE FIRST MESSAGE</text>
+    <text x="72" y="140" font-family="Arial Narrow" font-size="44" font-weight="bold" fill="#0E1F3A">A good first message is short,<tspan x="72" dy="52">specific and about them</tspan></text>
+  </g>
+  <g id="example-tag" data-pptx-bounds="1068 50 140 46">
+    <rect x="1068" y="52" width="140" height="42" rx="2" fill="none" stroke="#0E1F3A" stroke-width="1.5"/>
+    <text x="1138" y="70" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" letter-spacing="3" fill="#0E1F3A">EXAMPLE</text>
+    <text x="1138" y="86" text-anchor="middle" font-size="14" font-style="italic" fill="#2B4266">first message</text>
+  </g>
+  <g id="message-card" data-pptx-bounds="72 232 668 416">
+    <rect x="72" y="232" width="668" height="416" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.15" stroke-width="1"/>
+    <circle cx="112" cy="274" r="20" fill="#A9C7E6"/>
+    <text x="112" y="282" text-anchor="middle" font-family="Arial Narrow" font-size="22" font-weight="bold" fill="#0E1F3A">R</text>
+    <text x="144" y="272" font-family="Arial Narrow" font-size="22" font-weight="bold" fill="#0E1F3A">To Rahul</text>
+    <text x="144" y="294" font-size="16" fill="#4A5F80">Product, Zepto · previously Flipkart</text>
+    <line x1="96" y1="316" x2="716" y2="316" stroke="#0E1F3A" stroke-opacity="0.15" stroke-width="1"/>
+    <text x="100" y="352" font-size="26" fill="#0E1F3A">Hey Rahul,</text>
+    <circle cx="118" cy="389" r="14" fill="#0E1F3A"/>
+    <text x="118" y="394" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FAFCFE">1</text>
+    <text x="160" y="398" font-size="26" fill="#0E1F3A">saw you moved from Flipkart<tspan x="160" dy="34">into product at Zepto.</tspan></text>
+    <circle cx="118" cy="471" r="14" fill="#0E1F3A"/>
+    <text x="118" y="476" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FAFCFE">2</text>
+    <text x="160" y="480" font-size="26" fill="#0E1F3A">I'm making a similar jump<tspan x="160" dy="34">from brand management.</tspan></text>
+    <circle cx="118" cy="553" r="14" fill="#0E1F3A"/>
+    <text x="118" y="558" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FAFCFE">3</text>
+    <text x="160" y="562" font-size="26" fill="#0E1F3A">Curious, what was the biggest<tspan x="160" dy="34">adjustment for you?</tspan></text>
+    <text x="100" y="634" font-family="Arial" font-size="13" fill="#4A5F80">Approved by you. Sent from your LinkedIn.</text>
+  </g>
+  <g id="why-it-works" data-pptx-bounds="790 232 418 400">
+    <text x="800" y="246" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="2" fill="#4A5F80">WHY IT WORKS</text>
+    <g id="note-1">
+      <circle cx="814" cy="298" r="14" fill="#0E1F3A"/>
+      <text x="814" y="303" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FAFCFE">1</text>
+      <text x="846" y="304" font-family="Arial Narrow" font-size="26" font-weight="bold" fill="#0E1F3A">Proves we looked.</text>
+      <text x="846" y="336" font-size="20" fill="#2B4266">It names something real about their<tspan x="846" dy="28">path, so it cannot be mistaken for a</tspan><tspan x="846" dy="28">mass message.</tspan></text>
+    </g>
+    <g id="note-2">
+      <circle cx="814" cy="440" r="14" fill="#0E1F3A"/>
+      <text x="814" y="445" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FAFCFE">2</text>
+      <text x="846" y="446" font-family="Arial Narrow" font-size="26" font-weight="bold" fill="#0E1F3A">Gives a reason to talk.</text>
+      <text x="846" y="478" font-size="20" fill="#2B4266">A shared move makes you a peer, not<tspan x="846" dy="28">a stranger asking for a favour.</tspan></text>
+    </g>
+    <g id="note-3">
+      <circle cx="814" cy="566" r="14" fill="#0E1F3A"/>
+      <text x="814" y="571" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FAFCFE">3</text>
+      <text x="846" y="572" font-family="Arial Narrow" font-size="26" font-weight="bold" fill="#0E1F3A">Asks something easy.</text>
+      <text x="846" y="604" font-size="20" fill="#2B4266">One question they can answer in a<tspan x="846" dy="28">line. No referral ask yet.</tspan></text>
+    </g>
+  </g>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="72 660 1136 46">
+    <line x1="72" y1="668" x2="1208" y2="668" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="72" y="696" font-family="Arial Narrow" font-size="20" font-weight="bold" fill="#0E1F3A">Knock</text>
+    <text x="1208" y="696" text-anchor="end" font-family="Arial" font-size="14" fill="#4A5F80">06 / 12</text>
+  </g>
+</svg>

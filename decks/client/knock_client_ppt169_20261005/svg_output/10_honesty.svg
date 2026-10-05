@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en-IN" font-family="Times New Roman" data-pptx-page-role="section">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#0E1F3A"/>
+  <g id="promise-headline" data-pptx-bounds="96 130 1040 240">
+    <text x="96" y="152" font-family="Arial" font-size="15" font-weight="bold" letter-spacing="3" fill="#A9C7E6">OUR PROMISE</text>
+    <text x="96" y="262" font-family="Arial Narrow" font-size="64" font-weight="bold" fill="#FAFCFE">We do not guarantee replies.<tspan x="96" dy="80" fill="#A9C7E6">We do guarantee the work.</tspan></text>
+  </g>
+  <line id="promise-rule" data-pptx-role="decoration" x1="96" y1="408" x2="1184" y2="408" stroke="#A9C7E6" stroke-opacity="0.3" stroke-width="1"/>
+  <g id="founding-week" data-pptx-bounds="96 430 640 100">
+    <rect x="96" y="442" width="5" height="68" fill="#E8705A"/>
+    <text x="124" y="468" font-size="28" fill="#FAFCFE">Founding members get a free extra week<tspan x="124" dy="40">if fewer than 5 people reply.</tspan></text>
+  </g>
+  <g id="the-work" data-pptx-bounds="756 432 440 156">
+    <text x="760" y="456" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="2" fill="#A9C7E6">THE WORK WE GUARANTEE</text>
+    <circle cx="766" cy="489" r="5" fill="#A9C7E6"/>
+    <text x="788" y="496" font-size="22" fill="#EEF3F8">Research on every person</text>
+    <circle cx="766" cy="527" r="5" fill="#A9C7E6"/>
+    <text x="788" y="534" font-size="22" fill="#EEF3F8">Personal first messages</text>
+    <circle cx="766" cy="565" r="5" fill="#A9C7E6"/>
+    <text x="788" y="572" font-size="22" fill="#EEF3F8">Reply drafts for every conversation</text>
+  </g>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="72 660 1136 46">
+    <line x1="72" y1="668" x2="1208" y2="668" stroke="#A9C7E6" stroke-opacity="0.25" stroke-width="1"/>
+    <text x="72" y="696" font-family="Arial Narrow" font-size="20" font-weight="bold" fill="#FAFCFE">Knock</text>
+    <text x="1208" y="696" text-anchor="end" font-family="Arial" font-size="14" fill="#A9C7E6">10 / 12</text>
+  </g>
+</svg>

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Times New Roman" lang="en" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 36 1152 94">
+    <rect x="64" y="38" width="40" height="4" fill="#B3301B"/>
+    <text x="64" y="66" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">04  HOW IT WORKS FOR THE CANDIDATE</text>
+    <text x="64" y="112" font-family="Arial" font-size="36" font-weight="bold" fill="#0E1F3A">From target list to referral, candidate in control</text>
+  </g>
+  <g id="path-note" data-pptx-bounds="64 144 1152 34"><text x="64" y="168" font-size="20" font-style="italic" fill="#2B4266">One reading path, left to right. The red step is the one that cannot be skipped.</text></g>
+<g id="p05-chev-1" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="64 196 208 68" data-pptx-av-adj="val 32000" fill="#0E1F3A" stroke="none">
+<path d="M 64 196 L 250.24 196 L 272 230 L 250.24 264 L 64 264 L 85.76 230 Z"/>
+</g>
+<g id="p05-chev-2" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="253 196 208 68" data-pptx-av-adj="val 32000" fill="#0E1F3A" stroke="none">
+<path d="M 253 196 L 439.24 196 L 461 230 L 439.24 264 L 253 264 L 274.76 230 Z"/>
+</g>
+<g id="p05-chev-3" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="442 196 208 68" data-pptx-av-adj="val 32000" fill="#0E1F3A" stroke="none">
+<path d="M 442 196 L 628.24 196 L 650 230 L 628.24 264 L 442 264 L 463.76 230 Z"/>
+</g>
+<g id="p05-chev-4" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="631 196 208 68" data-pptx-av-adj="val 32000" fill="#0E1F3A" stroke="none">
+<path d="M 631 196 L 817.24 196 L 839 230 L 817.24 264 L 631 264 L 652.76 230 Z"/>
+</g>
+<g id="p05-chev-5" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="820 196 208 68" data-pptx-av-adj="val 32000" fill="#B3301B" stroke="none">
+<path d="M 820 196 L 1006.24 196 L 1028 230 L 1006.24 264 L 820 264 L 841.76 230 Z"/>
+</g>
+<g id="p05-chev-6" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="1009 196 208 68" data-pptx-av-adj="val 32000" fill="#0E1F3A" stroke="none">
+<path d="M 1009 196 L 1195.24 196 L 1217 230 L 1195.24 264 L 1009 264 L 1030.76 230 Z"/>
+</g>
+  <g id="step-labels" data-pptx-bounds="64 206 1152 48" font-family="Arial" font-size="16" font-weight="bold" fill="#FAFCFE" text-anchor="middle">
+    <text x="168" y="236">Intake</text>
+    <text x="363" y="236">Find people</text>
+    <text x="552" y="236">Research</text>
+    <text x="741" y="236">Draft</text>
+    <text x="930" y="236">You approve</text>
+    <text x="1119" y="236">Send and coach</text>
+  </g>
+  <g id="step-1-desc" data-pptx-bounds="64 280 180 140">
+    <text x="72" y="304" font-size="17" fill="#2B4266">Resume, profile,<tspan x="72" dy="24">target companies,</tspan><tspan x="72" dy="24">role titles and the</tspan><tspan x="72" dy="24">candidate's story.</tspan></text>
+  </g>
+  <g id="step-2-desc" data-pptx-bounds="253 280 180 140">
+    <text x="261" y="304" font-size="17" fill="#2B4266">Hiring managers,<tspan x="261" dy="24">team members,</tspan><tspan x="261" dy="24">alumni and senior</tspan><tspan x="261" dy="24">connectors, found in</tspan><tspan x="261" dy="24">public search.</tspan></text>
+  </g>
+  <g id="step-3-desc" data-pptx-bounds="442 280 180 140">
+    <text x="450" y="304" font-size="17" fill="#2B4266">Public posts, talks<tspan x="450" dy="24">and articles become</tspan><tspan x="450" dy="24">facts, each with a</tspan><tspan x="450" dy="24">source. A hook must</tspan><tspan x="450" dy="24">cite one.</tspan></text>
+  </g>
+  <g id="step-4-desc" data-pptx-bounds="631 280 180 140">
+    <text x="639" y="304" font-size="17" fill="#2B4266">A short, personal<tspan x="639" dy="24">first message in the</tspan><tspan x="639" dy="24">candidate's voice,</tspan><tspan x="639" dy="24">built on the cited</tspan><tspan x="639" dy="24">hook.</tspan></text>
+  </g>
+  <g id="step-5-desc" data-pptx-bounds="820 280 180 140">
+    <text x="828" y="304" font-size="17" fill="#2B4266">Nothing is sent<tspan x="828" dy="24">without a yes.</tspan><tspan x="828" dy="24">Every edit teaches</tspan><tspan x="828" dy="24">the system what</tspan><tspan x="828" dy="24">good looks like.</tspan></text>
+  </g>
+  <g id="step-6-desc" data-pptx-bounds="1009 280 180 140">
+    <text x="1017" y="304" font-size="17" fill="#2B4266">Sent from the<tspan x="1017" dy="24">candidate's own</tspan><tspan x="1017" dy="24">account. Each reply</tspan><tspan x="1017" dy="24">gets a next draft,</tspan><tspan x="1017" dy="24">up to the ask.</tspan></text>
+  </g>
+  <g id="delivery-self" data-pptx-bounds="64 436 564 184">
+    <rect x="64" y="436" width="564" height="184" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="92" y="468" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">DEFAULT DELIVERY</text>
+    <text x="92" y="506" font-family="Arial" font-size="24" font-weight="bold" fill="#0E1F3A">Self-send</text>
+    <text x="92" y="544" font-size="19" fill="#2B4266">Knock researches and writes. The candidate copies each<tspan x="92" dy="26">approved message and sends it by hand from their own</tspan><tspan x="92" dy="26">LinkedIn, then pastes replies back for the next draft.</tspan></text>
+  </g>
+  <g id="delivery-assisted" data-pptx-bounds="652 436 564 184">
+    <rect x="652" y="436" width="564" height="184" fill="#C4D9EF"/>
+    <text x="680" y="468" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#2B4266">OPTIONAL DELIVERY</text>
+    <text x="680" y="506" font-family="Arial" font-size="24" font-weight="bold" fill="#0E1F3A">Done-for-you</text>
+    <text x="680" y="544" font-size="19" fill="#0E1F3A">The same research and writing. Approved text is sent from<tspan x="680" dy="26">the candidate's own account through a tool they connect</tspan><tspan x="680" dy="26">themselves, with written consent and a clear risk notice.</tspan></text>
+  </g>
+  <g id="footer" data-pptx-bounds="64 664 1152 44">
+    <line x1="64" y1="676" x2="1216" y2="676" stroke="#4A5F80" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round" stroke-opacity="0.6"/>
+    <text x="64" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" fill="#4A5F80">KNOCK  |  CASE STUDY</text>
+    <text x="1216" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" text-anchor="end" fill="#4A5F80">05 / 13</text>
+  </g>
+</svg>

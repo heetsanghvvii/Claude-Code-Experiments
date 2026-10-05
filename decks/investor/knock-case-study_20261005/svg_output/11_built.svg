@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Times New Roman" lang="en" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 36 1152 94">
+    <rect x="64" y="38" width="40" height="4" fill="#B3301B"/>
+    <text x="64" y="66" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">10  WHAT WAS BUILT</text>
+    <text x="64" y="112" font-family="Arial" font-size="36" font-weight="bold" fill="#0E1F3A">A full system, built end to end in days</text>
+  </g>
+  <g id="summary-panel" data-pptx-bounds="64 150 360 490">
+    <rect x="64" y="150" width="360" height="490" fill="#0E1F3A"/>
+    <text x="92" y="196" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#A9C7E6">ONE FOUNDER</text>
+    <text x="92" y="244" font-family="Arial" font-size="32" font-weight="bold" fill="#EEF3F8">From idea to a live<tspan x="92" dy="40">system</tspan></text>
+    <text x="92" y="332" font-size="20" fill="#BFD0E6">Product, engineering, design,<tspan x="92" dy="27">operations and research,</tspan><tspan x="92" dy="27">worked through with AI tools</tspan><tspan x="92" dy="27">and a habit of testing every</tspan><tspan x="92" dy="27">choice.</tspan></text>
+    <line x1="92" y1="496" x2="396" y2="496" stroke="#A9C7E6" stroke-opacity="0.4" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round"/>
+    <text x="92" y="534" font-family="Arial" font-size="15" font-weight="bold" fill="#E8705A">HONEST STATUS</text>
+    <text x="92" y="562" font-size="18" fill="#EEF3F8">Built and live. Not yet used by<tspan x="92" dy="25">paying clients, so no results</tspan><tspan x="92" dy="25">are claimed.</tspan></text>
+  </g>
+  <g id="row-engine" data-pptx-bounds="460 150 756 74">
+    <text x="460" y="182" font-family="Arial" font-size="19" font-weight="bold" fill="#0E1F3A">The engine</text>
+    <text x="660" y="180" font-size="18" fill="#2B4266">Discovery, enrichment, cited hooks, several writers and a<tspan x="660" dy="24">judge, rule checks, learning loop, reply drafting, send cap.</tspan></text>
+  </g>
+<line id="rule-1" data-pptx-role="decoration" x1="460" y1="230" x2="1216" y2="230" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+  <g id="row-data" data-pptx-bounds="460 236 756 74">
+    <text x="460" y="268" font-family="Arial" font-size="19" font-weight="bold" fill="#0E1F3A">The data layer</text>
+    <text x="660" y="266" font-size="18" fill="#2B4266">One shared database for clients, prospects, facts, messages<tspan x="660" dy="24">and outcomes, plus an inbox and outbox bridge to sending.</tspan></text>
+  </g>
+<line id="rule-2" data-pptx-role="decoration" x1="460" y1="316" x2="1216" y2="316" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+  <g id="row-web" data-pptx-bounds="460 322 756 74">
+    <text x="460" y="354" font-family="Arial" font-size="19" font-weight="bold" fill="#0E1F3A">The web side</text>
+    <text x="660" y="352" font-size="18" fill="#2B4266">A live landing page with an intake form, and a password-<tspan x="660" dy="24">protected operator CRM with a daily sync, hosted on Vercel.</tspan></text>
+  </g>
+<line id="rule-3" data-pptx-role="decoration" x1="460" y1="402" x2="1216" y2="402" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+  <g id="row-brand" data-pptx-bounds="460 408 756 74">
+    <text x="460" y="440" font-family="Arial" font-size="19" font-weight="bold" fill="#0E1F3A">The brand</text>
+    <text x="660" y="438" font-size="18" fill="#2B4266">A full brand kit: colour and type tokens, logos, guidelines,<tspan x="660" dy="24">and templates for banners and social posts.</tspan></text>
+  </g>
+<line id="rule-4" data-pptx-role="decoration" x1="460" y1="488" x2="1216" y2="488" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+  <g id="row-thinking" data-pptx-bounds="460 494 756 74">
+    <text x="460" y="526" font-family="Arial" font-size="19" font-weight="bold" fill="#0E1F3A">The thinking</text>
+    <text x="660" y="524" font-size="18" fill="#2B4266">A business plan, a target-client definition, market and<tspan x="660" dy="24">competitor research, and a log of every founder decision.</tspan></text>
+  </g>
+<line id="rule-5" data-pptx-role="decoration" x1="460" y1="574" x2="1216" y2="574" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+  <g id="row-tooling" data-pptx-bounds="460 580 756 62">
+    <text x="460" y="612" font-family="Arial" font-size="19" font-weight="bold" fill="#0E1F3A">The tooling</text>
+    <text x="660" y="610" font-size="18" fill="#2B4266">A skill that runs blind contests between approaches, and a<tspan x="660" dy="24">router that picks the cheapest model good enough per task.</tspan></text>
+  </g>
+  <g id="footer" data-pptx-bounds="64 664 1152 44">
+    <line x1="64" y1="676" x2="1216" y2="676" stroke="#4A5F80" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round" stroke-opacity="0.6"/>
+    <text x="64" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" fill="#4A5F80">KNOCK  |  CASE STUDY</text>
+    <text x="1216" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" text-anchor="end" fill="#4A5F80">11 / 13</text>
+  </g>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Times New Roman" lang="en" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 36 1152 94">
+    <rect x="64" y="38" width="40" height="4" fill="#B3301B"/>
+    <text x="64" y="66" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">09  HOW DECISIONS WERE TESTED</text>
+    <text x="64" y="112" font-family="Arial" font-size="36" font-weight="bold" fill="#0E1F3A">Decisions were tested in blind competitions, not argued</text>
+  </g>
+  <g id="track-website" data-pptx-bounds="64 150 368 450">
+    <rect x="64" y="150" width="368" height="46" fill="#0E1F3A"/>
+    <text x="84" y="181" font-family="Arial" font-size="21" font-weight="bold" fill="#EEF3F8">The website</text>
+    <text x="84" y="228" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">COMPETED</text>
+    <text x="84" y="254" font-size="17" fill="#0E1F3A">Several design skills each built<tspan x="84" dy="22">Knock's site from the same brief.</tspan></text>
+    <text x="84" y="346" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">JUDGED</text>
+    <text x="84" y="372" font-size="17" fill="#0E1F3A">Scored blind by independent<tspan x="84" dy="22">judges, with no names attached.</tspan></text>
+    <text x="84" y="466" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#B3301B">WHAT CHANGED</text>
+    <text x="84" y="492" font-size="17" fill="#0E1F3A">The winning concept became the<tspan x="84" dy="22">brand kit: an airmail letter,</tspan><tspan x="84" dy="22">powder-blue paper, navy ink and</tspan><tspan x="84" dy="22">one red stamp.</tspan></text>
+  </g>
+  <g id="track-messages" data-pptx-bounds="456 150 368 450">
+    <rect x="456" y="150" width="368" height="46" fill="#0E1F3A"/>
+    <text x="476" y="181" font-family="Arial" font-size="21" font-weight="bold" fill="#EEF3F8">The messages</text>
+    <text x="476" y="228" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">COMPETED</text>
+    <text x="476" y="254" font-size="17" fill="#0E1F3A">The Knock engine against six<tspan x="476" dy="22">other approaches, from a single</tspan><tspan x="476" dy="22">writer to sales copywriting and</tspan><tspan x="476" dy="22">a networking method.</tspan></text>
+    <text x="476" y="346" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">JUDGED</text>
+    <text x="476" y="372" font-size="17" fill="#0E1F3A">Four blind judge personas: a<tspan x="476" dy="22">recipient, a hiring manager, an</tspan><tspan x="476" dy="22">Indian recruiter and a rubric</tspan><tspan x="476" dy="22">auditor.</tspan></text>
+    <text x="476" y="466" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#B3301B">WHAT CHANGED</text>
+    <text x="476" y="492" font-size="17" fill="#0E1F3A">The multi-writer engine won on<tspan x="476" dy="22">openers and beat its own single-</tspan><tspan x="476" dy="22">writer version. A hybrid wrote the</tspan><tspan x="476" dy="22">best follow-ups. Both lessons went</tspan><tspan x="476" dy="22">into the prompts.</tspan></text>
+  </g>
+  <g id="track-deck" data-pptx-bounds="848 150 368 450">
+    <rect x="848" y="150" width="368" height="46" fill="#0E1F3A"/>
+    <text x="868" y="181" font-family="Arial" font-size="21" font-weight="bold" fill="#EEF3F8">The pitch deck</text>
+    <text x="868" y="228" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">COMPETED</text>
+    <text x="868" y="254" font-size="17" fill="#0E1F3A">Several deck skills built the<tspan x="868" dy="22">same partner pitch brief.</tspan></text>
+    <text x="868" y="346" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">JUDGED</text>
+    <text x="868" y="372" font-size="17" fill="#0E1F3A">Scored blind, then the winning<tspan x="868" dy="22">entry was studied step by step.</tspan></text>
+    <text x="868" y="466" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#B3301B">WHAT CHANGED</text>
+    <text x="868" y="492" font-size="17" fill="#0E1F3A">Its approach set this deck's build:<tspan x="868" dy="22">editorial restraint, native editable</tspan><tspan x="868" dy="22">shapes, and a serif fallback that</tspan><tspan x="868" dy="22">renders the same everywhere.</tspan></text>
+  </g>
+  <g id="caveat" data-pptx-bounds="64 604 1152 56">
+    <rect x="64" y="604" width="1152" height="52" fill="#C4D9EF"/>
+    <text x="84" y="627" font-size="18" font-style="italic" fill="#0E1F3A">Judges were AI personas, so results guide decisions and do not prove market demand.<tspan x="84" dy="22">The value is a fast, repeatable way to choose between options and find weak spots.</tspan></text>
+  </g>
+  <g id="footer" data-pptx-bounds="64 664 1152 44">
+    <line x1="64" y1="676" x2="1216" y2="676" stroke="#4A5F80" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round" stroke-opacity="0.6"/>
+    <text x="64" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" fill="#4A5F80">KNOCK  |  CASE STUDY</text>
+    <text x="1216" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" text-anchor="end" fill="#4A5F80">10 / 13</text>
+  </g>
+</svg>

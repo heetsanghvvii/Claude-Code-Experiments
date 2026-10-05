@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Times New Roman" lang="en" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 36 1152 94">
+    <rect x="64" y="38" width="40" height="4" fill="#B3301B"/>
+    <text x="64" y="66" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">07  WRITING AND LEARNING</text>
+    <text x="64" y="112" font-family="Arial" font-size="36" font-weight="bold" fill="#0E1F3A">Several writers, one judge, and a loop that learns</text>
+  </g>
+<g id="p08-chev-1" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="64 190 236 60" data-pptx-av-adj="val 30000" fill="#0E1F3A" stroke="none">
+<path d="M 64 190 L 282 190 L 300 220 L 282 250 L 64 250 L 82 220 Z"/>
+</g>
+<g id="p08-chev-2" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="293 190 236 60" data-pptx-av-adj="val 30000" fill="#0E1F3A" stroke="none">
+<path d="M 293 190 L 511 190 L 529 220 L 511 250 L 293 250 L 311 220 Z"/>
+</g>
+<g id="p08-chev-3" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="522 190 236 60" data-pptx-av-adj="val 30000" fill="#0E1F3A" stroke="none">
+<path d="M 522 190 L 740 190 L 758 220 L 740 250 L 522 250 L 540 220 Z"/>
+</g>
+<g id="p08-chev-4" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="751 190 236 60" data-pptx-av-adj="val 30000" fill="#0E1F3A" stroke="none">
+<path d="M 751 190 L 969 190 L 987 220 L 969 250 L 751 250 L 769 220 Z"/>
+</g>
+<g id="p08-chev-5" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="980 190 236 60" data-pptx-av-adj="val 30000" fill="#B3301B" stroke="none">
+<path d="M 980 190 L 1198 190 L 1216 220 L 1198 250 L 980 250 L 998 220 Z"/>
+</g>
+<g id="p08-loop-arrow-r" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="rightArrow" data-pptx-frame="342 340 80 44" fill="#97B9DD" stroke="none">
+<path d="M 342 351 L 400 351 L 400 340 L 422 362 L 400 384 L 400 373 L 342 373 Z"/>
+</g>
+<g id="p08-loop-arrow-d" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="downArrow" data-pptx-frame="540 426 50 72" fill="#97B9DD" stroke="none">
+<path d="M 540 473 L 552.5 473 L 552.5 426 L 577.5 426 L 577.5 473 L 590 473 L 565 498 Z"/>
+</g>
+<g id="p08-loop-arrow-l" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="leftArrow" data-pptx-frame="342 540 80 44" fill="#97B9DD" stroke="none">
+<path d="M 342 562 L 364 540 L 364 551 L 422 551 L 422 573 L 364 573 L 364 584 Z"/>
+</g>
+<g id="p08-loop-arrow-u" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="upArrow" data-pptx-frame="174 426 50 72" fill="#97B9DD" stroke="none">
+<path d="M 174 451 L 199 426 L 224 451 L 211.5 451 L 211.5 498 L 186.5 498 L 186.5 451 Z"/>
+</g>
+  <g id="chev-labels" data-pptx-bounds="64 204 1152 40" font-family="Arial" font-size="17" font-weight="bold" fill="#FAFCFE" text-anchor="middle">
+    <text x="182" y="226">Hook</text>
+    <text x="411" y="226">Writers</text>
+    <text x="640" y="226">Rule checks</text>
+    <text x="869" y="226">Judge</text>
+    <text x="1098" y="226">You approve</text>
+  </g>
+  <g id="chev-captions" data-pptx-bounds="64 256 1152 26" font-size="15" font-style="italic" fill="#2B4266">
+    <text x="82" y="274">A cited fact from both profiles</text>
+    <text x="311" y="274">Several drafts, different angles</text>
+    <text x="540" y="274">Length, phrases, one question</text>
+    <text x="769" y="274">Scores drafts against a rubric</text>
+    <text x="998" y="274">Nothing sends without a yes</text>
+  </g>
+  <g id="loop-label" data-pptx-bounds="64 284 400 18"><text x="64" y="298" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="3" fill="#4A5F80">THE LEARNING LOOP</text></g>
+  <g id="loop-writer" data-pptx-bounds="64 304 270 116">
+    <rect x="64" y="304" width="270" height="116" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.25" stroke-width="1"/>
+    <text x="80" y="336" font-family="Arial" font-size="17" font-weight="bold" fill="#0E1F3A">Writer selection</text>
+    <text x="80" y="362" font-size="16" fill="#2B4266">Drafts that get approved raise<tspan x="80" dy="22">that writer's odds of being</tspan><tspan x="80" dy="22">chosen next time.</tspan></text>
+  </g>
+  <g id="loop-playbook" data-pptx-bounds="430 304 270 116">
+    <rect x="430" y="304" width="270" height="116" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.25" stroke-width="1"/>
+    <text x="446" y="336" font-family="Arial" font-size="17" font-weight="bold" fill="#0E1F3A">Playbook from edits</text>
+    <text x="446" y="362" font-size="16" fill="#2B4266">Every edit by the founder or<tspan x="446" dy="22">the candidate is distilled into</tspan><tspan x="446" dy="22">rules the writers follow.</tspan></text>
+  </g>
+  <g id="loop-judge" data-pptx-bounds="430 504 270 116">
+    <rect x="430" y="504" width="270" height="116" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.25" stroke-width="1"/>
+    <text x="446" y="536" font-family="Arial" font-size="17" font-weight="bold" fill="#0E1F3A">Judge calibration</text>
+    <text x="446" y="562" font-size="16" fill="#2B4266">When a human overrides the<tspan x="446" dy="22">judge, its taste is adjusted</tspan><tspan x="446" dy="22">to match.</tspan></text>
+  </g>
+  <g id="loop-replies" data-pptx-bounds="64 504 270 116">
+    <rect x="64" y="504" width="270" height="116" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.25" stroke-width="1"/>
+    <text x="80" y="536" font-family="Arial" font-size="17" font-weight="bold" fill="#0E1F3A">Reply learning</text>
+    <text x="80" y="562" font-size="16" fill="#2B4266">Which replies led to calls and<tspan x="80" dy="22">referrals shapes how the next</tspan><tspan x="80" dy="22">reply is drafted.</tspan></text>
+  </g>
+  <g id="drift-guards" data-pptx-bounds="740 296 476 344">
+    <rect x="740" y="296" width="476" height="344" fill="#0E1F3A"/>
+    <text x="772" y="340" font-family="Arial" font-size="24" font-weight="bold" fill="#EEF3F8">Guarding against drift</text>
+    <text x="772" y="372" font-size="16" font-style="italic" fill="#A9C7E6">Self-learning can slide toward polished but generic.</text>
+    <g font-size="18" fill="#BFD0E6">
+      <text x="772" y="416">The rubric is a send gate: a message<tspan x="772" dy="24">that fails a hard rule never goes out.</tspan></text>
+      <text x="772" y="478">A golden set of test prospects is re-run<tspan x="772" dy="24">after every playbook or writer change.</tspan></text>
+      <text x="772" y="540">Playbooks are versioned, so any change<tspan x="772" dy="24">can be rolled back.</tspan></text>
+      <text x="772" y="602">A weekly audit scores a random sample<tspan x="772" dy="24">of the messages that were sent.</tspan></text>
+    </g>
+  </g>
+  <g id="footer" data-pptx-bounds="64 664 1152 44">
+    <line x1="64" y1="676" x2="1216" y2="676" stroke="#4A5F80" stroke-width="3" stroke-dasharray="1,8" stroke-linecap="round" stroke-opacity="0.6"/>
+    <text x="64" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" fill="#4A5F80">KNOCK  |  CASE STUDY</text>
+    <text x="1216" y="700" font-family="Arial" font-size="12" font-weight="bold" letter-spacing="2" text-anchor="end" fill="#4A5F80">08 / 13</text>
+  </g>
+</svg>

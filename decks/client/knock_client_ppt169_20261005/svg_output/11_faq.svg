@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en-IN" font-family="Times New Roman" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="72 48 1000 160">
+    <rect x="72" y="52" width="44" height="6" fill="#B3301B"/>
+    <text x="72" y="90" font-family="Arial" font-size="15" font-weight="bold" letter-spacing="2.4" fill="#4A5F80">FAIR QUESTIONS</text>
+    <text x="72" y="140" font-family="Arial Narrow" font-size="44" font-weight="bold" fill="#0E1F3A">Straight answers to the questions<tspan x="72" dy="52">people ask first</tspan></text>
+  </g>
+  <g id="faq-linkedin" data-pptx-bounds="72 232 328 330">
+    <line x1="72" y1="236" x2="400" y2="236" stroke="#0E1F3A" stroke-width="2"/>
+    <text x="72" y="282" font-family="Arial Narrow" font-size="28" font-weight="bold" fill="#0E1F3A">Will my LinkedIn<tspan x="72" dy="32">get banned?</tspan></text>
+    <text x="72" y="356" font-size="21" fill="#2B4266">We stay well under LinkedIn's<tspan x="72" dy="29">limits, and every message is sent</tspan><tspan x="72" dy="29">by you, from your own account.</tspan><tspan x="72" dy="29">No bots logging in as you.</tspan></text>
+  </g>
+  <g id="faq-voice" data-pptx-bounds="428 232 328 330">
+    <line x1="428" y1="236" x2="756" y2="236" stroke="#0E1F3A" stroke-width="2"/>
+    <text x="428" y="282" font-family="Arial Narrow" font-size="28" font-weight="bold" fill="#0E1F3A">Do you write as me?</text>
+    <text x="428" y="356" font-size="21" fill="#2B4266">Yes, in your voice. And nothing<tspan x="428" dy="29">goes out until you have read it</tspan><tspan x="428" dy="29">and approved it.</tspan></text>
+  </g>
+  <g id="faq-audience" data-pptx-bounds="784 232 424 330">
+    <line x1="784" y1="236" x2="1208" y2="236" stroke="#0E1F3A" stroke-width="2"/>
+    <text x="784" y="282" font-family="Arial Narrow" font-size="28" font-weight="bold" fill="#0E1F3A">Who is this for?</text>
+    <text x="784" y="356" font-size="21" fill="#2B4266">Anyone who knows where they want to<tspan x="784" dy="29">work next: career switchers, people</tspan><tspan x="784" dy="29">between jobs, MBA graduates, senior</tspan><tspan x="784" dy="29">leaders and Indians returning home. If</tspan><tspan x="784" dy="29">referrals matter at your target companies,</tspan><tspan x="784" dy="29">Knock works for you.</tspan></text>
+  </g>
+  <g id="faq-contact" data-pptx-bounds="72 584 1136 58">
+    <rect x="72" y="584" width="1136" height="58" fill="#C4D9EF"/>
+    <text x="96" y="620" font-size="24" fill="#0E1F3A">Anything else, write to <tspan font-weight="bold">hello@knock.careers</tspan>. A person will answer.</text>
+  </g>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="72 660 1136 46">
+    <line x1="72" y1="668" x2="1208" y2="668" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="72" y="696" font-family="Arial Narrow" font-size="20" font-weight="bold" fill="#0E1F3A">Knock</text>
+    <text x="1208" y="696" text-anchor="end" font-family="Arial" font-size="14" fill="#4A5F80">11 / 12</text>
+  </g>
+</svg>

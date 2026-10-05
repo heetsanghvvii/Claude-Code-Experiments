@@ -32,7 +32,7 @@ After you buy it, tell Claude Code "domain bought" and it connects knock.careers
 ## 4. Set up La Growth Machine (Tier 2 clients only, once per client)
 ```
 Open app.lagrowthmachine.com.
-1. Audiences > Create audience. Name it "Knock - <client first name>". Import the CSV I give you (file name knock-export-<client>.csv). Map the column "message" to customAttribute1. Confirm the row count matches the CSV.
+1. Audiences > Create audience. Name it "Knock - <client first name>". Import the CSV I give you (file name knock-export-<client>.csv). Check the column customAttribute1 is mapped to the custom attribute customAttribute1. Confirm the row count matches the CSV.
 2. Campaigns > Create campaign from scratch. Name "Knock - <client first name>". Audience: the one above. Identity: <client LinkedIn identity>.
    Steps: (a) Visit profile, (b) wait 1 day, (c) LinkedIn invitation with note, note text exactly {{customAttribute1}}.
    No follow-up messages, no email steps.

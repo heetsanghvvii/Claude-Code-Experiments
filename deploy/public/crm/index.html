@@ -53,10 +53,10 @@ header.top::after{content:"";display:block;height:6px;background:radial-gradient
 .brand small{font:600 11px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);border-left:1px solid var(--rule-strong);padding-left:12px}
 .spacer{flex:1}
 nav.tabs{display:flex;gap:2px;overflow-x:auto;max-width:1180px;margin:0 auto;padding:0 16px}
-nav.tabs button{background:none;border:0;border-bottom:3px solid transparent;color:var(--ink-2);font:600 14px var(--body);font-variation-settings:"wdth" 88;padding:10px 12px 8px;cursor:pointer;white-space:nowrap}
+nav.tabs button{background:none;border:0;border-bottom:3px solid transparent;color:var(--ink-2);font:600 14px var(--body);padding:10px 12px 8px;cursor:pointer;white-space:nowrap}
 nav.tabs button:hover{color:var(--ink)}
 nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--post);font-weight:700}
-button.btn{background:var(--btn-bg);color:var(--btn-fg);border:1.5px solid var(--btn-bg);border-radius:99px;min-height:36px;padding:6px 16px;font:700 14px var(--body);font-variation-settings:"wdth" 88;cursor:pointer;transition:background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease)}
+button.btn{background:var(--btn-bg);color:var(--btn-fg);border:1.5px solid var(--btn-bg);border-radius:99px;min-height:36px;padding:6px 16px;font:700 14px var(--body);cursor:pointer;transition:background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease)}
 button.btn:hover{background:var(--post);border-color:var(--post);color:#FAFCFE}
 button.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
 button.btn.ghost:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
@@ -68,7 +68,7 @@ h3{font:700 15px var(--body);margin:0 0 8px}
 .tile{background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:12px 14px}
 .tile .k{color:var(--ink-2);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
 .tile .v{font:800 34px/1 var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;font-variant-numeric:tabular-nums lining-nums;margin-top:8px}
-.tile.alert{border-color:var(--post);border-left-width:4px}
+.tile.alert{border-left:4px solid var(--post)}
 .tile.alert .v{color:var(--post)}
 .panel{background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:16px;min-width:0}
 .tablewrap{overflow-x:auto}
@@ -79,7 +79,7 @@ tbody tr:last-child td{border-bottom:0}
 td.num,th.num{font-variant-numeric:tabular-nums lining-nums;text-align:right}
 tr.click{cursor:pointer}
 tr.click:hover td{background:var(--hover)}
-.chip{display:inline-block;padding:1px 9px;border-radius:99px;background:var(--in-bg);color:var(--in-fg);border:1px solid transparent;font:600 12px/1.5 var(--body);font-variation-settings:"wdth" 90;white-space:nowrap}
+.chip{display:inline-block;padding:1px 9px;border-radius:99px;background:var(--in-bg);color:var(--in-fg);border:1px solid transparent;font:600 12px/1.5 var(--body);white-space:nowrap}
 .chip.ok{background:var(--ink);color:var(--bg)}
 .chip.warn{background:var(--post-soft);color:var(--post);border-color:var(--post)}
 .chip.bad{background:transparent;color:var(--ink-2);border:1px dashed var(--rule-strong)}

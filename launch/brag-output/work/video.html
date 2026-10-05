@@ -686,6 +686,7 @@ html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#EEF3F8
 #ledgerblk{padding:70px 72px 0}
 #ledgerblk h2{font-size:5rem;max-width:14ch}
 #ledgerblk .ledger{position:absolute;left:0;right:0;bottom:0;margin:0}
+#ledgerblk .ledger table{border-collapse:separate;border-spacing:0}
 #ledgerblk .ledger td{font-size:1.12rem;padding-top:18px;padding-bottom:18px}
 #ledgerblk .why .w{background:linear-gradient(transparent 58%,var(--post-soft) 58%) no-repeat;background-size:0% 100%;padding:0 .08em}
 #s4{background:transparent}
@@ -729,7 +730,7 @@ html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#EEF3F8
     <div class="ledger"><div class="ledger-cap"><p>What a target list looks like, for a move into product at Zepto.</p><small>Sample for illustration. Real lists name real people.</small></div>
     <table><thead><tr><th>Who</th><th>Where</th><th>The shared reason to talk</th><th>Status</th></tr></thead><tbody id="rows">
      <tr><td>Hiring manager, Product</td><td class="where">Zepto</td><td class="why"><span class="w">Both started in FMCG brand roles before product</span></td><td class="st"><span class="status"><i></i>Message drafted for you</span></td></tr>
-     <tr><td>Product manager, Growth</td><td class="where">Zepto</td><td class="why"><span class="w">Same business school, three batches apart</span></td><td class="st"><span class="status"><i></i>Message drafted for you</span></td></tr>
+     <tr><td>Product manager, Growth</td><td class="where">Zepto</td><td class="why"><span class="w">Same college, three batches apart</span></td><td class="st"><span class="status"><i></i>Message drafted for you</span></td></tr>
      <tr><td>Senior PM, Quick commerce</td><td class="where">Blinkit</td><td class="why"><span class="w">Wrote about a launch you worked on as a brand manager</span></td><td class="st"><span class="status"><i></i>Researching</span></td></tr>
     </tbody></table></div>
   </div>
@@ -756,13 +757,7 @@ html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#EEF3F8
 </div></div></div>
 </div>
 <script>
-const T={"dur":21.0,"fps":30,
-"s1":{"list0":0.35,"listStep":0.17,"stamp":1.75,"out0":3.0,"out1":3.6},
-"s2":{"in0":3.2,"in1":3.8,"h1a":3.9,"h1b":4.4,"stamp":4.7,"postmark":5.1,"hint":5.2,"addr":5.6,"type0":6.0,"type1":7.2,"press":7.5,"out0":7.8,"out1":8.3},
-"s3":{"head":8.4,"row0":8.9,"rowStep":0.55,"wash0":10.3,"washStep":0.4,"out0":11.9,"out1":12.4},
-"s4":{"bg0":11.9,"bg1":12.5,"head":12.5,"note":12.9,"type0":13.4,"type1":15.6,"check":15.9,"out0":17.0,"out1":17.5},
-"s5":{"bg0":17.2,"bg1":17.8,"m0":18.0,"mStep":0.25,"big":19.0,"btn":19.6}}
-;
+const T={"dur": 21.0, "fps": 30, "s1": {"list0": 0.35, "listStep": 0.17, "stamp": 1.75, "out0": 3.0, "out1": 3.6}, "s2": {"in0": 3.6, "in1": 4.1, "h1a": 4.1, "h1b": 4.6, "stamp": 4.9, "postmark": 5.25, "hint": 5.2, "addr": 5.6, "type0": 6.0, "type1": 7.2, "press": 7.5, "out0": 7.8, "out1": 8.3}, "s3": {"head": 8.5, "row0": 9.0, "rowStep": 0.55, "wash0": 10.4, "washStep": 0.4, "out0": 11.9, "out1": 12.4}, "s4": {"bg0": 11.9, "bg1": 12.5, "head": 12.5, "note": 12.9, "type0": 13.4, "type1": 15.6, "check": 15.9, "out0": 17.0, "out1": 17.5}, "s5": {"bg0": 17.2, "bg1": 17.8, "m0": 18.0, "mStep": 0.25, "big": 19.0, "btn": 19.6}};
 const $=id=>document.getElementById(id);
 const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const p=(t,s,d)=>cl((t-s)/d);
@@ -826,7 +821,7 @@ function render(t){
  btn.style.boxShadow=on?'0 8px 20px -10px rgba(179,48,27,.7)':'';
  // ledger
  const lb=$('ledgerblk'); const lOut=1-eio(p(t,A.s3.out0,A.s3.out1-A.s3.out0));
- lb.style.display=(t<A.s2.out0)?'none':'block'; lb.style.opacity=lOut;
+ lb.style.display=(t<A.s2.out1)?'none':'block'; lb.style.opacity=lOut*eio(p(t,A.s2.out1,0.4));
  rise($('lh'),eo(p(t,A.s3.head,0.6)),24);
  const rows=$('rows').children;
  for(let i=0;i<3;i++){const v=eo(p(t,A.s3.row0+i*A.s3.rowStep,0.5));rows[i].style.opacity=v;rows[i].style.transform=`translateY(${(1-v)*22}px)`;

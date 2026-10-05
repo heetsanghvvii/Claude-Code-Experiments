@@ -38,6 +38,7 @@ html,body{{margin:0;width:1920px;height:1080px;overflow:hidden;background:#EEF3F
 #ledgerblk{{padding:70px 72px 0}}
 #ledgerblk h2{{font-size:5rem;max-width:14ch}}
 #ledgerblk .ledger{{position:absolute;left:0;right:0;bottom:0;margin:0}}
+#ledgerblk .ledger table{{border-collapse:separate;border-spacing:0}}
 #ledgerblk .ledger td{{font-size:1.12rem;padding-top:18px;padding-bottom:18px}}
 #ledgerblk .why .w{{background:linear-gradient(transparent 58%,var(--post-soft) 58%) no-repeat;background-size:0% 100%;padding:0 .08em}}
 #s4{{background:transparent}}
@@ -81,7 +82,7 @@ html,body{{margin:0;width:1920px;height:1080px;overflow:hidden;background:#EEF3F
     <div class="ledger"><div class="ledger-cap"><p>What a target list looks like, for a move into product at Zepto.</p><small>Sample for illustration. Real lists name real people.</small></div>
     <table><thead><tr><th>Who</th><th>Where</th><th>The shared reason to talk</th><th>Status</th></tr></thead><tbody id="rows">
      <tr><td>Hiring manager, Product</td><td class="where">Zepto</td><td class="why"><span class="w">Both started in FMCG brand roles before product</span></td><td class="st"><span class="status"><i></i>Message drafted for you</span></td></tr>
-     <tr><td>Product manager, Growth</td><td class="where">Zepto</td><td class="why"><span class="w">Same business school, three batches apart</span></td><td class="st"><span class="status"><i></i>Message drafted for you</span></td></tr>
+     <tr><td>Product manager, Growth</td><td class="where">Zepto</td><td class="why"><span class="w">Same college, three batches apart</span></td><td class="st"><span class="status"><i></i>Message drafted for you</span></td></tr>
      <tr><td>Senior PM, Quick commerce</td><td class="where">Blinkit</td><td class="why"><span class="w">Wrote about a launch you worked on as a brand manager</span></td><td class="st"><span class="status"><i></i>Researching</span></td></tr>
     </tbody></table></div>
   </div>
@@ -172,7 +173,7 @@ function render(t){{
  btn.style.boxShadow=on?'0 8px 20px -10px rgba(179,48,27,.7)':'';
  // ledger
  const lb=$('ledgerblk'); const lOut=1-eio(p(t,A.s3.out0,A.s3.out1-A.s3.out0));
- lb.style.display=(t<A.s2.out0)?'none':'block'; lb.style.opacity=lOut;
+ lb.style.display=(t<A.s2.out1)?'none':'block'; lb.style.opacity=lOut*eio(p(t,A.s2.out1,0.4));
  rise($('lh'),eo(p(t,A.s3.head,0.6)),24);
  const rows=$('rows').children;
  for(let i=0;i<3;i++){{const v=eo(p(t,A.s3.row0+i*A.s3.rowStep,0.5));rows[i].style.opacity=v;rows[i].style.transform=`translateY(${{(1-v)*22}}px)`;

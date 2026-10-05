@@ -873,6 +873,11 @@ footer ::selection{background:var(--inland);color:var(--ink)}
 (function(){
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)) return;
   var q=function(s){return document.querySelector(s)};
+  /* Once the stamp and postmark have landed, hand them back to their static styles so a later
+     display toggle (rotating a phone past 760px, a capture tool resizing) never replays them blank */
+  [q('.stamp'),q('.postmark')].forEach(function(el){
+    el.addEventListener('animationend',function(){el.style.animation='none'},{once:true});
+  });
 
   /* Ledger: stack both status labels so the column never changes width */
   var ledger=q('.ledger');

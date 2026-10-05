@@ -111,7 +111,7 @@ p{margin:0;text-wrap:pretty}
 .address input:focus{outline:none;border-bottom-color:var(--post);box-shadow:0 2px 0 var(--post)}
 .address .hint{grid-column:2/4;font-size:.95rem;color:var(--ink);margin-top:-2px}
 .hp{position:absolute!important;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
-.fold{position:relative;margin:clamp(40px,5vw,64px) calc(-1*clamp(20px,5vw,72px)) 0;border-top:2px dashed rgba(14,31,58,.4)}
+.fold{position:relative;z-index:2;margin:clamp(40px,5vw,64px) calc(-1*clamp(20px,5vw,72px)) 0;border-top:2px dashed rgba(14,31,58,.4)}
 .fold span{position:absolute;right:clamp(20px,5vw,72px);top:-.85em;background:var(--inland);padding:0 10px;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
 .ledger{margin:0 calc(-1*clamp(20px,5vw,72px));background:var(--inland-3);padding:clamp(24px,3vw,36px) clamp(20px,5vw,72px) clamp(28px,3.6vw,44px)}
 .ledger-cap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 18px;margin-bottom:14px}
@@ -319,6 +319,7 @@ footer ::selection{background:var(--inland);color:var(--ink)}
 .lbl{display:inline-grid}
 .lbl>span{grid-area:1/1}
 .lbl .l-r{opacity:0}
+.ledger.rs{position:relative}
 .ledger.rs .status i{position:relative;background:none}
 .ledger.rs .status i::before,.ledger.rs .status i::after{content:"";position:absolute;inset:0;border-radius:50%}
 .ledger.rs .status i::before{background:var(--post)}
@@ -887,8 +888,10 @@ footer ::selection{background:var(--inland);color:var(--ink)}
   });
 
   /* Group reveals fire once when 18% into the viewport */
+  var armedRows=[],ledgerOpen=false;
+  function openLedger(){ledgerOpen=true;armedRows.forEach(function(r){rowIo.observe(r)})}
   var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);if(e.target===ledger) openLedger()}});
   },{rootMargin:'0px 0px -18% 0px'});
   /* Ledger rows research one after another, however many enter together */
   var rowIo=new IntersectionObserver(function(es){
@@ -896,24 +899,29 @@ footer ::selection{background:var(--inland);color:var(--ink)}
     hits.forEach(function(e,k){rowIo.unobserve(e.target);setTimeout(function(){e.target.classList.add('in')},k*480)});
   },{rootMargin:'0px 0px -12% 0px'});
 
+  var fold=q('.fold'),table=ledger.querySelector('table');
   var groups=[q('.pile'),q('.route'),q('.example .grid')];
   var vh=window.innerHeight;
   /* Hero: if the fold is on screen at load, unfold it as part of the arrival */
   var lt=ledger.getBoundingClientRect().top;
-  if(lt<vh&&lt>0){ledger.classList.add('arm');setTimeout(function(){ledger.classList.add('in')},1150)}
+  if(lt<vh&&lt>0){ledger.classList.add('arm');setTimeout(function(){ledger.classList.add('in');openLedger()},1150)}
   else groups.unshift(ledger);
 
   var armed=false;
   function arm(){
     if(armed) return; armed=true;
-    window.removeEventListener('scroll',arm);
-    var h=window.innerHeight;
+    EV.forEach(function(t){window.removeEventListener(t,arm)});
+    /* Arm only what was below the viewport at load; anything already seen stays as authored */
+    var h=window.innerHeight+(scrollY0-window.scrollY);
     var g=groups.filter(function(el){return el.getBoundingClientRect().top>h});
-    var r=rows.filter(function(el){return el.getBoundingClientRect().top>h});
+    /* Measure rows from the untransformed fold line: the ledger may still be mid-unfold */
+    var base=fold.getBoundingClientRect().bottom+table.offsetTop;
+    var r=rows.filter(function(el){return base+el.offsetTop>h});
     g.forEach(function(el){el.classList.add('arm');io.observe(el)});
-    r.forEach(function(el){el.classList.add('arm');rowIo.observe(el)});
+    r.forEach(function(el){el.classList.add('arm');armedRows.push(el);if(ledgerOpen) rowIo.observe(el)});
   }
-  window.addEventListener('scroll',arm,{passive:true});
+  var scrollY0=window.scrollY,EV=['scroll'];
+  EV.forEach(function(t){window.addEventListener(t,arm,{passive:true})});
 
   /* "To:" field: the placeholder types target companies, then makes way for yours */
   var input=document.getElementById('q-companies');

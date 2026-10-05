@@ -1,0 +1,993 @@
+{
+  "schema": "ppt-master.svg-quality-report.v1",
+  "stage": "final",
+  "target": "/home/user/Claude-Code-Experiments/decks/backend/knock-backend_ppt169_20261005",
+  "source_fingerprint": {
+    "algorithm": "sha256",
+    "digest": "2728182f8e08eabfd41496ed1fa57b3a3f528ed57860da3fc9b5d2f371715c05",
+    "file_count": 14,
+    "files": [
+      {
+        "file": "01_cover.svg",
+        "sha256": "3ee05b44034045a2d99dc798f881bdd97643f77e47c8e4d8ae2a4a71f69970a4"
+      },
+      {
+        "file": "02_system_overview.svg",
+        "sha256": "af313215f3dc5e98b4cf63266ff67eb53a93bdaf673226a9952028ddc492fe63"
+      },
+      {
+        "file": "03_data_model.svg",
+        "sha256": "e9facc4b6c6a2b53c8a101d0d93612d3c163c6d841250dbcacd6ae8f412bb32a"
+      },
+      {
+        "file": "04_pipeline.svg",
+        "sha256": "13ec4490c6b6ebc22b64359fe7f68b44a2ca6e2cdbfb01c51df5bd539560e2e0"
+      },
+      {
+        "file": "05_hook_engine.svg",
+        "sha256": "e00908507bab4c4aaaed966d73ed93a8ec233686fa9f1582692e7ab464efb283"
+      },
+      {
+        "file": "06_writers_and_judge.svg",
+        "sha256": "3acb5c8ed592d8b2aa74acce7b336408ce75e783e3abb33dfe04a8e0fa2709d6"
+      },
+      {
+        "file": "07_conversation_agent.svg",
+        "sha256": "ba19683f1617af25acf9eba888768139b973466feff6e7afd43624a503296f98"
+      },
+      {
+        "file": "08_learning_loop.svg",
+        "sha256": "e88764d4c47964afc9cab5c38a27a7710cf18e8ce28002f1198ccdf3843557ea"
+      },
+      {
+        "file": "09_safety.svg",
+        "sha256": "f659d52670d731d35afdfa303932f69a5e7560930fcad69ae7104f976cef5ecd"
+      },
+      {
+        "file": "10_infrastructure.svg",
+        "sha256": "cafa3ce2725028f6effcc22c4974f3fa3b92497346dc9f95c61c72e94dd7bda0"
+      },
+      {
+        "file": "11_quality_evidence.svg",
+        "sha256": "0ad6dd5efd8d8807db99d3f964c55f102177e67d228339c7afd76f0fb682e1cd"
+      },
+      {
+        "file": "12_cost_metering.svg",
+        "sha256": "8d6164c2c4e2770689b456a62b14aa43fff825772e017b8451e8c9ade20bd38d"
+      },
+      {
+        "file": "13_status_and_gaps.svg",
+        "sha256": "fd7982e65ca223754417070bcb612659c19c4b6cb80f15c71f8317a557e567b3"
+      },
+      {
+        "file": "14_roadmap.svg",
+        "sha256": "691f308d8c3f6e47959df5abbbc90fecc46d26538375aea0c50407b8a0c08a82"
+      }
+    ]
+  },
+  "summary": {
+    "total": 14,
+    "passed": 14,
+    "warnings": 0,
+    "errors": 0
+  },
+  "issue_types": {},
+  "categories": {
+    "blocking": {
+      "count": 0,
+      "issues": []
+    },
+    "introduced": {
+      "count": 0,
+      "issues": []
+    },
+    "inherited": {
+      "count": 0,
+      "issues": []
+    },
+    "source-import": {
+      "count": 0,
+      "summary": {
+        "warning_count": 0,
+        "by_code": {}
+      }
+    }
+  },
+  "drift": {
+    "colors": {},
+    "fonts": {},
+    "sizes": {}
+  },
+  "carrier_receipt": {
+    "scope": "informational-not-a-quota",
+    "pages": 14,
+    "totals": {
+      "text_elements": 368,
+      "image_placements": 0,
+      "icons": 0,
+      "svg_geometry_elements": 313,
+      "preset_shapes": 9,
+      "page_frame_elements": 29,
+      "marker_uses": 41,
+      "inline_emphasis_runs": 0,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "pages_with": {
+      "images": 0,
+      "icons": 0,
+      "presets": 2,
+      "charts": 0,
+      "tables": 0,
+      "formulas": 0,
+      "inline_emphasis_runs": 0,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "relationship_pages": null,
+    "geometry_elements": {
+      "circle": 15,
+      "ellipse": 0,
+      "line": 61,
+      "path": 6,
+      "polygon": 0,
+      "polyline": 0,
+      "rect": 231
+    },
+    "preset_names": {
+      "chevron": 7,
+      "homePlate": 2
+    },
+    "native_objects": {
+      "chart": 0,
+      "formula_block": 0,
+      "formula_inline": 0,
+      "other": 0,
+      "table": 0
+    },
+    "image_page_max_frame_share_range": []
+  },
+  "project_issues": {
+    "template": [],
+    "animation": [],
+    "illustration": [],
+    "communication_trace": [],
+    "pptx_structure": []
+  },
+  "files": [
+    {
+      "file": "01_cover.svg",
+      "path": "svg_output/01_cover.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 8,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 4,
+              "circle": 2,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 6
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 8,
+        "tspan_elements": 4
+      },
+      "passed": true,
+      "source_sha256": "3ee05b44034045a2d99dc798f881bdd97643f77e47c8e4d8ae2a4a71f69970a4"
+    },
+    {
+      "file": "02_system_overview.svg",
+      "path": "svg_output/02_system_overview.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 24,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 16,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 9,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 1,
+              "mid": 0,
+              "end": 7
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 24,
+        "tspan_elements": 45
+      },
+      "passed": true,
+      "source_sha256": "af313215f3dc5e98b4cf63266ff67eb53a93bdaf673226a9952028ddc492fe63"
+    },
+    {
+      "file": "03_data_model.svg",
+      "path": "svg_output/03_data_model.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 34,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 21,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 7,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 6
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 34,
+        "tspan_elements": 10
+      },
+      "passed": true,
+      "source_sha256": "e9facc4b6c6a2b53c8a101d0d93612d3c163c6d841250dbcacd6ae8f412bb32a"
+    },
+    {
+      "file": "04_pipeline.svg",
+      "path": "svg_output/04_pipeline.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 25,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 10,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 6,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 6,
+            "preset_names": {
+              "chevron": 5,
+              "homePlate": 1
+            },
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 5
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 25,
+        "tspan_elements": 38
+      },
+      "passed": true,
+      "source_sha256": "13ec4490c6b6ebc22b64359fe7f68b44a2ca6e2cdbfb01c51df5bd539560e2e0"
+    },
+    {
+      "file": "05_hook_engine.svg",
+      "path": "svg_output/05_hook_engine.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 30,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 19,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 4,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 2
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 30,
+        "tspan_elements": 14
+      },
+      "passed": true,
+      "source_sha256": "e00908507bab4c4aaaed966d73ed93a8ec233686fa9f1582692e7ab464efb283"
+    },
+    {
+      "file": "06_writers_and_judge.svg",
+      "path": "svg_output/06_writers_and_judge.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 31,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 26,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 5,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 3
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 31,
+        "tspan_elements": 26
+      },
+      "passed": true,
+      "source_sha256": "3acb5c8ed592d8b2aa74acce7b336408ce75e783e3abb33dfe04a8e0fa2709d6"
+    },
+    {
+      "file": "07_conversation_agent.svg",
+      "path": "svg_output/07_conversation_agent.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 29,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 19,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 5,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 4
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 29,
+        "tspan_elements": 2
+      },
+      "passed": true,
+      "source_sha256": "ba19683f1617af25acf9eba888768139b973466feff6e7afd43624a503296f98"
+    },
+    {
+      "file": "08_learning_loop.svg",
+      "path": "svg_output/08_learning_loop.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 25,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 16,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 9,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 8
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 25,
+        "tspan_elements": 18
+      },
+      "passed": true,
+      "source_sha256": "e88764d4c47964afc9cab5c38a27a7710cf18e8ce28002f1198ccdf3843557ea"
+    },
+    {
+      "file": "09_safety.svg",
+      "path": "svg_output/09_safety.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 16,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 11,
+              "circle": 4,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 16,
+        "tspan_elements": 12
+      },
+      "passed": true,
+      "source_sha256": "f659d52670d731d35afdfa303932f69a5e7560930fcad69ae7104f976cef5ecd"
+    },
+    {
+      "file": "10_infrastructure.svg",
+      "path": "svg_output/10_infrastructure.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 44,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 25,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 1,
+              "mid": 0,
+              "end": 1
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 44,
+        "tspan_elements": 3
+      },
+      "passed": true,
+      "source_sha256": "cafa3ce2725028f6effcc22c4974f3fa3b92497346dc9f95c61c72e94dd7bda0"
+    },
+    {
+      "file": "11_quality_evidence.svg",
+      "path": "svg_output/11_quality_evidence.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 31,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 23,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 1,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 31,
+        "tspan_elements": 7
+      },
+      "passed": true,
+      "source_sha256": "0ad6dd5efd8d8807db99d3f964c55f102177e67d228339c7afd76f0fb682e1cd"
+    },
+    {
+      "file": "12_cost_metering.svg",
+      "path": "svg_output/12_cost_metering.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 25,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 20,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 4,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 3
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 25,
+        "tspan_elements": 20
+      },
+      "passed": true,
+      "source_sha256": "8d6164c2c4e2770689b456a62b14aa43fff825772e017b8451e8c9ade20bd38d"
+    },
+    {
+      "file": "13_status_and_gaps.svg",
+      "path": "svg_output/13_status_and_gaps.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 22,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 7,
+              "circle": 9,
+              "ellipse": 0,
+              "line": 1,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 22,
+        "tspan_elements": 7
+      },
+      "passed": true,
+      "source_sha256": "fd7982e65ca223754417070bcb612659c19c4b6cb80f15c71f8317a557e567b3"
+    },
+    {
+      "file": "14_roadmap.svg",
+      "path": "svg_output/14_roadmap.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 24,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 14,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 3,
+            "preset_names": {
+              "chevron": 2,
+              "homePlate": 1
+            },
+            "page_frame_elements": 2,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Arial",
+          "Times New Roman"
+        ],
+        "text_elements": 24,
+        "tspan_elements": 10
+      },
+      "passed": true,
+      "source_sha256": "691f308d8c3f6e47959df5abbbc90fecc46d26538375aea0c50407b8a0c08a82"
+    }
+  ]
+}

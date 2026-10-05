@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" font-family="Times New Roman" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 44 1090 112" font-family="Arial" font-weight="bold">
+    <text x="64" y="60" font-size="13" fill="#4A5F80">SAFETY</text>
+    <text x="64" y="102" font-size="34" fill="#0E1F3A">Four layers stand between model output and a<tspan x="64" dy="40">LinkedIn inbox, and the last one is a person</tspan></text>
+  </g>
+  <g id="page-stamp" data-pptx-bounds="1166 24 64 76">
+    <rect x="1172" y="30" width="52" height="64" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.28" stroke-width="1"/>
+    <rect x="1178" y="36" width="40" height="52" fill="#B3301B"/>
+    <text x="1198" y="70" font-family="Arial" font-weight="bold" font-size="22" fill="#FAFCFE" text-anchor="middle">9</text>
+  </g>
+  <line id="perf" data-pptx-role="decoration" x1="64" y1="166" x2="1216" y2="166" stroke="#97B9DD" stroke-width="3" stroke-dasharray="2,7"/>
+
+  <g id="spine" data-pptx-bounds="70 186 52 452">
+    <line x1="96" y1="238" x2="96" y2="586" stroke="#0E1F3A" stroke-width="3"/>
+    <g font-family="Arial" font-weight="bold" font-size="20" fill="#FAFCFE" text-anchor="middle">
+      <circle cx="96" cy="238" r="20" fill="#0E1F3A"/>
+      <text x="96" y="245">1</text>
+      <circle cx="96" cy="354" r="20" fill="#0E1F3A"/>
+      <text x="96" y="361">2</text>
+      <circle cx="96" cy="470" r="20" fill="#0E1F3A"/>
+      <text x="96" y="477">3</text>
+      <circle cx="96" cy="586" r="20" fill="#0E1F3A"/>
+      <text x="96" y="593">4</text>
+    </g>
+  </g>
+
+  <g id="layer-1" data-pptx-bounds="130 186 1086 104">
+    <rect x="130" y="186" width="320" height="104" fill="#C4D9EF"/>
+    <rect x="450" y="186" width="766" height="104" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="150" y="226" font-family="Arial" font-weight="bold" font-size="19" fill="#0E1F3A">Untrusted text<tspan x="150" dy="26">is fenced</tspan></text>
+    <text x="470" y="220" font-size="17" fill="#2B4266">Search results, profile text and replies are labelled untrusted data in the prompts. The model<tspan x="470" dy="22">extracts facts from them and never follows instructions inside them, such as ignore your rules</tspan><tspan x="470" dy="22">or send this link.</tspan></text>
+  </g>
+  <g id="layer-2" data-pptx-bounds="130 302 1086 104">
+    <rect x="130" y="302" width="320" height="104" fill="#C4D9EF"/>
+    <rect x="450" y="302" width="766" height="104" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="150" y="342" font-family="Arial" font-weight="bold" font-size="19" fill="#0E1F3A">Rules check<tspan x="150" dy="26">every opener</tspan></text>
+    <text x="470" y="336" font-size="17" fill="#2B4266">Length, banned phrases, any hint of an ask, exclamation marks, dashes and the greeting are<tspan x="470" dy="22">checked in code. A draft that fails is rewritten with the reasons, up to three times.</tspan></text>
+  </g>
+  <g id="layer-3" data-pptx-bounds="130 418 1086 104">
+    <rect x="130" y="418" width="320" height="104" fill="#C4D9EF"/>
+    <rect x="450" y="418" width="766" height="104" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="150" y="458" font-family="Arial" font-weight="bold" font-size="19" fill="#0E1F3A">The auto-send<tspan x="150" dy="26">filter holds risk</tspan></text>
+    <text x="470" y="452" font-size="17" fill="#2B4266">Messages send without approval only when the candidate turned auto-send on, the reply<tspan x="470" dy="22">was warm, neutral or redirecting, and the text is within 600 characters with no link, email</tspan><tspan x="470" dy="22">address, phone number, OTP, password or bank term.</tspan></text>
+  </g>
+  <g id="layer-4" data-pptx-bounds="130 534 1086 104">
+    <rect x="130" y="534" width="320" height="104" fill="#0E1F3A"/>
+    <rect x="450" y="534" width="766" height="104" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2"/>
+    <text x="150" y="574" font-family="Arial" font-weight="bold" font-size="19" fill="#FAFCFE">A person approves,<tspan x="150" dy="26">volume is capped</tspan></text>
+    <text x="470" y="568" font-size="17" fill="#2B4266">Every opener is approved by a person before it can leave. Export to La Growth Machine is<tspan x="470" dy="22">capped per batch to the weekly invite budget, and the engine never logs into or scrapes</tspan><tspan x="470" dy="22">LinkedIn.</tspan></text>
+  </g>
+  <g id="source" data-pptx-bounds="64 688 900 22" font-family="Arial" font-size="13" fill="#4A5F80">
+    <text x="64" y="702">Source: engine/outreach/bridge.py (UNSAFE_FOR_AUTO_SEND), messages.py, prompts.py, cli.py (export-lgm), docs/LAUNCH_PLAN.md</text>
+  </g>
+</svg>

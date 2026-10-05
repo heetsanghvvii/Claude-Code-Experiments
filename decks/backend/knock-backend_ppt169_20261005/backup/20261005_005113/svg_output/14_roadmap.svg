@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" font-family="Times New Roman" data-pptx-page-role="ending">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 44 1090 112" font-family="Arial" font-weight="bold">
+    <text x="64" y="60" font-size="13" fill="#4A5F80">ROADMAP</text>
+    <text x="64" y="102" font-size="34" fill="#0E1F3A">Next: close the loop on a real candidate, then widen<tspan x="64" dy="40">the sender and the client view</tspan></text>
+  </g>
+  <g id="page-stamp" data-pptx-bounds="1166 24 64 76">
+    <rect x="1172" y="30" width="52" height="64" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.28" stroke-width="1"/>
+    <rect x="1178" y="36" width="40" height="52" fill="#B3301B"/>
+    <text x="1198" y="70" font-family="Arial" font-weight="bold" font-size="22" fill="#FAFCFE" text-anchor="middle">14</text>
+  </g>
+  <line id="perf" data-pptx-role="decoration" x1="64" y1="166" x2="1216" y2="166" stroke="#97B9DD" stroke-width="3" stroke-dasharray="2,7"/>
+
+  <g id="phase-strip" data-pptx-bounds="64 186 1128 64">
+    <g id="p14-now" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="homePlate" data-pptx-frame="64 186 392 64" fill="#0E1F3A" stroke="none">
+      <path d="M 64 186 L 424 186 L 456 218 L 424 250 L 64 250 Z"/>
+    </g>
+    <g id="p14-next" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="432 186 392 64" fill="#A9C7E6" stroke="none">
+      <path d="M 432 186 L 792 186 L 824 218 L 792 250 L 432 250 L 464 218 Z"/>
+    </g>
+    <g id="p14-later" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="800 186 392 64" fill="#C4D9EF" stroke="none">
+      <path d="M 800 186 L 1160 186 L 1192 218 L 1160 250 L 800 250 L 832 218 Z"/>
+    </g>
+    <g font-family="Arial" font-weight="bold" font-size="24">
+      <text x="88" y="226" fill="#FAFCFE">Now</text>
+      <text x="488" y="226" fill="#0E1F3A">Next</text>
+      <text x="856" y="226" fill="#0E1F3A">Later</text>
+    </g>
+  </g>
+
+  <g id="col-now" data-pptx-bounds="64 272 380 160" font-size="17" fill="#2B4266">
+    <rect x="70" y="282" width="8" height="8" fill="#0E1F3A"/>
+    <text x="88" y="290">Set ANTHROPIC_API_KEY in<tspan x="88" dy="22">Vercel.</tspan></text>
+    <rect x="70" y="338" width="8" height="8" fill="#0E1F3A"/>
+    <text x="88" y="346">Schedule the LGM bridge task.</text>
+    <rect x="70" y="372" width="8" height="8" fill="#0E1F3A"/>
+    <text x="88" y="380">Run one real candidate end to end,<tspan x="88" dy="22">reviewing every hook and message.</tspan></text>
+  </g>
+  <g id="col-next" data-pptx-bounds="470 272 360 200" font-size="17" fill="#2B4266">
+    <rect x="470" y="282" width="8" height="8" fill="#0E1F3A"/>
+    <text x="488" y="290">Tune the prompts from the edits that run<tspan x="488" dy="22">produces.</tspan></text>
+    <rect x="470" y="338" width="8" height="8" fill="#0E1F3A"/>
+    <text x="488" y="346">Let the first learning cycle run once five<tspan x="488" dy="22">signals exist.</tspan></text>
+    <rect x="470" y="394" width="8" height="8" fill="#0E1F3A"/>
+    <text x="488" y="402">Set safe sending limits per account.</text>
+    <rect x="470" y="428" width="8" height="8" fill="#0E1F3A"/>
+    <text x="488" y="436">Read funnel views by bucket, hook type<tspan x="488" dy="22">and company.</tspan></text>
+  </g>
+  <g id="col-later" data-pptx-bounds="838 272 360 200" font-size="17" fill="#2B4266">
+    <rect x="838" y="282" width="8" height="8" fill="#0E1F3A"/>
+    <text x="856" y="290">Swap Chrome for the LGM API.<tspan x="856" dy="22">lgm.py is ready; it needs the Pro plan.</tspan></text>
+    <rect x="838" y="338" width="8" height="8" fill="#0E1F3A"/>
+    <text x="856" y="346">Receive accepted and replied events<tspan x="856" dy="22">through a webhook.</tspan></text>
+    <rect x="838" y="394" width="8" height="8" fill="#0E1F3A"/>
+    <text x="856" y="402">Open a client site with magic-link login,<tspan x="856" dy="22">on the row-level security already written.</tspan></text>
+  </g>
+
+  <g id="principles" data-pptx-bounds="64 500 1152 164">
+    <rect x="64" y="500" width="1152" height="164" fill="#0E1F3A"/>
+    <text x="88" y="534" font-family="Arial" font-weight="bold" font-size="14" fill="#A9C7E6">THREE DESIGN PRINCIPLES TO HOLD ON TO</text>
+    <g font-family="Arial" font-weight="bold" font-size="28" fill="#FAFCFE">
+      <text x="88" y="586">Cited</text>
+      <text x="488" y="586">Approved</text>
+      <text x="856" y="586">Learning</text>
+    </g>
+    <g font-size="18" fill="#C4D9EF">
+      <text x="88" y="620">No citation, no hook.</text>
+      <text x="488" y="620">A person says yes before<tspan x="488" dy="24">anything sends.</tspan></text>
+      <text x="856" y="620">Edits and outcomes rewrite the rules.</text>
+    </g>
+    <line x1="456" y1="556" x2="456" y2="644" stroke="#A9C7E6" stroke-opacity="0.5" stroke-width="1"/>
+    <line x1="824" y1="556" x2="824" y2="644" stroke="#A9C7E6" stroke-opacity="0.5" stroke-width="1"/>
+  </g>
+  <g id="source" data-pptx-bounds="64 688 900 22" font-family="Arial" font-weight="bold" font-size="13" fill="#4A5F80">
+    <text x="64" y="702" font-weight="normal">Source: docs/LAUNCH_PLAN.md, docs/AUTOMATION.md, engine/outreach/lgm.py, supabase/migrations/0001</text>
+  </g>
+</svg>

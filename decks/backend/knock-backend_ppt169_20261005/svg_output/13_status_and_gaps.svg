@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" font-family="Times New Roman" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 44 1090 112" font-family="Arial" font-weight="bold">
+    <text x="64" y="60" font-size="13" fill="#4A5F80">CURRENT STATUS AND GAPS</text>
+    <text x="64" y="102" font-size="34" fill="#0E1F3A">The engine and desk are built and tested; three open<tspan x="64" dy="40">steps stand between today and a live end-to-end run</tspan></text>
+  </g>
+  <g id="page-stamp" data-pptx-bounds="1166 24 64 76">
+    <rect x="1172" y="30" width="52" height="64" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.28" stroke-width="1"/>
+    <rect x="1178" y="36" width="40" height="52" fill="#B3301B"/>
+    <text x="1198" y="70" font-family="Arial" font-weight="bold" font-size="22" fill="#FAFCFE" text-anchor="middle">13</text>
+  </g>
+  <line id="perf" data-pptx-role="decoration" x1="64" y1="166" x2="1216" y2="166" stroke="#97B9DD" stroke-width="3" stroke-dasharray="2,7"/>
+
+  <g id="built-heading" data-pptx-bounds="64 180 560 26" font-family="Arial" font-weight="bold" fill="#0E1F3A">
+    <text x="64" y="198" font-size="17">Built and tested</text>
+  </g>
+  <g id="built-list" data-pptx-bounds="64 214 560 396" font-size="17" fill="#2B4266">
+    <circle cx="80" cy="232" r="9" fill="#0E1F3A"/>
+    <text x="104" y="238">Engine: discovery, hooks, writers, judge, reply agent and<tspan x="104" dy="22">learning.</tspan></text>
+    <circle cx="80" cy="298" r="9" fill="#0E1F3A"/>
+    <text x="104" y="304">36 engine tests and 7 API tests pass.</text>
+    <circle cx="80" cy="364" r="9" fill="#0E1F3A"/>
+    <text x="104" y="370">Supabase schema applied, with row-level security and the<tspan x="104" dy="22">token gate.</tspan></text>
+    <circle cx="80" cy="430" r="9" fill="#0E1F3A"/>
+    <text x="104" y="436">FastAPI and the Knock Desk are set up on Vercel.</text>
+    <circle cx="80" cy="496" r="9" fill="#0E1F3A"/>
+    <text x="104" y="502">Website sign-ups land in intake_requests and import as<tspan x="104" dy="22">candidates.</tspan></text>
+    <circle cx="80" cy="562" r="9" fill="#0E1F3A"/>
+    <text x="104" y="568">Cost metering and the cost command are in place.</text>
+  </g>
+
+  <g id="open-heading" data-pptx-bounds="660 180 556 26" font-family="Arial" font-weight="bold" fill="#0E1F3A">
+    <text x="660" y="198" font-size="17">Open before go-live (dashed means not yet done)</text>
+  </g>
+  <g id="open-1" data-pptx-bounds="660 214 556 122">
+    <rect x="660" y="214" width="556" height="122" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2" stroke-dasharray="8,5"/>
+    <circle cx="692" cy="246" r="16" fill="none" stroke="#0E1F3A" stroke-width="2"/>
+    <text x="692" y="252" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A" text-anchor="middle">1</text>
+    <text x="724" y="252" font-family="Arial" font-weight="bold" font-size="18" fill="#0E1F3A">Add ANTHROPIC_API_KEY in Vercel</text>
+    <text x="724" y="282" font-size="16" fill="#2B4266">Until it is set, sync and the daily cron answer with an error, and<tspan x="724" dy="21">no replies are drafted.</tspan></text>
+  </g>
+  <g id="open-2" data-pptx-bounds="660 350 556 122">
+    <rect x="660" y="350" width="556" height="122" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2" stroke-dasharray="8,5"/>
+    <circle cx="692" cy="382" r="16" fill="none" stroke="#0E1F3A" stroke-width="2"/>
+    <text x="692" y="388" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A" text-anchor="middle">2</text>
+    <text x="724" y="388" font-family="Arial" font-weight="bold" font-size="18" fill="#0E1F3A">Run one real candidate end to end</text>
+    <text x="724" y="418" font-size="16" fill="#2B4266">Every hook and message is reviewed by hand and every edit is<tspan x="724" dy="21">logged. The first real learning signal.</tspan></text>
+  </g>
+  <g id="open-3" data-pptx-bounds="660 486 556 122">
+    <rect x="660" y="486" width="556" height="122" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2" stroke-dasharray="8,5"/>
+    <circle cx="692" cy="518" r="16" fill="none" stroke="#0E1F3A" stroke-width="2"/>
+    <text x="692" y="524" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A" text-anchor="middle">3</text>
+    <text x="724" y="524" font-family="Arial" font-weight="bold" font-size="18" fill="#0E1F3A">Schedule the LGM bridge task</text>
+    <text x="724" y="554" font-size="16" fill="#2B4266">The Claude in Chrome task that sends due outbox rows and<tspan x="724" dy="21">copies replies back is written, not yet scheduled.</tspan></text>
+  </g>
+
+  <g id="status-takeaway" data-pptx-bounds="64 628 1152 46">
+    <rect x="64" y="628" width="1152" height="46" fill="#C4D9EF"/>
+    <text x="84" y="658" font-size="20" fill="#0E1F3A">The open steps are a setting, a run and a schedule.</text>
+  </g>
+  <g id="source" data-pptx-bounds="64 688 900 22" font-family="Arial" font-size="13" fill="#4A5F80">
+    <text x="64" y="702">Source: deploy/api/index.py (/api/health, sync guard), docs/AUTOMATION.md, docs/LAUNCH_PLAN.md</text>
+  </g>
+</svg>

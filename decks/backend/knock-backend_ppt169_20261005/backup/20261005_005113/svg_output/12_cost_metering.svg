@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" font-family="Times New Roman" data-pptx-page-role="content">
+  <defs>
+    <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="#0E1F3A"/></marker>
+  </defs>
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 44 1090 112" font-family="Arial" font-weight="bold">
+    <text x="64" y="60" font-size="13" fill="#4A5F80">COST TRANSPARENCY</text>
+    <text x="64" y="102" font-size="34" fill="#0E1F3A">Every model call is metered, so spend is measured per<tspan x="64" dy="40">command, candidate and prospect, never guessed</tspan></text>
+  </g>
+  <g id="page-stamp" data-pptx-bounds="1166 24 64 76">
+    <rect x="1172" y="30" width="52" height="64" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.28" stroke-width="1"/>
+    <rect x="1178" y="36" width="40" height="52" fill="#B3301B"/>
+    <text x="1198" y="70" font-family="Arial" font-weight="bold" font-size="22" fill="#FAFCFE" text-anchor="middle">12</text>
+  </g>
+  <line id="perf" data-pptx-role="decoration" x1="64" y1="166" x2="1216" y2="166" stroke="#97B9DD" stroke-width="3" stroke-dasharray="2,7"/>
+
+  <g id="meter-1" data-pptx-bounds="64 186 294 140">
+    <rect x="64" y="186" width="270" height="140" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="64" y="186" width="270" height="40" fill="#C4D9EF"/>
+    <text x="80" y="212" font-family="Arial" font-weight="bold" font-size="17" fill="#0E1F3A">1  Every call is counted</text>
+    <text x="80" y="250" font-size="16" fill="#2B4266">After each response,<tspan x="80" dy="21">record_usage() adds input, output</tspan><tspan x="80" dy="21">and cached tokens, plus any web</tspan><tspan x="80" dy="21">searches.</tspan></text>
+    <line x1="336" y1="256" x2="356" y2="256" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+  <g id="meter-2" data-pptx-bounds="358 186 294 140">
+    <rect x="358" y="186" width="270" height="140" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="358" y="186" width="270" height="40" fill="#C4D9EF"/>
+    <text x="374" y="212" font-family="Arial" font-weight="bold" font-size="17" fill="#0E1F3A">2  Each command logs a row</text>
+    <text x="374" y="250" font-size="16" fill="#2B4266">The command name, candidate,<tspan x="374" dy="21">token counts and cost are</tspan><tspan x="374" dy="21">appended to the shared usage</tspan><tspan x="374" dy="21">document.</tspan></text>
+    <line x1="630" y1="256" x2="650" y2="256" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+  <g id="meter-3" data-pptx-bounds="652 186 294 140">
+    <rect x="652" y="186" width="270" height="140" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="652" y="186" width="270" height="40" fill="#C4D9EF"/>
+    <text x="668" y="212" font-family="Arial" font-weight="bold" font-size="17" fill="#0E1F3A">3  The cost command</text>
+    <text x="668" y="250" font-size="16" fill="#2B4266">Reports totals overall or per<tspan x="668" dy="21">candidate, and per targeted</tspan><tspan x="668" dy="21">prospect.</tspan></text>
+    <line x1="924" y1="256" x2="944" y2="256" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+  <g id="meter-4" data-pptx-bounds="946 186 270 140">
+    <rect x="946" y="186" width="270" height="140" fill="#0E1F3A"/>
+    <rect x="946" y="186" width="270" height="40" fill="#2B4266"/>
+    <text x="962" y="212" font-family="Arial" font-weight="bold" font-size="17" fill="#FAFCFE">4  Knock Desk, Spend tab</text>
+    <text x="962" y="250" font-size="16" fill="#FAFCFE">Shows the same usage rows, read<tspan x="962" dy="21">through the API.</tspan></text>
+  </g>
+
+  <g id="effort-heading" data-pptx-bounds="64 338 700 26" font-family="Arial" font-weight="bold" fill="#0E1F3A">
+    <text x="64" y="356" font-size="17">Effort is matched to the task</text>
+  </g>
+  <g id="effort-low" data-pptx-bounds="64 368 366 130">
+    <rect x="64" y="368" width="366" height="130" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="64" y="368" width="366" height="34" fill="#C4D9EF"/>
+    <text x="80" y="391" font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A">LOW EFFORT</text>
+    <text x="80" y="436" font-size="17" fill="#2B4266">Classifying a person into a bucket,<tspan x="80" dy="22">extracting facts from web results, running</tspan><tspan x="80" dy="22">a search.</tspan></text>
+  </g>
+  <g id="effort-medium" data-pptx-bounds="457 368 366 130">
+    <rect x="457" y="368" width="366" height="130" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="457" y="368" width="366" height="34" fill="#97B9DD"/>
+    <text x="473" y="391" font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A">MEDIUM EFFORT, THE DEFAULT</text>
+    <text x="473" y="436" font-size="17" fill="#2B4266">Reading a profile, the three writers,<tspan x="473" dy="22">follow-ups. The default for a structured</tspan><tspan x="473" dy="22">call.</tspan></text>
+  </g>
+  <g id="effort-high" data-pptx-bounds="850 368 366 130">
+    <rect x="850" y="368" width="366" height="130" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="850" y="368" width="366" height="34" fill="#0E1F3A"/>
+    <text x="866" y="391" font-family="Arial" font-weight="bold" font-size="15" fill="#FAFCFE">HIGH EFFORT</text>
+    <text x="866" y="436" font-size="17" fill="#2B4266">Finding hooks, the judge, reply analysis<tspan x="866" dy="22">and the learning steps.</tspan></text>
+  </g>
+
+  <g id="note-prices" data-pptx-bounds="64 540 366 124">
+    <rect x="64" y="540" width="366" height="124" fill="#C4D9EF"/>
+    <text x="80" y="568" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">One price table</text>
+    <text x="80" y="592" font-size="16" fill="#0E1F3A">Prices for the model in use sit in one<tspan x="80" dy="21">constant, and cost is computed from the</tspan><tspan x="80" dy="21">counts.</tspan></text>
+  </g>
+  <g id="note-fallback" data-pptx-bounds="457 540 366 124">
+    <rect x="457" y="540" width="366" height="124" fill="#C4D9EF"/>
+    <text x="473" y="568" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">Fallback built in</text>
+    <text x="473" y="592" font-size="16" fill="#0E1F3A">If the primary model declines, a server-side<tspan x="473" dy="21">fallback answers. A refusal is raised, not</tspan><tspan x="473" dy="21">hidden.</tspan></text>
+  </g>
+  <g id="note-isolated" data-pptx-bounds="850 540 366 124">
+    <rect x="850" y="540" width="366" height="124" fill="#C4D9EF"/>
+    <text x="866" y="568" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">Failures are isolated</text>
+    <text x="866" y="592" font-size="16" fill="#0E1F3A">If one prospect fails it stays enriched and the<tspan x="866" dy="21">batch continues. Rerun generate to retry.</tspan></text>
+  </g>
+  <g id="source" data-pptx-bounds="64 688 900 22" font-family="Arial" font-size="13" fill="#4A5F80">
+    <text x="64" y="702">Source: engine/outreach/llm.py (record_usage, effort levels), cli.py (cost), deploy/api/index.py</text>
+  </g>
+</svg>

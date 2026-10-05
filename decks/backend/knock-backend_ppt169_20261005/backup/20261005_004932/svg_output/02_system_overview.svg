@@ -54,10 +54,10 @@
   <g id="send-routes" data-pptx-bounds="769 436 431 232">
     <rect x="769" y="436" width="431" height="232" fill="#C4D9EF"/>
     <text x="781" y="462" font-family="Arial" font-weight="bold" font-size="17" fill="#0E1F3A">Two ways to send</text>
-    <rect x="781" y="476" width="192" height="188" fill="#FAFCFE"/>
+    <rect x="781" y="476" width="192" height="180" fill="#FAFCFE"/>
     <text x="793" y="500" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">Self-send tier</text>
     <text x="793" y="526" font-size="16" fill="#2B4266">Candidate gets the<tspan x="793" dy="21">approved message and</tspan><tspan x="793" dy="21">sends it from their own</tspan><tspan x="793" dy="21">LinkedIn. No sender</tspan><tspan x="793" dy="21">account on our side.</tspan></text>
-    <rect x="987" y="476" width="201" height="188" fill="#FAFCFE"/>
+    <rect x="987" y="476" width="201" height="180" fill="#FAFCFE"/>
     <text x="999" y="500" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">Done-for-you tier</text>
     <text x="999" y="526" font-size="16" fill="#2B4266">Approved message<tspan x="999" dy="21">waits in outbox. A</tspan><tspan x="999" dy="21">scheduled Claude in</tspan><tspan x="999" dy="21">Chrome task sends it</tspan><tspan x="999" dy="21">from La Growth</tspan><tspan x="999" dy="21">Machine and copies</tspan><tspan x="999" dy="21">replies back.</tspan></text>
   </g>
@@ -71,8 +71,8 @@
   <g id="notes-left" data-pptx-bounds="64 440 230 245" fill="#2B4266">
     <text x="64" y="458" font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A">Hosting</text>
     <text x="64" y="484" font-size="16">Vercel in Mumbai (bom1):<tspan x="64" dy="21">FastAPI at /api, Knock</tspan><tspan x="64" dy="21">Desk at /crm, and a daily</tspan><tspan x="64" dy="21">sync cron.</tspan></text>
-    <text x="64" y="584" font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A">Approval gate</text>
-    <text x="64" y="610" font-size="16">Nothing reaches<tspan x="64" dy="21">LinkedIn without a</tspan><tspan x="64" dy="21">person approving the</tspan><tspan x="64" dy="21">draft.</tspan></text>
+    <text x="64" y="590" font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A">Approval gate</text>
+    <text x="64" y="616" font-size="16">Nothing reaches<tspan x="64" dy="21">LinkedIn without a</tspan><tspan x="64" dy="21">person approving the</tspan><tspan x="64" dy="21">draft.</tspan></text>
   </g>
   <g id="source" data-pptx-bounds="64 688 1000 22" font-family="Arial" font-size="13" fill="#4A5F80">
     <text x="64" y="702">Source: deploy/api/index.py, deploy/vercel.json, engine/outreach/bridge.py, docs/AUTOMATION.md</text>

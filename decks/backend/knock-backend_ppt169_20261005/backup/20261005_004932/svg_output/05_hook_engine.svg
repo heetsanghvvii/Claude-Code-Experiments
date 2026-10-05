@@ -35,7 +35,7 @@
     <rect x="64" y="412" width="500" height="240" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2" />
     <rect x="64" y="412" width="500" height="38" fill="#0E1F3A" />
     <text x="80" y="437" font-family="Arial" font-weight="bold" font-size="16" fill="#FAFCFE">HOOK  ·  similar_transition</text>
-    <text x="80" y="488" font-size="18" fill="#2B4266">One line on why these two people<tspan x="80" dy="24">have a real reason to talk.</tspan></text>
+    <text x="80" y="488" font-size="18" fill="#2B4266">One line on why these two people have a real reason to<tspan x="80" dy="24">talk.</tspan></text>
     <text x="80" y="548" font-family="Arial" font-size="15" fill="#0E1F3A">candidate_fact_id   c:3<tspan x="80" dy="22">prospect_fact_id    p:rahul:1</tspan></text>
     <line x1="80" y1="590" x2="548" y2="590" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1" />
     <text x="80" y="628" font-family="Arial" font-weight="bold" font-size="26" fill="#0E1F3A">No citation, no hook.</text>

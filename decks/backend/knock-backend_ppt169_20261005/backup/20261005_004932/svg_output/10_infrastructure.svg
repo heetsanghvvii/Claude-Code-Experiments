@@ -14,8 +14,8 @@
   </g>
   <line id="perf" data-pptx-role="decoration" x1="64" y1="166" x2="1216" y2="166" stroke="#97B9DD" stroke-width="3" stroke-dasharray="2,7"/>
 
-  <g id="vercel-box" data-pptx-bounds="64 186 560 308">
-    <rect x="64" y="186" width="560" height="308" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2"/>
+  <g id="vercel-box" data-pptx-bounds="64 186 560 300">
+    <rect x="64" y="186" width="560" height="300" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2"/>
     <rect x="64" y="186" width="560" height="44" fill="#0E1F3A"/>
     <text x="80" y="215" font-family="Arial" font-weight="bold" font-size="18" fill="#FAFCFE">Vercel, Mumbai (bom1)</text>
     <g fill="#C4D9EF">
@@ -36,7 +36,7 @@
       <text x="94" y="395">Daily at 09:00 IST, behind a bearer secret</text>
       <text x="94" y="451">Knock Desk, a single page with seven tabs</text>
     </g>
-    <text x="80" y="480" font-size="15" font-style="italic" fill="#4A5F80">One function, 60 second limit, engine copied in at build.</text>
+    <text x="80" y="478" font-size="15" font-style="italic" fill="#4A5F80">One function, 60 second limit, engine copied in at build.</text>
   </g>
 
   <g id="link-box" data-pptx-bounds="626 300 72 72" font-family="Arial" font-size="13" fill="#2B4266" text-anchor="middle">
@@ -45,8 +45,8 @@
     <text x="662" y="360">token</text>
   </g>
 
-  <g id="supabase-box" data-pptx-bounds="700 186 516 308">
-    <rect x="700" y="186" width="516" height="308" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2"/>
+  <g id="supabase-box" data-pptx-bounds="700 186 516 300">
+    <rect x="700" y="186" width="516" height="300" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2"/>
     <rect x="700" y="186" width="516" height="44" fill="#C4D9EF"/>
     <text x="716" y="215" font-family="Arial" font-weight="bold" font-size="18" fill="#0E1F3A">Supabase, Mumbai (ap-south-1)</text>
     <g font-size="16" fill="#2B4266">

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" font-family="Times New Roman" data-pptx-page-role="content">
+  <defs>
+    <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="#0E1F3A"/></marker>
+  </defs>
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 44 1090 112" font-family="Arial" font-weight="bold">
+    <text x="64" y="60" font-size="13" fill="#4A5F80">CONVERSATION AGENT</text>
+    <text x="64" y="102" font-size="34" fill="#0E1F3A">Replies are read as a whole thread, and an ask ladder<tspan x="64" dy="40">decides when it is right to ask for more</tspan></text>
+  </g>
+  <g id="page-stamp" data-pptx-bounds="1166 24 64 76">
+    <rect x="1172" y="30" width="52" height="64" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.28" stroke-width="1"/>
+    <rect x="1178" y="36" width="40" height="52" fill="#B3301B"/>
+    <text x="1198" y="70" font-family="Arial" font-weight="bold" font-size="22" fill="#FAFCFE" text-anchor="middle">7</text>
+  </g>
+  <line id="perf" data-pptx-role="decoration" x1="64" y1="166" x2="1216" y2="166" stroke="#97B9DD" stroke-width="3" stroke-dasharray="2,7"/>
+
+  <g id="flow-heading" data-pptx-bounds="64 182 470 26" font-family="Arial" font-weight="bold" fill="#0E1F3A">
+    <text x="64" y="199" font-size="17">From reply to draft</text>
+  </g>
+  <g id="flow-1" data-pptx-bounds="64 214 470 82">
+    <rect x="64" y="214" width="470" height="66" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="64" y="214" width="6" height="66" fill="#0E1F3A"/>
+    <text x="84" y="238" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">1  Reply copied in</text>
+    <text x="84" y="262" font-size="16" fill="#2B4266">Claude in Chrome adds it to inbound_replies.</text>
+    <line x1="299" y1="282" x2="299" y2="294" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+  <g id="flow-2" data-pptx-bounds="64 296 470 82">
+    <rect x="64" y="296" width="470" height="66" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="64" y="296" width="6" height="66" fill="#0E1F3A"/>
+    <text x="84" y="320" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">2  Matched to a prospect</text>
+    <text x="84" y="344" font-size="16" fill="#2B4266">By profile URL, else a unique name. Duplicates skipped.</text>
+    <line x1="299" y1="364" x2="299" y2="376" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+  <g id="flow-3" data-pptx-bounds="64 378 470 82">
+    <rect x="64" y="378" width="470" height="66" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="64" y="378" width="6" height="66" fill="#0E1F3A"/>
+    <text x="84" y="402" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">3  Read as a thread</text>
+    <text x="84" y="426" font-size="16" fill="#2B4266">Sentiment, rapport 1 to 5, redirect, and the right ask.</text>
+    <line x1="299" y1="446" x2="299" y2="458" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+  <g id="flow-4" data-pptx-bounds="64 460 470 82">
+    <rect x="64" y="460" width="470" height="66" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="64" y="460" width="6" height="66" fill="#0E1F3A"/>
+    <text x="84" y="484" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">4  Next message drafted</text>
+    <text x="84" y="508" font-size="16" fill="#2B4266">Under 400 characters, answers them first, one ask at most.</text>
+    <line x1="299" y1="528" x2="299" y2="540" stroke="#0E1F3A" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+  <g id="flow-5" data-pptx-bounds="64 542 470 66">
+    <rect x="64" y="542" width="470" height="66" fill="#0E1F3A"/>
+    <text x="84" y="566" font-family="Arial" font-weight="bold" font-size="16" fill="#FAFCFE">5  Auto-send gate</text>
+    <text x="84" y="590" font-size="16" fill="#C4D9EF">Passes the safety filter, or is held for a person.</text>
+  </g>
+
+  <g id="ladder-heading" data-pptx-bounds="620 182 596 26" font-family="Arial" font-weight="bold" fill="#0E1F3A">
+    <text x="620" y="199" font-size="17">The ask ladder, ordered by how much it asks (our reading)</text>
+  </g>
+  <g id="rung-none" data-pptx-bounds="620 214 596 58">
+    <rect x="620" y="214" width="596" height="58" fill="#C4D9EF"/>
+    <text x="634" y="238" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">none</text>
+    <text x="634" y="260" font-size="16" fill="#0E1F3A">Rapport below 3. Another real exchange first.</text>
+  </g>
+  <g id="rung-advice" data-pptx-bounds="656 280 560 58">
+    <rect x="656" y="280" width="560" height="58" fill="#A9C7E6"/>
+    <text x="670" y="304" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">advice</text>
+    <text x="670" y="326" font-size="16" fill="#0E1F3A">Ask how best to approach applying.</text>
+  </g>
+  <g id="rung-opening" data-pptx-bounds="692 346 524 58">
+    <rect x="692" y="346" width="524" height="58" fill="#97B9DD"/>
+    <text x="706" y="370" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">opening</text>
+    <text x="706" y="392" font-size="16" fill="#0E1F3A">Ask if a relevant role exists on their team.</text>
+  </g>
+  <g id="rung-hiring" data-pptx-bounds="728 412 488 58">
+    <rect x="728" y="412" width="488" height="58" fill="#4A5F80"/>
+    <text x="742" y="436" font-family="Arial" font-weight="bold" font-size="16" fill="#FAFCFE">hiring_manager</text>
+    <text x="742" y="458" font-size="16" fill="#FAFCFE">Ask who owns hiring for the role.</text>
+  </g>
+  <g id="rung-intro" data-pptx-bounds="764 478 452 58">
+    <rect x="764" y="478" width="452" height="58" fill="#2B4266"/>
+    <text x="778" y="502" font-family="Arial" font-weight="bold" font-size="16" fill="#FAFCFE">intro</text>
+    <text x="778" y="524" font-size="16" fill="#FAFCFE">Ask for an introduction to someone they named.</text>
+  </g>
+  <g id="rung-referral" data-pptx-bounds="800 544 416 58">
+    <rect x="800" y="544" width="416" height="58" fill="#0E1F3A"/>
+    <text x="814" y="568" font-family="Arial" font-weight="bold" font-size="16" fill="#FAFCFE">referral</text>
+    <text x="814" y="590" font-size="16" fill="#FAFCFE">Only at rapport 4+ with a specific role.</text>
+  </g>
+
+  <g id="followups" data-pptx-bounds="64 618 1138 58">
+    <rect x="64" y="618" width="1138" height="58" fill="#C4D9EF"/>
+    <text x="84" y="642" font-size="17" fill="#0E1F3A">Follow-ups: after six silent days, one short note built on a second verified fact, under 220 characters.<tspan x="84" dy="22">If both messages go unanswered, the thread closes as no_response. Reply text is untrusted data.</tspan></text>
+  </g>
+  <g id="source" data-pptx-bounds="64 688 760 22" font-family="Arial" font-size="13" fill="#4A5F80">
+    <text x="64" y="702">Source: engine/outreach/bridge.py, messages.py, cli.py (followups), prompts.py (ANALYZE_REPLY)</text>
+  </g>
+</svg>

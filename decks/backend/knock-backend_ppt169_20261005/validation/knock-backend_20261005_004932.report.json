@@ -1,0 +1,247 @@
+{
+  "schema": "ppt-master.pptx-postflight-report.v1",
+  "status": "passed",
+  "output": {
+    "path": "/home/user/Claude-Code-Experiments/decks/backend/knock-backend_ppt169_20261005/exports/knock-backend_20261005_004932.pptx",
+    "bytes": 70244
+  },
+  "source": {
+    "svg_slide_count": 14,
+    "layout_definition_count": 0,
+    "fingerprint": {
+      "algorithm": "sha256",
+      "digest": "f88caa63eb53d3ff783ed8664ecac88144f87d8f5242de5d68636803e4647ea6",
+      "file_count": 14,
+      "files": [
+        {
+          "file": "01_cover.svg",
+          "sha256": "1e75dd6ec8091425c03aa97227925a9f807dd958f4e259653c01cdb0cbe7a186"
+        },
+        {
+          "file": "02_system_overview.svg",
+          "sha256": "c7cc5b21e11773709667991e489b2b933d08f590a5bada4ff0506891fd5f5d04"
+        },
+        {
+          "file": "03_data_model.svg",
+          "sha256": "e9facc4b6c6a2b53c8a101d0d93612d3c163c6d841250dbcacd6ae8f412bb32a"
+        },
+        {
+          "file": "04_pipeline.svg",
+          "sha256": "13ec4490c6b6ebc22b64359fe7f68b44a2ca6e2cdbfb01c51df5bd539560e2e0"
+        },
+        {
+          "file": "05_hook_engine.svg",
+          "sha256": "f6ef10e4222446fc8c252fa812de9b6a3c080145d314e897da0cc15f01b6219d"
+        },
+        {
+          "file": "06_writers_and_judge.svg",
+          "sha256": "3acb5c8ed592d8b2aa74acce7b336408ce75e783e3abb33dfe04a8e0fa2709d6"
+        },
+        {
+          "file": "07_conversation_agent.svg",
+          "sha256": "ba19683f1617af25acf9eba888768139b973466feff6e7afd43624a503296f98"
+        },
+        {
+          "file": "08_learning_loop.svg",
+          "sha256": "e88764d4c47964afc9cab5c38a27a7710cf18e8ce28002f1198ccdf3843557ea"
+        },
+        {
+          "file": "09_safety.svg",
+          "sha256": "f659d52670d731d35afdfa303932f69a5e7560930fcad69ae7104f976cef5ecd"
+        },
+        {
+          "file": "10_infrastructure.svg",
+          "sha256": "ab7b50ae7bd50bc80a112ae9cda85d8badb4d08ae6597bdb2ee2336a01d26482"
+        },
+        {
+          "file": "11_quality_evidence.svg",
+          "sha256": "0ad6dd5efd8d8807db99d3f964c55f102177e67d228339c7afd76f0fb682e1cd"
+        },
+        {
+          "file": "12_cost_metering.svg",
+          "sha256": "8d6164c2c4e2770689b456a62b14aa43fff825772e017b8451e8c9ade20bd38d"
+        },
+        {
+          "file": "13_status_and_gaps.svg",
+          "sha256": "fd7982e65ca223754417070bcb612659c19c4b6cb80f15c71f8317a557e567b3"
+        },
+        {
+          "file": "14_roadmap.svg",
+          "sha256": "691f308d8c3f6e47959df5abbbc90fecc46d26538375aea0c50407b8a0c08a82"
+        }
+      ]
+    },
+    "authoring_roundtrip": null
+  },
+  "package": {
+    "zip_integrity": "passed",
+    "corrupt_member": null,
+    "slides": 14,
+    "notes": 0,
+    "masters": 1,
+    "layouts": 1
+  },
+  "checks": {
+    "zip_integrity": "passed",
+    "slide_count": "passed",
+    "internal_relationships": "enforced-at-build",
+    "structured_package": "not-applicable",
+    "transitions": "enforced-at-build",
+    "animations": "enforced-at-build",
+    "project_svg_contract": "enforced-at-build",
+    "compatibility_normalization": "not-applicable",
+    "authoring_roundtrip": "not-applicable",
+    "quality_gate": "passed",
+    "quality_warnings": "passed",
+    "template_tokens": "passed",
+    "external_images": "passed",
+    "font_portability": "passed"
+  },
+  "quality": {
+    "status": "loaded",
+    "path": "validation/svg_quality_report.json",
+    "schema": "ppt-master.svg-quality-report.v1",
+    "stage": "final",
+    "source_match": "passed",
+    "source_fingerprint": {
+      "algorithm": "sha256",
+      "digest": "f88caa63eb53d3ff783ed8664ecac88144f87d8f5242de5d68636803e4647ea6",
+      "file_count": 14,
+      "files": [
+        {
+          "file": "01_cover.svg",
+          "sha256": "1e75dd6ec8091425c03aa97227925a9f807dd958f4e259653c01cdb0cbe7a186"
+        },
+        {
+          "file": "02_system_overview.svg",
+          "sha256": "c7cc5b21e11773709667991e489b2b933d08f590a5bada4ff0506891fd5f5d04"
+        },
+        {
+          "file": "03_data_model.svg",
+          "sha256": "e9facc4b6c6a2b53c8a101d0d93612d3c163c6d841250dbcacd6ae8f412bb32a"
+        },
+        {
+          "file": "04_pipeline.svg",
+          "sha256": "13ec4490c6b6ebc22b64359fe7f68b44a2ca6e2cdbfb01c51df5bd539560e2e0"
+        },
+        {
+          "file": "05_hook_engine.svg",
+          "sha256": "f6ef10e4222446fc8c252fa812de9b6a3c080145d314e897da0cc15f01b6219d"
+        },
+        {
+          "file": "06_writers_and_judge.svg",
+          "sha256": "3acb5c8ed592d8b2aa74acce7b336408ce75e783e3abb33dfe04a8e0fa2709d6"
+        },
+        {
+          "file": "07_conversation_agent.svg",
+          "sha256": "ba19683f1617af25acf9eba888768139b973466feff6e7afd43624a503296f98"
+        },
+        {
+          "file": "08_learning_loop.svg",
+          "sha256": "e88764d4c47964afc9cab5c38a27a7710cf18e8ce28002f1198ccdf3843557ea"
+        },
+        {
+          "file": "09_safety.svg",
+          "sha256": "f659d52670d731d35afdfa303932f69a5e7560930fcad69ae7104f976cef5ecd"
+        },
+        {
+          "file": "10_infrastructure.svg",
+          "sha256": "ab7b50ae7bd50bc80a112ae9cda85d8badb4d08ae6597bdb2ee2336a01d26482"
+        },
+        {
+          "file": "11_quality_evidence.svg",
+          "sha256": "0ad6dd5efd8d8807db99d3f964c55f102177e67d228339c7afd76f0fb682e1cd"
+        },
+        {
+          "file": "12_cost_metering.svg",
+          "sha256": "8d6164c2c4e2770689b456a62b14aa43fff825772e017b8451e8c9ade20bd38d"
+        },
+        {
+          "file": "13_status_and_gaps.svg",
+          "sha256": "fd7982e65ca223754417070bcb612659c19c4b6cb80f15c71f8317a557e567b3"
+        },
+        {
+          "file": "14_roadmap.svg",
+          "sha256": "691f308d8c3f6e47959df5abbbc90fecc46d26538375aea0c50407b8a0c08a82"
+        }
+      ]
+    },
+    "summary": {
+      "total": 14,
+      "passed": 14,
+      "warnings": 0,
+      "errors": 0
+    },
+    "categories": {
+      "blocking": {
+        "count": 0,
+        "issues": []
+      },
+      "introduced": {
+        "count": 0,
+        "issues": []
+      },
+      "inherited": {
+        "count": 0,
+        "issues": []
+      },
+      "source-import": {
+        "count": 0,
+        "summary": {
+          "warning_count": 0,
+          "by_code": {}
+        }
+      }
+    }
+  },
+  "resources": {
+    "unresolved_template_tokens": [],
+    "fonts": {
+      "stacks": [
+        "Arial",
+        "Times New Roman"
+      ],
+      "generic_only_stacks": [],
+      "unsafe_exported_faces": []
+    },
+    "images": {
+      "data_uri": 0,
+      "local": 0,
+      "external": 0,
+      "external_references": []
+    }
+  },
+  "export_policy": {
+    "project_svg_contract": "strict",
+    "dangerous_normalization_count": 0
+  },
+  "deck_motion": {
+    "transition": {
+      "effect": "fade",
+      "effect_options": {},
+      "duration": 0.4,
+      "auto_advance": null,
+      "sound": null
+    },
+    "animation": {
+      "effect": "none",
+      "effect_request": null,
+      "duration": 0.4,
+      "stagger": 0.5,
+      "trigger": "after-previous"
+    },
+    "cli_overrides": {
+      "transition": false,
+      "transition_duration": false,
+      "auto_advance": false,
+      "transition_sound": false,
+      "animation": false,
+      "animation_duration": false,
+      "animation_stagger": false,
+      "animation_trigger": false
+    },
+    "narration_timings": false
+  },
+  "backup_path": "/home/user/Claude-Code-Experiments/decks/backend/knock-backend_ppt169_20261005/backup/20261005_004932/svg_output",
+  "conversion_trace_path": null
+}

@@ -25,8 +25,8 @@
     <text x="1052" y="452" font-family="Arial" font-weight="bold" font-size="42" fill="#FAFCFE" text-anchor="middle">KNOCK</text>
     <circle cx="905" cy="530" r="62" fill="none" stroke="#2B4266" stroke-width="3"/>
     <line x1="855" y1="530" x2="955" y2="530" stroke="#2B4266" stroke-width="2"/>
-    <text x="905" y="520" font-family="Arial" font-weight="bold" font-size="12" fill="#2B4266" text-anchor="middle">KNOCK ON</text>
-    <text x="905" y="552" font-family="Arial" font-weight="bold" font-size="12" fill="#2B4266" text-anchor="middle">THE RIGHT DOOR</text>
+    <text x="905" y="520" font-family="Arial" font-weight="bold" font-size="14" fill="#2B4266" text-anchor="middle">KNOCK ON</text>
+    <text x="905" y="552" font-family="Arial" font-weight="bold" font-size="14" fill="#2B4266" text-anchor="middle">THE RIGHT DOOR</text>
   </g>
   <g id="cover-footer" data-pptx-bounds="80 636 1130 44" font-family="Arial" font-size="16" fill="#2B4266">
     <text x="80" y="662">Python engine  ·  FastAPI on Vercel  ·  Supabase  ·  Knock Desk CRM</text>

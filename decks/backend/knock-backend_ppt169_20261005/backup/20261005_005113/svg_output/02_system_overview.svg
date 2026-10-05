@@ -71,8 +71,8 @@
   <g id="notes-left" data-pptx-bounds="64 440 230 245" fill="#2B4266">
     <text x="64" y="458" font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A">Hosting</text>
     <text x="64" y="484" font-size="16">Vercel in Mumbai (bom1):<tspan x="64" dy="21">FastAPI at /api, Knock</tspan><tspan x="64" dy="21">Desk at /crm, and a daily</tspan><tspan x="64" dy="21">sync cron.</tspan></text>
-    <text x="64" y="584" font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A">Approval gate</text>
-    <text x="64" y="610" font-size="16">Nothing reaches<tspan x="64" dy="21">LinkedIn without a</tspan><tspan x="64" dy="21">person approving the</tspan><tspan x="64" dy="21">draft.</tspan></text>
+    <text x="64" y="566" font-family="Arial" font-weight="bold" font-size="15" fill="#0E1F3A">Approval gate</text>
+    <text x="64" y="592" font-size="16">Nothing reaches<tspan x="64" dy="21">LinkedIn without a</tspan><tspan x="64" dy="21">person approving the</tspan><tspan x="64" dy="21">draft.</tspan></text>
   </g>
   <g id="source" data-pptx-bounds="64 688 1000 22" font-family="Arial" font-size="13" fill="#4A5F80">
     <text x="64" y="702">Source: deploy/api/index.py, deploy/vercel.json, engine/outreach/bridge.py, docs/AUTOMATION.md</text>

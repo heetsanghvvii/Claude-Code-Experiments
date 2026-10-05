@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" lang="en" font-family="Times New Roman" data-pptx-page-role="content">
+  <defs>
+    <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="#0E1F3A"/></marker>
+  </defs>
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#EEF3F8"/>
+  <g id="header" data-pptx-bounds="64 44 1090 112" font-family="Arial" font-weight="bold">
+    <text x="64" y="60" font-size="13" fill="#4A5F80">DATA MODEL</text>
+    <text x="64" y="102" font-size="34" fill="#0E1F3A">Two layers of state: JSON documents the engine<tspan x="64" dy="40">runs on, and a relational schema built to be queried</tspan></text>
+  </g>
+  <g id="page-stamp" data-pptx-bounds="1166 24 64 76">
+    <rect x="1172" y="30" width="52" height="64" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.28" stroke-width="1"/>
+    <rect x="1178" y="36" width="40" height="52" fill="#B3301B"/>
+    <text x="1198" y="70" font-family="Arial" font-weight="bold" font-size="22" fill="#FAFCFE" text-anchor="middle">3</text>
+  </g>
+  <line id="perf" data-pptx-role="decoration" x1="64" y1="166" x2="1216" y2="166" stroke="#97B9DD" stroke-width="3" stroke-dasharray="2,7"/>
+
+  <g id="runtime-heading" data-pptx-bounds="64 182 456 28" font-family="Arial" font-weight="bold" fill="#0E1F3A">
+    <text x="64" y="200" font-size="17">Runtime tables, used by the engine today</text>
+  </g>
+  <g id="card-engine-state" data-pptx-bounds="64 214 456 88">
+    <rect x="64" y="214" width="456" height="88" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="64" y="214" width="6" height="88" fill="#0E1F3A"/>
+    <text x="80" y="242" font-family="Arial" font-weight="bold" font-size="17" fill="#0E1F3A">engine_state</text>
+    <text x="80" y="266" font-size="16" fill="#2B4266">One JSON document per candidate, plus shared<tspan x="80" dy="21">feedback and usage documents.</tspan></text>
+  </g>
+  <g id="card-inbound" data-pptx-bounds="64 312 456 88">
+    <rect x="64" y="312" width="456" height="88" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="64" y="312" width="6" height="88" fill="#0E1F3A"/>
+    <text x="80" y="340" font-family="Arial" font-weight="bold" font-size="17" fill="#0E1F3A">inbound_replies</text>
+    <text x="80" y="364" font-size="16" fill="#2B4266">Replies copied from the LGM inbox. The engine stamps<tspan x="80" dy="21">processed_at and result.</tspan></text>
+  </g>
+  <g id="card-outbox" data-pptx-bounds="64 410 456 88">
+    <rect x="64" y="410" width="456" height="88" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="64" y="410" width="6" height="88" fill="#0E1F3A"/>
+    <text x="80" y="438" font-family="Arial" font-weight="bold" font-size="17" fill="#0E1F3A">outbox</text>
+    <text x="80" y="462" font-size="16" fill="#2B4266">Messages waiting to send, with a send_after time. The<tspan x="80" dy="21">sender stamps sent_at.</tspan></text>
+  </g>
+  <g id="card-intake" data-pptx-bounds="64 508 456 88">
+    <rect x="64" y="508" width="456" height="88" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <rect x="64" y="508" width="6" height="88" fill="#0E1F3A"/>
+    <text x="80" y="536" font-family="Arial" font-weight="bold" font-size="17" fill="#0E1F3A">intake_requests</text>
+    <text x="80" y="560" font-size="16" fill="#2B4266">Website sign-ups. Anyone can insert; only the engine can<tspan x="80" dy="21">read them.</tspan></text>
+  </g>
+
+  <g id="relational-heading" data-pptx-bounds="560 182 656 28" font-family="Arial" font-weight="bold" fill="#0E1F3A">
+    <text x="560" y="200" font-size="17">Relational core (migration 0001), ready for analytics and client access</text>
+  </g>
+  <g id="er-diagram" data-pptx-bounds="560 224 656 336">
+    <g stroke="#0E1F3A" stroke-width="2">
+      <line x1="731" y1="255" x2="769" y2="255" marker-end="url(#arr)"/>
+      <line x1="941" y1="255" x2="979" y2="255" marker-end="url(#arr)"/>
+      <line x1="645" y1="287" x2="645" y2="339" marker-end="url(#arr)"/>
+      <line x1="855" y1="287" x2="855" y2="339" marker-end="url(#arr)"/>
+      <line x1="941" y1="371" x2="979" y2="371" marker-end="url(#arr)"/>
+      <line x1="769" y1="371" x2="731" y2="371" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+    </g>
+    <rect x="560" y="224" width="170" height="62" fill="#0E1F3A"/>
+    <text x="572" y="248" font-family="Arial" font-weight="bold" font-size="16" fill="#FAFCFE">candidates</text>
+    <text x="572" y="270" font-size="15" fill="#C4D9EF">client, tier, targets, story</text>
+    <rect x="770" y="224" width="170" height="62" fill="#C4D9EF"/>
+    <text x="782" y="248" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">prospects</text>
+    <text x="782" y="270" font-size="15" fill="#2B4266">person, bucket, status</text>
+    <rect x="980" y="224" width="170" height="62" fill="#C4D9EF"/>
+    <text x="992" y="248" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">events</text>
+    <text x="992" y="270" font-size="15" fill="#2B4266">status changes, outcomes</text>
+    <rect x="560" y="340" width="170" height="62" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2"/>
+    <text x="572" y="364" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">facts</text>
+    <text x="572" y="386" font-size="15" fill="#2B4266">atomic, owner, kind, source</text>
+    <rect x="770" y="340" width="170" height="62" fill="#FAFCFE" stroke="#0E1F3A" stroke-width="2"/>
+    <text x="782" y="364" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">hooks</text>
+    <text x="782" y="386" font-size="15" fill="#2B4266">type, four scores, selected</text>
+    <rect x="980" y="340" width="170" height="62" fill="#C4D9EF"/>
+    <text x="992" y="364" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">messages</text>
+    <text x="992" y="386" font-size="15" fill="#2B4266">step, writer, alternatives</text>
+    <rect x="560" y="456" width="170" height="62" fill="none" stroke="#2B4266" stroke-width="2" stroke-dasharray="6,4"/>
+    <text x="572" y="480" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">feedback_edits</text>
+    <text x="572" y="502" font-size="15" fill="#2B4266">draft versus final text</text>
+    <rect x="770" y="456" width="170" height="62" fill="none" stroke="#2B4266" stroke-width="2" stroke-dasharray="6,4"/>
+    <text x="782" y="480" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">playbook_versions</text>
+    <text x="782" y="502" font-size="15" fill="#2B4266">learned writing rules</text>
+    <rect x="980" y="456" width="236" height="100" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="992" y="480" font-family="Arial" font-weight="bold" font-size="16" fill="#0E1F3A">Views</text>
+    <text x="992" y="504" font-size="15" fill="#2B4266">candidate_funnel<tspan x="992" dy="21">hook_performance</tspan><tspan x="992" dy="21">writer_performance</tspan></text>
+    <text x="560" y="544" font-size="15" font-style="italic" fill="#4A5F80">Dashed: operator only, no client policy.</text>
+  </g>
+  <g id="schema-callout" data-pptx-bounds="560 570 656 116">
+    <rect x="560" y="570" width="656" height="116" fill="#0E1F3A"/>
+    <text x="580" y="600" font-size="18" fill="#FAFCFE">The schema enforces the design. hooks.candidate_fact_id and<tspan x="580" dy="25">hooks.prospect_fact_id are both required references to</tspan><tspan x="580" dy="25">facts(id), so the database refuses a hook that cites nothing.</tspan><tspan x="580" dy="25">Row-level security is on for every table.</tspan></text>
+  </g>
+  <g id="source" data-pptx-bounds="64 688 480 22" font-family="Arial" font-size="13" fill="#4A5F80">
+    <text x="64" y="702">Source: supabase/migrations 0001 to 0004, engine/outreach/store.py</text>
+  </g>
+</svg>

@@ -10,6 +10,7 @@
 <meta name="theme-color" content="#A9C7E6">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23B3301B'/%3E%3Cg fill='none' stroke='%23FAFCFE' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='32' cy='22' r='7'/%3E%3Cpath d='M21 36a14 14 0 1 0 22 0'/%3E%3Cpath d='M32 52v6'/%3E%3C/g%3E%3C/svg%3E">
 <meta name="description" content="Knock finds the hiring managers, team members and alumni at your target companies, researches each one, and starts real conversations that turn into referrals and interviews.">
+<script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
@@ -33,6 +34,9 @@
   --gutter:clamp(16px, 4vw, 56px);
   --max:1240px;
   --ease:cubic-bezier(.16,1,.3,1);
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-in-out:cubic-bezier(.77,0,.175,1);
+  --ease-drawer:cubic-bezier(.32,.72,0,1);
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scrollbar-color:var(--ink-3) var(--paper)}
@@ -57,11 +61,11 @@ h3{font-size:clamp(1.35rem,1.1rem + .8vw,1.75rem);line-height:1.05;letter-spacin
 p{margin:0;text-wrap:pretty}
 
 /* Buttons */
-.btn{--bg:var(--ink);--fg:var(--white);display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:52px;padding:.8em 1.4em;background:var(--bg);color:var(--fg);border:2px solid var(--ink);border-radius:999px;font-family:var(--display);font-variation-settings:"wdth" 88;font-stretch:88%;font-weight:700;font-size:1.05rem;letter-spacing:.005em;text-decoration:none;cursor:pointer;transition:background .25s var(--ease),color .25s var(--ease),box-shadow .25s var(--ease),transform .25s var(--ease);box-shadow:0 2px 0 rgba(14,31,58,.0)}
+.btn{--bg:var(--ink);--fg:var(--white);display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:52px;padding:.8em 1.4em;background:var(--bg);color:var(--fg);border:2px solid var(--ink);border-radius:999px;font-family:var(--display);font-variation-settings:"wdth" 88;font-stretch:88%;font-weight:700;font-size:1.05rem;letter-spacing:.005em;text-decoration:none;cursor:pointer;transition:background .25s var(--ease),color .25s var(--ease),box-shadow .25s var(--ease),transform 160ms var(--ease-out);box-shadow:0 2px 0 rgba(14,31,58,.0)}
 .btn svg{width:18px;height:18px;transition:transform .3s var(--ease)}
 .btn:hover{background:var(--post);border-color:var(--post);box-shadow:0 8px 20px -10px rgba(179,48,27,.7)}
-.btn:hover svg{transform:translateX(3px)}
-.btn:active{transform:translateY(1px)}
+@media (hover:hover) and (pointer:fine){.btn:hover svg{transform:translateX(3px)}}
+.btn:active{transform:scale(.97)}
 .btn[disabled]{opacity:.6;cursor:progress}
 .btn--small{min-height:44px;padding:.55em 1.1em;font-size:.95rem}
 
@@ -97,8 +101,6 @@ p{margin:0;text-wrap:pretty}
 .stamp-inner svg{width:72%;margin:4% auto 0;color:var(--white)}
 .stamp-inner b{display:block;text-align:center;font-weight:800;font-size:clamp(.85rem,.6rem + .6vw,1.1rem);letter-spacing:.14em;text-transform:uppercase}
 .postmark{position:absolute;left:-58%;top:44%;width:130%;color:var(--ink);opacity:.72;transform:rotate(-14deg);pointer-events:none;mix-blend-mode:multiply}
-.js .postmark{animation:stampIn .7s var(--ease) .5s both}
-@keyframes stampIn{0%{opacity:0;transform:rotate(-24deg) scale(1.5);filter:blur(3px)}60%{opacity:.85}100%{opacity:.72;transform:rotate(-14deg) scale(1);filter:blur(0)}}
 
 /* address block = the working action */
 .address{margin-top:clamp(28px,3.4vw,44px);display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:12px 18px;max-width:880px}
@@ -310,6 +312,141 @@ footer ::selection{background:var(--inland);color:var(--ink)}
 .foot .tag{margin-top:12px;font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,1rem + .6vw,1.6rem);color:var(--inland)}
 .foot a.mail{font-size:clamp(1.05rem,1rem + .3vw,1.25rem);color:var(--white)}
 .foot-base{margin-top:48px;padding-top:20px;border-top:1px solid rgba(169,199,230,.25);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:.88rem;color:#A9BBD3}
+
+/* ===== Motion: the letter arrives =====
+   Content is visible by default. Pre-states only apply under .js, with motion allowed,
+   and only to elements JS has armed (.arm) while they are below the viewport. */
+.lbl{display:inline-grid}
+.lbl>span{grid-area:1/1}
+.lbl .l-r{opacity:0}
+.ledger.rs .status i{position:relative;background:none}
+.ledger.rs .status i::before,.ledger.rs .status i::after{content:"";position:absolute;inset:0;border-radius:50%}
+.ledger.rs .status i::before{background:var(--post)}
+.ledger.rs .status i::after{box-shadow:inset 0 0 0 1.5px var(--ink-2);opacity:0}
+.ledger.rs tr.wait .status i::before{opacity:0}
+.ledger.rs tr.wait .status i::after{opacity:1}
+
+@media (prefers-reduced-motion:no-preference){
+  /* 1. Signature: the stamp is pressed onto the letter */
+  .js .stamp{animation:stampPress 680ms .3s both}
+  @keyframes stampPress{
+    0%{opacity:0;transform:translate(12%,-26%) rotate(-8deg) scale(1.55);animation-timing-function:cubic-bezier(.55,0,.8,.3)}
+    20%{opacity:1}
+    50%{transform:translate(0,0) rotate(4.4deg) scale(.93);animation-timing-function:cubic-bezier(.23,1,.32,1)}
+    74%{transform:rotate(2.6deg) scale(1.014);animation-timing-function:cubic-bezier(.77,0,.175,1)}
+    100%{opacity:1;transform:rotate(3deg) scale(1)}
+  }
+  /* 2. The postmark ink rolls on over the stamp's corner */
+  .js .postmark{animation:inkRoll 820ms cubic-bezier(.77,0,.175,1) .86s both}
+  @keyframes inkRoll{
+    0%{opacity:0;clip-path:inset(0 100% 0 0);transform:rotate(-19deg) scale(1.03)}
+    10%{opacity:.72}
+    100%{opacity:.72;clip-path:inset(0 0 0 0);transform:rotate(-14deg) scale(1)}
+  }
+
+  /* 3. The bottom of the letter unfolds along the fold line */
+  .ledger.arm{position:relative;transform-origin:50% 0}
+  .ledger.arm:not(.in){opacity:0;transform:perspective(1600px) rotateX(-72deg)}
+  .ledger.arm.in{animation:unfold 900ms cubic-bezier(.32,.72,0,1) both}
+  .ledger.arm.in::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(14,31,58,.3),rgba(14,31,58,.06));pointer-events:none;animation:shadeOff 900ms cubic-bezier(.32,.72,0,1) both}
+  @keyframes unfold{from{opacity:0;transform:perspective(1600px) rotateX(-72deg)}35%{opacity:1}to{opacity:1;transform:perspective(1600px) rotateX(0)}}
+  @keyframes shadeOff{from{opacity:1}to{opacity:0}}
+
+  /* 4. Each ledger row gets researched: the reason writes on, the status turns to drafted */
+  .ledger tr.arm:not(.in) td.why{clip-path:inset(0 100% 0 0)}
+  .ledger tr.arm:not(.in) .l-d{opacity:0}
+  .ledger tr.arm:not(.in) .l-r{opacity:1}
+  .ledger tr.arm:not(.in):not(.wait) .status i::before{opacity:0}
+  .ledger tr.arm:not(.in):not(.wait) .status i::after{opacity:1}
+  .ledger tr.arm.in td.why{animation:writeOn 720ms cubic-bezier(.77,0,.175,1) .12s both}
+  .ledger tr.arm.in .l-r{animation:fadeOut 220ms cubic-bezier(.23,1,.32,1) .82s both}
+  .ledger tr.arm.in .l-d{animation:fadeIn 300ms cubic-bezier(.23,1,.32,1) .86s both}
+  .ledger tr.arm.in:not(.wait) .status i::before{animation:dotFill 380ms cubic-bezier(.23,1,.32,1) .82s both}
+  .ledger tr.arm.in:not(.wait) .status i::after{animation:dotPing 640ms cubic-bezier(.23,1,.32,1) .82s both}
+  .ledger tr.wait.arm.in .status i::after{animation:ringPulse 1.4s cubic-bezier(.77,0,.175,1) .9s 3}
+  @keyframes writeOn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+  @keyframes fadeOut{from{opacity:1}to{opacity:0}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes dotFill{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+  @keyframes dotPing{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(2.6)}}
+  @keyframes ringPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.3}}
+
+  /* 5. The application pile stacks up, then "Return to sender" thuds onto it */
+  .pile.arm:not(.in) li,.pile.arm:not(.in) .returned{opacity:0}
+  .pile.arm.in li{animation:pileIn 460ms cubic-bezier(.23,1,.32,1) both}
+  .pile.arm.in li:nth-child(2){animation-delay:70ms}
+  .pile.arm.in li:nth-child(3){animation-delay:140ms}
+  .pile.arm.in li:nth-child(4){animation-delay:210ms}
+  .pile.arm.in li:nth-child(5){animation-delay:280ms}
+  .pile.arm.in li:nth-child(6){animation-delay:350ms}
+  .pile.arm.in .returned{animation:thud 600ms .8s both}
+  .pile.arm.in ol{animation:jolt 320ms cubic-bezier(.23,1,.32,1) 1.1s both}
+  @keyframes pileIn{from{opacity:0;transform:translateY(-16px)}}
+  @keyframes thud{
+    0%{opacity:0;transform:rotate(-17deg) scale(1.7);animation-timing-function:cubic-bezier(.55,0,.8,.3)}
+    25%{opacity:1}
+    50%{transform:rotate(-7deg) scale(.92);animation-timing-function:cubic-bezier(.23,1,.32,1)}
+    76%{transform:rotate(-8.5deg) scale(1.02);animation-timing-function:cubic-bezier(.77,0,.175,1)}
+    100%{opacity:1;transform:rotate(-8deg) scale(1)}
+  }
+  @keyframes jolt{0%,100%{transform:none}30%{transform:translateY(3px)}}
+
+  /* 6. The airmail route draws itself, each stop marked as it arrives */
+  .route.arm:not(.in)::before{clip-path:inset(0 100% 0 0)}
+  .route.arm:not(.in) .mark{opacity:0;transform:scale(.8)}
+  .route.arm.in::before{animation:drawX 1.4s cubic-bezier(.77,0,.175,1) both}
+  .route.arm.in .mark{animation:markIn 480ms cubic-bezier(.23,1,.32,1) .08s both}
+  .route.arm.in li:nth-child(2) .mark{animation-delay:.44s}
+  .route.arm.in li:nth-child(3) .mark{animation-delay:.8s}
+  .route.arm.in li:nth-child(4) .mark{animation-delay:1.16s}
+  @keyframes drawX{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+  @keyframes drawY{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+  @keyframes markIn{from{opacity:0;transform:scale(.8)}}
+  @media (max-width:900px){
+    .route.arm:not(.in)::before{clip-path:inset(0 0 100% 0)}
+    .route.arm.in::before{animation-name:drawY}
+  }
+
+  /* 7. The example message is laid down and writes itself, note by note */
+  .example .grid.arm:not(.in) .note{opacity:0;transform:translateY(32px) rotate(-4deg)}
+  .example .grid.arm:not(.in) blockquote mark{opacity:0}
+  .example .grid.arm:not(.in) .note .n{opacity:0;transform:scale(.5)}
+  .example .grid.arm:not(.in) .anatomy li{opacity:.35}
+  .example .grid.arm:not(.in) .note-foot{opacity:0}
+  .example .grid.arm.in .note{animation:noteIn 800ms cubic-bezier(.23,1,.32,1) both}
+  .example .grid.arm.in blockquote mark{animation:fadeIn 560ms cubic-bezier(.23,1,.32,1) .7s both}
+  .example .grid.arm.in blockquote mark:nth-of-type(2){animation-delay:1.4s}
+  .example .grid.arm.in blockquote mark:nth-of-type(3){animation-delay:2.1s}
+  .example .grid.arm.in .note .n{animation:notePop 300ms cubic-bezier(.23,1,.32,1) 1.1s both}
+  .example .grid.arm.in .note .n:nth-of-type(2){animation-delay:1.8s}
+  .example .grid.arm.in .note .n:nth-of-type(3){animation-delay:2.5s}
+  .example .grid.arm.in .anatomy li{animation:lineOn 320ms cubic-bezier(.23,1,.32,1) 1.1s both}
+  .example .grid.arm.in .anatomy li:nth-child(2){animation-delay:1.8s}
+  .example .grid.arm.in .anatomy li:nth-child(3){animation-delay:2.5s}
+  .example .grid.arm.in .anatomy li i{animation:notePop 300ms cubic-bezier(.23,1,.32,1) 1.1s both}
+  .example .grid.arm.in .anatomy li:nth-child(2) i{animation-delay:1.8s}
+  .example .grid.arm.in .anatomy li:nth-child(3) i{animation-delay:2.5s}
+  .example .grid.arm.in .note-foot{animation:fadeIn 400ms cubic-bezier(.23,1,.32,1) 2.95s both}
+  @keyframes noteIn{from{opacity:0;transform:translateY(32px) rotate(-4deg)}}
+  @keyframes notePop{from{opacity:0;transform:scale(.5)}}
+  @keyframes lineOn{from{opacity:.35}}
+
+  /* 8. FAQ answers settle in instead of snapping */
+  .faq details[open]>p{animation:faqIn 240ms cubic-bezier(.23,1,.32,1)}
+  @keyframes faqIn{from{opacity:0;transform:translateY(-6px)}}
+}
+
+/* 9. Package stamps lift and tilt under a pointer, like picking one off the sheet */
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  .pack{transition:transform 280ms cubic-bezier(.23,1,.32,1)}
+  .pack:hover{transform:translateY(-6px) rotate(-.8deg)}
+  .pack--main:hover{transform:translateY(-20px) rotate(.6deg)}
+  .pack:has(.btn:active){transform:translateY(-3px) rotate(-.4deg)}
+  .pack--main:has(.btn:active){transform:translateY(-16px) rotate(.3deg)}
+}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) and (max-width:900px){
+  .pack--main:hover{transform:translateY(-6px) rotate(.6deg)}
+}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;transition-duration:.001ms!important}
@@ -725,6 +862,82 @@ footer ::selection{background:var(--inland);color:var(--ink)}
         formErr.innerHTML='We could not reach the server. Check your connection and try again, or write to <a href="mailto:'+EMAILMSG+'">'+EMAILMSG+'</a>.';
       });
   });
+})();
+</script>
+<script>
+/* Motion. Everything here is an enhancement: with no JS, reduced motion, or no
+   IntersectionObserver, the page renders exactly as authored. Elements are only
+   armed (put into a pre-state) while they sit below the viewport, after the first
+   scroll, so full-page captures and deep links always show finished content. */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)) return;
+  var q=function(s){return document.querySelector(s)};
+
+  /* Ledger: stack both status labels so the column never changes width */
+  var ledger=q('.ledger');
+  var rows=[].slice.call(ledger.querySelectorAll('tbody tr'));
+  ledger.classList.add('rs');
+  rows.forEach(function(tr){
+    var st=tr.querySelector('.status'), t=st.lastChild, txt=t.textContent.trim();
+    if(/^Researching/.test(txt)){tr.classList.add('wait');return}
+    var lbl=document.createElement('span');lbl.className='lbl';
+    lbl.innerHTML='<span class="l-d"></span><span class="l-r" aria-hidden="true">Researching</span>';
+    lbl.firstChild.textContent=txt;
+    st.replaceChild(lbl,t);
+  });
+
+  /* Group reveals fire once when 18% into the viewport */
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{rootMargin:'0px 0px -18% 0px'});
+  /* Ledger rows research one after another, however many enter together */
+  var rowIo=new IntersectionObserver(function(es){
+    var hits=es.filter(function(e){return e.isIntersecting}).sort(function(a,b){return a.boundingClientRect.top-b.boundingClientRect.top});
+    hits.forEach(function(e,k){rowIo.unobserve(e.target);setTimeout(function(){e.target.classList.add('in')},k*480)});
+  },{rootMargin:'0px 0px -12% 0px'});
+
+  var groups=[q('.pile'),q('.route'),q('.example .grid')];
+  var vh=window.innerHeight;
+  /* Hero: if the fold is on screen at load, unfold it as part of the arrival */
+  var lt=ledger.getBoundingClientRect().top;
+  if(lt<vh&&lt>0){ledger.classList.add('arm');setTimeout(function(){ledger.classList.add('in')},1150)}
+  else groups.unshift(ledger);
+
+  var armed=false;
+  function arm(){
+    if(armed) return; armed=true;
+    window.removeEventListener('scroll',arm);
+    var h=window.innerHeight;
+    var g=groups.filter(function(el){return el.getBoundingClientRect().top>h});
+    var r=rows.filter(function(el){return el.getBoundingClientRect().top>h});
+    g.forEach(function(el){el.classList.add('arm');io.observe(el)});
+    r.forEach(function(el){el.classList.add('arm');rowIo.observe(el)});
+  }
+  window.addEventListener('scroll',arm,{passive:true});
+
+  /* "To:" field: the placeholder types target companies, then makes way for yours */
+  var input=document.getElementById('q-companies');
+  var lists=[input.getAttribute('placeholder'),'CRED, Meesho, Groww','Flipkart, PhonePe','Swiggy, Zomato, Urban Company'];
+  var li=0,shown=lists[0],phase='hold',timer=0,inView=true;
+  new IntersectionObserver(function(es){inView=es[0].isIntersecting}).observe(input);
+  function idle(){return !inView||document.hidden||document.activeElement===input||input.value}
+  function step(){
+    if(idle()){timer=setTimeout(step,600);return}
+    var target=lists[li],delay;
+    if(phase==='hold'){phase='erase';delay=40}
+    else if(phase==='erase'){
+      if(shown.length){shown=shown.slice(0,-1);delay=26}
+      else{li=(li+1)%lists.length;phase='type';delay=280}
+    }else{
+      target=lists[li];
+      if(shown.length<target.length){shown=target.slice(0,shown.length+1);delay=48+Math.random()*44}
+      else{phase='hold';delay=2600}
+    }
+    input.setAttribute('placeholder',shown);
+    timer=setTimeout(step,delay);
+  }
+  input.addEventListener('focus',function(){shown=lists[li];phase='hold';input.setAttribute('placeholder',shown)});
+  timer=setTimeout(step,3000);
 })();
 </script>
 </body>

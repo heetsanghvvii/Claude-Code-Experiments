@@ -1,6 +1,8 @@
 """Inbox/outbox bridge between the engine and whatever sends on LinkedIn.
 
-Today the sender is La Growth Machine driven by a scheduled Claude in Chrome task:
+Tier 1 (now): the client approves and sends from their portal; every draft first passes the automated
+review layer (review.py) and nothing waits for the founder. Done-for-you sending through La Growth Machine
+is out of scope for now; the outbox is kept for it. That later flow is a scheduled Claude in Chrome task:
   - Chrome copies new replies from the LGM inbox into `inbound_replies`.
   - `sync` reads them, drafts the next message from the whole thread, and queues it in `outbox`
     with a send_after time (auto-send) or holds it for approval.
@@ -16,15 +18,46 @@ import re
 import uuid
 from datetime import datetime, timedelta, timezone
 
-from . import feedback, messages, profiles, store
-from .models import Candidate, Message, Prospect
+import anthropic
+import httpx
+
+from . import feedback, messages, profiles, review, rules, store
+from .models import Candidate, Message, Prospect, ReplyAnalysis
 
 AUTO_SEND_SENTIMENTS = {"warm", "neutral", "redirecting"}
 MAX_AUTO_SEND_CHARS = 600
-# Anything that could leak contact details or carry a link is held for a human, whatever the sentiment.
-UNSAFE_FOR_AUTO_SEND = re.compile(
-    r"https?://|www\.|\b[\w.+-]+@[\w-]+\.[\w.]+\b|(?:\+?\d[\s-]?){10,}|\b(?:password|otp|bank|upi|aadhaar|pan card)\b",
-    re.IGNORECASE)
+# Anything that could leak contact details or carry a link is never auto-sent, whatever the sentiment.
+UNSAFE_FOR_AUTO_SEND = rules.UNSAFE
+AUTO_SEND_REVIEW = {"passed", "checks_only"}
+CLAUDE_DOWN = "Claude API unavailable (check credits)"
+
+try:  # lets FastAPI answer a clean 503 without the API module having to catch anything
+    from starlette.exceptions import HTTPException as _HTTPError
+except ImportError:  # pragma: no cover - engine used without the web stack
+    _HTTPError = RuntimeError
+
+
+class ClaudeUnavailable(_HTTPError):
+    """Raised by sync() when the Anthropic API fails. A 503 with a structured detail under FastAPI."""
+
+    def __init__(self, detail: dict):
+        if _HTTPError is RuntimeError:  # pragma: no cover
+            super().__init__(detail.get("error"))
+            self.status_code, self.detail = 503, detail
+        else:
+            super().__init__(status_code=503, detail=detail)
+
+
+def claude_error(e: Exception, stats: dict | None = None) -> dict:
+    """Structured error for Anthropic API failures (no credits, bad key, outage, rate limit)."""
+    hint = CLAUDE_DOWN
+    status = getattr(e, "status_code", None)
+    if status in (401, 403):
+        hint = "Claude API unavailable (check ANTHROPIC_API_KEY)"
+    elif status == 429:
+        hint = "Claude API unavailable (rate limited, retry later)"
+    return {"ok": False, "status": 503, "error": hint, "type": type(e).__name__,
+            "message": str(e)[:300], "partial": stats or {}}
 
 
 def safe_to_auto_send(body: str) -> bool:
@@ -58,10 +91,20 @@ def pending_inbound() -> list[dict]:
     return [r for r in _local(LOCAL_INBOUND) if not r.get("processed_at")]
 
 
-def add_inbound(linkedin_url: str, prospect_name: str, text: str) -> None:
+def add_inbound(linkedin_url: str, prospect_name: str, text: str,
+                candidate_id: str | None = None, prospect_id: str | None = None) -> None:
+    """Queue a reply for the next sync. With candidate_id and prospect_id it is already matched (client portal)."""
     row = {"linkedin_url": linkedin_url, "prospect_name": prospect_name, "text": text, "received_at": _iso(_now())}
+    if candidate_id and prospect_id:
+        row.update(candidate_id=candidate_id, prospect_id=prospect_id)
     if store._supabase():
-        store.rest("POST", "inbound_replies", json_body=row)
+        try:
+            store.rest("POST", "inbound_replies", json_body=row)
+        except httpx.HTTPStatusError as e:
+            # Before migration 0006 adds the match columns, fall back to url/name matching in sync.
+            if "candidate_id" not in row or e.response.status_code != 400:
+                raise
+            store.rest("POST", "inbound_replies", json_body={k: v for k, v in row.items() if k not in ("candidate_id", "prospect_id")})
         return
     rows = _local(LOCAL_INBOUND)
     rows.append({"id": uuid.uuid4().hex, **row})
@@ -120,6 +163,17 @@ def mark_sent(row_id) -> None:
 
 # ---------- engine logic ----------
 
+def match_row(candidates: dict[str, Candidate], row: dict) -> tuple[Candidate, Prospect] | None:
+    """A reply row already matched to a prospect (client portal) wins; otherwise match by LinkedIn URL or name."""
+    c = candidates.get(row.get("candidate_id") or "")
+    if c is not None:
+        try:
+            return c, store.get_prospect(c, row.get("prospect_id") or "")
+        except KeyError:
+            pass
+    return find_prospect(list(candidates.values()), row.get("linkedin_url", ""), row.get("prospect_name", ""))
+
+
 def find_prospect(candidates: list[Candidate], linkedin_url: str, name: str) -> tuple[Candidate, Prospect] | None:
     key = normalize_url(linkedin_url)
     matches = []
@@ -132,22 +186,44 @@ def find_prospect(candidates: list[Candidate], linkedin_url: str, name: str) -> 
     return matches[0] if len(matches) == 1 else None
 
 
-def handle_reply(c: Candidate, p: Prospect, text: str, guidance: str | None = None):
-    """Log their reply, draft ours, and queue it if auto-send rules allow. Returns the analysis."""
+def handle_reply(c: Candidate, p: Prospect, text: str, guidance: str | None = None,
+                 analysis: ReplyAnalysis | None = None):
+    """Log their reply, draft ours, run it through the review layer, and queue it if auto-send rules allow.
+
+    analysis=None calls Claude via the API (and the LLM reviewer). A given analysis comes from a
+    subscription-mode work packet; its LLM review then runs as a separate `review` packet. Returns the analysis.
+    """
     now = _now()
     step = max((m.step for m in p.messages), default=0) + 1
-    p.messages.append(Message(direction="inbound", step=step, body=text, created_at=_iso(now)))
-    if p.status in ("message_ready", "approved", "sent", "accepted"):
+    inbound = Message(direction="inbound", step=step, body=text, created_at=_iso(now))
+    p.messages.append(inbound)
+    use_api = analysis is None
+    if use_api:
+        try:
+            if guidance is None:
+                guidance = feedback.reply_guidance([store.load(cid) for cid in store.list_ids()])
+            analysis = messages.next_reply(c, p, guidance)
+        except Exception:
+            p.messages.remove(inbound)             # leave the thread as it was so a retry is not a "duplicate"
+            raise
+    if p.status in ("message_ready", "approved", "sent", "accepted", "drafting"):
         p.status = "replied"
-    if guidance is None:
-        guidance = feedback.reply_guidance([store.load(cid) for cid in store.list_ids()])
-    result = messages.next_reply(c, p, guidance)
-    draft = Message(direction="outbound", step=step + 1, body=result.next_message, ask_type=result.ask_type,
-                    created_at=_iso(now))
-    if c.auto_send and result.sentiment in AUTO_SEND_SENTIMENTS and safe_to_auto_send(draft.body):
+    negative = analysis.sentiment == "negative"
+    draft = Message(direction="outbound", step=step + 1, body=analysis.next_message,
+                    ask_type="none" if negative else analysis.ask_type, writer="reply", created_at=_iso(now),
+                    judge_reason=f"sentiment={analysis.sentiment}; rapport={analysis.rapport}; {analysis.ask_reason}")
+    review.review(c, p, draft, "reply", rapport=analysis.rapport, use_llm=use_api, negative=negative)
+    if use_api and draft.review_status == "rewrite":   # one automatic rewrite with the reviewer's notes
+        notes = ("Your previous draft was rejected by the reviewer:\n" + draft.body + "\nProblems:\n- "
+                 + "\n- ".join(draft.review_notes))
+        retry = messages.next_reply(c, p, "\n\n".join(x for x in (guidance, notes) if x))
+        draft.body, draft.ask_type = retry.next_message, retry.ask_type
+        review.review(c, p, draft, "reply", rapport=retry.rapport)
+    if (c.auto_send and not negative and analysis.sentiment in AUTO_SEND_SENTIMENTS
+            and draft.review_status in AUTO_SEND_REVIEW and safe_to_auto_send(draft.body)):
         queue(c, p, draft)
     p.messages.append(draft)
-    return result
+    return analysis
 
 
 def queue(c: Candidate, p: Prospect, msg: Message) -> None:
@@ -156,33 +232,40 @@ def queue(c: Candidate, p: Prospect, msg: Message) -> None:
     enqueue(c, p, msg)
 
 
-def sync() -> dict:
-    """Process new replies and record sends. Safe to run on a schedule."""
-    ids = store.list_ids()
-    candidates = {cid: store.load(cid) for cid in ids}
+def sync(raise_errors: bool = True) -> dict:
+    """Process new replies and record sends. Safe to run on a schedule.
+
+    Anthropic API failures (no credits, bad key, outage) never surface as a 500: work done so far is saved,
+    unprocessed replies stay queued for the next run, and the error is structured. With raise_errors=True
+    (the default, used by the web API) it raises ClaudeUnavailable, which FastAPI returns as a 503 with
+    {"detail": {"error": "Claude API unavailable (check credits)", ...}}; with False it returns that dict.
+    """
     stats = {"replies": 0, "queued": 0, "held": 0, "unmatched": 0, "sent_recorded": 0}
-    reply_notes = None
+    try:
+        return _sync(stats)
+    except anthropic.APIError as e:
+        err = claude_error(e, stats)
+        if raise_errors:
+            raise ClaudeUnavailable(err) from e
+        return err
 
-    for row in pending_inbound():
-        found = find_prospect(list(candidates.values()), row.get("linkedin_url", ""), row.get("prospect_name", ""))
-        if not found:
-            stats["unmatched"] += 1
-            _mark_inbound(row["id"], "unmatched")
-            continue
-        c, p = found
-        last_in = next((m.body for m in reversed(p.messages) if m.direction == "inbound"), None)
-        if last_in and last_in.strip() == row["text"].strip():
-            _mark_inbound(row["id"], "duplicate")
-            continue
-        if reply_notes is None:
-            reply_notes = feedback.reply_guidance(list(candidates.values()))
-        result = handle_reply(c, p, row["text"], reply_notes)
-        stats["replies"] += 1
-        queued = p.messages[-1].approved
-        stats["queued" if queued else "held"] += 1
-        _mark_inbound(row["id"], f"{result.sentiment}/{result.ask_type}/{'queued' if queued else 'held'}")
-        store.save(c)
 
+def match_inbound(candidates: dict[str, Candidate], row: dict) -> tuple[tuple[Candidate, Prospect] | None, str]:
+    """Match an inbound row. Unmatched and duplicate rows are marked processed and return (None, reason)."""
+    found = match_row(candidates, row)
+    if not found:
+        _mark_inbound(row["id"], "unmatched")
+        return None, "unmatched"
+    c, p = found
+    last_in = next((m.body for m in reversed(p.messages) if m.direction == "inbound"), None)
+    if last_in and last_in.strip() == (row.get("text") or "").strip():
+        _mark_inbound(row["id"], "duplicate")
+        return None, "duplicate"
+    return found, ""
+
+
+def record_sends(candidates: dict[str, Candidate], stats: dict) -> None:
+    """Copy sent_at from outbox rows onto the messages."""
     for row in sent_rows():
         c = candidates.get(row["candidate_id"])
         if not c:
@@ -196,8 +279,32 @@ def sync() -> dict:
                 m.sent_at = row["sent_at"]
                 if m.step == 1 and p.status in ("message_ready", "approved"):
                     p.status = "sent"
-                stats["sent_recorded"] += 1
+                stats["sent_recorded"] = stats.get("sent_recorded", 0) + 1
                 store.save(c)
+
+
+def _sync(stats: dict) -> dict:
+    ids = store.list_ids()
+    candidates = {cid: store.load(cid) for cid in ids}
+    reply_notes = None
+
+    for row in pending_inbound():
+        found, why = match_inbound(candidates, row)
+        if not found:
+            if why == "unmatched":
+                stats["unmatched"] += 1
+            continue
+        c, p = found
+        if reply_notes is None:
+            reply_notes = feedback.reply_guidance(list(candidates.values()))
+        result = handle_reply(c, p, row["text"], reply_notes)
+        stats["replies"] += 1
+        queued = p.messages[-1].approved
+        stats["queued" if queued else "held"] += 1
+        _mark_inbound(row["id"], f"{result.sentiment}/{result.ask_type}/{'queued' if queued else 'held'}")
+        store.save(c)
+
+    record_sends(candidates, stats)
 
     for c in candidates.values():                 # onboarding imports made while Claude was unavailable
         if profiles.pending_text(c):

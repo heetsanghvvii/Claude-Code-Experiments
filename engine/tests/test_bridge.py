@@ -52,6 +52,11 @@ class FakePostgrest:
             if k in ("select", "order", "on_conflict"):
                 continue
             v = unquote(str(v))
+            if "->" in k:                                  # JSON path filter such as doc->story->>key
+                val = row
+                for part in re.split(r"->>?", k):
+                    val = val.get(part) if isinstance(val, dict) else None
+                row = {**row, k: val}
             if v == "is.null" and row.get(k) is not None:
                 return False
             if v == "not.is.null" and row.get(k) is None:
@@ -130,6 +135,16 @@ def test_auto_reply_loop(env):
     assert bridge.sync()["sent_recorded"] == 1
     assert store.get_prospect(store.load("asha-1"), "rahul-1").messages[-1].sent_at
     assert bridge.sync()["sent_recorded"] == 0                    # idempotent
+
+
+def test_prematched_reply_skips_url_and_name_matching(env):
+    _seed(auto_send=False)
+    # The client portal knows exactly whose reply it is, even with no usable URL or name.
+    bridge.add_inbound("", "", "Happy to help.", candidate_id="asha-1", prospect_id="rahul-1")
+    bridge.add_inbound("", "", "Who?", candidate_id="nobody", prospect_id="rahul-1")   # unknown: falls back, unmatched
+    stats = bridge.sync()
+    assert stats["replies"] == 1 and stats["unmatched"] == 1
+    assert store.get_prospect(store.load("asha-1"), "rahul-1").messages[1].body == "Happy to help."
 
 
 def test_negative_reply_is_held(env):

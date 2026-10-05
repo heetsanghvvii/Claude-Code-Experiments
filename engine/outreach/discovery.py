@@ -8,7 +8,7 @@ from dataclasses import dataclass
 
 import httpx
 
-from . import llm, prompts
+from . import llm, prompts, rules
 from .models import BucketDecision, Candidate, ExtractedFact, Prospect, WebSnippets
 
 BRAVE_URL = "https://api.search.brave.com/res/v1/web/search"
@@ -59,24 +59,32 @@ def brave_search(query: str, count: int = 20) -> list[dict]:
     return response.json().get("web", {}).get("results", [])
 
 
-def search_company(candidate: Candidate, company: str) -> list[SearchHit]:
-    hits: dict[str, SearchHit] = {}
+def company_queries(candidate: Candidate, company: str) -> list[str]:
     location = candidate.locations[0] if candidate.locations else ""
+    out = []
     for role in candidate.target_roles or ["Product Manager"]:
         for template in QUERY_TEMPLATES:
-            q = "site:linkedin.com/in " + template.format(
-                role=role, company=company, role_family=_role_family(role)
-            )
-            if location:
-                q += f' "{location}"'
-            for r in brave_search(q):
-                url = r.get("url", "").split("?")[0]
-                if "linkedin.com/in/" not in url or url in hits:
-                    continue
-                name, headline = _parse_title(r.get("title", ""))
-                if not name:
-                    continue
-                hits[url] = SearchHit(name, headline, url, r.get("description", ""), company)
+            q = "site:linkedin.com/in " + template.format(role=role, company=company, role_family=_role_family(role))
+            out.append(q + (f' "{location}"' if location and location != "Remote" else ""))
+    return out
+
+
+def is_c_suite(headline: str) -> bool:
+    """Seniority gate (see hooks.min_score_for): C-suite needs a hook scoring rules.C_SUITE_MIN_HOOK or more."""
+    return rules.is_c_suite(headline)
+
+
+def search_company(candidate: Candidate, company: str) -> list[SearchHit]:
+    hits: dict[str, SearchHit] = {}
+    for q in company_queries(candidate, company):
+        for r in brave_search(q):
+            url = r.get("url", "").split("?")[0]
+            if "linkedin.com/in/" not in url or url in hits:
+                continue
+            name, headline = _parse_title(r.get("title", ""))
+            if not name:
+                continue
+            hits[url] = SearchHit(name, headline, url, r.get("description", ""), company)
     return list(hits.values())
 
 
@@ -95,14 +103,18 @@ def _slug(linkedin_url: str) -> str:
     return m.group(1) if m else ""
 
 
-def web_facts(prospect: Prospect) -> list[ExtractedFact]:
-    """Our own enrichment: public posts, talks and articles via search. No LinkedIn login."""
+def enrich_queries(prospect: Prospect) -> list[str]:
     queries = [f'site:linkedin.com/posts "{prospect.full_name}"', f'"{prospect.full_name}" "{prospect.company}"']
     slug = _slug(prospect.linkedin_url)
     if slug:
         queries.insert(0, f"site:linkedin.com/posts/{slug}")
+    return queries
+
+
+def web_facts(prospect: Prospect) -> list[ExtractedFact]:
+    """Our own enrichment: public posts, talks and articles via search. No LinkedIn login."""
     seen, lines = set(), []
-    for q in queries:
+    for q in enrich_queries(prospect):
         for r in brave_search(q, count=10):
             url = r.get("url", "")
             if url in seen:

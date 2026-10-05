@@ -51,6 +51,11 @@ def reset_usage() -> None:
         USAGE[k] = 0
 
 
+def available() -> bool:
+    """True when the engine can call Claude itself (API mode). Routines on a subscription run without it."""
+    return bool(os.environ.get("ANTHROPIC_API_KEY"))
+
+
 def client() -> anthropic.Anthropic:
     global _client
     if _client is None:

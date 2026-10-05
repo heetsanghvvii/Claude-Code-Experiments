@@ -152,7 +152,7 @@ ul.rules{margin:0;padding-left:18px} ul.rules li{margin:4px 0}
 
 <script>
 const TABS = [["overview","Overview"],["candidates","Candidates"],["queue","Send queue"],["replies","Replies"],["signups","Sign-ups"],["onboarding","Onboarding"],["learning","Learning"],["spend","Spend"]];
-let KEY = ""; let DATA = null; let ONB = null; let TAB = "overview"; let OPEN = null;
+let KEY = ""; let DATA = null; let ONB = null; let TAB = "overview"; let OPEN = null; let LINK = null; // LINK: {candidate, url, name}
 try { KEY = localStorage.getItem("knock_crm_key") || ""; } catch (e) {}
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -233,12 +233,23 @@ function candidateDetail(){
   const d = OPEN.data, s = d.summary;
   const list = d.prospects.map(p=>`<tr class="click" data-prospect="${esc(p.id)}"><td><b>${esc(p.name)}</b><br><span class="muted">${esc(p.headline||"")}${p.company?" · "+esc(p.company):""}</span></td><td><span class="chip">${esc(p.bucket)}</span></td><td>${statusChip(p.status)}${p.held_draft?' <span class="chip warn">draft held</span>':""}</td><td class="muted">${esc(p.hook)}</td></tr>`).join("");
   const p = OPEN.prospect && d.prospects.find(x=>x.id===OPEN.prospect);
-  return `<div class="row" style="margin-top:20px"><button class="btn ghost" type="button" data-back>All candidates</button></div>
+  const portal = d.portal || {};
+  return `<div class="row" style="margin-top:20px"><button class="btn ghost" type="button" data-back>All candidates</button><span class="spacer"></span>
+    <span class="muted">${portal.active ? "Portal link made " + ist(portal.created_at) : "No portal link yet"}</span>
+    <button class="btn${portal.active ? " ghost" : ""}" type="button" data-portal="${esc(OPEN.id)}" data-active="${portal.active ? 1 : 0}">${portal.active ? "New portal link" : "Portal link"}</button></div>
+  ${linkBox(OPEN.id)}
   <h2>${esc(s.name)}</h2><div class="tiles">${tile("Targeted",s.targeted)}${tile("Contacted",s.contacted)}${tile("Replied",s.replied)}${tile("Referrals",s.referrals)}${tile("Interviews",s.interviews)}${tile("To approve",s.awaiting_approval,s.awaiting_approval>0)}</div>
   <div class="grid2" style="margin-top:16px">
     <div class="panel tablewrap">${d.prospects.length?`<table><thead><tr><th>Person</th><th>Type</th><th>Status</th><th>Reason to talk</th></tr></thead><tbody>${list}</tbody></table>`:'<div class="empty">No prospects yet. Run discover for this candidate.</div>'}</div>
     <div class="panel">${p?thread(p):'<div class="empty">Pick a person to see the conversation and approve drafts.</div>'}</div>
   </div>`;
+}
+
+function linkBox(candidateId){
+  if (!LINK || (candidateId && LINK.candidate !== candidateId)) return "";
+  return `<div class="panel linkbox" style="margin-top:12px"><label for="portal-url">Portal link for ${esc(LINK.name || LINK.candidate)}</label>
+    <div class="row"><input id="portal-url" readonly value="${esc(LINK.url)}" style="flex:1 1 280px;min-width:0"><button class="btn" type="button" data-copylink>Copy link</button></div>
+    <p class="muted" style="margin:6px 0 0">Shown once. Only a hash is stored, so a lost link can only be replaced. Send it to the client privately.</p></div>`;
 }
 
 function thread(p){
@@ -276,7 +287,7 @@ function onboarding(){
   const rows = ONB && ONB.onboarding;
   if (!rows) return `<h2>Onboarding</h2><div class="panel empty">Could not load onboarding${ONB && ONB.error ? ": " + esc(ONB.error) : ""}.</div>`;
   const chip = s => `<span class="chip ${s==="ready"?"ok":s==="incomplete"?"warn":""}">${esc(s)}</span>`;
-  return `<h2>Onboarding</h2><p class="muted" style="margin:-4px 0 12px">Submissions from the /start page. Import creates or updates the engine candidate, with facts from the LinkedIn PDF and CV.</p><div class="panel tablewrap">${rows.length?`<table><thead><tr><th>Candidate</th><th>Submitted</th><th>Status</th><th>Missing</th><th>Files</th><th>Targets</th><th></th></tr></thead><tbody>${rows.map(o=>`<tr>
+  return `<h2>Onboarding</h2><p class="muted" style="margin:-4px 0 12px">Submissions from the /start page. Import creates or updates the engine candidate, with facts from the LinkedIn PDF and CV. The first import also makes the client's portal link.</p>${linkBox(null)}<div class="panel tablewrap">${rows.length?`<table><thead><tr><th>Candidate</th><th>Submitted</th><th>Status</th><th>Missing</th><th>Files</th><th>Targets</th><th></th></tr></thead><tbody>${rows.map(o=>`<tr>
     <td><b>${esc(o.full_name)}</b><br><span class="muted mono" style="overflow-wrap:normal;word-break:break-word">${esc(o.email)}</span>${o.package?`<br><span class="muted mono">${esc(o.package)}</span>`:""}</td>
     <td>${ist(o.created_at)}</td>
     <td>${chip(o.status)}</td>
@@ -311,11 +322,11 @@ function render(){
 }
 
 $("#app").addEventListener("click", async e => {
-  const t = e.target.closest("[data-cand],[data-prospect],[data-back],[data-approve],[data-sent],[data-setstatus],[data-reply],[data-import]");
+  const t = e.target.closest("[data-cand],[data-prospect],[data-back],[data-approve],[data-sent],[data-setstatus],[data-reply],[data-import],[data-portal],[data-copylink]");
   if (!t) return;
   try {
     if (t.dataset.cand) return openCandidate(t.dataset.cand);
-    if (t.dataset.back !== undefined) { OPEN = null; return render(); }
+    if (t.dataset.back !== undefined) { OPEN = null; LINK = null; return render(); }
     if (t.dataset.prospect) { OPEN.prospect = t.dataset.prospect; return render(); }
     if (t.dataset.approve) {
       t.disabled = true;
@@ -333,7 +344,25 @@ $("#app").addEventListener("click", async e => {
       await api("/api/crm/inbound", {method:"POST", body: JSON.stringify({linkedin_url: p.linkedin_url, name: p.name, text})});
       toast("Reply logged. Run sync to draft your answer."); $("#reply").value = ""; return;
     }
-    if (t.dataset.import) { t.disabled = true; const r = await api(`/api/crm/onboarding/${encodeURIComponent(t.dataset.import)}/import`, {method:"POST"}); toast((r.created ? "Candidate created. " : "Candidate updated. ") + r.message); return load(); }
+    if (t.dataset.import) {
+      t.disabled = true; const r = await api(`/api/crm/onboarding/${encodeURIComponent(t.dataset.import)}/import`, {method:"POST"});
+      const row = ((ONB && ONB.onboarding) || []).find(o => o.id === t.dataset.import);
+      LINK = r.portal_url ? {candidate: r.candidate_id, url: r.portal_url, name: row && row.full_name} : null;
+      toast((r.created ? "Candidate created. " : "Candidate updated. ") + r.message + (r.portal_url ? " Portal link ready to copy." : "")); return load();
+    }
+    if (t.dataset.portal) {
+      if (t.dataset.active === "1" && !confirm("Make a new portal link? The client's current link stops working straight away.")) return;
+      t.disabled = true;
+      const r = await api(`/api/crm/candidates/${encodeURIComponent(t.dataset.portal)}/portal-link`, {method:"POST"});
+      LINK = {candidate: t.dataset.portal, url: r.url, name: OPEN && OPEN.data.summary.name};
+      await openCandidate(t.dataset.portal); toast(r.rotated ? "New link made. The old one no longer works." : "Portal link made");
+      const box = document.getElementById("portal-url"); if (box) box.focus(); return;
+    }
+    if (t.dataset.copylink !== undefined) {
+      const box = document.getElementById("portal-url");
+      try { await navigator.clipboard.writeText(box.value); toast("Link copied"); } catch (err) { box.select(); toast("Select the link and copy it"); }
+      return;
+    }
     if (t.dataset.sent) { t.disabled = true; await api(`/api/crm/outbox/${t.dataset.sent}/sent`, {method:"POST"}); toast("Marked sent"); return load(); }
   } catch (err) { if (err.message !== "unauthorized") toast(err.message); t.disabled = false; }
 });

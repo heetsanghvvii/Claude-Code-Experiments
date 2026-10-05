@@ -177,28 +177,34 @@ def reply_guidance(candidates: list[Candidate]) -> str:
 
 # ---------- learning ----------
 
-def _distill_openers(data: dict, rows: list[dict]) -> list[str]:
+def openers_text(data: dict, rows: list[dict]) -> str:
     edits = "\n\n".join(f"DRAFT: {e['draft']}\nSENT: {e['final']}" for e in data["edits"][-30:])
     replied = "\n".join(f"- {r['body']}" for r in rows if r["replied"])[-6000:]
     ignored = "\n".join(f"- {r['body']}" for r in rows if not r["replied"])[-6000:]
     current = "\n".join(f"- {r}" for r in data["playbook"]) or "(none)"
-    text = (f"CURRENT RULES:\n{current}\n\nOPERATOR EDITS:\n{edits or '(none)'}\n\n"
+    return (f"CURRENT RULES:\n{current}\n\nOPERATOR EDITS:\n{edits or '(none)'}\n\n"
             f"GOT REPLIES:\n{replied or '(none)'}\n\nNO REPLY:\n{ignored or '(none)'}")
-    return llm.parse(prompts.DISTILL_PLAYBOOK, text, Playbook, effort="high").rules
 
 
-def _distill_replies(data: dict, convs: list[dict]) -> list[str]:
+def _distill_openers(data: dict, rows: list[dict]) -> list[str]:
+    return llm.parse(prompts.DISTILL_PLAYBOOK, openers_text(data, rows), Playbook, effort="high").rules
+
+
+def replies_text(data: dict, convs: list[dict]) -> str:
     won = "\n\n---\n\n".join(c["thread"] for c in convs if c["advanced"])[-8000:]
     lost = "\n\n---\n\n".join(c["thread"] for c in convs if not c["advanced"])[-8000:]
     current = "\n".join(f"- {r}" for r in data["reply_playbook"]) or "(none)"
-    text = (f"CURRENT RULES:\n{current}\n\nCONVERSATIONS THAT REACHED A REFERRAL OR INTERVIEW:\n{won or '(none)'}\n\n"
+    return (f"CURRENT RULES:\n{current}\n\nCONVERSATIONS THAT REACHED A REFERRAL OR INTERVIEW:\n{won or '(none)'}\n\n"
             f"CONVERSATIONS THAT STALLED:\n{lost or '(none)'}")
-    return llm.parse(prompts.DISTILL_REPLY_PLAYBOOK, text, Playbook, effort="high").rules
 
 
-def _evolve_writers(data: dict, rows: list[dict]) -> dict:
-    """Retire writers that clearly underperform; spawn a new angle from what is working."""
-    changes = {"retired": [], "spawned": []}
+def _distill_replies(data: dict, convs: list[dict]) -> list[str]:
+    return llm.parse(prompts.DISTILL_REPLY_PLAYBOOK, replies_text(data, convs), Playbook, effort="high").rules
+
+
+def retire_writers(data: dict, rows: list[dict]) -> list[str]:
+    """Retire writers under half the best reply rate after MIN_SENDS_TO_JUDGE sends."""
+    retired = []
     stats = writer_stats(rows)
     rates = {w: r / n for w, (r, n) in stats.items() if w in data["writers"] and n >= MIN_SENDS_TO_JUDGE}
     if rates:
@@ -206,17 +212,36 @@ def _evolve_writers(data: dict, rows: list[dict]) -> dict:
         for w, rate in rates.items():
             if len(data["writers"]) > 2 and rate < best * 0.5:
                 data["retired"][w] = {"angle": data["writers"].pop(w), "rate": round(rate, 3), "at": _now()}
-                changes["retired"].append(w)
+                retired.append(w)
+    return retired
+
+
+def evolve_text(data: dict, rows: list[dict]) -> str | None:
+    """Input for EVOLVE_WRITER, or None when no new writer is due."""
     winners = examples(rows, n=8)
-    if len(data["writers"]) < MAX_WRITERS and len(winners) >= 3:
-        current = "\n".join(f"- {n}: {a}" for n, a in data["writers"].items())
-        retired = "\n".join(f"- {n}: {v['angle']}" for n, v in data["retired"].items()) or "(none)"
-        text = (f"CURRENT WRITERS:\n{current}\n\nRETIRED (underperformed):\n{retired}\n\n"
-                f"OPENERS THAT GOT REPLIES:\n" + "\n".join(f"- {w}" for w in winners))
-        new = llm.parse(prompts.EVOLVE_WRITER, text, WriterAngle, effort="high")
-        name = new.name.strip().lower().replace(" ", "_")
-        if name not in data["writers"] and name not in data["retired"]:
-            data["writers"][name] = new.angle
+    if len(data["writers"]) >= MAX_WRITERS or len(winners) < 3:
+        return None
+    current = "\n".join(f"- {n}: {a}" for n, a in data["writers"].items())
+    retired = "\n".join(f"- {n}: {v['angle']}" for n, v in data["retired"].items()) or "(none)"
+    return (f"CURRENT WRITERS:\n{current}\n\nRETIRED (underperformed):\n{retired}\n\n"
+            f"OPENERS THAT GOT REPLIES:\n" + "\n".join(f"- {w}" for w in winners))
+
+
+def add_writer(data: dict, new: WriterAngle) -> str | None:
+    name = new.name.strip().lower().replace(" ", "_")
+    if not name or name in data["writers"] or name in data["retired"]:
+        return None
+    data["writers"][name] = new.angle
+    return name
+
+
+def _evolve_writers(data: dict, rows: list[dict]) -> dict:
+    """Retire writers that clearly underperform; spawn a new angle from what is working."""
+    changes = {"retired": retire_writers(data, rows), "spawned": []}
+    text = evolve_text(data, rows)
+    if text:
+        name = add_writer(data, llm.parse(prompts.EVOLVE_WRITER, text, WriterAngle, effort="high"))
+        if name:
             changes["spawned"].append(name)
     return changes
 
@@ -238,6 +263,32 @@ def learn(candidates: list[Candidate], force: bool = False) -> dict | None:
         summary["reply_playbook"] = data["reply_playbook"]
     summary.update(_evolve_writers(data, rows))
     data["learned_at_evidence"] = total
+    save(data)
+    return summary
+
+
+def learn_due(candidates: list[Candidate], force: bool = False) -> bool:
+    data = load()
+    total = evidence_count(data, candidates)
+    return total >= MIN_EVIDENCE and (force or total - data["learned_at_evidence"] >= AUTO_LEARN_EVERY)
+
+
+def apply_learned(candidates: list[Candidate], playbook_rules: list[str], reply_rules: list[str],
+                  new_writer: WriterAngle | None) -> dict:
+    """Subscription mode: store what a Claude Code session distilled (same effect as learn())."""
+    data = load()
+    rows, convs = outcomes(candidates), conversations(candidates)
+    summary: dict = {"evidence": evidence_count(data, candidates)}
+    if playbook_rules:
+        data["playbook_history"].append({"rules": data["playbook"], "replaced_at": _now()})
+        data["playbook"] = [r.strip() for r in playbook_rules if r.strip()][:15]
+        summary["playbook"] = data["playbook"]
+    if reply_rules and convs:
+        data["reply_playbook"] = [r.strip() for r in reply_rules if r.strip()][:12]
+        summary["reply_playbook"] = data["reply_playbook"]
+    summary["retired"] = retire_writers(data, rows)
+    summary["spawned"] = [n for n in [add_writer(data, new_writer)] if n] if new_writer and evolve_text(data, rows) else []
+    data["learned_at_evidence"] = summary["evidence"]
     save(data)
     return summary
 

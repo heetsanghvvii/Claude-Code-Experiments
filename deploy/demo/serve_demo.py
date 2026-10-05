@@ -2,7 +2,8 @@
 
     cd deploy && ./build.sh && PYTHONPATH=.:../engine python demo/serve_demo.py
 
-Serves http://127.0.0.1:8765 (landing page at /, onboarding at /start, CRM at /crm/, password "demo").
+Serves http://127.0.0.1:8765 (landing page at /, onboarding at /start, CRM at /crm/, password "demo",
+client portal for the demo candidate Ananya at the /portal?t=... URL printed on start; set DEMO_PORTAL_TOKEN to fix it).
 Nothing touches a real Supabase: outreach.store's HTTP layer is replaced by an in-memory fake.
 """
 
@@ -59,9 +60,10 @@ def hook(summary, kind="similar_transition"):
                 specificity=4, rarity=3, relevance=4, recency=3, score=4.1, selected=True)
 
 
-def P(pid, name, headline, company, bucket, status, hook_text, msgs=(), kind="similar_transition"):
+def P(pid, name, headline, company, bucket, status, hook_text, msgs=(), kind="similar_transition", fact="", source="linkedin_pdf"):
+    facts = [Fact(id="p:1", owner="prospect", kind="other", text=fact or hook_text, source=source)]
     return Prospect(id=pid, full_name=name, headline=headline, company=company, bucket=bucket, status=status,
-                    linkedin_url=f"{LI}{pid}", hooks=[hook(hook_text, kind)], messages=list(msgs))
+                    linkedin_url=f"{LI}{pid}", hooks=[hook(hook_text, kind)], messages=list(msgs), facts=facts)
 
 
 # ---- Candidate 1: career switcher (teacher to product design) ----
@@ -69,6 +71,7 @@ ananya = Candidate(
     id="ananya-rao-a1b2c3", full_name="Ananya Rao", tier="self_send", auto_send=True, reply_delay_minutes=30,
     target_roles=["Product Designer", "UX Designer"], target_companies=["Lumen Freight", "Orchard Pay", "Tidewater Health"],
     locations=["Bengaluru"], headline="Former maths teacher moving into product design",
+    story={"package": "standard", "email": "ananya@example.com"},
     facts=[Fact(id="c:1", owner="candidate", kind="role_change", text="Taught maths for 7 years, now designing", source="cv")],
     prospects=[
         P("meera-pillai", "Meera Pillai", "Design Lead", "Lumen Freight", "hiring_manager", "interview",
@@ -98,10 +101,12 @@ ananya = Candidate(
       [out("Hi Karan, your post on clinic waiting-room screens made me rethink queue design. Did patients respond to the change?", writer="sharp_observer", sent_h=-20)], "post_reaction"),
     P("leela-nair", "Leela Nair", "Design Director", "Orchard Pay", "senior_connector", "no_response", "Spoke at a design conference in Bengaluru",
       [out("Hi Leela, I enjoyed your talk on design systems at small companies. How did you decide what to leave out?", writer="shared_path", sent_h=-190)], "shared_geo"),
-    P("arjun-sethi", "Arjun Sethi", "Product Designer", "Lumen Freight", "alumni", "message_ready", "Same teacher training programme alumnus",
-      [out("Hi Arjun, we both came through the same teacher training programme. What made you leave the classroom?", writer="shared_path", approved=False)], "shared_school"),
+    P("arjun-sethi", "Arjun Sethi", "Product Designer", "Lumen Freight", "alumni", "message_ready", "You both came through the same teacher training programme",
+      [out("Hi Arjun, we both came through the same teacher training programme. What made you leave the classroom?", writer="shared_path", approved=False)], "shared_school",
+      fact="Completed the Teach for Change fellowship in 2016 before moving into design"),
     P("tara-dsouza", "Tara D'Souza", "Product Designer", "Tidewater Health", "team_member", "message_ready", "Built the patient intake flow",
-      [out("Hi Tara, the intake flow you shipped looks calm. What did you cut to get there?", writer="curious_peer", approved=False)], "relevant_work"),
+      [out("Hi Tara, the intake flow you shipped looks calm. What did you cut to get there?", writer="curious_peer", approved=False)], "relevant_work",
+      fact="Wrote a case study on cutting the patient intake form from 31 fields to 12", source="https://example.com/tara-dsouza/intake-case-study"),
     ],
 )
 
@@ -239,6 +244,19 @@ from fastapi.responses import FileResponse  # noqa: E402
 
 app = api_module.app
 
+# ---- client portal link for Ananya (only the hash is stored, as in production) ----
+import secrets  # noqa: E402
+
+PORTAL_TOKEN = os.environ.get("DEMO_PORTAL_TOKEN") or secrets.token_urlsafe(32)
+ananya.story["portal_token_hash"] = api_module._token_hash(PORTAL_TOKEN)
+ananya.story["portal_token_at"] = iso(-24 * 11)
+store.save(ananya)
+
+
+@app.get("/portal", include_in_schema=False)
+def portal_page():  # same as the /portal rewrite in vercel.json
+    return FileResponse(DEPLOY / "public" / "portal" / "index.html")
+
 
 @app.get("/start", include_in_schema=False)
 def start_page():  # same as the /start rewrite in vercel.json
@@ -248,4 +266,6 @@ def start_page():  # same as the /start rewrite in vercel.json
 app.mount("/", StaticFiles(directory=str(DEPLOY / "public"), html=True), name="static")
 
 if __name__ == "__main__":
+    port = int(os.environ.get("PORT", "8765"))
+    print(f"Client portal for Ananya Rao: http://127.0.0.1:{port}/portal?t={PORTAL_TOKEN}", flush=True)
     uvicorn.run(app, host="127.0.0.1", port=int(os.environ.get("PORT", "8765")), log_level="warning")

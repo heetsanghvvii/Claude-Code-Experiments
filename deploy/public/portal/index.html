@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en-IN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Knock | Your portal</title>
+<meta name="description" content="Your Knock portal: the people worth talking to, the messages written for them, and where each conversation stands.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#A9C7E6">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23B3301B'/%3E%3Cg fill='none' stroke='%23FAFCFE' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='32' cy='26' r='7'/%3E%3Cpath d='M22 38a12 12 0 1 0 20 0'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
+<style>
+/* Knock brand tokens (brand/tokens.css), inlined. Light only, like the landing page, /start and the CRM. */
+:root{
+  --inland:#A9C7E6; --inland-2:#97B9DD; --inland-3:#C4D9EF;
+  --paper:#EEF3F8; --white:#FAFCFE;
+  --ink:#0E1F3A; --ink-2:#2B4266; --ink-3:#4A5F80;
+  --post:#B3301B; --post-soft:#F3D9D2;
+  --rule:rgba(14,31,58,.2); --rule-strong:rgba(14,31,58,.55);
+  --display:"Archivo","Arial Narrow",sans-serif;
+  --text:"Archivo",system-ui,sans-serif;
+  --serif:"Source Serif 4",Georgia,serif;
+  --gutter:clamp(16px,4vw,48px);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --shadow-sheet:0 30px 60px -36px rgba(14,31,58,.55);
+  --shadow-note:0 30px 50px -30px rgba(14,31,58,.55),0 4px 10px -6px rgba(14,31,58,.3);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:84px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--text);font-size:1rem;line-height:1.55;font-variation-settings:"wdth" 100;font-stretch:100%;caret-color:var(--post);overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column}
+body>main{flex:1 0 auto;width:100%}
+[tabindex="-1"]:focus{outline:none}
+::selection{background:var(--ink);color:var(--inland-3)}
+svg{display:block;max-width:100%}
+a{color:inherit;text-underline-offset:.22em;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--post);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-family:var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;font-weight:800;line-height:.95;letter-spacing:-.015em;margin:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+.wrap{max-width:1080px;margin:0 auto;padding:0 var(--gutter)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:var(--white);padding:10px 16px;z-index:50;text-decoration:none;font-weight:600}
+.skip:focus{top:12px}
+
+/* header */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;font-weight:800;font-size:1.6rem;letter-spacing:-.01em}
+.brand svg{width:30px;height:30px}
+.brand small{font:600 .72rem var(--text);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);border-left:1px solid var(--rule-strong);padding-left:12px;margin-left:4px}
+.who-am-i{font-size:.9rem;color:var(--ink-2);text-align:right}
+
+/* intro sheet: the airmail letter, with the progress strip */
+.intro{padding-top:clamp(16px,3vw,32px)}
+.sheet{position:relative;background:var(--inland);border-radius:4px;padding:clamp(28px,4.4vw,52px) clamp(28px,5vw,64px);box-shadow:var(--shadow-sheet);overflow:hidden;isolation:isolate}
+.sheet::before{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px),radial-gradient(120% 70% at 85% 0%,rgba(255,255,255,.25),transparent 60%)}
+.perf{position:absolute;top:0;bottom:0;width:10px;background:radial-gradient(circle,var(--paper) 2.6px,transparent 3.2px) center top/10px 14px repeat-y}
+.perf.l{left:clamp(6px,1.2vw,14px)}.perf.r{right:clamp(6px,1.2vw,14px)}
+.eyebrow{font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.intro h1{margin-top:12px;font-size:clamp(2.2rem,1.3rem + 3.6vw,4rem);font-variation-settings:"wdth" 70;font-stretch:70%;line-height:.94;max-width:18ch;letter-spacing:-.02em;outline:none}
+.intro .lede{margin-top:14px;font-family:var(--serif);font-size:clamp(1.05rem,1rem + .3vw,1.25rem);max-width:56ch}
+.hero-stamp{position:absolute;right:clamp(40px,6vw,88px);top:clamp(32px,4.4vw,56px);width:clamp(80px,9vw,116px);transform:rotate(4deg);filter:drop-shadow(0 6px 8px rgba(14,31,58,.22))}
+@media (max-width:760px){.hero-stamp{width:50px;right:24px;top:22px}.intro h1{padding-right:52px}}
+
+.strip{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));position:relative}
+.strip::before{content:"";position:absolute;left:calc(100%/12);right:calc(100%/12);top:13px;border-top:2px dashed rgba(14,31,58,.45)}
+.strip li{position:relative;display:grid;justify-items:center;text-align:center;gap:6px;min-width:0}
+.strip .dot{width:28px;height:28px;border-radius:50%;background:var(--inland-3);border:2px solid var(--ink);position:relative;z-index:1}
+.strip .on .dot{background:var(--ink)}
+.strip .goal .dot{border-color:var(--post);background:var(--white);box-shadow:0 0 0 4px rgba(179,48,27,.25)}
+.strip .goal.on .dot{background:var(--post)}
+.strip .n{font:800 2rem/1 var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;font-variant-numeric:tabular-nums lining-nums}
+.strip .goal .n{color:var(--post)}
+.strip .l{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;overflow-wrap:anywhere;line-height:1.25}
+@media (max-width:620px){
+  .strip{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:18px}
+  .strip::before{display:none}
+  .strip .n{font-size:1.7rem}
+}
+
+/* jump links */
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;list-style:none}
+.jump a{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:6px 14px;border:1.5px solid var(--rule-strong);border-radius:99px;text-decoration:none;font-weight:600;font-size:.92rem;background:var(--white)}
+.jump a:hover{border-color:var(--ink)}
+.jump b{font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.jump .hot b{color:var(--post)}
+
+/* sections */
+main{padding-bottom:clamp(48px,6vw,88px)}
+section.part{margin-top:clamp(36px,5vw,56px)}
+.part-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;border-bottom:2px solid var(--ink);padding-bottom:10px}
+.part-h h2{font-size:clamp(1.9rem,1.4rem + 1.8vw,2.7rem);outline:none}
+.part-h p{color:var(--ink-2);font-size:.95rem;max-width:56ch}
+.list{display:grid;gap:18px;margin-top:20px}
+.empty{margin-top:18px;padding:22px 24px;border:1.5px dashed var(--rule-strong);border-radius:4px;font-family:var(--serif);font-style:italic;font-size:1.08rem;color:var(--ink-2);max-width:68ch}
+
+/* a person card: a white note on the paper */
+.card{position:relative;background:var(--white);border-radius:4px;padding:clamp(18px,3vw,32px);box-shadow:var(--shadow-note);min-width:0}
+.who{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:flex-start;justify-content:space-between}
+.who h3{font-size:clamp(1.6rem,1.3rem + 1vw,2rem)}
+.who .role{margin-top:4px;color:var(--ink-2);font-size:.98rem}
+.chip{display:inline-block;padding:3px 11px;border-radius:99px;background:var(--inland-3);color:var(--ink);font-weight:600;font-size:.8rem;white-space:nowrap}
+.chip.red{background:var(--post-soft);color:var(--post)}
+.chip.ink{background:var(--ink);color:var(--white)}
+.k{font-weight:600;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.why{margin-top:18px;display:grid;gap:8px}
+.hook{font-family:var(--serif);font-size:1.15rem;line-height:1.4}
+.facts{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px}
+.facts li{display:grid;grid-template-columns:62px 1fr;gap:10px;font-size:.95rem;align-items:baseline}
+.facts .whose{font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);border-top:2px solid var(--inland-2);padding-top:3px}
+.facts .src{display:inline-block;margin-left:6px;font-size:.84rem;color:var(--ink-3)}
+.facts a.src{color:var(--ink-2)}
+.draft{margin-top:20px}
+.draft-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.count{font-size:.84rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.count.over{color:var(--post);font-weight:600}
+textarea{width:100%;margin-top:8px;min-height:96px;padding:14px 16px;border:1.5px solid rgba(14,31,58,.45);border-radius:4px;background:var(--paper);font-family:var(--serif);font-size:1.08rem;line-height:1.5;color:var(--ink);resize:vertical;transition:border-color .2s,box-shadow .2s,background .2s}
+textarea[readonly]{min-height:0;border-color:transparent;border-left:3px solid var(--post);background:var(--paper);resize:none;cursor:text}
+textarea:not([readonly]):focus{outline:none;border-color:var(--ink);background:var(--white);box-shadow:0 0 0 3px rgba(179,48,27,.35)}
+textarea::placeholder{color:#5F7290;opacity:1}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:46px;padding:.55em 1.2em;background:var(--ink);color:var(--white);border:2px solid var(--ink);border-radius:999px;font-family:var(--display);font-variation-settings:"wdth" 88;font-stretch:88%;font-weight:700;font-size:1rem;letter-spacing:.01em;cursor:pointer;text-decoration:none;transition:background .2s,border-color .2s,box-shadow .2s,transform .1s}
+.btn:hover{background:var(--post);border-color:var(--post);box-shadow:0 8px 20px -10px rgba(179,48,27,.7)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.6;cursor:progress}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--white);border-color:var(--ink);box-shadow:none}
+.btn svg{width:18px;height:18px;flex:none}
+.actions .sent{margin-left:auto}
+.linkish{background:none;border:0;padding:6px 0;font:inherit;font-size:.9rem;color:var(--ink-2);text-decoration:underline;text-underline-offset:.22em;cursor:pointer}
+.linkish:hover{color:var(--ink);text-decoration-thickness:2px}
+.foot{margin-top:12px;display:flex;flex-wrap:wrap;gap:4px 18px;align-items:center;justify-content:space-between}
+.steps-hint{font-size:.88rem;color:var(--ink-3)}
+
+/* thread */
+details.convo{margin-top:16px;border-top:1px solid var(--rule);padding-top:10px}
+details.convo summary,details.closed summary{cursor:pointer;font-weight:600;font-size:.95rem;min-height:40px;display:flex;align-items:center;gap:10px;list-style:none}
+details.convo summary::-webkit-details-marker,details.closed summary::-webkit-details-marker{display:none}
+details.convo summary::before,details.closed summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--post);border-bottom:2px solid var(--post);transform:rotate(-45deg);transition:transform .2s var(--ease);flex:none}
+details[open]>summary::before{transform:rotate(45deg)}
+.thread{display:flex;flex-direction:column;gap:10px;margin:10px 0 4px}
+.msg{max-width:88%;padding:10px 14px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;font:400 1.02rem/1.45 var(--serif)}
+.msg.out{align-self:flex-end;background:var(--ink);color:var(--white);border-bottom-right-radius:2px}
+.msg.in{align-self:flex-start;background:var(--inland-3);color:var(--ink);border-bottom-left-radius:2px}
+.msg.pending{background:var(--paper);border:1.5px dashed var(--rule-strong)}
+.msg .meta{display:block;font:600 .74rem var(--text);letter-spacing:.04em;opacity:.85;margin-top:4px}
+
+/* compact rows for waiting and conversations */
+.row-card .line{display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:space-between;align-items:flex-start}
+.row-card h3{font-size:1.5rem}
+.row-card .when{font-size:.9rem;color:var(--ink-3)}
+.mini-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center}
+.paste{margin-top:12px}
+.paste label,.outcome label{font-weight:600;font-size:.95rem;display:block}
+.paste .help{font-size:.88rem;color:var(--ink-2);margin-top:2px}
+.outcome{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:flex-end;margin-top:12px}
+.outcome .f{display:grid;gap:4px;min-width:min(240px,100%);flex:1 1 220px}
+select{width:100%;min-height:46px;padding:10px 40px 10px 14px;border:1.5px solid rgba(14,31,58,.45);border-radius:4px;background:var(--paper);font:inherit;color:var(--ink);appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat}
+select:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(179,48,27,.35)}
+.writing{display:flex;gap:12px;align-items:flex-start;margin-top:14px;padding:12px 14px;background:var(--paper);border-radius:4px}
+.writing .pen{width:22px;height:22px;flex:none;margin-top:2px;color:var(--post)}
+.writing b{display:block}
+.writing span{font-size:.92rem;color:var(--ink-2)}
+
+/* how to send safely: an airmail note */
+.safe{margin-top:clamp(36px,5vw,56px);background:var(--ink);color:var(--paper);border-radius:4px;padding:clamp(22px,3.4vw,40px);position:relative;overflow:hidden}
+.safe h2{font-size:clamp(1.8rem,1.4rem + 1.4vw,2.4rem);color:var(--white)}
+.safe ol{margin:16px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px 28px;counter-reset:s}
+.safe li{counter-increment:s;padding-top:10px;border-top:1px solid rgba(169,199,230,.35);font-size:.98rem}
+.safe li::before{content:counter(s,decimal-leading-zero);display:block;font:800 1.3rem/1 var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;color:var(--inland);margin-bottom:6px}
+.safe li b{color:var(--white)}
+details.closed{margin-top:clamp(28px,4vw,40px)}
+details.closed ul{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+details.closed li{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--rule)}
+
+/* states */
+.state{margin:clamp(28px,6vw,72px) auto 0;max-width:560px;background:var(--white);box-shadow:var(--shadow-note);border-radius:4px;padding:clamp(24px,4vw,40px)}
+.state h1{font-size:clamp(2rem,1.5rem + 2vw,2.8rem)}
+.state p{margin-top:12px;font-family:var(--serif);font-size:1.1rem;color:var(--ink-2)}
+.loading{margin-top:40px;font-family:var(--serif);font-style:italic;color:var(--ink-2)}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--white);padding:12px 20px;border-radius:99px;font-weight:600;z-index:40;box-shadow:var(--shadow-sheet);max-width:calc(100vw - 32px);text-align:center}
+footer{background:var(--ink);color:var(--paper);padding:30px 0 26px;border-top:1px solid rgba(169,199,230,.25)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;font-size:.92rem}
+footer .tag{font-family:var(--serif);font-style:italic;color:var(--inland);font-size:1.1rem}
+footer a{color:var(--white)}
+
+@media (max-width:560px){
+  .who-am-i{display:none}
+  .actions .btn{flex:1 1 auto;white-space:nowrap;padding-inline:1em}
+  .actions a.btn,.actions .sent{flex-basis:100%;margin-left:0}
+  .mini-actions .btn{flex:1 1 100%}
+  .facts li{grid-template-columns:1fr;gap:2px}
+  .facts .whose{border-top:0;padding-top:0}
+  .facts .src{margin-left:0;display:block}
+  .msg{max-width:94%}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to your messages</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Knock, home">
+      <svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="2.5" width="22" height="27" rx="2"/><circle cx="16" cy="12" r="3"/><path d="M12.6 15.2a5.2 5.2 0 1 0 6.8 0"/></svg>
+      Knock <small>your portal</small>
+    </a>
+    <span class="who-am-i" id="whoami"></span>
+  </div>
+</header>
+
+<main id="main" class="wrap" tabindex="-1">
+  <noscript><div class="state"><h1>Your portal needs JavaScript</h1><p>Turn on JavaScript for this page, or write to hello@knock.careers and we will send your messages by email.</p></div></noscript>
+  <p class="loading" id="loading" role="status">Opening your portal.</p>
+  <div id="app" hidden></div>
+</main>
+
+<footer>
+  <div class="wrap"><span class="tag">Knock on the right door.</span><span>Questions: <a href="mailto:hello@knock.careers">hello@knock.careers</a></span></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+  "use strict";
+  var STORE = "knock_portal_t";
+  var TOKEN = "", ME = null, PEOPLE = [], EDITING = {}, OPEN_PASTE = {};
+  var $ = function(s, r){ return (r || document).querySelector(s); };
+  var esc = function(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); };
+  var ist = function(iso){ if (!iso) return ""; var d = new Date(iso); if (isNaN(d)) return ""; return d.toLocaleString("en-IN", {timeZone:"Asia/Kolkata", day:"numeric", month:"short", hour:"numeric", minute:"2-digit"}) + " IST"; };
+  var plural = function(n, one, many){ return n + " " + (n === 1 ? one : many); };
+
+  // The link carries the token once; keep it on this device and take it out of the address bar.
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get("t")) { TOKEN = q.get("t"); try { localStorage.setItem(STORE, TOKEN); } catch (e) {} history.replaceState(null, "", location.pathname + location.hash); }
+    else { try { TOKEN = localStorage.getItem(STORE) || ""; } catch (e) {} }
+  } catch (e) {}
+
+  function toast(t){ var el = $("#toast"); el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(function(){ el.hidden = true; }, 4000); }
+
+  function api(path, body){
+    var opts = {method: body === undefined ? "GET" : "POST", headers: {"x-portal-token": TOKEN}};
+    if (body !== undefined) { opts.headers["content-type"] = "application/json"; opts.body = JSON.stringify(body || {}); }
+    return fetch(path, opts).then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(b){
+        if (r.status === 401) { stateScreen("This link has expired", "Your portal link was replaced or is not complete. Write to hello@knock.careers and we will send you a fresh one."); try { localStorage.removeItem(STORE); } catch (e) {} throw new Error("unauthorized"); }
+        if (!r.ok) throw new Error(b.detail || "Something did not go through. Please try again.");
+        return b;
+      });
+    });
+  }
+
+  function stateScreen(title, text){
+    $("#loading").hidden = true;
+    var app = $("#app"); app.hidden = false;
+    app.innerHTML = '<div class="state"><h1 tabindex="-1" id="state-h">' + esc(title) + '</h1><p>' + esc(text).replace("hello@knock.careers", '<a href="mailto:hello@knock.careers">hello@knock.careers</a>') + '</p></div>';
+    $("#state-h").focus();
+  }
+
+  function load(){
+    return Promise.all([api("/api/portal/me"), api("/api/portal/prospects")]).then(function(res){
+      ME = res[0]; PEOPLE = res[1].prospects;
+      render();
+    });
+  }
+
+  // ---------- pieces ----------
+  var ICON = {
+    copy: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>',
+    out: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
+    check: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>',
+    pen: '<svg class="pen" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg>'
+  };
+
+  function linkedin(p){
+    if (/^https?:\/\/([a-z]+\.)?linkedin\.com\//i.test(p.linkedin_url || "")) return p.linkedin_url;
+    return "https://www.linkedin.com/search/results/people/?keywords=" + encodeURIComponent((p.name + " " + (p.company || "")).trim());
+  }
+  function role(p){ return [p.headline, p.company].filter(Boolean).map(esc).join(" at "); }
+
+  function why(p){
+    if (!p.hook) return "";
+    var facts = (p.hook.facts || []).map(function(f){
+      var src = f.source_url
+        ? '<a class="src" href="' + esc(f.source_url) + '" target="_blank" rel="noopener noreferrer">' + esc(f.source_label) + '<span class="sr-only"> (opens in a new tab)</span></a>'
+        : (f.source_label ? '<span class="src">' + esc(f.source_label) + '</span>' : "");
+      return '<li><span class="whose">' + (f.owner === "candidate" ? "You" : "Them") + '</span><span>' + esc(f.text) + src + '</span></li>';
+    }).join("");
+    return '<div class="why"><p class="k">Why they are worth talking to' + (p.hook.label ? ": " + esc(p.hook.label.toLowerCase()) : "") + '</p>' +
+      '<p class="hook">' + esc(p.hook.summary) + '</p>' + (facts ? '<ul class="facts" aria-label="Facts behind this">' + facts + '</ul>' : "") + '</div>';
+  }
+
+  function thread(p, open){
+    var items = p.messages.map(function(m){
+      return '<div class="msg ' + (m.direction === "outbound" ? "out" : "in") + '">' + esc(m.body) +
+        '<span class="meta">' + (m.direction === "outbound" ? "You, " + ist(m.sent_at) : esc(p.name.split(" ")[0]) + (m.created_at ? ", " + ist(m.created_at) : "")) + '</span></div>';
+    }).concat((p.pending_replies || []).filter(function(r){
+      return !p.messages.some(function(m){ return m.direction === "inbound" && m.body.trim() === String(r.body).trim(); });
+    }).map(function(r){
+      return '<div class="msg in pending">' + esc(r.body) + '<span class="meta">' + esc(p.name.split(" ")[0]) + ', added ' + ist(r.received_at) + '</span></div>';
+    }));
+    if (!items.length) return "";
+    return '<details class="convo"' + (open ? " open" : "") + '><summary>Conversation so far, ' + plural(items.length, "message", "messages") + '</summary><div class="thread">' + items.join("") + '</div></details>';
+  }
+
+  function counter(p, text){
+    var n = text.length, limit = p.draft && p.draft.step === 1 ? 300 : 0;
+    var over = limit && n > limit;
+    return '<span class="count' + (over ? " over" : "") + '" id="c-' + esc(p.id) + '">' + n + (limit ? " of 300 characters" + (over ? ". Trim it for a connection note" : "") : " characters") + '</span>';
+  }
+
+  function readyCard(p){
+    var id = esc(p.id), d = p.draft, body = EDITING[p.id] != null ? EDITING[p.id] : d.body, editing = EDITING[p.id] != null;
+    var kind = d.step === 1 ? "First message" : "Your next message";
+    return '<article class="card" id="p-' + id + '" aria-labelledby="h-' + id + '">' +
+      '<div class="who"><div><h3 id="h-' + id + '">' + esc(p.name) + '</h3><p class="role">' + role(p) + '</p></div><span class="chip">' + esc(p.bucket_label) + '</span></div>' +
+      why(p) + (d.step > 1 ? thread(p, false) : "") +
+      '<div class="draft"><div class="draft-h"><label class="k" for="d-' + id + '">' + kind + (d.edited ? ", edited by you" : "") + '</label>' + counter(p, body) + '</div>' +
+      '<textarea id="d-' + id + '" data-draft="' + id + '"' + (editing ? "" : " readonly") + ' aria-describedby="c-' + id + '" rows="2">' + esc(body) + '</textarea></div>' +
+      '<div class="actions">' +
+        (editing
+          ? '<button class="btn ghost" type="button" data-save="' + id + '">Save my edit</button><button class="btn ghost" type="button" data-cancel="' + id + '">Cancel</button>'
+          : '<button class="btn ghost" type="button" data-edit="' + id + '" aria-label="Edit the message to ' + esc(p.name) + '">Edit</button>') +
+        '<button class="btn ghost" type="button" data-copy="' + id + '">' + ICON.copy + 'Copy message</button>' +
+        '<a class="btn ghost" href="' + esc(linkedin(p)) + '" target="_blank" rel="noopener noreferrer">' + ICON.out + 'Open LinkedIn<span class="sr-only"> for ' + esc(p.name) + ', opens in a new tab</span></a>' +
+        '<button class="btn sent" type="button" data-sent="' + id + '">' + ICON.check + 'I sent it</button>' +
+      '</div>' +
+      '<div class="foot"><p class="steps-hint">Copy, open their profile, paste and send from your own account, then tap I sent it.</p>' +
+        (d.step === 1 ? '<button class="linkish" type="button" data-skip="' + id + '">Do not contact ' + esc(p.name.split(" ")[0]) + '</button>' : "") + '</div>' +
+    '</article>';
+  }
+
+  function pasteBox(p, label){
+    var id = esc(p.id);
+    if (!OPEN_PASTE[p.id]) return '<button class="btn ghost" type="button" data-openpaste="' + id + '" aria-expanded="false">' + label + '</button>';
+    return '<div class="paste" style="flex-basis:100%"><label for="r-' + id + '">Paste ' + esc(p.name.split(" ")[0]) + '\'s reply</label>' +
+      '<p class="help" id="rh-' + id + '">Copy their message from LinkedIn exactly as written. We write your answer in the next daily run.</p>' +
+      '<textarea id="r-' + id + '" aria-describedby="rh-' + id + '" placeholder="Their message"></textarea>' +
+      '<div class="mini-actions"><button class="btn" type="button" data-reply="' + id + '">Save their reply</button><button class="btn ghost" type="button" data-closepaste="' + id + '">Cancel</button></div></div>';
+  }
+
+  function outcome(p, choices){
+    var id = esc(p.id);
+    return '<div class="outcome"><div class="f"><label for="o-' + id + '">How is it going with ' + esc(p.name.split(" ")[0]) + '?</label>' +
+      '<select id="o-' + id + '"><option value="">Choose an update</option>' + choices.map(function(c){ return '<option value="' + c[0] + '"' + (p.status === c[0] ? " selected" : "") + '>' + c[1] + '</option>'; }).join("") + '</select></div>' +
+      '<button class="btn ghost" type="button" data-status="' + id + '">Save update</button></div>';
+  }
+
+  var STATUS_WORDS = {sent:"Message sent", accepted:"Connected", replied:"Replied", conversation:"In conversation", referral:"Referred you", interview:"Interview", offer:"Offer", no_response:"No reply", declined:"Said no", skipped:"Not contacting"};
+  var GOOD = {referral:1, interview:1, offer:1};
+
+  function waitingCard(p){
+    var id = esc(p.id), last = p.messages[p.messages.length - 1];
+    return '<article class="card row-card" id="p-' + id + '" aria-labelledby="h-' + id + '"><div class="line"><div><h3 id="h-' + id + '">' + esc(p.name) + '</h3><p class="role">' + role(p) + '</p></div>' +
+      '<p class="when">Sent ' + ist(last && last.sent_at) + '</p></div>' + thread(p, false) +
+      '<div class="mini-actions">' + pasteBox(p, "They replied") + (OPEN_PASTE[p.id] ? "" : '<button class="linkish" type="button" data-noreply="' + id + '">No reply after a week</button>') + '</div></article>';
+  }
+
+  function writingCard(p){
+    var id = esc(p.id);
+    return '<article class="card row-card" id="p-' + id + '" aria-labelledby="h-' + id + '"><div class="line"><div><h3 id="h-' + id + '">' + esc(p.name) + '</h3><p class="role">' + role(p) + '</p></div><span class="chip ink">Replied</span></div>' +
+      thread(p, true) +
+      '<div class="writing">' + ICON.pen + '<div><b>Your next message is being written</b><span>It appears in Ready to send after the next daily run, around 9:00 am IST. There is nothing you need to do until then.</span></div></div></article>';
+  }
+
+  function convoCard(p){
+    var id = esc(p.id);
+    return '<article class="card row-card" id="p-' + id + '" aria-labelledby="h-' + id + '"><div class="line"><div><h3 id="h-' + id + '">' + esc(p.name) + '</h3><p class="role">' + role(p) + '</p></div>' +
+      '<span class="chip' + (GOOD[p.status] ? " red" : "") + '">' + esc(STATUS_WORDS[p.status] || "In conversation") + '</span></div>' +
+      thread(p, false) +
+      '<div class="mini-actions">' + pasteBox(p, "They wrote again") + '</div>' +
+      outcome(p, [["referral","They referred me"],["interview","I have an interview"],["offer","I got an offer"],["declined","They said no"],["no_response","They went quiet"]]) +
+    '</article>';
+  }
+
+  function section(id, title, sub, items, card, empty){
+    return '<section class="part" id="' + id + '" aria-labelledby="' + id + '-h"><div class="part-h"><h2 id="' + id + '-h" tabindex="-1">' + title + '</h2><p>' + sub + '</p></div>' +
+      (items.length ? '<div class="list">' + items.map(card).join("") + '</div>' : '<p class="empty">' + empty + '</p>') + '</section>';
+  }
+
+  function render(){
+    var by = {ready:[], waiting:[], writing:[], conversation:[], closed:[], skipped:[]};
+    PEOPLE.forEach(function(p){ (by[p.section] || []).push(p); });
+    var pr = ME.progress, first = esc(ME.first_name || ME.name);
+    $("#whoami").textContent = ME.name + (ME.package_label ? ", " + ME.package_label : "");
+    var steps = [["targeted","Targeted"],["sent","Sent"],["replied","Replied"],["conversations","Talking"],["referrals","Referrals"],["interviews","Interviews"]];
+    var strip = '<ol class="strip" aria-label="Your progress toward interviews">' + steps.map(function(s, i){
+      var n = pr[s[0]] || 0;
+      return '<li class="' + (n ? "on" : "") + (i === steps.length - 1 ? " goal" : "") + '"><span class="dot" aria-hidden="true"></span><span class="n">' + n + '</span><span class="l">' + s[1] + '</span></li>';
+    }).join("") + '</ol>';
+    var n = by.ready.length;
+    var head = n ? (n === 1 ? "One message is ready for you, " + first + "." : n + " messages are ready for you, " + first + ".")
+                 : (by.writing.length ? "Your next messages are being written, " + first + "." : "Hello " + first + ". You are up to date.");
+    var lede = n ? "Each one is written for one person, with the reason they are worth talking to. Send from your own LinkedIn, then tell us here."
+                 : "New people and replies arrive after each daily run, around 9:00 am IST. Check back tomorrow morning.";
+    var jumps = [["ready","Ready to send",by.ready.length,1],["waiting","Waiting for a reply",by.waiting.length],["replies","Replies",by.writing.length],["conversations","Conversations",by.conversation.length],["safely","How to send safely"]];
+    var html =
+      '<section class="intro" aria-labelledby="hello"><div class="sheet"><span class="perf l" aria-hidden="true"></span><span class="perf r" aria-hidden="true"></span>' +
+      '<svg class="hero-stamp" viewBox="0 0 160 192" aria-hidden="true"><rect x="2" y="2" width="156" height="188" fill="#FAFCFE" stroke="#0E1F3A" stroke-opacity=".28" stroke-dasharray="5 4"/><rect x="14" y="14" width="132" height="164" fill="#B3301B"/><g transform="translate(32 26) scale(1.5)" fill="none" stroke="#FAFCFE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10h24"/><path d="M26 10v6M38 10v6"/><circle cx="32" cy="22" r="6"/><path d="M22 34a14 14 0 1 0 20 0"/><path d="M32 54v8"/><path d="M26 64h12"/></g></svg>' +
+      '<p class="eyebrow">' + (ME.package_label ? esc(ME.package_label) + " search" : "Your search") + (ME.target_roles && ME.target_roles.length ? ", " + esc(ME.target_roles.join(" or ")) : "") + '</p>' +
+      '<h1 id="hello" tabindex="-1">' + head + '</h1><p class="lede">' + lede + '</p>' + strip + '</div>' +
+      '<ul class="jump" aria-label="Sections">' + jumps.map(function(j){ return '<li><a href="#' + j[0] + '"' + (j[3] && j[2] ? ' class="hot"' : "") + '>' + j[1] + (j[2] != null ? ' <b>' + j[2] + '</b>' : "") + '</a></li>'; }).join("") + '</ul></section>' +
+      section("ready", "Ready to send", "Send at your own pace. Fifteen to twenty a day is plenty.", by.ready, readyCard,
+        "Nothing to send right now. New messages arrive after each daily run, around 9:00 am IST.") +
+      section("waiting", "Waiting for a reply", "Most replies come within three to five days. When one does, paste it here.", by.waiting, waitingCard,
+        "No one is waiting on you yet. Once you send a message, that person moves here.") +
+      section("replies", "Replies", "Replies you added. We are writing your answer.", by.writing, writingCard,
+        "No replies to answer right now. When someone writes back, open Waiting for a reply and paste their message under their name.") +
+      section("conversations", "Conversations", "Everyone who has written back, with the full thread.", by.conversation, convoCard,
+        "Conversations start when someone replies. Most people take a few days, so this fills up slowly and then all at once.") +
+      (by.closed.length + by.skipped.length ? '<details class="closed"><summary>Closed and not contacted (' + (by.closed.length + by.skipped.length) + ')</summary><ul>' +
+        by.closed.concat(by.skipped).map(function(p){ return '<li><b>' + esc(p.name) + '</b><span class="role">' + role(p) + '</span><span class="chip">' + esc(STATUS_WORDS[p.status] || p.status) + '</span></li>'; }).join("") + '</ul></details>' : "") +
+      '<section class="safe" id="safely" aria-labelledby="safely-h"><h2 id="safely-h" tabindex="-1">How to send safely</h2><ol>' +
+        '<li><b>Fifteen to twenty a day at most.</b> Spread them through the day. LinkedIn notices bursts, people do not.</li>' +
+        '<li><b>Use your own personal account.</b> Never a second profile, and never a tool that sends for you.</li>' +
+        '<li><b>Never paste links.</b> A first message with a link looks like spam. Share your portfolio or CV only when they ask.</li>' +
+        '<li><b>Read it once before sending.</b> Change anything that does not sound like you. Your edits teach us your voice.</li>' +
+      '</ol></section>';
+    $("#loading").hidden = true;
+    var app = $("#app"); app.hidden = false; app.innerHTML = html;
+    sizeAll();
+  }
+
+  function sizeAll(){ Array.prototype.forEach.call(document.querySelectorAll("textarea[data-draft]"), size); }
+  // Web fonts and width changes reflow the drafts, so measure again when they settle.
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeAll);
+  var resizeT; window.addEventListener("resize", function(){ clearTimeout(resizeT); resizeT = setTimeout(sizeAll, 120); });
+  function size(t){ t.style.height = "auto"; t.style.height = (t.scrollHeight + 4) + "px"; }
+  function person(id){ for (var i = 0; i < PEOPLE.length; i++) if (PEOPLE[i].id === id) return PEOPLE[i]; return null; }
+  function focusLater(sel){ setTimeout(function(){ var el = $(sel); if (el) el.focus(); }, 0); }
+
+  function copy(text){
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    return new Promise(function(ok, fail){
+      var t = document.createElement("textarea"); t.value = text; t.setAttribute("readonly", ""); t.style.position = "fixed"; t.style.opacity = "0";
+      document.body.appendChild(t); t.select();
+      try { document.execCommand("copy") ? ok() : fail(); } catch (e) { fail(e); } finally { t.remove(); }
+    });
+  }
+
+  function refresh(after){ return load().then(function(){ if (after) focusLater(after); }); }
+
+  document.addEventListener("input", function(e){
+    var t = e.target;
+    if (t.matches && t.matches("textarea[data-draft]")) {
+      EDITING[t.dataset.draft] = t.value; size(t);
+      var p = person(t.dataset.draft), c = $("#c-" + CSS.escape(t.dataset.draft));
+      if (p && c) c.outerHTML = counter(p, t.value);
+    }
+  });
+
+  document.addEventListener("click", function(e){
+    var b = e.target.closest && e.target.closest("[data-edit],[data-cancel],[data-save],[data-copy],[data-sent],[data-skip],[data-openpaste],[data-closepaste],[data-reply],[data-status],[data-noreply]");
+    if (!b) return;
+    var d = b.dataset, id, p;
+    function busy(on){ b.disabled = on; }
+    function fail(err){ busy(false); if (err.message !== "unauthorized") toast(err.message); }
+
+    if (d.edit) { p = person(d.edit); EDITING[d.edit] = p.draft.body; render(); var t = $("#d-" + CSS.escape(d.edit)); if (t) { t.focus(); t.setSelectionRange(t.value.length, t.value.length); } return; }
+    if (d.cancel) { delete EDITING[d.cancel]; render(); focusLater('[data-edit="' + CSS.escape(d.cancel) + '"]'); return; }
+    if (d.save) {
+      id = d.save; var text = (EDITING[id] || "").trim();
+      if (!text) return toast("The message is empty. Write something or press Cancel.");
+      busy(true);
+      return api("/api/portal/prospects/" + encodeURIComponent(id) + "/approve", {body: text}).then(function(){
+        delete EDITING[id]; toast("Edit saved. Copy it when you are ready."); return refresh('[data-copy="' + CSS.escape(id) + '"]');
+      }).catch(fail);
+    }
+    if (d.copy) {
+      p = person(d.copy); var txt = EDITING[d.copy] != null ? EDITING[d.copy] : p.draft.body;
+      return copy(txt).then(function(){ toast("Copied. Paste it into LinkedIn."); }, function(){ var t = $("#d-" + CSS.escape(d.copy)); if (t) { t.removeAttribute("readonly"); t.select(); } toast("Select the message and copy it by hand."); });
+    }
+    if (d.sent) {
+      id = d.sent; busy(true);
+      var edited = EDITING[id] != null ? EDITING[id].trim() : null;
+      return api("/api/portal/prospects/" + encodeURIComponent(id) + "/sent", edited ? {body: edited} : {}).then(function(){
+        delete EDITING[id]; p = person(id); toast("Marked as sent to " + (p ? p.name : "them") + ".");
+        var next = PEOPLE.filter(function(x){ return x.section === "ready" && x.id !== id; })[0];
+        return refresh(next ? "#h-" + CSS.escape(next.id) : "#ready-h");
+      }).catch(fail);
+    }
+    if (d.skip) {
+      p = person(d.skip);
+      if (!confirm("Skip " + p.name + "? We will not suggest a message to them again.")) return;
+      busy(true);
+      return api("/api/portal/prospects/" + encodeURIComponent(d.skip) + "/skip", {}).then(function(){ toast(p.name + " will not be contacted."); return refresh("#ready-h"); }).catch(fail);
+    }
+    if (d.openpaste) { OPEN_PASTE[d.openpaste] = true; render(); focusLater("#r-" + CSS.escape(d.openpaste)); return; }
+    if (d.closepaste) { delete OPEN_PASTE[d.closepaste]; render(); focusLater('[data-openpaste="' + CSS.escape(d.closepaste) + '"]'); return; }
+    if (d.reply) {
+      id = d.reply; var r = $("#r-" + CSS.escape(id)), val = r ? r.value.trim() : "";
+      if (!val) { toast("Paste their reply first."); if (r) r.focus(); return; }
+      busy(true);
+      return api("/api/portal/prospects/" + encodeURIComponent(id) + "/reply", {text: val}).then(function(){
+        delete OPEN_PASTE[id]; toast("Reply saved. Your next message is being written."); return refresh("#replies-h");
+      }).catch(fail);
+    }
+    if (d.noreply) {
+      busy(true);
+      return api("/api/portal/prospects/" + encodeURIComponent(d.noreply) + "/status", {status: "no_response"}).then(function(){ toast("Noted. We will not follow up with them."); return refresh("#waiting-h"); }).catch(fail);
+    }
+    if (d.status) {
+      id = d.status; var s = $("#o-" + CSS.escape(id)).value;
+      if (!s) { toast("Choose an update first."); return; }
+      busy(true);
+      return api("/api/portal/prospects/" + encodeURIComponent(id) + "/status", {status: s}).then(function(){ toast("Update saved."); return refresh("#h-" + CSS.escape(id)); }).catch(fail);
+    }
+  });
+
+  if (!TOKEN) { stateScreen("Open the link Knock sent you", "Your portal opens from the private link in your welcome email. Lost it? Write to hello@knock.careers and we will send it again."); return; }
+  load().catch(function(err){ if (err.message !== "unauthorized") stateScreen("We could not open your portal", "Please check your connection and reload the page. If it keeps happening, write to hello@knock.careers."); });
+})();
+</script>
+</body>
+</html>

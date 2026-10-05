@@ -12,11 +12,11 @@ from pathlib import Path
 
 import anthropic
 
-from . import bridge, discovery, feedback, hooks, llm, messages, profiles, store
+from . import bridge, discovery, feedback, hooks, llm, messages, profiles, review, store, work
 from .models import Bucket, Candidate, Fact, Message, Prospect
 
 STATUSES = [
-    "discovered", "shortlisted", "enriched", "message_ready", "approved", "sent", "accepted",
+    "discovered", "shortlisted", "enriched", "drafting", "message_ready", "approved", "sent", "accepted",
     "replied", "conversation", "referral", "interview", "offer", "no_response", "declined", "skipped",
 ]
 FUNNEL = ["sent", "accepted", "replied", "conversation", "referral", "interview", "offer"]
@@ -115,10 +115,12 @@ def _generate_one(c, p, everyone, guidance, judge_notes):
         return
     writers = feedback.choose_writers(everyone, p.bucket.value)
     msg, problems = messages.write_opener(c, p, p.hooks[0], guidance, writers, judge_notes)
+    review.review(c, p, msg, "opener")           # automated review replaces operator approval
     p.messages = [msg]
-    p.status = "message_ready"
+    p.status = "drafting" if msg.review_status == "rewrite" else "message_ready"
     store.save(c)
-    flag = f"  [CHECK: {'; '.join(problems)}]" if problems else ""
+    problems = problems or (msg.review_notes if msg.review_status == "rewrite" else [])
+    flag = f"  [REVIEW {msg.review_status}: {'; '.join(problems)}]" if problems else f"  [review: {msg.review_status}]"
     print(f"\n{p.full_name} ({p.bucket.value}, hook={p.hooks[0].hook_type}, score={p.hooks[0].score}){flag}")
     print(f"  WINNER [{msg.writer}]: {msg.body}")
     if msg.judge_reason:
@@ -312,11 +314,12 @@ def cmd_followups(a):
         except (llm.RefusedError, anthropic.APIError, RuntimeError) as e:
             print(f"{p.full_name}: FAILED ({e})")
             continue
-        if c.auto_send and bridge.safe_to_auto_send(msg.body):
+        review.review(c, p, msg, "followup", use_llm=llm.available())
+        if c.auto_send and msg.review_status != "rewrite" and bridge.safe_to_auto_send(msg.body):
             bridge.queue(c, p, msg)
         p.messages.append(msg)
         drafted += 1
-        state = f"queued, sends after {msg.send_after}" if msg.approved else "held for approval"
+        state = f"queued, sends after {msg.send_after}" if msg.approved else f"review: {msg.review_status}"
         print(f"{p.full_name} ({state}): {msg.body}")
     store.save(c)
     print(f"{drafted} follow-ups drafted, {closed} threads closed as no response")
@@ -379,7 +382,54 @@ def cmd_inbound_add(a):
 
 
 def cmd_sync(a):
-    print(bridge.sync())
+    result = bridge.sync(raise_errors=False)
+    print(result)
+    if result.get("ok") is False:
+        sys.exit(3)
+
+
+def _print_json(obj) -> None:
+    print(json.dumps(obj, indent=2, ensure_ascii=False))
+
+
+def cmd_work_next(a):
+    packet = work.next_packet(do_import=not a.no_import)
+    if a.out:
+        Path(a.out).write_text(json.dumps(packet, indent=2, ensure_ascii=False))
+    _print_json(packet)
+
+
+def cmd_work_submit(a):
+    doc = json.loads(Path(a.file).read_text())
+    try:
+        _print_json(work.submit(doc))
+    except work.SubmitError as e:
+        _print_json({"ok": False, "errors": e.errors, "fix": "Fix these and submit again."})
+        sys.exit(2)
+
+
+def cmd_work_start(a):
+    _print_json(work.start_run(a.max_prospects, a.max_minutes))
+
+
+def cmd_work_status(a):
+    _print_json(work.run_status())
+
+
+def cmd_work_log(a):
+    _print_json(work.log_run(a.summary))
+
+
+def cmd_work_auto(a):
+    if not llm.available():
+        _print_json({"ok": False, "error": "ANTHROPIC_API_KEY is not set: run the steps from a Claude Code session "
+                                          "with `work next` / `work submit` instead."})
+        sys.exit(3)
+    try:
+        _print_json(work.auto(a.max, a.max_minutes))
+    except anthropic.APIError as e:
+        _print_json(bridge.claude_error(e))
+        sys.exit(3)
 
 
 def cmd_outbox(a):
@@ -571,6 +621,29 @@ def main(argv=None):
     s = sub.add_parser("mark-sent", help="Mark an outbox message as sent")
     s.add_argument("row_id")
     s.set_defaults(fn=cmd_mark_sent)
+
+    w = sub.add_parser("work", help="Subscription mode: work packets for a scheduled Claude Code session")
+    wsub = w.add_subparsers(dest="work_cmd", required=True)
+    s = wsub.add_parser("next", help="Print the next work packet as JSON (imports ready onboarding first)")
+    s.add_argument("--out", help="Also write the packet to this file")
+    s.add_argument("--no-import", action="store_true", help="Skip the onboarding auto-import")
+    s.set_defaults(fn=cmd_work_next)
+    s = wsub.add_parser("submit", help="Validate and save a work result (JSON file)")
+    s.add_argument("file")
+    s.set_defaults(fn=cmd_work_submit)
+    s = wsub.add_parser("start", help="Start a run with a budget")
+    s.add_argument("--max-prospects", type=int, default=work.MAX_PROSPECTS)
+    s.add_argument("--max-minutes", type=int, default=work.MAX_MINUTES)
+    s.set_defaults(fn=cmd_work_start)
+    s = wsub.add_parser("status", help="Budget used in this run")
+    s.set_defaults(fn=cmd_work_status)
+    s = wsub.add_parser("log", help="Append this run's summary to the usage log")
+    s.add_argument("--summary", required=True)
+    s.set_defaults(fn=cmd_work_log)
+    s = wsub.add_parser("auto", help="API mode: solve packets with ANTHROPIC_API_KEY")
+    s.add_argument("--max", type=int, default=50)
+    s.add_argument("--max-minutes", type=float, default=work.MAX_MINUTES)
+    s.set_defaults(fn=cmd_work_auto)
 
     s = sub.add_parser("learn", help="Update the writing playbook from edits and outcomes")
     s.set_defaults(fn=cmd_learn)

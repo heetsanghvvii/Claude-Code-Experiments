@@ -11,6 +11,10 @@
     {
       "source": "/start",
       "destination": "/start/index.html"
+    },
+    {
+      "source": "/portal",
+      "destination": "/portal/index.html"
     }
   ],
   "functions": {
@@ -23,6 +27,25 @@
     {
       "path": "/api/cron/sync",
       "schedule": "30 3 * * *"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/portal(.*)",
+      "headers": [
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ]
 }

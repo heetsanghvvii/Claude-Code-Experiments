@@ -173,11 +173,32 @@ def crm_candidate(candidate_id: str, x_crm_key: str | None = Header(default=None
     except KeyError:
         raise HTTPException(status_code=404, detail="No such candidate")
     doc = c.model_dump()
-    return {"summary": _summary(doc), "prospects": [_prospect_view(p) for p in doc["prospects"]]}
+    return {"summary": _summary(doc), "prospects": [_prospect_view(p) for p in doc["prospects"]],
+            "portal": {"active": bool(c.story.get("portal_token_hash")), "created_at": c.story.get("portal_token_at", "")}}
 
 
 class Approve(BaseModel):
     body: str | None = Field(default=None, max_length=1200)
+
+
+def approve_draft(c: Candidate, p, body: str | None, queue_followup: bool = True):
+    """Approve the latest draft, optionally edited; an edited opener is recorded for learning.
+    Openers become 'approved'. Follow-ups go to the outbox, unless the client sends them by hand (portal)."""
+    if not p.messages or p.messages[-1].direction != "outbound":
+        raise HTTPException(status_code=409, detail="Nothing to approve")
+    msg = p.messages[-1]
+    if body and body.strip() != msg.body.strip():
+        if msg.step == 1:
+            feedback.record_edit(msg.body, body, msg.writer, p.hooks[0].hook_type if p.hooks else "", p.bucket.value)
+        msg.body, msg.edited = body.strip(), True
+    if msg.step == 1:
+        msg.approved, p.status = True, "approved"
+    elif not msg.approved:
+        if queue_followup:
+            bridge.queue(c, p, msg)
+        else:
+            msg.approved = True
+    return msg
 
 
 @app.post("/api/crm/candidates/{candidate_id}/prospects/{prospect_id}/approve")
@@ -186,17 +207,7 @@ def crm_approve(candidate_id: str, prospect_id: str, payload: Approve, x_crm_key
     crm_auth(x_crm_key)
     c = store.load(candidate_id)
     p = store.get_prospect(c, prospect_id)
-    if not p.messages or p.messages[-1].direction != "outbound":
-        raise HTTPException(status_code=409, detail="Nothing to approve")
-    msg = p.messages[-1]
-    if payload.body and payload.body.strip() != msg.body.strip():
-        if msg.step == 1:
-            feedback.record_edit(msg.body, payload.body, msg.writer, p.hooks[0].hook_type if p.hooks else "", p.bucket.value)
-        msg.body, msg.edited = payload.body.strip(), True
-    if msg.step == 1:
-        msg.approved, p.status = True, "approved"
-    elif not msg.approved:
-        bridge.queue(c, p, msg)
+    msg = approve_draft(c, p, payload.body)
     store.save(c)
     return {"ok": True, "status": p.status, "send_after": msg.send_after}
 
@@ -537,7 +548,7 @@ def crm_onboarding(x_crm_key: str | None = Header(default=None)):
 
 
 @app.post("/api/crm/onboarding/{onboarding_id}/import")
-def crm_onboarding_import(onboarding_id: str, x_crm_key: str | None = Header(default=None)):
+def crm_onboarding_import(onboarding_id: str, request: Request, x_crm_key: str | None = Header(default=None)):
     """Create or update the engine candidate from an onboarding submission."""
     crm_auth(x_crm_key)
     if not UUID.match(onboarding_id):
@@ -604,6 +615,9 @@ def crm_onboarding_import(onboarding_id: str, x_crm_key: str | None = Header(def
                 message = "Fact extraction failed this time; the text is saved and extraction runs on the next sync."
         else:
             message = "ANTHROPIC_API_KEY is not set, so the LinkedIn and CV text is saved and fact extraction runs on the next sync."
+    portal_url = None
+    if not candidate.story.get("portal_token_hash"):   # first import: the client gets their portal link
+        portal_url = portal_link(candidate, request)
     store.save(candidate)
     now = datetime.now(timezone.utc).isoformat()
     store.rest("PATCH", "onboarding", params={"id": f"eq.{ob['id']}"},
@@ -611,4 +625,269 @@ def crm_onboarding_import(onboarding_id: str, x_crm_key: str | None = Header(def
     if intake_row and not intake_row.get("processed_at"):
         store.rest("PATCH", "intake_requests", params={"id": f"eq.{intake_row['id']}"},
                    json_body={"processed_at": now, "candidate_id": candidate.id})
-    return {"ok": True, "candidate_id": candidate.id, "created": created, "facts": len(candidate.facts), "message": message}
+    return {"ok": True, "candidate_id": candidate.id, "created": created, "facts": len(candidate.facts), "message": message,
+            "portal_url": portal_url}
+
+
+# ---------- client portal (/portal) ----------
+# Tier 1 clients send from their own LinkedIn. Each candidate has one secret link, /portal?t=<token>;
+# only the SHA-256 of the token is stored (story.portal_token_hash). The portal API takes the token in
+# the x-portal-token header and only ever reads or writes that candidate's own prospects.
+
+PORTAL_STATUSES = {"no_response", "declined", "referral", "interview", "offer"}
+PRE_CONTACT = {"discovered", "enriched", "drafting", "message_ready", "approved"}
+UNREVIEWED = {"pending", "rewrite"}   # drafts the automated review has not cleared yet stay hidden
+BUCKET_LABELS = {
+    "hiring_manager": "Could be your manager", "team_member": "Works on the team you want",
+    "recruiter": "Recruiter", "alumni": "Shares your background",
+    "senior_connector": "Senior and well connected", "other": "Useful to know",
+}
+HOOK_LABELS = {
+    "shared_school": "Same school", "shared_employer": "Same employer", "similar_transition": "Similar career move",
+    "relevant_work": "Their work is close to yours", "post_reaction": "Something they wrote",
+    "shared_geo": "Same place", "shared_interest": "Shared interest",
+}
+PACKAGE_LABELS = {"sprint": "Sprint", "standard": "Standard", "full": "Full search", "done_for_you": "Done-for-you"}
+
+
+def _token_hash(token: str) -> str:
+    return hashlib.sha256(token.encode()).hexdigest()
+
+
+def _base_url(request: Request) -> str:
+    configured = os.environ.get("PORTAL_BASE_URL", "").rstrip("/")
+    if configured:
+        return configured
+    proto = request.headers.get("x-forwarded-proto") or request.url.scheme
+    host = request.headers.get("x-forwarded-host") or request.headers.get("host") or request.url.netloc
+    return f"{proto}://{host}"
+
+
+def portal_link(c: Candidate, request: Request) -> str:
+    """Create or rotate the candidate's portal token (the caller saves). The old link stops working."""
+    import secrets
+
+    token = secrets.token_urlsafe(32)
+    c.story = {**c.story, "portal_token_hash": _token_hash(token),
+               "portal_token_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    return f"{_base_url(request)}/portal?t={token}"
+
+
+@app.post("/api/crm/candidates/{candidate_id}/portal-link")
+def crm_portal_link(candidate_id: str, request: Request, x_crm_key: str | None = Header(default=None)):
+    crm_auth(x_crm_key)
+    try:
+        c = store.load(candidate_id)
+    except KeyError:
+        raise HTTPException(status_code=404, detail="No such candidate")
+    rotated = bool(c.story.get("portal_token_hash"))
+    url = portal_link(c, request)
+    store.save(c)
+    return {"ok": True, "url": url, "rotated": rotated, "created_at": c.story["portal_token_at"]}
+
+
+def portal_auth(token: str | None) -> Candidate:
+    bad = HTTPException(status_code=401, detail="This link is not valid any more. Ask Knock for a new one.")
+    if not token or len(token) < 32 or len(token) > 200:
+        raise bad
+    want = _token_hash(token)
+    if store._supabase():
+        rows = store.rest("GET", "engine_state", params={"select": "id,doc", "doc->story->>portal_token_hash": f"eq.{want}"}) or []
+        docs = [r["doc"] for r in rows if r.get("doc") and r["id"] not in SHARED]
+    else:
+        docs = [store.get_doc(i) for i in store.list_ids()]
+    for doc in docs:
+        have = ((doc or {}).get("story") or {}).get("portal_token_hash") or ""
+        if have and hmac.compare_digest(have, want):
+            return Candidate.model_validate(doc)
+    raise bad
+
+
+def _portal_prospect(c: Candidate, pid: str):
+    try:
+        return store.get_prospect(c, pid)
+    except KeyError:
+        raise HTTPException(status_code=404, detail="We could not find that person")
+
+
+def _pending_replies(c: Candidate) -> dict[str, list[dict]]:
+    """Replies the client pasted that the next scheduled run has not drafted an answer to yet."""
+    out: dict[str, list[dict]] = {}
+    by_url = {bridge.normalize_url(p.linkedin_url): p.id for p in c.prospects if p.linkedin_url}
+    for row in bridge.pending_inbound() or []:
+        if row.get("candidate_id"):
+            if row["candidate_id"] != c.id:
+                continue
+            pid = row.get("prospect_id")
+        else:
+            pid = by_url.get(bridge.normalize_url(row.get("linkedin_url", "")))
+        if pid:
+            out.setdefault(pid, []).append({"body": row.get("text", ""), "received_at": row.get("received_at")})
+    return out
+
+
+SOURCE_LABELS = {
+    ("candidate", "cv"): "Your CV and LinkedIn", ("candidate", "story"): "What you told us",
+    ("prospect", "linkedin_pdf"): "Their LinkedIn profile", ("prospect", "csv"): "Their LinkedIn profile",
+    ("prospect", "linkedin"): "Their LinkedIn profile", ("prospect", "web"): "Public web",
+}
+
+
+def _fact(p, facts: list, fact_id: str) -> dict | None:
+    """One cited fact with where it came from. Links are only given when we have a real URL."""
+    f = next((x for x in facts if x.id == fact_id), None)
+    if f is None:
+        return None
+    src = (f.source or "").strip()
+    url = src if re.match(r"^https?://", src) else ""
+    if not url and f.owner == "prospect" and src in ("linkedin_pdf", "csv", "linkedin") and re.match(r"^https?://", p.linkedin_url or ""):
+        url = p.linkedin_url
+    label = SOURCE_LABELS.get((f.owner, src)) or ("Source" if url else "Our research")
+    return {"owner": f.owner, "text": f.text, "source_url": url, "source_label": label}
+
+
+def _section(p, pending: list) -> str:
+    msgs = p.messages
+    last = msgs[-1] if msgs else None
+    if p.status == "skipped":
+        return "skipped"
+    if p.status in ("no_response", "declined"):
+        return "closed"
+    if pending or (last and last.direction == "inbound" and p.status in ("replied", "conversation")):
+        return "writing"
+    if last and last.direction == "outbound" and not last.sent_at and getattr(last, "review_status", "") in UNREVIEWED:
+        return "writing" if any(m.direction == "inbound" for m in msgs) else "upcoming"
+    if last and last.direction == "outbound" and not last.sent_at:
+        return "ready"
+    if any(m.direction == "inbound" for m in msgs):
+        return "conversation"
+    if last:
+        return "waiting"
+    return "upcoming"
+
+
+def portal_prospect_view(c: Candidate, p, pending: list) -> dict:
+    hook = next((h for h in p.hooks if h.selected), p.hooks[0] if p.hooks else None)
+    facts = [f for f in ((_fact(p, c.facts, hook.candidate_fact_id), _fact(p, p.facts, hook.prospect_fact_id)) if hook else ()) if f]
+    last = p.messages[-1] if p.messages else None
+    draft = None
+    if last and last.direction == "outbound" and not last.sent_at and not pending \
+            and getattr(last, "review_status", "") not in UNREVIEWED:
+        draft = {"step": last.step, "body": last.body, "approved": last.approved, "edited": last.edited}
+    return {
+        "id": p.id, "name": p.full_name, "headline": p.headline, "company": p.company, "location": p.location,
+        "linkedin_url": p.linkedin_url, "bucket": p.bucket.value, "bucket_label": BUCKET_LABELS.get(p.bucket.value, "Useful to know"),
+        "status": p.status, "section": _section(p, pending),
+        "hook": {"summary": hook.summary, "label": HOOK_LABELS.get(hook.hook_type, ""), "facts": facts} if hook else None,
+        "messages": [{"direction": m.direction, "step": m.step, "body": m.body, "sent_at": m.sent_at, "created_at": m.created_at}
+                     for m in p.messages if m.direction == "inbound" or m.sent_at],
+        "draft": draft,
+        "pending_replies": pending,
+    }
+
+
+@app.get("/api/portal/me")
+def portal_me(x_portal_token: str | None = Header(default=None)):
+    c = portal_auth(x_portal_token)
+    s = _summary(c.model_dump())
+    pending = _pending_replies(c)
+    sections = Counter(_section(p, pending.get(p.id, [])) for p in c.prospects)
+    pkg = c.story.get("package", "")
+    return {
+        "name": c.full_name, "first_name": (c.full_name or "").split(" ")[0],
+        "package": pkg, "package_label": PACKAGE_LABELS.get(pkg, ""),
+        "target_roles": c.target_roles, "target_companies": c.target_companies,
+        "progress": {"targeted": s["targeted"], "ready_to_send": sections["ready"], "sent": s["contacted"],
+                     "replied": s["replied"], "conversations": s["conversations"], "referrals": s["referrals"],
+                     "interviews": s["interviews"]},
+        "writing": sections["writing"],
+    }
+
+
+@app.get("/api/portal/prospects")
+def portal_prospects(x_portal_token: str | None = Header(default=None)):
+    c = portal_auth(x_portal_token)
+    pending = _pending_replies(c)
+    return {"prospects": [portal_prospect_view(c, p, pending.get(p.id, [])) for p in c.prospects]}
+
+
+@app.post("/api/portal/prospects/{prospect_id}/approve")
+def portal_approve(prospect_id: str, payload: Approve, x_portal_token: str | None = Header(default=None)):
+    c = portal_auth(x_portal_token)
+    p = _portal_prospect(c, prospect_id)
+    if p.status == "skipped" or (p.messages and p.messages[-1].sent_at):
+        raise HTTPException(status_code=409, detail="There is no draft waiting for you here")
+    approve_draft(c, p, payload.body, queue_followup=False)   # the client sends it themselves
+    store.save(c)
+    return {"ok": True, "status": p.status}
+
+
+class PortalSent(BaseModel):
+    body: str | None = Field(default=None, max_length=1200)
+
+
+@app.post("/api/portal/prospects/{prospect_id}/sent")
+def portal_sent(prospect_id: str, payload: PortalSent | None = None, x_portal_token: str | None = Header(default=None)):
+    """The client sent the latest draft from their own LinkedIn. Approves it first if needed (with any edit)."""
+    c = portal_auth(x_portal_token)
+    p = _portal_prospect(c, prospect_id)
+    if p.status == "skipped" or not p.messages or p.messages[-1].direction != "outbound" or p.messages[-1].sent_at:
+        raise HTTPException(status_code=409, detail="There is no draft waiting for you here")
+    msg = p.messages[-1]
+    if not msg.approved or (payload and payload.body):
+        approve_draft(c, p, payload.body if payload else None, queue_followup=False)
+    msg.sent_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    if msg.step == 1 and p.status in PRE_CONTACT:
+        p.status = "sent"
+    elif msg.step > 1 and p.status == "replied":
+        p.status = "conversation"
+    for row in bridge.outbox(due_only=False) or []:   # an auto-queued copy must not be sent twice
+        if row.get("candidate_id") == c.id and row.get("prospect_id") == p.id and int(row.get("step") or 0) == msg.step:
+            bridge.mark_sent(row["id"])
+    store.save(c)
+    return {"ok": True, "status": p.status, "sent_at": msg.sent_at}
+
+
+class PortalReply(BaseModel):
+    text: str = Field(min_length=1, max_length=4000)
+
+
+@app.post("/api/portal/prospects/{prospect_id}/reply")
+def portal_reply(prospect_id: str, payload: PortalReply, x_portal_token: str | None = Header(default=None)):
+    """The client pastes the person's reply. The next scheduled sync drafts the answer."""
+    c = portal_auth(x_portal_token)
+    p = _portal_prospect(c, prospect_id)
+    text = payload.text.strip()
+    if not text:
+        raise HTTPException(status_code=422, detail="Paste their reply first")
+    if not any(m.direction == "outbound" and m.sent_at for m in p.messages):
+        raise HTTPException(status_code=409, detail="Mark your message as sent first, then add their reply")
+    bridge.add_inbound(p.linkedin_url, p.full_name, text, candidate_id=c.id, prospect_id=p.id)
+    if p.status in PRE_CONTACT | {"sent", "accepted", "no_response"}:
+        p.status = "replied"
+        store.save(c)
+    return {"ok": True, "status": p.status}
+
+
+@app.post("/api/portal/prospects/{prospect_id}/status")
+def portal_status(prospect_id: str, payload: StatusChange, x_portal_token: str | None = Header(default=None)):
+    c = portal_auth(x_portal_token)
+    if payload.status not in PORTAL_STATUSES:
+        raise HTTPException(status_code=422, detail="Unknown status")
+    p = _portal_prospect(c, prospect_id)
+    if not any(m.direction == "outbound" and m.sent_at for m in p.messages):
+        raise HTTPException(status_code=409, detail="Mark your message as sent first")
+    p.status = payload.status
+    store.save(c)
+    return {"ok": True, "status": p.status}
+
+
+@app.post("/api/portal/prospects/{prospect_id}/skip")
+def portal_skip(prospect_id: str, x_portal_token: str | None = Header(default=None)):
+    c = portal_auth(x_portal_token)
+    p = _portal_prospect(c, prospect_id)
+    if p.status not in PRE_CONTACT:
+        raise HTTPException(status_code=409, detail="You have already been in touch with this person")
+    p.status = "skipped"
+    store.save(c)
+    return {"ok": True, "status": p.status}

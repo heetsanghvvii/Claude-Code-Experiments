@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from . import llm, prompts
+from . import llm, prompts, rules
 from .models import Candidate, Fact, Hook, HookDraft, HookSet, Prospect
 
 # Relevance and specificity matter most; rarity next; recency is a tiebreaker.
@@ -16,8 +16,23 @@ def _fact_lines(facts: list[Fact]) -> str:
     return "\n".join(f"[{f.id}] ({f.kind}) {f.text}" for f in facts)
 
 
-def score(h: HookDraft) -> float:
+# Fact kinds that are old by nature: recency says nothing about them, so it is left out of the score.
+TIMELESS_KINDS = {"education"}
+
+
+def score(h: HookDraft, prospect_kind: str = "") -> float:
+    if prospect_kind in TIMELESS_KINDS:
+        weights = {k: w for k, w in WEIGHTS.items() if k != "recency"}
+        total = sum(weights.values())
+        return round(sum(getattr(h, k) * w for k, w in weights.items()) / total, 2)
     return round(sum(getattr(h, k) * w for k, w in WEIGHTS.items()), 2)
+
+
+def min_score_for(prospect: Prospect | None) -> float:
+    """Seniority gate: C-suite prospects need a much stronger hook before we write to them."""
+    if prospect is not None and rules.is_c_suite(prospect.headline):
+        return max(MIN_SCORE, rules.C_SUITE_MIN_HOOK)
+    return MIN_SCORE
 
 
 def validate(drafts: list[HookDraft], candidate_facts: list[Fact], prospect_facts: list[Fact]) -> list[HookDraft]:
@@ -27,20 +42,31 @@ def validate(drafts: list[HookDraft], candidate_facts: list[Fact], prospect_fact
     return [h for h in drafts if h.candidate_fact_id in c_ids and h.prospect_fact_id in p_ids]
 
 
-def rank(drafts: list[HookDraft]) -> list[Hook]:
-    hooks = sorted((Hook(**h.model_dump(), score=score(h)) for h in drafts), key=lambda h: h.score, reverse=True)
-    hooks = [h for h in hooks if h.score >= MIN_SCORE]
+def rank(drafts: list[HookDraft], prospect_facts: list[Fact] | None = None,
+         min_score: float = MIN_SCORE) -> list[Hook]:
+    kinds = {f.id: f.kind for f in prospect_facts or []}
+    hooks = sorted((Hook(**h.model_dump(), score=score(h, kinds.get(h.prospect_fact_id, ""))) for h in drafts),
+                   key=lambda h: h.score, reverse=True)
+    hooks = [h for h in hooks if h.score >= min_score]
     if hooks:
         hooks[0].selected = True
     return hooks
 
 
-def find(candidate: Candidate, prospect: Prospect) -> list[Hook]:
-    text = (
+def hooks_input(candidate: Candidate, prospect: Prospect) -> str:
+    return (
         f"Candidate target roles: {', '.join(candidate.target_roles)}\n"
         f"Prospect: {prospect.full_name}, {prospect.headline} at {prospect.company}\n\n"
         f"CANDIDATE FACTS:\n{_fact_lines(candidate.facts)}\n\n"
         f"PROSPECT FACTS:\n{_fact_lines(prospect.facts)}"
     )
-    result = llm.parse(prompts.FIND_HOOKS, text, HookSet, effort="high")
-    return rank(validate(result.hooks, candidate.facts, prospect.facts))
+
+
+def apply(candidate: Candidate, prospect: Prospect, result: HookSet) -> list[Hook]:
+    """Validate citations, score, and apply the seniority gate."""
+    return rank(validate(result.hooks, candidate.facts, prospect.facts), prospect.facts, min_score_for(prospect))
+
+
+def find(candidate: Candidate, prospect: Prospect) -> list[Hook]:
+    result = llm.parse(prompts.FIND_HOOKS, hooks_input(candidate, prospect), HookSet, effort="high")
+    return apply(candidate, prospect, result)

@@ -6,3 +6,4 @@ engine/data/
 data/
 *.csv
 node_modules/
+launch/brag-output/work/frames/

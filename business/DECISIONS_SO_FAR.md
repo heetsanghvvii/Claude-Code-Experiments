@@ -8,7 +8,7 @@ Founder: Heet, Mumbai. Runs One More Round (personalised card-game gifting). Pro
 - North-star metric: interviews per 100 targeted prospects. Leading indicator: meaningful-conversation rate.
 - Principle: quality over volume. 60 hand-picked people per week, not thousands.
 - Positioning: a premium, human, tech-enabled **service** (private career concierge), not an "AI tool". AI is how it is delivered, never the headline. Go digital-product/SaaS later (after ~50 clients, stable prompts, demand exceeding capacity), keeping the service as the premium tier.
-- Initial niche: Indian MBA graduates and people moving into product management.
+- Target clients: broadened (founder decision, 5 Oct). Anyone whose next job is at a company where referrals matter. Launch focus: career switchers (2 to 10 yrs) and laid-off professionals; MBA students via club pilots in parallel. Full ICP in business/ICP.md.
 
 ## Tiers and pricing (upfront only, no success fee)
 - Founding prices first 10 clients, then standard.

@@ -54,6 +54,8 @@ Currency: INR. Exchange rate used: Rs 88 per USD [E]. All prices exclude GST (se
 
 ---
 
+
+> **Update 5 Oct:** target clients broadened beyond MBA/PM. See business/ICP.md for the current ICP; MBA graduates are now one segment of six. Market sizing below covers the original niche and understates the broadened market.
 ## 2. Problem and customer
 
 ### The problem

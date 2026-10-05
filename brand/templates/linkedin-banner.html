@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en-IN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knock LinkedIn banner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
+<style>
+:root{--inland:#A9C7E6;--inland-3:#C4D9EF;--paper:#EEF3F8;--white:#FAFCFE;--ink:#0E1F3A;--ink-2:#2B4266;--post:#B3301B;--display:"Archivo","Arial Narrow",sans-serif;--serif:"Source Serif 4",Georgia,serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:#fff;font-family:"Archivo",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.disp{font-family:var(--display);font-variation-settings:"wdth" 70;font-stretch:70%;font-weight:800;line-height:.9;letter-spacing:-.02em}
+.canvas{position:relative;overflow:hidden;background:var(--inland)}
+.canvas::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px),radial-gradient(120% 70% at 85% 0%,rgba(255,255,255,.25),transparent 60%)}
+.perf{position:absolute;top:0;bottom:0;width:10px;background:radial-gradient(circle,var(--paper) 2.6px,transparent 3.2px) center top/10px 14px repeat-y}
+.stamp{position:absolute;padding:8px;background:radial-gradient(circle at 50% 50%,transparent 4.5px,var(--white) 5px) -8px -8px/16px 16px;filter:drop-shadow(0 6px 8px rgba(14,31,58,.22));transform:rotate(3deg)}
+.stamp-in{background:var(--post);color:var(--white);aspect-ratio:4/5;display:flex;flex-direction:column;justify-content:space-between;padding:10% 10% 8%;font-family:var(--display);font-variation-settings:"wdth" 70}
+.stamp-in svg{width:72%;margin:4% auto 0}
+.stamp-in b{display:block;text-align:center;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.postmark{position:absolute;color:var(--ink);opacity:.72;mix-blend-mode:multiply;transform:rotate(-14deg)}
+.canvas{width:1584px;height:396px}
+.perf.l{left:14px}.perf.r{right:14px}
+.copy{position:absolute;left:380px;top:96px;width:900px}
+.copy h1{margin:0;font-size:100px}
+.copy p{margin:26px 0 0;font-family:var(--serif);font-size:27px;line-height:1.35;white-space:nowrap}
+.addr{position:absolute;left:380px;bottom:44px;display:flex;align-items:flex-end;gap:14px;font-family:var(--serif);font-style:italic;font-size:26px}
+.addr span{display:block;width:260px;border-bottom:2px solid var(--ink);height:26px}
+.addr em{font-style:normal;font-family:"Archivo";font-weight:600;font-size:20px;letter-spacing:.04em;color:var(--ink-2);padding-bottom:2px}
+.stamp{right:96px;top:48px;width:150px}.stamp-in b{font-size:18px}
+
+</style></head><body>
+<div class="canvas"><span class="perf l"></span><span class="perf r"></span>
+<div class="copy"><h1 class="disp">Knock on the right door.</h1><p>A private career service for MBA and product candidates in India.</p></div>
+<div class="stamp"><div class="stamp-in"><svg viewBox="0 0 64 72" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10h24"/><path d="M26 10v6M38 10v6"/><circle cx="32" cy="22" r="6"/><path d="M22 34a14 14 0 1 0 20 0"/><path d="M32 54v8"/><path d="M26 64h12"/></svg><b>Knock</b></div></div>
+<svg class="postmark" viewBox="0 0 200 200" fill="none" stroke="currentColor" style="left:1190px;top:170px;width:200px"><defs><path id="pm" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0"/></defs><circle cx="100" cy="100" r="92" stroke-width="3"/><circle cx="100" cy="100" r="56" stroke-width="2"/><text font-family="Archivo,sans-serif" font-size="19" font-weight="700" fill="currentColor" stroke="none"><textPath href="#pm" textLength="455" lengthAdjust="spacing">KNOCK ON THE RIGHT DOOR ·</textPath></text><text x="100" y="96" text-anchor="middle" font-family="Archivo,sans-serif" font-size="20" font-weight="800" fill="currentColor" stroke="none">BY HAND</text><text x="100" y="118" text-anchor="middle" font-family="Archivo,sans-serif" font-size="13" font-weight="600" letter-spacing="2" fill="currentColor" stroke="none">INDIA</text><path d="M8 150c30-8 60 8 92 0s62-8 92 0M8 166c30-8 60 8 92 0s62-8 92 0M8 182c30-8 60 8 92 0s62-8 92 0" stroke-width="2.5"/></svg></div>
+</body></html>

@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knock Partner Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<!--
+  SYSTEM
+  Canvas: 1920x1080 per slide, 140px side margins, 120px top.
+  Type: Newsreader (display serif) 120 / 76 / 48 ; Hanken Grotesk (text) 34 / 28 / 22 caps labels.
+  Colour: paper #F3EEE5 for content slides, forest #1F3A31 for opening, offer and close. Brass #B08442 is the only accent.
+  Header pattern: brass caps kicker + serif action title. Footer: wordmark left, page number right.
+  Motif: a single arched doorway line, used sparingly.
+-->
+<style>
+  :root{
+    --paper:#F3EEE5; --card:#FBF8F2; --ink:#1D1C19; --muted:#6A645A; --line:#D8CFBF;
+    --forest:#1F3A31; --forest-2:#2A4A3F; --brass:#B08442; --brass-soft:#E9DCC4; --cream:#F3EEE5;
+    --serif:'Newsreader', Georgia, 'Times New Roman', serif;
+    --sans:'Hanken Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#111;}
+  body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;}
+
+  /* screen stage */
+  .stage{position:fixed;inset:0;overflow:hidden;}
+  #deck{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;}
+  .slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;background:var(--paper);
+    padding:120px 140px 0;display:none;}
+  .slide.active{display:block;}
+  .nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:10px;align-items:center;
+    color:#ddd;font:14px var(--sans);z-index:5}
+  .nav button{background:rgba(255,255,255,.08);color:#eee;border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:8px 14px;font:inherit;cursor:pointer}
+
+  /* shared slide parts */
+  .kicker{font:600 22px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin:0 0 28px;}
+  h1,h2{font-family:var(--serif);font-weight:400;margin:0;letter-spacing:-.01em;text-wrap:balance;}
+  h2{font-size:76px;line-height:1.06;max-width:1500px;}
+  p{margin:0;text-wrap:pretty}
+  .lede{font-size:34px;line-height:1.4;color:var(--muted);max-width:1180px;margin-top:32px}
+  .foot{position:absolute;left:140px;right:140px;bottom:56px;display:flex;justify-content:space-between;
+    font:500 20px/1 var(--sans);letter-spacing:.08em;color:var(--muted);border-top:1px solid var(--line);padding-top:22px}
+  .foot b{font-family:var(--serif);font-weight:500;letter-spacing:0;font-size:24px;color:var(--ink)}
+  .dark{background:var(--forest);color:var(--cream)}
+  .dark .foot{border-color:rgba(243,238,229,.18);color:rgba(243,238,229,.6)}
+  .dark .foot b{color:var(--cream)}
+  .dark .lede{color:rgba(243,238,229,.72)}
+
+  /* 01 title */
+  .s-title{padding:0}
+  .s-title .door{position:absolute;right:210px;top:150px;width:460px;height:780px}
+  .s-title .tx{position:absolute;left:140px;top:210px;width:1050px}
+  .wordmark{font:500 40px/1 var(--serif);letter-spacing:.02em;color:var(--brass);display:flex;align-items:center;gap:16px}
+  .wordmark i{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--brass)}
+  .s-title h1{font-size:132px;line-height:1.0;margin-top:70px}
+  .s-title h1 em{font-style:italic;color:var(--brass-soft)}
+  .s-title .sub{margin-top:64px;font-size:34px;line-height:1.45;color:rgba(243,238,229,.75)}
+  .ph{display:inline-block;border:1.5px dashed rgba(176,132,66,.8);color:var(--brass-soft);padding:2px 14px;border-radius:6px;font-weight:500}
+  .ph.light{color:var(--brass);border-color:var(--brass)}
+
+  /* 02 problem */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:100px;margin-top:80px}
+  .portal{border-top:2px solid var(--ink)}
+  .portal .row{display:grid;grid-template-columns:70px 1fr;align-items:baseline;padding:30px 0;border-bottom:1px solid var(--line)}
+  .portal .n{font:500 24px var(--sans);color:var(--muted)}
+  .portal .t{font-size:34px;line-height:1.3}
+  .portal .row.last .t{color:var(--muted);font-style:italic;font-family:var(--serif);font-size:38px}
+  .quote{align-self:center}
+  .quote .big{font:400 112px/1 var(--serif);letter-spacing:-.02em}
+  .quote .big em{color:var(--brass)}
+  .quote p{font-size:32px;line-height:1.45;color:var(--muted);margin-top:36px;max-width:640px}
+
+  /* 03 what works */
+  .compare{display:grid;grid-template-columns:330px 1fr 1fr;margin-top:76px;border-top:2px solid var(--ink)}
+  .compare > div{padding:28px 0;border-bottom:1px solid var(--line);font-size:30px;line-height:1.3}
+  .compare .lab{font:600 21px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-top:36px}
+  .compare .hd{font:500 40px var(--serif);padding:30px 0}
+  .compare .warm{color:var(--ink);padding-left:40px;background:linear-gradient(var(--brass-soft),var(--brass-soft)) 0 0/100% 100% no-repeat;padding-right:30px}
+  .compare .cold{color:var(--muted);padding-right:40px}
+  .note{margin-top:34px;font-size:24px;color:var(--muted)}
+
+  /* 04 how */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:84px;border-top:2px solid var(--ink)}
+  .step{padding:36px 40px 0 0;border-right:1px solid var(--line);margin-right:40px;min-height:380px}
+  .step:last-child{border-right:0;margin-right:0}
+  .step .num{font:400 88px/1 var(--serif);color:var(--brass)}
+  .step .who{font:600 21px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:30px}
+  .step h3{font:500 40px/1.15 var(--serif);margin:14px 0 18px}
+  .step p{font-size:27px;line-height:1.4;color:var(--muted)}
+  .approve{margin-top:34px;display:flex;align-items:center;gap:22px;background:var(--forest);color:var(--cream);padding:26px 36px;border-radius:4px;font-size:30px}
+  .approve .dot{width:16px;height:16px;border-radius:50%;background:var(--brass);flex:none}
+
+  /* 05 message */
+  .msgwrap{display:grid;grid-template-columns:900px 1fr;gap:110px;margin-top:70px;align-items:start}
+  .msg{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:44px 50px;box-shadow:0 20px 50px rgba(29,28,25,.08)}
+  .msg .top{display:flex;align-items:center;gap:20px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+  .msg .av{width:68px;height:68px;border-radius:50%;border:1.5px dashed var(--muted);display:grid;place-items:center;font:500 14px var(--sans);color:var(--muted);text-align:center;line-height:1.1}
+  .msg .nm{font:600 28px var(--sans)}
+  .msg .meta{font-size:22px;color:var(--muted);margin-top:4px}
+  .msg .body{font:400 40px/1.45 var(--serif);margin-top:34px}
+  .msg mark{background:none;color:inherit;border-bottom:3px solid var(--brass);padding-bottom:1px}
+  .msg .sent{margin-top:34px;font-size:22px;color:var(--muted);display:flex;gap:10px;align-items:center}
+  .why{border-top:2px solid var(--ink)}
+  .why .w{display:grid;grid-template-columns:62px 1fr;padding:30px 0;border-bottom:1px solid var(--line)}
+  .why .w span{font:400 44px/1 var(--serif);color:var(--brass)}
+  .why h4{margin:0 0 8px;font:600 28px var(--sans)}
+  .why p{font-size:26px;line-height:1.4;color:var(--muted)}
+
+  /* 06 not spam */
+  .spam{display:grid;grid-template-columns:520px 1fr;gap:110px;margin-top:70px}
+  .sixty{border-right:1px solid var(--line);padding-right:60px}
+  .sixty .n{font:400 260px/0.9 var(--serif);color:var(--forest);letter-spacing:-.04em}
+  .sixty p{font-size:32px;line-height:1.35;margin-top:24px}
+  .sixty small{display:block;font-size:24px;color:var(--muted);margin-top:16px;line-height:1.4}
+  .rules .r{display:grid;grid-template-columns:330px 1fr;gap:30px;padding:26px 0;border-bottom:1px solid var(--line)}
+  .rules .r:first-child{border-top:2px solid var(--ink)}
+  .rules h4{margin:0;font:500 32px/1.2 var(--serif)}
+  .rules p{font-size:27px;line-height:1.4;color:var(--muted)}
+
+  /* 07 packages */
+  .pk{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:70px}
+  .p{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:40px 38px 36px;display:flex;flex-direction:column;min-height:470px}
+  .p .nm{font:500 44px/1.1 var(--serif)}
+  .p .len{font:600 21px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:16px}
+  .p .ppl{font-size:28px;margin-top:40px;padding-top:26px;border-top:1px solid var(--line);line-height:1.35}
+  .p .ppl b{font-weight:600}
+  .p .price{margin-top:auto;font:400 66px/1 var(--serif);letter-spacing:-.01em}
+  .p .price small{display:block;font:500 21px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .p.dfy{background:var(--forest);color:var(--cream);border-color:var(--forest)}
+  .p.dfy .len,.p.dfy .price small{color:rgba(243,238,229,.65)}
+  .p.dfy .ppl{border-color:rgba(243,238,229,.2)}
+  .pknote{margin-top:36px;display:flex;gap:18px;align-items:center;font-size:28px}
+  .pknote .tag{background:var(--brass);color:#fff;font:600 20px var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;border-radius:3px}
+
+  /* 08 offer (dark) */
+  .offer{display:grid;grid-template-columns:1.35fr 1fr;gap:90px;margin-top:70px}
+  .col h3{font:600 22px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin:0 0 6px;padding-bottom:22px;border-bottom:1px solid rgba(243,238,229,.25)}
+  .col .it{display:grid;grid-template-columns:60px 1fr;padding:26px 0;border-bottom:1px solid rgba(243,238,229,.14)}
+  .col .it span{font:400 36px/1 var(--serif);color:var(--brass)}
+  .col .it h4{margin:0 0 6px;font:500 36px/1.2 var(--serif)}
+  .col .it p{font-size:25px;line-height:1.4;color:rgba(243,238,229,.7)}
+  .col.ask{background:var(--forest-2);padding:40px 44px;border-radius:6px;align-self:start}
+  .col.ask .it:last-child{border-bottom:0}
+  .col.ask .tot{margin-top:18px;font:400 italic 32px/1.35 var(--serif);color:var(--brass-soft)}
+
+  /* 09 measure */
+  .metric{margin-top:76px;display:grid;grid-template-columns:auto 1fr;gap:110px;align-items:center}
+  .frac{display:grid;grid-template-columns:auto auto;align-items:center;gap:36px}
+  .frac .stack{text-align:center}
+  .frac .top,.frac .bot{font:400 56px/1.2 var(--serif);padding:10px 20px}
+  .frac .bar{height:3px;background:var(--ink);margin:6px 0}
+  .frac .x{font:400 56px var(--serif);color:var(--brass)}
+  .reports{border-top:2px solid var(--ink)}
+  .reports .r{padding:28px 0;border-bottom:1px solid var(--line)}
+  .reports h4{margin:0 0 6px;font:500 36px var(--serif)}
+  .reports p{font-size:27px;line-height:1.4;color:var(--muted)}
+  .honest{margin-top:70px;padding:30px 36px;border:1.5px solid var(--brass);border-radius:4px;font:400 italic 34px/1.4 var(--serif);max-width:1640px}
+
+  /* 10 timeline */
+  .tl{position:relative;margin-top:110px;display:grid;grid-template-columns:1fr 2fr 1fr;gap:0}
+  .tl::before{content:"";position:absolute;left:0;right:0;top:27px;height:2px;background:var(--ink)}
+  .ph-t{position:relative;padding-right:56px}
+  .ph-t .knob{width:56px;height:56px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);display:grid;place-items:center;position:relative;z-index:1}
+  .ph-t .knob i{width:18px;height:18px;border-radius:50%;background:var(--brass)}
+  .ph-t.mid .knob{background:var(--forest);border-color:var(--forest)}
+  .ph-t .wk{font:600 22px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--brass);margin-top:40px}
+  .ph-t h3{font:500 48px/1.1 var(--serif);margin:14px 0 22px}
+  .ph-t ul{margin:0;padding:0;list-style:none}
+  .ph-t li{font-size:27px;line-height:1.4;color:var(--muted);padding:12px 0;border-top:1px solid var(--line)}
+  .mid ul{columns:2;column-gap:56px}
+  .mid li{break-inside:avoid}
+
+  /* 11 batch */
+  .grid4{display:grid;grid-template-columns:1fr 1fr;gap:0 100px;margin-top:70px;border-top:2px solid var(--ink)}
+  .g{padding:38px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:90px 1fr}
+  .g .ic{width:58px;height:58px}
+  .g h4{margin:0 0 10px;font:500 40px/1.15 var(--serif)}
+  .g p{font-size:27px;line-height:1.4;color:var(--muted)}
+
+  /* 12 close */
+  .s-close{padding:0}
+  .s-close .door{position:absolute;right:210px;top:150px;width:460px;height:780px}
+  .s-close .tx{position:absolute;left:140px;top:170px;width:1100px}
+  .s-close h2{font-size:104px;line-height:1.02;margin-top:28px}
+  .s-close h2 em{font-style:italic;color:var(--brass-soft)}
+  .s-close .ctas{margin-top:70px;display:grid;gap:0;border-top:1px solid rgba(243,238,229,.25);max-width:980px}
+  .s-close .c{display:grid;grid-template-columns:260px 1fr;padding:28px 0;border-bottom:1px solid rgba(243,238,229,.18);font-size:32px;align-items:baseline}
+  .s-close .c span{font:600 21px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:rgba(243,238,229,.6)}
+  .s-close .mail{font:500 44px var(--serif);color:var(--brass-soft)}
+
+  @media print{
+    @page{size:1920px 1080px;margin:0}
+    html,body{background:none;width:1920px}
+    .stage{position:static;overflow:visible}
+    #deck{position:static;transform:none !important;width:1920px;height:auto}
+    .slide{display:block !important;position:relative;inset:auto;break-after:page;page-break-after:always;
+      -webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .slide:last-child{break-after:auto;page-break-after:auto}
+    .nav{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="stage"><div id="deck">
+
+<!-- 01 -->
+<section class="slide dark s-title active" data-screen-label="01 Title">
+  <div class="tx">
+    <div class="wordmark"><i></i>Knock</div>
+    <h1>Knock on the <em>right door.</em></h1>
+    <p class="sub">A partner proposal for <span class="ph">&lt;Club name&gt;</span><br>Personal outreach for your students and alumni, at a founding-member price.</p>
+  </div>
+  <svg class="door" viewBox="0 0 460 780" fill="none" aria-hidden="true">
+    <path d="M30 780 V230 A200 200 0 0 1 430 230 V780" stroke="#B08442" stroke-width="2"/>
+    <path d="M80 780 V245 A150 150 0 0 1 380 245 V780" stroke="#B08442" stroke-width="1" opacity=".45"/>
+    <circle cx="230" cy="420" r="34" stroke="#B08442" stroke-width="2"/>
+    <circle cx="230" cy="386" r="7" fill="#B08442"/>
+    <line x1="0" y1="779" x2="460" y2="779" stroke="#B08442" stroke-width="2"/>
+  </svg>
+  <div class="foot"><b>Knock</b><span>Partner proposal · 01</span></div>
+</section>
+
+<!-- 02 -->
+<section class="slide" data-screen-label="02 Problem">
+  <p class="kicker">The problem</p>
+  <h2>Off-campus and lateral searches run through portals. Portals rarely reply.</h2>
+  <div class="two">
+    <div class="portal">
+      <div class="row"><span class="n">01</span><span class="t">Find a role on a job portal</span></div>
+      <div class="row"><span class="n">02</span><span class="t">Upload the same CV, again</span></div>
+      <div class="row"><span class="n">03</span><span class="t">Repeat a few hundred times</span></div>
+      <div class="row last"><span class="n">04</span><span class="t">Wait. Mostly, hear nothing.</span></div>
+    </div>
+    <div class="quote">
+      <div class="big">People hire <em>people.</em></div>
+      <p>Behind every opening is a manager and a team. A CV in a queue rarely reaches them. A good conversation often does.</p>
+    </div>
+  </div>
+  <div class="foot"><b>Knock</b><span>Partner proposal · 02</span></div>
+</section>
+
+<!-- 03 -->
+<section class="slide" data-screen-label="03 What works">
+  <p class="kicker">What already works</p>
+  <h2>Referrals and warm conversations open doors that cold applications cannot.</h2>
+  <div class="compare">
+    <div class="lab"></div><div class="hd cold">Cold application</div><div class="hd warm">Warm conversation</div>
+    <div class="lab">Who sees it</div><div class="cold">A screening system, then maybe a recruiter</div><div class="warm">A person on the team you want to join</div>
+    <div class="lab">Context</div><div class="cold">A CV, with no story behind it</div><div class="warm">A shared background and a reason to talk</div>
+    <div class="lab">Where it leads</div><div class="cold">Usually silence</div><div class="warm">Advice, a referral, sometimes an interview</div>
+  </div>
+  <p class="note">Your seniors already know this. Most of them got their best leads through people, not portals.</p>
+  <div class="foot"><b>Knock</b><span>Partner proposal · 03</span></div>
+</section>
+
+<!-- 04 -->
+<section class="slide" data-screen-label="04 How Knock works">
+  <p class="kicker">What Knock does</p>
+  <h2>We do the hard part of a warm search, in four steps.</h2>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><div class="who">The student</div><h3>Picks target companies and roles</h3><p>A short brief on where they want to go next.</p></div>
+    <div class="step"><div class="num">2</div><div class="who">Knock</div><h3>Finds the right people</h3><p>Hiring managers, team members, alumni and senior people who can introduce.</p></div>
+    <div class="step"><div class="num">3</div><div class="who">Knock</div><h3>Writes a personal first message</h3><p>Each one built on something genuinely shared.</p></div>
+    <div class="step"><div class="num">4</div><div class="who">Knock, with the student</div><h3>Guides every reply</h3><p>Until it becomes a referral or an interview.</p></div>
+  </div>
+  <div class="approve"><span class="dot"></span>The student approves every message. Each one is sent from their own LinkedIn.</div>
+  <div class="foot"><b>Knock</b><span>Partner proposal · 04</span></div>
+</section>
+
+<!-- 05 -->
+<section class="slide" data-screen-label="05 Example message">
+  <p class="kicker">An example first message</p>
+  <h2>Short, specific, and easy to answer.</h2>
+  <div class="msgwrap">
+    <div class="msg">
+      <div class="top"><div class="av">photo</div><div><div class="nm">To: Rahul</div><div class="meta">Product, Zepto · previously Flipkart</div></div></div>
+      <div class="body">Hey Rahul, <mark>saw you moved from Flipkart into product at Zepto.</mark> <mark>I'm making a similar jump from brand management.</mark> Curious, <mark>what was the biggest adjustment for you?</mark></div>
+      <div class="sent">Sent from the student's own LinkedIn, after their approval</div>
+    </div>
+    <div class="why">
+      <div class="w"><span>1</span><div><h4>It shows real attention</h4><p>It names his actual move, not a generic compliment.</p></div></div>
+      <div class="w"><span>2</span><div><h4>It gives a genuine reason</h4><p>A similar career jump makes the message relevant to him.</p></div></div>
+      <div class="w"><span>3</span><div><h4>It asks for nothing big</h4><p>One easy question starts a conversation. The ask comes later.</p></div></div>
+    </div>
+  </div>
+  <div class="foot"><b>Knock</b><span>Partner proposal · 05</span></div>
+</section>
+
+<!-- 06 -->
+<section class="slide" data-screen-label="06 Not spam">
+  <p class="kicker">Why it is not spam</p>
+  <h2>Few people, chosen carefully, and written to one at a time.</h2>
+  <div class="spam">
+    <div class="sixty">
+      <div class="n">60</div>
+      <p>hand-picked people per student, per week.</p>
+      <small>Chosen for relevance to that student's goals. Never a mass list.</small>
+    </div>
+    <div class="rules">
+      <div class="r"><h4>Every message is personal</h4><p>Written for one reader, around something real they share.</p></div>
+      <div class="r"><h4>Sent from their own account</h4><p>The student's name and profile. No bots, no shared inboxes.</p></div>
+      <div class="r"><h4>Well under LinkedIn's limits</h4><p>A pace that protects the student's account and reputation.</p></div>
+      <div class="r"><h4>Conversation first</h4><p>We earn the reply before anyone asks for a referral.</p></div>
+    </div>
+  </div>
+  <div class="foot"><b>Knock</b><span>Partner proposal · 06</span></div>
+</section>
+
+<!-- 07 -->
+<section class="slide" data-screen-label="07 Packages">
+  <p class="kicker">Packages · founding member pricing</p>
+  <h2>Clear packages, priced for students. Your members get the founding price.</h2>
+  <div class="pk">
+    <div class="p"><div class="nm">Sprint</div><div class="len">7 days</div><div class="ppl"><b>60 people</b><br>researched and contacted</div><div class="price"><small>Founding price</small>Rs 2,499</div></div>
+    <div class="p"><div class="nm">Standard</div><div class="len">14 days</div><div class="ppl"><b>120 people</b><br>researched and contacted</div><div class="price"><small>Founding price</small>Rs 3,999</div></div>
+    <div class="p"><div class="nm">Full search</div><div class="len">21 days</div><div class="ppl"><b>180 people</b><br>researched and contacted</div><div class="price"><small>Founding price</small>Rs 5,499</div></div>
+    <div class="p dfy"><div class="nm">Done-for-you</div><div class="len">Scoped per person</div><div class="ppl">For senior or complex searches, handled end to end</div><div class="price"><small>From</small>Rs 14,999</div></div>
+  </div>
+  <div class="pknote"><span class="tag">Club members</span>Founding-member pricing for everyone in <span class="ph light">&lt;Club name&gt;</span>, students and alumni.</div>
+  <div class="foot"><b>Knock</b><span>Partner proposal · 07</span></div>
+</section>
+
+<!-- 08 -->
+<section class="slide dark" data-screen-label="08 Partnership offer">
+  <p class="kicker">The partnership</p>
+  <h2>Your club gets a lot. We ask for very little.</h2>
+  <div class="offer">
+    <div class="col">
+      <h3>What <span class="ph">&lt;Club name&gt;</span> gets</h3>
+      <div class="it"><span>1</span><div><h4>Founding price for members</h4><p>For students and alumni of the club.</p></div></div>
+      <div class="it"><span>2</span><div><h4>A free pilot for 5 students</h4><p>Chosen by the club. No cost to them.</p></div></div>
+      <div class="it"><span>3</span><div><h4>A results summary to share</h4><p>What happened in the pilot, written up for your batch.</p></div></div>
+      <div class="it"><span>4</span><div><h4>A co-hosted session</h4><p>On how to run an outbound job search well.</p></div></div>
+    </div>
+    <div class="col ask">
+      <h3>What Knock asks for</h3>
+      <div class="it"><span>1</span><div><h4>One announcement</h4><p>A single note to the batch, in your words.</p></div></div>
+      <div class="it"><span>2</span><div><h4>A feedback call</h4><p>Thirty minutes after the pilot ends.</p></div></div>
+      <p class="tot">That is all. Your batch's inbox stays yours.</p>
+    </div>
+  </div>
+  <div class="foot"><b>Knock</b><span>Partner proposal · 08</span></div>
+</section>
+
+<!-- 09 -->
+<section class="slide" data-screen-label="09 Measuring success">
+  <p class="kicker">How we measure success</p>
+  <h2>One honest number: interviews per 100 people contacted.</h2>
+  <div class="metric">
+    <div class="frac">
+      <div class="stack"><div class="top">Interviews</div><div class="bar"></div><div class="bot">People contacted</div></div>
+      <div class="x">× 100</div>
+    </div>
+    <div class="reports">
+      <div class="r"><h4>Per student</h4><p>Each pilot student sees their own number, and what drove it.</p></div>
+      <div class="r"><h4>In aggregate</h4><p>The club sees the combined result across all five.</p></div>
+    </div>
+  </div>
+  <p class="honest">We have no results to show yet, so we make no promises. The pilot is how we find out, together, and we will report what actually happens.</p>
+  <div class="foot"><b>Knock</b><span>Partner proposal · 09</span></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-screen-label="10 Pilot timeline">
+  <p class="kicker">Pilot timeline</p>
+  <h2>Three weeks from kickoff to a shared review.</h2>
+  <div class="tl">
+    <div class="ph-t"><div class="knob"><i></i></div><div class="wk">Week 0</div><h3>Kickoff</h3>
+      <ul><li>Club picks 5 students</li><li>Short brief with each student</li></ul></div>
+    <div class="ph-t mid"><div class="knob"><i></i></div><div class="wk">Weeks 1 to 2</div><h3>Outreach</h3>
+      <ul><li>We find and research the right people</li><li>Students approve each message</li><li>Messages go out from their accounts</li><li>We guide every reply</li></ul></div>
+    <div class="ph-t"><div class="knob"><i></i></div><div class="wk">Week 3</div><h3>Results review</h3>
+      <ul><li>Summary for the club</li><li>Feedback call</li></ul></div>
+  </div>
+  <div class="foot"><b>Knock</b><span>Partner proposal · 10</span></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-screen-label="11 Your batch stays in control">
+  <p class="kicker">What this means for your batch</p>
+  <h2>Your students stay in control, and so does your club's name.</h2>
+  <div class="grid4">
+    <div class="g"><svg class="ic" viewBox="0 0 58 58" fill="none"><circle cx="29" cy="29" r="27" stroke="#B08442" stroke-width="2"/><path d="M18 30l8 8 15-17" stroke="#1F3A31" stroke-width="3"/></svg><div><h4>Nothing goes out unapproved</h4><p>Students review and approve every message before it is sent.</p></div></div>
+    <div class="g"><svg class="ic" viewBox="0 0 58 58" fill="none"><circle cx="29" cy="29" r="27" stroke="#B08442" stroke-width="2"/><circle cx="29" cy="24" r="7" stroke="#1F3A31" stroke-width="3"/><path d="M17 43c3-7 21-7 24 0" stroke="#1F3A31" stroke-width="3"/></svg><div><h4>Their name, their voice</h4><p>Sent from their own LinkedIn, in a tone that sounds like them.</p></div></div>
+    <div class="g"><svg class="ic" viewBox="0 0 58 58" fill="none"><circle cx="29" cy="29" r="27" stroke="#B08442" stroke-width="2"/><path d="M19 22h20M19 29h20M19 36h12" stroke="#1F3A31" stroke-width="3"/></svg><div><h4>One announcement, no more</h4><p>We do not message your batch directly. Students opt in.</p></div></div>
+    <div class="g"><svg class="ic" viewBox="0 0 58 58" fill="none"><circle cx="29" cy="29" r="27" stroke="#B08442" stroke-width="2"/><path d="M29 16v13l8 6" stroke="#1F3A31" stroke-width="3"/></svg><div><h4>Judge it on the pilot</h4><p>Five students, three weeks, then decide with real evidence.</p></div></div>
+  </div>
+  <div class="foot"><b>Knock</b><span>Partner proposal · 11</span></div>
+</section>
+
+<!-- 12 -->
+<section class="slide dark s-close" data-screen-label="12 Next step">
+  <div class="tx">
+    <p class="kicker">Next step</p>
+    <h2>Pick 5 students for the <em>free pilot.</em></h2>
+    <div class="ctas">
+      <div class="c"><span>We start</span>Within a week of your yes</div>
+      <div class="c"><span>Write to</span><span class="mail">hello@knock.careers</span></div>
+    </div>
+  </div>
+  <svg class="door" viewBox="0 0 460 780" fill="none" aria-hidden="true">
+    <path d="M30 780 V230 A200 200 0 0 1 430 230 V780" stroke="#B08442" stroke-width="2"/>
+    <path d="M30 780 V230 A200 200 0 0 1 230 30 V780 Z" fill="#2A4A3F" stroke="#B08442" stroke-width="2"/>
+    <path d="M230 30 A200 200 0 0 1 430 230 V780 H300 V230 A70 70 0 0 0 230 160 Z" fill="#F3EEE5" opacity=".08"/>
+    <circle cx="190" cy="430" r="26" stroke="#B08442" stroke-width="2"/>
+    <circle cx="190" cy="404" r="6" fill="#B08442"/>
+    <line x1="0" y1="779" x2="460" y2="779" stroke="#B08442" stroke-width="2"/>
+  </svg>
+  <div class="foot"><b>Knock</b><span>Knock on the right door · 12</span></div>
+</section>
+
+</div></div>
+<div class="nav"><button id="prev" aria-label="Previous slide">Prev</button><span id="count">1 / 12</span><button id="next" aria-label="Next slide">Next</button></div>
+<script>
+(function(){
+  var deck=document.getElementById('deck'), slides=[].slice.call(document.querySelectorAll('.slide')), i=0;
+  try{ i=Math.min(slides.length-1, parseInt(localStorage.getItem('knock-slide')||'0',10)||0); }catch(e){}
+  function fit(){ var s=Math.min(innerWidth/1920, innerHeight/1080);
+    deck.style.transform='translate('+((innerWidth-1920*s)/2)+'px,'+((innerHeight-1080*s)/2)+'px) scale('+s+')'; }
+  function show(n){ i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+    document.getElementById('count').textContent=(i+1)+' / '+slides.length;
+    try{ localStorage.setItem('knock-slide',i); }catch(e){} }
+  addEventListener('resize',fit);
+  addEventListener('keydown',function(e){ if(['ArrowRight','PageDown',' '].indexOf(e.key)>-1) show(i+1); if(['ArrowLeft','PageUp'].indexOf(e.key)>-1) show(i-1); });
+  document.getElementById('prev').onclick=function(){show(i-1)}; document.getElementById('next').onclick=function(){show(i+1)};
+  fit(); show(i);
+})();
+</script>
+</body>
+</html>

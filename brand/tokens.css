@@ -1,0 +1,97 @@
+/* Knock design tokens. Derived from site-competition/entry-9. */
+:root{
+  --knock-inland: #A9C7E6; /* Hero sheet, signature surface. The powder-blue airmail paper. */
+  --knock-inland-2: #97B9DD; /* Deeper paper tone for shading and borders of blue surfaces. */
+  --knock-inland-3: #C4D9EF; /* Lighter paper for secondary panels, tables and ledgers on blue. */
+  --knock-paper: #EEF3F8; /* Default page background. */
+  --knock-white: #FAFCFE; /* Cards, notes, stamp borders. Never pure #FFFFFF. */
+  --knock-ink: #0E1F3A; /* Navy. Headlines, body text, dark surfaces, primary buttons. */
+  --knock-ink-2: #2B4266; /* Secondary text, supporting copy. */
+  --knock-ink-3: #4A5F80; /* Tertiary text, captions, metadata. Not for body copy on blue. */
+  --knock-post: #B3301B; /* Postal red. The stamp, one accent per layout, focus rings, key marks. */
+  --knock-post-soft: #F3D9D2; /* Highlighter wash behind a single key phrase. Error backgrounds. */
+  --knock-rule: rgba(14,31,58,.2);
+  --knock-rule-strong: rgba(14,31,58,.55);
+  --knock-font-display: "Archivo", "Arial Narrow", sans-serif;
+  --knock-font-text: "Archivo", system-ui, sans-serif;
+  --knock-font-serif: "Source Serif 4", Georgia, serif;
+  --knock-display-width: 72; /* font-variation-settings "wdth" */
+  --knock-display-weight: 800;
+  --knock-text-xs: 0.75rem; /* 12px. Labels, fold text, uppercase meta (tracking .12em) */
+  --knock-text-sm: 0.875rem; /* 14px. Captions, table meta */
+  --knock-text-base: 1rem; /* 16px. Body in UI */
+  --knock-text-md: 1.125rem; /* 18px. Body in documents */
+  --knock-text-lg: 1.3rem; /* 21px. Lede paragraphs, serif */
+  --knock-text-xl: 1.75rem; /* 28px. Card headings (display) */
+  --knock-text-2xl: 2.4rem; /* 38px. Section headings, small */
+  --knock-text-3xl: 3.6rem; /* 58px. Section headings */
+  --knock-text-4xl: 4.6rem; /* 74px. Page headlines */
+  --knock-text-5xl: 6rem; /* 96px. Hero headline, maximum */
+  --knock-space-1: 4px;
+  --knock-space-2: 8px;
+  --knock-space-3: 12px;
+  --knock-space-4: 16px;
+  --knock-space-5: 24px;
+  --knock-space-6: 32px;
+  --knock-space-7: 48px;
+  --knock-space-8: 64px;
+  --knock-space-9: 96px;
+  --knock-space-10: 140px;
+  --knock-radius-none: 0;
+  --knock-radius-sm: 2px;
+  --knock-radius-md: 4px;
+  --knock-radius-lg: 8px;
+  --knock-radius-pill: 99px;
+  --knock-shadow-sheet: 0 30px 60px -36px rgba(14,31,58,.55);
+  --knock-shadow-note: 0 30px 50px -30px rgba(14,31,58,.55), 0 4px 10px -6px rgba(14,31,58,.3);
+  --knock-shadow-stamp: drop-shadow(0 6px 8px rgba(14,31,58,.22));
+  --knock-shadow-button-hover: 0 8px 20px -10px rgba(179,48,27,.7);
+  --knock-shadow-dark: 0 30px 60px -36px rgba(0,0,0,.7);
+  --knock-ease: cubic-bezier(.16,1,.3,1);
+
+  /* Semantic roles, light (default) */
+  --knock-role-bg: #EEF3F8;
+  --knock-role-surface: #FAFCFE;
+  --knock-role-surface-2: #C4D9EF;
+  --knock-role-text: #0E1F3A;
+  --knock-role-text-2: #2B4266;
+  --knock-role-text-3: #4A5F80;
+  --knock-role-accent: #B3301B;
+  --knock-role-post: #B3301B;
+  --knock-role-post-soft: #F3D9D2;
+  --knock-role-rule: rgba(14,31,58,.2);
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --knock-role-bg: #0A1628;
+    --knock-role-surface: #0E1F3A;
+    --knock-role-surface-2: #16294A;
+    --knock-role-text: #EEF3F8;
+    --knock-role-text-2: #BFD0E6;
+    --knock-role-text-3: #A9BBD3;
+    --knock-role-accent: #A9C7E6;
+    --knock-role-post: #E8705A;
+    --knock-role-post-soft: #3A1A1A;
+    --knock-role-rule: rgba(169,199,230,.25);
+    --knock-shadow-sheet: 0 30px 60px -36px rgba(0,0,0,.7);
+    --knock-rule: rgba(169,199,230,.25);
+  }
+}
+
+:root[data-theme="dark"]{
+  --knock-role-bg: #0A1628;
+  --knock-role-surface: #0E1F3A;
+  --knock-role-surface-2: #16294A;
+  --knock-role-text: #EEF3F8;
+  --knock-role-text-2: #BFD0E6;
+  --knock-role-text-3: #A9BBD3;
+  --knock-role-accent: #A9C7E6;
+  --knock-role-post: #E8705A;
+  --knock-role-post-soft: #3A1A1A;
+  --knock-role-rule: rgba(169,199,230,.25);
+  --knock-shadow-sheet: 0 30px 60px -36px rgba(0,0,0,.7);
+  --knock-rule: rgba(169,199,230,.25);
+}
+
+.knock-display{font-family:var(--knock-font-display);font-variation-settings:"wdth" 72;font-stretch:72%;font-weight:800;line-height:.95;letter-spacing:-.015em}

@@ -1,0 +1,23 @@
+name: live-tests
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: Deployment to test
+        default: https://knock-eosin-beta.vercel.app
+      concurrency:
+        default: "50"
+      seconds:
+        default: "60"
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tests/live/smoke.py "${{ inputs.base_url }}"
+  stress:
+    needs: smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tests/live/stress.py "${{ inputs.base_url }}" "${{ inputs.concurrency }}" "${{ inputs.seconds }}"

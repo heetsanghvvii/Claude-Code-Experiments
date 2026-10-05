@@ -32,3 +32,4 @@ Founder: Heet, Mumbai. Runs One More Round (personalised card-game gifting). Pro
 - reports/Cold outreach messaging playbook.md (best practices, rubric, risks: LinkedIn User Agreement 8.2 bans automation; DPDP obligations from ~May 2027; no cold WhatsApp)
 - business/market_and_competitors.md (market size, competitor table, channels, pricing benchmarks)
 - Partner pitch idea: B-school placement committees and clubs, free 5-student pilot.
+- No numbers in external materials (5 Oct): no client counts, revenue or projections in decks or anything shared. The investor deck is a case study for recruiters showing the system and the thinking.

@@ -159,7 +159,6 @@ Method: count people, then multiply by what they would pay. All counts below are
 | **TAM** | Every MBA/PGDM graduate plus every lateral PM aspirant buying one Tier 1 package | ~3,85,000 | ~Rs 148 crore | [E] 3.85 lakh x Rs 3,849 |
 | **SAM** | People we can actually reach and who fit the ICP: graduates of the top ~60 B-schools targeting product, strategy or consulting roles (~40,000 [E]) plus metro, English-first lateral PM aspirants (~50,000 [E]) | ~90,000 | ~Rs 35 crore for Tier 1; more if 1 to 2% also buy Tier 2 | [E] |
 | **Realistic ceiling** | 3 to 5% of a reachable ~3 lakh buy Tier 1, and 1 to 2% buy Tier 2 | 9,000 to 15,000 Tier 1 buyers | Rs 3.6 to 6 crore (Tier 1) plus Rs 4.5 to 9 crore (Tier 2) | [E] from the market file |
-| **SOM, year 1** | What one founder plus one part-time operator can sell and serve | 87 to 160 clients | Rs 5.1 to 9.9 lakh | [E] from section 12 |
 
 **Assumptions to state plainly:**
 - Enrolment is used as a proxy for graduates. The latest hard number is 2022-23; 2023-24 and 2024-25 were not found.
@@ -522,68 +521,9 @@ In the base case this happens around **February 2027**. In the conservative case
 
 ---
 
-## 12. Financial projection (12 months, November 2026 to October 2027)
+## 12. Financial projection
 
-October 2026 is setup and dogfooding. Any founding client paid in October is upside and not counted below.
-
-### Assumptions [E]
-
-- Tier 1 blended price Rs 3,849 and variable cost Rs 1,801 per client (30% Sprint, 50% Standard, 20% Full; Claude at Rs 15 per prospect; 2.36% gateway).
-- Tier 2: first 3 Tier 2 clients at the founding Rs 14,999, then Rs 19,999. Variable cost about Rs 9,200 to 9,300 (one LGM month, Claude, gateway).
-- Fixed: Vercel Pro Rs 1,760, domain Rs 215, misc Rs 500 every month; Supabase Pro Rs 2,200 from month 6 (base) or month 9 (conservative).
-- Marketing and referral costs: Rs 1,000 a month (conservative), Rs 2,000 (base).
-- One-off: club pilot Claude cost Rs 4,500 each (1 pilot conservative, 2 base); legal review Rs 15,000 in January 2027.
-- Base case adds a part-time operator at Rs 20,000 a month from February 2027.
-- Profit is before founder salary and income tax. Tier 1 prices stay at the current levels all year.
-- Seasonality: slow early November (Diwali) and late December; strong January to March and July to September; softer April to June.
-
-### Conservative case (founder solo)
-
-| Month | Tier 1 | Tier 2 | Revenue | Variable costs | Fixed and other | Total costs | Profit | Cumulative |
-|---|---|---|---|---|---|---|---|---|
-| Nov 26 | 3 | 0 | 11,547 | 5,403 | 7,975 | 13,378 | -1,831 | -1,831 |
-| Dec 26 | 4 | 0 | 15,396 | 7,204 | 3,475 | 10,679 | 4,717 | 2,886 |
-| Jan 27 | 6 | 1 | 38,093 | 20,020 | 18,475 | 38,495 | -402 | 2,484 |
-| Feb 27 | 7 | 1 | 41,942 | 21,821 | 3,475 | 25,296 | 16,646 | 19,130 |
-| Mar 27 | 8 | 1 | 45,791 | 23,622 | 3,475 | 27,097 | 18,694 | 37,824 |
-| Apr 27 | 6 | 1 | 43,093 | 20,138 | 3,475 | 23,613 | 19,480 | 57,304 |
-| May 27 | 5 | 1 | 39,244 | 18,337 | 3,475 | 21,812 | 17,432 | 74,736 |
-| Jun 27 | 5 | 1 | 39,244 | 18,337 | 3,475 | 21,812 | 17,432 | 92,168 |
-| Jul 27 | 7 | 1 | 46,942 | 21,939 | 5,675 | 27,614 | 19,328 | 1,11,496 |
-| Aug 27 | 8 | 2 | 70,790 | 33,072 | 5,675 | 38,747 | 32,043 | 1,43,539 |
-| Sep 27 | 9 | 2 | 74,639 | 34,873 | 5,675 | 40,548 | 34,091 | 1,77,630 |
-| Oct 27 | 7 | 1 | 46,942 | 21,939 | 5,675 | 27,614 | 19,328 | 1,96,958 |
-| **Total** | **75** | **12** | **5,13,663** | **2,46,705** | **70,000** | **3,16,705** | **1,96,958** | |
-
-### Base case (part-time operator from February 2027)
-
-| Month | Tier 1 | Tier 2 | Revenue | Variable costs | Fixed and other | Total costs | Profit | Cumulative |
-|---|---|---|---|---|---|---|---|---|
-| Nov 26 | 5 | 0 | 19,245 | 9,005 | 8,975 | 17,980 | 1,265 | 1,265 |
-| Dec 26 | 7 | 1 | 41,942 | 21,821 | 4,475 | 26,296 | 15,646 | 16,911 |
-| Jan 27 | 10 | 1 | 53,489 | 27,224 | 23,975 | 51,199 | 2,290 | 19,201 |
-| Feb 27 | 12 | 2 | 81,186 | 40,158 | 24,475 | 64,633 | 16,553 | 35,754 |
-| Mar 27 | 14 | 2 | 93,884 | 43,878 | 24,475 | 68,353 | 25,531 | 61,285 |
-| Apr 27 | 11 | 2 | 82,337 | 38,475 | 26,675 | 65,150 | 17,187 | 78,472 |
-| May 27 | 10 | 2 | 78,488 | 36,674 | 26,675 | 63,349 | 15,139 | 93,611 |
-| Jun 27 | 10 | 2 | 78,488 | 36,674 | 26,675 | 63,349 | 15,139 | 1,08,750 |
-| Jul 27 | 13 | 3 | 1,10,034 | 51,409 | 26,675 | 78,084 | 31,950 | 1,40,700 |
-| Aug 27 | 15 | 3 | 1,17,732 | 55,011 | 26,675 | 81,686 | 36,046 | 1,76,746 |
-| Sep 27 | 16 | 3 | 1,21,581 | 56,812 | 26,675 | 83,487 | 38,094 | 2,14,840 |
-| Oct 27 | 13 | 3 | 1,10,034 | 51,409 | 26,675 | 78,084 | 31,950 | 2,46,790 |
-| **Total** | **136** | **24** | **9,88,440** | **4,68,550** | **2,73,100** | **7,41,650** | **2,46,790** | |
-
-### Reading the projection
-
-- **Cash risk is tiny.** The worst month is about Rs 1,800 negative. Knock does not need outside money to start.
-- **The business pays for itself but not yet for the founder.** Year-1 profit before founder pay is about Rs 2 lakh (conservative) to Rs 2.5 lakh (base). That is a validation year, not an income year.
-- **Three levers move it most:**
-  1. Claude cost at Rs 10 instead of Rs 15 per prospect adds about Rs 1 lakh a year in the base case.
-  2. A standard Tier 1 price review after client 10 (prices here never rise).
-  3. More Tier 2 standard clients: each adds about Rs 10,700 margin.
-- Base case revenue of about Rs 9.9 lakh stays under the GST threshold [E].
-
----
+Removed at the founder's request (5 Oct). No client-count or revenue projections are committed. Plan with real data from the first clients instead: track cost per prospect, hours per client and the funnel from section 10, then decide pricing and capacity.
 
 ## 13. Roadmap
 

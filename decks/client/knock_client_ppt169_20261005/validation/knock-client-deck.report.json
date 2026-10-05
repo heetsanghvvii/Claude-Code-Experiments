@@ -3,19 +3,19 @@
   "status": "passed-with-warnings",
   "output": {
     "path": "/home/user/Claude-Code-Experiments/decks/client/knock-client-deck.pptx",
-    "bytes": 48591
+    "bytes": 48596
   },
   "source": {
     "svg_slide_count": 12,
     "layout_definition_count": 0,
     "fingerprint": {
       "algorithm": "sha256",
-      "digest": "c99de701d271839a5dbd62596be89039e10c8e018571081b58de912f28ad7ab6",
+      "digest": "fdc3acd25c00f2566caf3cd5bc92d799feacda9878e8fb80ea3d0aee3812b1f8",
       "file_count": 12,
       "files": [
         {
           "file": "01_cover.svg",
-          "sha256": "4596d01d06eb8917057b9a3c34840510c55e368e5a862e70ae5b92d2594b2fab"
+          "sha256": "5fa9a32c03eab6f29f7b5abf39b00ddc7cd21cac0cdff3b152695f260ea2a7f6"
         },
         {
           "file": "02_problem.svg",
@@ -23,7 +23,7 @@
         },
         {
           "file": "03_people.svg",
-          "sha256": "8c38769fd33032fd70eaeb7304e5ed4f0cf76d389c9419820705c41f5262fc80"
+          "sha256": "bdf62bd5527cd8b7f09e1bb75eb054a56bc4fdaf610075b878a4d06b258414c1"
         },
         {
           "file": "04_how-it-works.svg",
@@ -35,7 +35,7 @@
         },
         {
           "file": "06_first-message.svg",
-          "sha256": "958c70f8ff6a14c9f90058983c4e8b8ad8f2474e8531f8d185b0b68be0931197"
+          "sha256": "eae91bc8083bd65d8650846dd1503d00350dea3c0fc857bc0a1bd9f141dc9453"
         },
         {
           "file": "07_not-spam.svg",
@@ -47,7 +47,7 @@
         },
         {
           "file": "09_packages.svg",
-          "sha256": "952b8617c40da1531b122112cfa409df6c46ee537cb9ead1bf2c526d2f3a7a69"
+          "sha256": "51c574ab300e590f5dc3d1bf893256dd12198797d3100457c80348fbdfdac208"
         },
         {
           "file": "10_honesty.svg",
@@ -55,11 +55,11 @@
         },
         {
           "file": "11_faq.svg",
-          "sha256": "edf47bfb4afda795b38b4572626396cecf452b4db10975b03a6fcdb4d5db1f2e"
+          "sha256": "b2181c14c5e712959347b2415f49d4c3406a40f98caf26c23cc432bbcd4602d1"
         },
         {
           "file": "12_next-step.svg",
-          "sha256": "e90a2b6313af6458fd007e056708944bb635b656f6f6a954b3cba423db9d112d"
+          "sha256": "6a64ce426b3dd87211cc75afd8660360b9f5f436647490fa49ff44510868cc47"
         }
       ]
     },
@@ -97,12 +97,12 @@
     "source_match": "passed",
     "source_fingerprint": {
       "algorithm": "sha256",
-      "digest": "c99de701d271839a5dbd62596be89039e10c8e018571081b58de912f28ad7ab6",
+      "digest": "fdc3acd25c00f2566caf3cd5bc92d799feacda9878e8fb80ea3d0aee3812b1f8",
       "file_count": 12,
       "files": [
         {
           "file": "01_cover.svg",
-          "sha256": "4596d01d06eb8917057b9a3c34840510c55e368e5a862e70ae5b92d2594b2fab"
+          "sha256": "5fa9a32c03eab6f29f7b5abf39b00ddc7cd21cac0cdff3b152695f260ea2a7f6"
         },
         {
           "file": "02_problem.svg",
@@ -110,7 +110,7 @@
         },
         {
           "file": "03_people.svg",
-          "sha256": "8c38769fd33032fd70eaeb7304e5ed4f0cf76d389c9419820705c41f5262fc80"
+          "sha256": "bdf62bd5527cd8b7f09e1bb75eb054a56bc4fdaf610075b878a4d06b258414c1"
         },
         {
           "file": "04_how-it-works.svg",
@@ -122,7 +122,7 @@
         },
         {
           "file": "06_first-message.svg",
-          "sha256": "958c70f8ff6a14c9f90058983c4e8b8ad8f2474e8531f8d185b0b68be0931197"
+          "sha256": "eae91bc8083bd65d8650846dd1503d00350dea3c0fc857bc0a1bd9f141dc9453"
         },
         {
           "file": "07_not-spam.svg",
@@ -134,7 +134,7 @@
         },
         {
           "file": "09_packages.svg",
-          "sha256": "952b8617c40da1531b122112cfa409df6c46ee537cb9ead1bf2c526d2f3a7a69"
+          "sha256": "51c574ab300e590f5dc3d1bf893256dd12198797d3100457c80348fbdfdac208"
         },
         {
           "file": "10_honesty.svg",
@@ -142,11 +142,11 @@
         },
         {
           "file": "11_faq.svg",
-          "sha256": "edf47bfb4afda795b38b4572626396cecf452b4db10975b03a6fcdb4d5db1f2e"
+          "sha256": "b2181c14c5e712959347b2415f49d4c3406a40f98caf26c23cc432bbcd4602d1"
         },
         {
           "file": "12_next-step.svg",
-          "sha256": "e90a2b6313af6458fd007e056708944bb635b656f6f6a954b3cba423db9d112d"
+          "sha256": "6a64ce426b3dd87211cc75afd8660360b9f5f436647490fa49ff44510868cc47"
         }
       ]
     },

@@ -4,7 +4,7 @@
   "target": "/home/user/Claude-Code-Experiments/decks/client/knock_client_ppt169_20261005",
   "source_fingerprint": {
     "algorithm": "sha256",
-    "digest": "1686917eefe38219f3907705fd0f9ee752fde868de7bb70e0cd280c484a95083",
+    "digest": "fdc3acd25c00f2566caf3cd5bc92d799feacda9878e8fb80ea3d0aee3812b1f8",
     "file_count": 12,
     "files": [
       {
@@ -17,7 +17,7 @@
       },
       {
         "file": "03_people.svg",
-        "sha256": "678d4b89d4302e9243884049c030e0d4c1b7a8f7e52122dc338428939a526916"
+        "sha256": "bdf62bd5527cd8b7f09e1bb75eb054a56bc4fdaf610075b878a4d06b258414c1"
       },
       {
         "file": "04_how-it-works.svg",
@@ -29,7 +29,7 @@
       },
       {
         "file": "06_first-message.svg",
-        "sha256": "ffeede0b0eaf0e737e01bf58ade86af9ddca7f4a1a029b1b9be77bccaa1ac4ef"
+        "sha256": "eae91bc8083bd65d8650846dd1503d00350dea3c0fc857bc0a1bd9f141dc9453"
       },
       {
         "file": "07_not-spam.svg",
@@ -70,7 +70,7 @@
       "issues": []
     },
     "introduced": {
-      "count": 18,
+      "count": 16,
       "issues": [
         {
           "file": "01_cover.svg",
@@ -89,10 +89,6 @@
           "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
         },
         {
-          "file": "03_people.svg",
-          "message": "<text> (x=72, y=606; text='Knock finds the righ…') exceeds <g id=\"what-knock-does\"> data-pptx-bounds on the vertical axis: content (72.0, 583.9)-(955.6, 653.1), container (72.0, 580.0)-(1208.0, 652.0), overflow horizontal 0.0%, vertical 1.5% (error above 5%); expand the root module bounds into available non-overlapping space; otherwise reflow the text"
-        },
-        {
           "file": "04_how-it-works.svg",
           "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
         },
@@ -103,10 +99,6 @@
         {
           "file": "06_first-message.svg",
           "message": "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
-        },
-        {
-          "file": "06_first-message.svg",
-          "message": "<text> (x=846, y=604; text='One question they ca…') exceeds <g id=\"why-it-works\"> data-pptx-bounds on the vertical axis: content (846.0, 587.0)-(1155.7, 639.0), container (790.0, 232.0)-(1208.0, 632.0), overflow horizontal 0.0%, vertical 1.8% (error above 5%); expand the root module bounds into available non-overlapping space; otherwise reflow the text"
         },
         {
           "file": "07_not-spam.svg",
@@ -358,8 +350,7 @@
       "exists": true,
       "errors": [],
       "warnings": [
-        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow",
-        "<text> (x=72, y=606; text='Knock finds the righ…') exceeds <g id=\"what-knock-does\"> data-pptx-bounds on the vertical axis: content (72.0, 583.9)-(955.6, 653.1), container (72.0, 580.0)-(1208.0, 652.0), overflow horizontal 0.0%, vertical 1.5% (error above 5%); expand the root module bounds into available non-overlapping space; otherwise reflow the text"
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
       ],
       "info": {
         "viewbox": "0 0 1280 720",
@@ -415,7 +406,7 @@
         "tspan_elements": 5
       },
       "passed": true,
-      "source_sha256": "678d4b89d4302e9243884049c030e0d4c1b7a8f7e52122dc338428939a526916"
+      "source_sha256": "bdf62bd5527cd8b7f09e1bb75eb054a56bc4fdaf610075b878a4d06b258414c1"
     },
     {
       "file": "04_how-it-works.svg",
@@ -549,8 +540,7 @@
       "exists": true,
       "errors": [],
       "warnings": [
-        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow",
-        "<text> (x=846, y=604; text='One question they ca…') exceeds <g id=\"why-it-works\"> data-pptx-bounds on the vertical axis: content (846.0, 587.0)-(1155.7, 639.0), container (790.0, 232.0)-(1208.0, 632.0), overflow horizontal 0.0%, vertical 1.8% (error above 5%); expand the root module bounds into available non-overlapping space; otherwise reflow the text"
+        "Font stack exports non-PPT-safe typeface(s) to PPTX (latin=Arial Narrow): Arial Narrow"
       ],
       "info": {
         "viewbox": "0 0 1280 720",
@@ -604,7 +594,7 @@
         "tspan_elements": 8
       },
       "passed": true,
-      "source_sha256": "ffeede0b0eaf0e737e01bf58ade86af9ddca7f4a1a029b1b9be77bccaa1ac4ef"
+      "source_sha256": "eae91bc8083bd65d8650846dd1503d00350dea3c0fc857bc0a1bd9f141dc9453"
     },
     {
       "file": "07_not-spam.svg",

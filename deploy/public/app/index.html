@@ -1,0 +1,1167 @@
+<!doctype html>
+<html lang="en-IN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your account | Knock</title>
+<meta name="description" content="Your Knock account: the people worth talking to, the messages written for them, and where each conversation stands.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#EEF3F8">
+<link rel="icon" type="image/svg+xml" href="/brand/knock-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
+<style>
+/* Knock brand tokens (brand/tokens.css), inlined. Light only, like the landing page, /start, /portal and the CRM. */
+:root{
+  --inland:#A9C7E6; --inland-2:#97B9DD; --inland-3:#C4D9EF;
+  --paper:#EEF3F8; --white:#FAFCFE;
+  --ink:#0E1F3A; --ink-2:#2B4266; --ink-3:#4A5F80;
+  --post:#B3301B; --post-soft:#F3D9D2;
+  --rule:rgba(14,31,58,.2); --rule-strong:rgba(14,31,58,.55);
+  --display:"Archivo","Arial Narrow",sans-serif;
+  --text:"Archivo",system-ui,sans-serif;
+  --serif:"Source Serif 4",Georgia,serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --shadow-sheet:0 30px 60px -36px rgba(14,31,58,.55);
+  --shadow-note:0 30px 50px -30px rgba(14,31,58,.55),0 4px 10px -6px rgba(14,31,58,.3);
+  --side:256px; --tabs:64px;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:24px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--text);font-size:1rem;line-height:1.55;font-variation-settings:"wdth" 100;font-stretch:100%;caret-color:var(--post);overflow-x:hidden;min-height:100vh;min-height:100dvh}
+::selection{background:var(--ink);color:var(--inland-3)}
+svg{display:block;max-width:100%}
+a{color:inherit;text-underline-offset:.22em;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--post);outline-offset:3px;border-radius:2px}
+[tabindex="-1"]:focus{outline:none}
+h1,h2,h3{font-family:var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;font-weight:800;line-height:.98;letter-spacing:-.015em;margin:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+button,input,select,textarea{font:inherit;color:inherit}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:var(--white);padding:10px 16px;z-index:80;text-decoration:none;font-weight:600;border-radius:4px}
+.skip:focus{top:12px}
+.num{font-variant-numeric:tabular-nums lining-nums}
+html{scrollbar-color:rgba(14,31,58,.35) transparent}
+
+/* ---------- shell ---------- */
+.shell{min-height:100vh;min-height:100dvh}
+.side{position:fixed;inset:0 auto 0 0;width:var(--side);background:var(--white);border-right:1px solid var(--rule);display:flex;flex-direction:column;padding:22px 14px 16px;z-index:30}
+.side .mark{display:block;padding:4px 10px 22px;line-height:0}
+.side .mark img{width:118px;height:auto}
+.nav{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.nav a{display:flex;align-items:center;gap:12px;min-height:44px;padding:8px 12px;border-radius:4px;text-decoration:none;font-weight:500;color:var(--ink-2);transition:background-color .15s,color .15s}
+.nav a svg{width:20px;height:20px;flex:none}
+.nav a:hover{background:var(--paper);color:var(--ink)}
+.nav a[aria-current="page"]{background:var(--ink);color:var(--white);font-weight:600}
+.nav .badge{margin-left:auto;min-width:24px;height:22px;padding:0 7px;border-radius:99px;background:var(--inland-3);color:var(--ink);font-size:.8rem;font-weight:700;display:grid;place-items:center}
+.nav a[aria-current="page"] .badge{background:var(--inland);color:var(--ink)}
+.nav .sep{height:1px;background:var(--rule);margin:10px 12px}
+.acct{margin-top:auto;border-top:1px solid var(--rule);padding:14px 10px 0;display:grid;gap:2px;min-width:0}
+.acct b{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acct span{font-size:.85rem;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acct .linkish{justify-self:start;margin-top:6px}
+
+.mtop{display:none}
+.tabs{display:none}
+.main{margin-left:var(--side);min-width:0}
+.view{max-width:1120px;margin:0 auto;padding:36px clamp(20px,3.4vw,48px) 72px;min-width:0}
+.view.enter{animation:enter .22s var(--ease) both}
+@keyframes enter{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+@media (max-width:999px){
+  .side{display:none}
+  .main{margin-left:0;padding-bottom:calc(var(--tabs) + env(safe-area-inset-bottom,0px))}
+  .mtop{display:flex;position:sticky;top:0;z-index:30;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:0 16px;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--rule)}
+  .mtop .mark{line-height:0}.mtop .mark img{width:96px;height:auto}
+  .avatar{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--white);display:grid;place-items:center;font-weight:700;text-decoration:none;font-size:.95rem}
+  .tabs{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--white);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom,0px)}
+  .tabs a{position:relative;display:grid;justify-items:center;align-content:center;gap:3px;min-height:var(--tabs);text-decoration:none;font-size:.72rem;font-weight:600;color:var(--ink-3);letter-spacing:.01em}
+  .tabs a svg{width:22px;height:22px}
+  .tabs a[aria-current="page"]{color:var(--ink)}
+  .tabs a[aria-current="page"]::before{content:"";position:absolute;top:0;left:28%;right:28%;height:3px;border-radius:0 0 3px 3px;background:var(--ink)}
+  .tabs .dot{position:absolute;top:9px;left:calc(50% + 8px);min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:var(--ink);color:var(--white);font-size:.68rem;display:grid;place-items:center}
+  .view{padding:22px 16px 40px}
+}
+
+/* ---------- type and common pieces ---------- */
+.ph{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-bottom:24px}
+.ph h1{font-size:2.6rem;outline:none}
+.ph .sub{margin-top:8px;font-family:var(--serif);font-size:1.1rem;color:var(--ink-2);max-width:60ch}
+.k{font-weight:600;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+h2.h{font-size:1.75rem}
+.sec{margin-top:40px}
+.sec-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:16px}
+.sec-h p{color:var(--ink-2);font-size:.95rem}
+.card{position:relative;background:var(--white);border-radius:4px;padding:24px;box-shadow:var(--shadow-note);min-width:0}
+.panel{background:var(--white);border:1px solid var(--rule);border-radius:4px;padding:20px 22px;min-width:0}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:99px;background:var(--inland-3);color:var(--ink);font-weight:600;font-size:.8rem;white-space:nowrap;line-height:1.4}
+.chip.ink{background:var(--ink);color:var(--white)}
+.chip.line{background:transparent;box-shadow:inset 0 0 0 1.5px var(--rule-strong)}
+.chip.quiet{background:transparent;box-shadow:inset 0 0 0 1px var(--rule-strong);color:var(--ink-2)}
+.card>.why:first-child{margin-top:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:44px;padding:.5em 1.15em;background:var(--ink);color:var(--white);border:2px solid var(--ink);border-radius:999px;font-family:var(--display);font-variation-settings:"wdth" 88;font-stretch:88%;font-weight:700;font-size:1rem;letter-spacing:.01em;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background-color .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease),box-shadow .2s var(--ease),transform 160ms var(--ease)}
+.btn:hover{background:var(--post);border-color:var(--post);box-shadow:0 8px 20px -10px rgba(179,48,27,.7)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.6;cursor:progress;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--white);border-color:var(--ink);box-shadow:none}
+.btn.small{min-height:38px;font-size:.92rem;padding:.35em .95em}
+.btn svg{width:18px;height:18px;flex:none}
+.linkish{background:none;border:0;padding:6px 0;font-size:.92rem;color:var(--ink-2);text-decoration:underline;text-underline-offset:.22em;cursor:pointer}
+.linkish:hover{color:var(--ink);text-decoration-thickness:2px}
+.back{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.95rem;text-decoration:none;color:var(--ink-2);margin-bottom:14px}
+.back:hover{color:var(--ink);text-decoration:underline}
+.back svg{width:18px;height:18px}
+.empty{padding:22px 24px;border:1.5px dashed var(--rule-strong);border-radius:4px;font-family:var(--serif);font-style:italic;font-size:1.08rem;color:var(--ink-2);max-width:68ch;background:color-mix(in srgb,var(--white) 50%,transparent)}
+.empty a{color:var(--ink);font-style:normal;font-family:var(--text);font-weight:600;font-size:1rem}
+label.l{display:block;font-weight:600;font-size:.95rem}
+.help{font-size:.88rem;color:var(--ink-2);margin-top:2px}
+input[type=text],input[type=search],input[type=email],textarea,select{width:100%;min-height:46px;padding:10px 14px;border:1.5px solid rgba(14,31,58,.45);border-radius:4px;background:var(--white);color:var(--ink);transition:border-color .2s,box-shadow .2s,background-color .2s}
+textarea{min-height:110px;font-family:var(--serif);font-size:1.05rem;line-height:1.5;resize:vertical;display:block}
+input:focus,textarea:not([readonly]):focus,select:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(179,48,27,.35)}
+::placeholder{color:#5F7290;opacity:1}
+select{padding-right:40px;appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat;cursor:pointer}
+
+/* ---------- home ---------- */
+.sheet{position:relative;background:var(--inland);border-radius:4px;padding:36px 48px 32px;box-shadow:var(--shadow-sheet);overflow:hidden;isolation:isolate}
+.sheet::before{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px),radial-gradient(120% 70% at 85% 0%,rgba(255,255,255,.25),transparent 60%)}
+.perf{position:absolute;top:0;bottom:0;width:10px;background:radial-gradient(circle,var(--paper) 2.6px,transparent 3.2px) center top/10px 14px repeat-y}
+.perf.l{left:12px}.perf.r{right:12px}
+.sheet .stamp{position:absolute;right:52px;top:32px;width:76px;transform:rotate(3deg);filter:drop-shadow(0 6px 8px rgba(14,31,58,.22))}
+.sheet h1{font-size:3.2rem;max-width:16ch;padding-right:90px;outline:none}
+.sheet .lede{margin-top:10px;font-family:var(--serif);font-size:1.18rem;max-width:58ch;color:var(--ink)}
+.tasks{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tasks a{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 14px;padding:14px 16px;background:var(--white);border-radius:4px;text-decoration:none;min-height:76px;transition:box-shadow .2s var(--ease),transform .2s var(--ease)}
+.tasks a:hover{box-shadow:0 14px 26px -18px rgba(14,31,58,.6);transform:translateY(-1px)}
+.tasks .n{font:800 2.2rem/1 var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;font-variant-numeric:tabular-nums lining-nums;min-width:1.2ch}
+.tasks .t{font-weight:600;line-height:1.3}
+.tasks .t small{display:block;font-weight:400;font-size:.86rem;color:var(--ink-2)}
+.tasks svg{width:18px;height:18px;color:var(--ink-2)}
+.tasks .done .n{color:var(--ink-3)}
+.strip{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));position:relative}
+.strip::before{content:"";position:absolute;left:calc(100%/12);right:calc(100%/12);top:11px;border-top:2px dashed rgba(14,31,58,.45)}
+.strip li{position:relative;display:grid;justify-items:center;text-align:center;gap:4px;min-width:0}
+.strip .dot{width:24px;height:24px;border-radius:50%;background:var(--inland-3);border:2px solid var(--ink);position:relative;z-index:1}
+.strip .on .dot{background:var(--ink)}
+.strip .n{font:800 1.8rem/1 var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;font-variant-numeric:tabular-nums lining-nums}
+.strip .l{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;overflow-wrap:anywhere;line-height:1.25}
+.grid2{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:24px;margin-top:28px;align-items:start}
+.doing{list-style:none;margin:0;padding:0;display:grid}
+.doing li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--rule)}
+.doing li:last-child{border-bottom:0}
+.doing .ic{width:28px;height:28px;border-radius:50%;background:var(--paper);display:grid;place-items:center;color:var(--ink-2)}
+.doing .ic svg{width:16px;height:16px}
+.doing p{font-weight:500;padding-top:3px}
+.feed{list-style:none;margin:0;padding:0;display:grid}
+.feed li{display:grid;grid-template-columns:156px 1fr;gap:16px;padding:11px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.feed li:last-child{border-bottom:0}
+.feed time{font-size:.86rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.feed a{text-decoration:none;font-weight:600}
+.feed a:hover{text-decoration:underline}
+.feed .co{color:var(--ink-2)}
+.planmini .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.planmini .big{font:800 2rem/1 var(--display);font-variation-settings:"wdth" 72;font-stretch:72%}
+.bar{height:8px;border-radius:99px;background:var(--paper);overflow:hidden;margin-top:10px;box-shadow:inset 0 0 0 1px var(--rule)}
+.bar i{display:block;height:100%;background:var(--ink);border-radius:99px;transform-origin:left;animation:grow .6s var(--ease) both}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.meta-line{font-size:.9rem;color:var(--ink-2);margin-top:8px}
+
+/* ---------- send today ---------- */
+.pace{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.slots{display:flex;gap:4px}
+.slots i{width:12px;height:16px;border-radius:2px;background:var(--white);box-shadow:inset 0 0 0 1.5px rgba(14,31,58,.4)}
+.slots i.on{background:var(--ink);box-shadow:none}
+.pace span{font-size:.92rem;color:var(--ink-2)}
+.list{display:grid;gap:20px}
+.who{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:flex-start;justify-content:space-between}
+.who h3{font-size:1.8rem}
+.who h3 a{text-decoration:none}
+.who h3 a:hover{text-decoration:underline}
+.who .role{margin-top:4px;color:var(--ink-2)}
+.why{margin-top:16px;display:grid;gap:8px}
+.hook{font-family:var(--serif);font-size:1.12rem;line-height:1.42}
+.facts{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:8px}
+.facts li{display:grid;grid-template-columns:56px 1fr;gap:10px;font-size:.95rem;align-items:baseline}
+.facts .whose{font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);border-top:2px solid var(--inland-2);padding-top:3px}
+.facts .src{display:inline-flex;align-items:center;gap:3px;margin-left:8px;font-size:.84rem;color:var(--ink-3)}
+.facts a.src{color:var(--ink-2)}
+.facts a.src svg{width:12px;height:12px}
+.draft{margin-top:18px}
+.draft-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.count{font-size:.84rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.count.over{color:var(--post);font-weight:600}
+textarea.msgbox{margin-top:8px;min-height:0;background:var(--paper);border-color:transparent;resize:none;overflow:hidden}
+textarea.msgbox[readonly]{cursor:text;box-shadow:inset 0 0 0 1px var(--rule)}
+textarea.msgbox:not([readonly]){border-color:rgba(14,31,58,.45);background:var(--white);resize:vertical}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
+.actions .sent{margin-left:auto}
+.foot{margin-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px;align-items:center;justify-content:space-between}
+.foot p{font-size:.88rem;color:var(--ink-3)}
+.leaving{overflow:hidden;transition:height .26s var(--ease),opacity .2s var(--ease),margin .26s var(--ease),padding .26s var(--ease)!important}
+.done-day{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;padding:36px}
+.done-day img{width:96px;transform:rotate(-6deg);filter:drop-shadow(0 6px 8px rgba(14,31,58,.22));animation:stampIn .6s var(--ease) both}
+@keyframes stampIn{0%{opacity:0;transform:rotate(-20deg) scale(1.3)}100%{opacity:1;transform:rotate(-6deg) scale(1)}}
+.done-day h2{font-size:2.2rem}
+.done-day p{margin-top:8px;font-family:var(--serif);font-size:1.1rem;color:var(--ink-2);max-width:52ch}
+.later{margin-top:18px;font-size:.95rem;color:var(--ink-2)}
+
+/* ---------- people ---------- */
+.filters{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.search{position:relative}
+.search svg{position:absolute;left:13px;top:50%;width:18px;height:18px;transform:translateY(-50%);color:var(--ink-3);pointer-events:none}
+.search input{padding-left:40px}
+.shown{font-size:.9rem;color:var(--ink-2);margin:0 0 10px}
+.tbl{width:100%;border-collapse:collapse;background:var(--white);border-radius:4px;box-shadow:var(--shadow-note);overflow:hidden}
+.tbl th{text-align:left;font-weight:600;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:12px 16px;border-bottom:2px solid var(--ink);background:var(--white)}
+.tbl td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tbody tr{cursor:pointer;transition:background-color .12s}
+.tbl tbody tr:hover{background:var(--paper)}
+.tbl a.nm{font-weight:700;text-decoration:none}
+.tbl a.nm:hover{text-decoration:underline}
+.tbl .hl{display:block;font-size:.88rem;color:var(--ink-2);max-width:38ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbl time{font-size:.88rem;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.plist{display:none;list-style:none;margin:0;padding:0;background:var(--white);border-radius:4px;box-shadow:var(--shadow-note)}
+.plist li{border-bottom:1px solid var(--rule)}
+.plist li:last-child{border-bottom:0}
+.plist a{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px 16px;text-decoration:none}
+.plist b{font-weight:700}
+.plist .hl{grid-column:1/-1;font-size:.88rem;color:var(--ink-2)}
+@media (max-width:760px){.tbl{display:none}.plist{display:block}.filters{grid-template-columns:1fr 1fr}.filters .search{grid-column:1/-1}}
+
+/* ---------- person ---------- */
+.p-head{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:flex-end;justify-content:space-between;margin-bottom:24px}
+.p-head h1{font-size:2.8rem;outline:none}
+.p-head .role{margin-top:6px;color:var(--ink-2);font-size:1.05rem}
+.p-head .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.p-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;align-items:start}
+.p-grid aside{position:sticky;top:24px;display:grid;gap:16px}
+.thread{display:flex;flex-direction:column;gap:10px}
+.msg{max-width:86%;padding:10px 14px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;font:400 1.02rem/1.45 var(--serif)}
+.msg.out{align-self:flex-end;background:var(--ink);color:var(--white);border-bottom-right-radius:2px}
+.msg.in{align-self:flex-start;background:var(--inland-3);color:var(--ink);border-bottom-left-radius:2px}
+.msg.pending{background:var(--paper);border:1.5px dashed var(--rule-strong)}
+.msg .meta{display:block;font:600 .74rem var(--text);letter-spacing:.03em;opacity:.85;margin-top:4px}
+.writing{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:var(--paper);border-radius:4px}
+.writing svg{width:22px;height:22px;flex:none;margin-top:2px;color:var(--ink-2)}
+.writing b{display:block}
+.writing span{font-size:.92rem;color:var(--ink-2)}
+.stack{display:grid;gap:10px}
+.opts{display:grid;gap:6px}
+.opt{display:flex;align-items:center;gap:10px;min-height:44px;padding:8px 12px;border:1.5px solid var(--rule);border-radius:4px;cursor:pointer;transition:border-color .15s,background-color .15s}
+.opt:hover{border-color:var(--rule-strong)}
+.opt input{width:18px;height:18px;accent-color:var(--ink);margin:0;flex:none}
+.opt:has(input:checked){border-color:var(--ink);background:var(--paper)}
+.opt span small{display:block;font-size:.84rem;color:var(--ink-2)}
+
+/* ---------- replies ---------- */
+.combo{position:relative}
+.combo [role=listbox]{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:20;max-height:280px;overflow:auto;margin:0;padding:4px;list-style:none;background:var(--white);border:1px solid var(--rule-strong);border-radius:4px;box-shadow:var(--shadow-note);transform-origin:top;animation:pop .16s var(--ease) both}
+@keyframes pop{from{opacity:0;transform:scaleY(.96)}to{opacity:1;transform:none}}
+.combo [role=option]{padding:9px 12px;border-radius:3px;cursor:pointer;display:flex;justify-content:space-between;gap:10px}
+.combo [role=option] small{color:var(--ink-2)}
+.combo [role=option][aria-selected=true],.combo [role=option]:hover{background:var(--paper)}
+.combo .none{padding:10px 12px;color:var(--ink-2);font-size:.92rem}
+.picked{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:10px 14px;background:var(--paper);border-radius:4px}
+.convos{display:grid;gap:12px}
+.convo{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;padding:16px 20px;background:var(--white);border-radius:4px;box-shadow:var(--shadow-note);text-decoration:none;transition:transform .2s var(--ease)}
+.convo:hover{transform:translateY(-1px)}
+.convo b{font-size:1.05rem}
+.convo .co{color:var(--ink-2);font-weight:400}
+.convo q{grid-column:1/-1;quotes:none;font-family:var(--serif);color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.convo .by{grid-column:1/-1;font-size:.84rem;color:var(--ink-3)}
+
+/* ---------- outcomes ---------- */
+.tally{font-family:var(--serif);font-size:1.2rem;max-width:60ch}
+.tally b{font-family:var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;font-weight:800;font-size:1.6rem}
+.tl{list-style:none;margin:0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:131px;top:8px;bottom:8px;border-left:2px dashed rgba(14,31,58,.35)}
+.tl li{display:grid;grid-template-columns:110px 1fr;gap:40px;padding:12px 0;position:relative}
+.tl li::before{content:"";position:absolute;left:125px;top:19px;width:14px;height:14px;border-radius:50%;background:var(--white);border:2px solid var(--ink)}
+.tl li.offer::before,.tl li.interview::before{background:var(--ink)}
+.tl time{font-weight:600;font-variant-numeric:tabular-nums;text-align:right;padding-top:2px}
+.tl .what{display:grid;gap:4px}
+.tl .what a{font-weight:700;text-decoration:none}
+.tl .what a:hover{text-decoration:underline}
+@media (max-width:560px){.tl::before{left:7px}.tl li{grid-template-columns:1fr;gap:2px;padding-left:30px}.tl li::before{left:1px}.tl time{text-align:left}}
+
+/* ---------- profile ---------- */
+.form-sec{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;padding:28px 0;border-top:1px solid var(--rule)}
+.form-sec:first-of-type{border-top:2px solid var(--ink)}
+.form-sec .intro h2{font-size:1.6rem}
+.form-sec .intro p{margin-top:6px;font-size:.92rem;color:var(--ink-2)}
+.fields{display:grid;gap:18px;min-width:0}
+.f{display:grid;gap:6px;min-width:0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:6px;min-height:50px;border:1.5px solid rgba(14,31,58,.45);border-radius:4px;background:var(--white);cursor:text;transition:border-color .2s,box-shadow .2s}
+.tags:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px rgba(179,48,27,.35)}
+.tags input{flex:1 1 140px;min-width:120px;border:0!important;box-shadow:none!important;min-height:36px;padding:4px 8px;background:transparent}
+.tag{display:inline-flex;align-items:center;gap:2px;padding:2px 2px 2px 10px;border-radius:99px;background:var(--inland-3);font-weight:600;font-size:.9rem;max-width:100%}
+.tag.top{background:var(--ink);color:var(--white)}
+.tag span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag button{width:28px;height:28px;border:0;background:none;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:inherit;flex:none}
+.tag button:hover{background:rgba(14,31,58,.12)}
+.tag.top button:hover{background:rgba(250,252,254,.18)}
+.tag button svg{width:14px;height:14px}
+.seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.seg label{display:grid;gap:4px;padding:12px 14px;border:1.5px solid var(--rule);border-radius:4px;cursor:pointer;background:var(--white);transition:border-color .15s}
+.seg label:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label:has(input:focus-visible){outline:3px solid var(--post);outline-offset:2px}
+.seg b{font-weight:700}
+.seg small{font-family:var(--serif);font-style:italic;color:var(--ink-2);font-size:.92rem}
+.files{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.files li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;padding:10px 14px;background:var(--paper);border-radius:4px;font-size:.95rem}
+.files li span{color:var(--ink-2)}
+.upl{display:flex;flex-wrap:wrap;gap:10px}
+.upl input{position:absolute;width:1px;height:1px;opacity:0}
+.savebar{position:sticky;bottom:16px;z-index:25;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;margin-top:24px;padding:12px 14px 12px 20px;background:var(--ink);color:var(--white);border-radius:6px;box-shadow:var(--shadow-sheet);animation:enter .2s var(--ease) both}
+.savebar .btn{background:var(--white);color:var(--ink);border-color:var(--white)}
+.savebar .btn:hover{background:var(--post);color:var(--white);border-color:var(--post)}
+.savebar .linkish{color:var(--inland-3)}
+.err-inline{font-size:.9rem;font-weight:600;background:var(--post-soft);padding:8px 12px;border-radius:4px}
+@media (max-width:999px){.savebar{bottom:calc(var(--tabs) + 12px + env(safe-area-inset-bottom,0px))}}
+@media (max-width:760px){.form-sec{grid-template-columns:1fr;gap:14px}.seg{grid-template-columns:1fr}}
+
+/* ---------- plan, help, more ---------- */
+.plan-sheet h2{font-size:2.6rem}
+.plan-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:22px;border-top:1px solid rgba(14,31,58,.3)}
+.plan-facts div{padding:14px 16px 0 0}
+.plan-facts dt{font-weight:600;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.plan-facts dd{margin:4px 0 0;font:800 1.7rem/1.05 var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;font-variant-numeric:tabular-nums}
+.incl{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.incl li{display:flex;gap:12px;align-items:center}
+.incl svg{width:20px;height:20px;flex:none}
+.safe{background:var(--ink);color:var(--paper);border-radius:4px;padding:32px}
+.safe h2{font-size:2rem;color:var(--white)}
+.safe ol{margin:16px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px 28px;counter-reset:s}
+.safe li{counter-increment:s;padding-top:10px;border-top:1px solid rgba(169,199,230,.35);font-size:.98rem}
+.safe li::before{content:counter(s);display:block;font:800 1.3rem/1 var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;color:var(--inland);margin-bottom:6px}
+.safe li b{color:var(--white)}
+.faq{border-top:2px solid var(--ink)}
+.faq details{border-bottom:1px solid var(--rule)}
+.faq summary{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:56px;padding:12px 0;cursor:pointer;font-weight:600;font-size:1.05rem;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary svg{width:20px;height:20px;flex:none;transition:transform .25s var(--ease)}
+.faq details[open] summary svg{transform:rotate(45deg)}
+.faq details p{padding:0 0 18px;font-family:var(--serif);font-size:1.05rem;max-width:66ch;color:var(--ink-2)}
+.more{list-style:none;margin:0;padding:0;background:var(--white);border-radius:4px;box-shadow:var(--shadow-note)}
+.more li{border-bottom:1px solid var(--rule)}
+.more li:last-child{border-bottom:0}
+.more a,.more button{display:flex;align-items:center;gap:14px;width:100%;min-height:56px;padding:12px 18px;text-decoration:none;background:none;border:0;font-weight:600;text-align:left;cursor:pointer}
+.more svg{width:20px;height:20px;color:var(--ink-2)}
+.more .go{margin-left:auto;width:16px;height:16px}
+
+/* ---------- skeletons, toast, dialog, states ---------- */
+.sk{display:block;border-radius:4px;background:linear-gradient(90deg,rgba(14,31,58,.07) 0,rgba(14,31,58,.12) 40%,rgba(14,31,58,.07) 80%) 0 0/300% 100%;animation:shimmer 1.4s linear infinite}
+@keyframes shimmer{from{background-position:100% 0}to{background-position:-50% 0}}
+.sk-sheet{height:300px;border-radius:4px}
+.sk-line{height:14px;margin-top:10px}
+.sk-card{height:220px;margin-top:20px}
+.toasts{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:90;display:grid;gap:8px;justify-items:center;pointer-events:none;width:max-content;max-width:calc(100vw - 32px)}
+.toast{background:var(--ink);color:var(--white);padding:12px 20px;border-radius:99px;font-weight:600;box-shadow:var(--shadow-sheet);text-align:center;animation:toastIn .22s var(--ease) both}
+.toast.out{animation:toastOut .18s ease-in both}
+@keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateY(4px)}}
+@media (max-width:999px){.toasts{bottom:calc(var(--tabs) + 14px + env(safe-area-inset-bottom,0px))}}
+dialog{border:0;border-radius:6px;padding:28px;max-width:min(440px,calc(100vw - 32px));background:var(--white);color:var(--ink);box-shadow:var(--shadow-sheet)}
+dialog::backdrop{background:rgba(14,31,58,.45)}
+dialog[open]{animation:dlg .2s var(--ease) both}
+@keyframes dlg{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+dialog h2{font-size:1.8rem}
+dialog p{margin-top:10px;font-family:var(--serif);font-size:1.05rem;color:var(--ink-2)}
+dialog .actions{justify-content:flex-end;margin-top:22px}
+.state{max-width:560px;margin:clamp(24px,8vh,96px) auto 0;padding:0 16px}
+.state .sheet h1{font-size:2.6rem;padding-right:80px}
+.state .sheet p{margin-top:12px;font-family:var(--serif);font-size:1.1rem}
+.state .actions{margin-top:22px}
+.state-top{display:flex;justify-content:center;padding:28px 16px 0}
+.state-top img{width:120px}
+
+@media (max-width:1100px){.tasks{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}}
+@media (max-width:999px){.p-grid{grid-template-columns:1fr}.p-grid aside{position:static}}
+@media (max-width:760px){
+  .ph h1{font-size:2.2rem}
+  .sheet{padding:26px 22px 24px}
+  .perf.l{left:5px}.perf.r{right:5px}
+  .sheet .stamp{width:50px;right:22px;top:22px}
+  .sheet h1{font-size:2.3rem;padding-right:56px}
+  .sheet .lede{font-size:1.05rem}
+  .strip{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:16px}
+  .strip::before{display:none}
+  .card{padding:18px}
+  .who h3{font-size:1.55rem}
+  .actions .btn{flex:1 1 auto;padding-inline:.9em}
+  .actions .sent{flex-basis:100%;margin-left:0}
+  .facts li{grid-template-columns:1fr;gap:2px}
+  .facts .whose{border-top:0;padding-top:0}
+  .facts .src{margin-left:0;display:flex}
+  .feed li{grid-template-columns:1fr;gap:2px}
+  .p-head h1{font-size:2.2rem}
+  .plan-facts{grid-template-columns:1fr 1fr}
+  .done-day{grid-template-columns:1fr;gap:16px;padding:24px}
+  .done-day img{width:72px}
+  .msg{max-width:94%}
+  .safe{padding:24px 20px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell" id="shell" hidden>
+  <aside class="side" aria-label="Your account">
+    <a class="mark" href="#/home" aria-label="Knock, home"><img src="/brand/knock-wordmark.svg" alt="Knock" width="118" height="31"></a>
+    <nav aria-label="Main"><ul class="nav" id="nav"></ul></nav>
+    <div class="acct"><b id="acct-name"></b><span id="acct-email"></span><span id="acct-plan"></span><button class="linkish" type="button" data-act="logout">Log out</button></div>
+  </aside>
+  <div class="main">
+    <header class="mtop"><a class="mark" href="#/home" aria-label="Knock, home"><img src="/brand/knock-wordmark.svg" alt="Knock" width="96" height="25"></a><a class="avatar" id="avatar" href="#/more" aria-label="More and your account"></a></header>
+    <main id="main" tabindex="-1"><div class="view" id="view"></div></main>
+  </div>
+  <nav class="tabs" aria-label="Main" id="tabs"></nav>
+</div>
+<div id="state" hidden></div>
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+<dialog id="dlg" aria-labelledby="dlg-h"><h2 id="dlg-h"></h2><p id="dlg-p"></p><div class="actions"><button class="btn ghost" type="button" value="cancel" id="dlg-no">Keep them</button><button class="btn" type="button" id="dlg-yes">Skip</button></div></dialog>
+<noscript><div class="state"><div class="sheet"><h1>Your account needs JavaScript</h1><p>Turn on JavaScript for this page, or write to hello@knock.careers.</p></div></div></noscript>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script>
+(function(){
+  "use strict";
+  // ---------- tiny helpers ----------
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const plural = (n, one, many) => n + " " + (n === 1 ? one : many);
+  const first = name => String(name || "").split(" ")[0];
+  const TZ = "Asia/Kolkata";
+  const istDay = d => new Date(d).toLocaleDateString("en-CA", {timeZone: TZ});
+  function when(iso, withTime){
+    if (!iso) return ""; const d = new Date(iso); if (isNaN(d)) return "";
+    const today = istDay(Date.now()), yest = istDay(Date.now() - 864e5), day = istDay(d);
+    const t = d.toLocaleTimeString("en-IN", {timeZone: TZ, hour: "numeric", minute: "2-digit"});
+    const label = day === today ? "Today" : day === yest ? "Yesterday" : d.toLocaleDateString("en-IN", {timeZone: TZ, day: "numeric", month: "short"});
+    return withTime === false ? label : label + ", " + t;
+  }
+  const longDate = s => s ? new Date(s + (s.length === 10 ? "T12:00:00+05:30" : "")).toLocaleDateString("en-IN", {timeZone: TZ, day: "numeric", month: "long", year: "numeric"}) : "";
+  const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const I = (p, extra) => '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' + (extra || "") + '>' + p + '</svg>';
+  const ICON = {
+    home: I('<path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-5h4v5"/>'),
+    send: I('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/>'),
+    people: I('<circle cx="9" cy="8" r="3.2"/><path d="M3 19c.8-3.2 3.2-5 6-5s5.2 1.8 6 5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.3.2 4.1 1.8 4.8 4.8"/>'),
+    replies: I('<path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/>'),
+    outcomes: I('<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>'),
+    profile: I('<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4.2-6 8-6s7 2 8 6"/>'),
+    plan: I('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
+    help: I('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14"/><path d="M12 17.5h.01"/>'),
+    more: I('<circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/>'),
+    logout: I('<path d="M15 4h4v16h-4"/><path d="M10 8l-4 4 4 4"/><path d="M6 12h10"/>'),
+    search: I('<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>'),
+    out: I('<path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>'),
+    copy: I('<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>'),
+    check: I('<path d="M5 12.5l4.5 4.5L19 7"/>', ' stroke-width="2.4"'),
+    pen: I('<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/>'),
+    find: I('<circle cx="10.5" cy="10.5" r="5.5"/><path d="M15 15l5 5"/>'),
+    back: I('<path d="M15 6l-6 6 6 6"/>'),
+    go: I('<path d="M9 6l6 6-6 6"/>'),
+    x: I('<path d="M6 6l12 12M18 6L6 18"/>', ' stroke-width="2.4"'),
+    star: I('<path d="M12 4l2.4 5 5.4.6-4 3.7 1.1 5.3L12 16l-4.9 2.6 1.1-5.3-4-3.7 5.4-.6z"/>'),
+    plus: I('<path d="M12 5v14M5 12h14"/>'),
+    upload: I('<path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M5 20h14"/>'),
+    mail: I('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/>')
+  };
+
+  // ---------- state ----------
+  const S = {me: null, people: null, today: null, activity: null, profile: null, plan: null};
+  let sb = null, EDITING = {}, FILTER = {q: "", company: "", type: "", status: ""}, REPLY_TO = null, PDRAFT = null;
+
+  function toast(text){
+    const box = $("#toasts"), el = document.createElement("div");
+    el.className = "toast"; el.textContent = text; box.appendChild(el);
+    while (box.children.length > 2) box.firstChild.remove();
+    setTimeout(() => { el.classList.add("out"); setTimeout(() => el.remove(), 200); }, 3800);
+  }
+
+  // ---------- auth and api ----------
+  async function token(){
+    const r = await sb.auth.getSession();
+    return r.data && r.data.session ? r.data.session.access_token : "";
+  }
+
+  async function api(path, opts){
+    opts = opts || {};
+    const send = async t => {
+      const init = {method: opts.method || (opts.body !== undefined || opts.form ? "POST" : "GET"), headers: {"authorization": "Bearer " + t}, cache: "no-store"};
+      if (opts.form) init.body = opts.form;
+      else if (opts.body !== undefined) { init.headers["content-type"] = "application/json"; init.body = JSON.stringify(opts.body); }
+      return fetch(path, init);
+    };
+    let r = await send(await token());
+    if (r.status === 401 && sb) {           // the access token may have just expired: refresh once
+      const ref = await sb.auth.refreshSession();
+      if (ref.data && ref.data.session) r = await send(ref.data.session.access_token);
+    }
+    const b = await r.json().catch(() => ({}));
+    if (r.status === 401) { await signOut(true); throw new Error("signed_out"); }
+    if (r.status === 403 && b.detail && b.detail.code === "no_account") { noAccount(b.detail); throw new Error("no_account"); }
+    if (!r.ok) {
+      const d = b.detail;
+      throw new Error(typeof d === "string" ? d : Array.isArray(d) ? (d[0] && d[0].msg ? "Please check this field: " + d[0].loc.slice(-1)[0].replace(/_/g, " ") : "Please check your entries") : "Something did not go through. Please try again.");
+    }
+    return b;
+  }
+
+  async function signOut(expired){
+    try { if (sb) await sb.auth.signOut(); } catch (e) {}
+    location.replace("/login" + (expired ? "?expired=1" : ""));
+  }
+
+  function stateScreen(title, html, actions){
+    $("#shell").hidden = true;
+    const st = $("#state"); st.hidden = false;
+    st.innerHTML = '<div class="state-top"><img src="/brand/knock-wordmark.svg" alt="Knock" width="120" height="31"></div><div class="state"><div class="sheet"><span class="perf l" aria-hidden="true"></span><span class="perf r" aria-hidden="true"></span>' +
+      '<img class="stamp" src="/brand/knock-stamp.svg" alt="" width="62" height="74"><h1 tabindex="-1" id="state-h">' + esc(title) + '</h1>' + html + (actions ? '<div class="actions">' + actions + '</div>' : "") + '</div></div>';
+    $("#state-h").focus();
+  }
+  function noAccount(d){
+    stateScreen("We could not find your Knock account",
+      '<p>You are signed in as <b>' + esc(d.email || "") + '</b>, and no Knock account uses this email. If you joined with a different email, sign out and use that one.</p><p>New to Knock? Onboarding takes about fifteen minutes.</p>',
+      '<a class="btn" href="' + esc(d.onboarding_url || "/start") + '">Start your onboarding</a><button class="btn ghost" type="button" data-act="logout">Sign out</button>');
+  }
+
+  // ---------- data ----------
+  async function loadCore(){
+    const [me, ppl] = await Promise.all([api("/api/me"), api("/api/me/prospects")]);
+    S.me = me; S.people = ppl.prospects; S.today = ppl.today; S.plan = me.plan;
+  }
+  const person = id => (S.people || []).find(p => p.id === id) || null;
+  async function refresh(){ await loadCore(); S.activity = null; chrome(); render(false); }
+
+  // ---------- labels ----------
+  const OUTCOME_WORDS = {referral: "Referred you", interview: "Interview", offer: "Offer"};
+  function statusOf(p){
+    if (p.section === "ready") return {t: p.draft && p.draft.step > 1 ? "Reply to send" : "Ready to send", c: "ink", g: "ready"};
+    if (p.section === "waiting") return p.stale ? {t: "Quiet for a week", c: "line", g: "waiting"} : {t: "Waiting for reply", c: "", g: "waiting"};
+    if (p.section === "writing") return {t: "Reply being written", c: "", g: "writing"};
+    if (p.section === "conversation") return OUTCOME_WORDS[p.status] ? {t: OUTCOME_WORDS[p.status], c: "ink", g: "outcome"} : {t: "In conversation", c: "", g: "conversation"};
+    if (p.section === "closed") return {t: p.status === "declined" ? "Said no" : "No reply", c: "quiet", g: "closed"};
+    if (p.section === "skipped") return {t: "Not contacting", c: "quiet", g: "skipped"};
+    return {t: "Coming up", c: "quiet", g: "upcoming"};
+  }
+  const GROUPS = [["ready","Ready to send"],["waiting","Waiting for reply"],["quiet","Quiet for a week"],["writing","Reply being written"],["conversation","In conversation"],["outcome","Referral, interview or offer"],["upcoming","Coming up"],["closed","Closed"],["skipped","Not contacting"]];
+  const role = p => [p.headline, p.company].filter(Boolean).map(esc).join(" at ");
+  const linkedin = p => /^https?:\/\/([a-z]+\.)?linkedin\.com\//i.test(p.linkedin_url || "") ? p.linkedin_url :
+    "https://www.linkedin.com/search/results/people/?keywords=" + encodeURIComponent((p.name + " " + (p.company || "")).trim());
+  function greeting(){
+    const h = Number(new Date().toLocaleString("en-GB", {timeZone: TZ, hour: "2-digit", hour12: false}));
+    return h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
+  }
+
+  // ---------- navigation ----------
+  const NAV = [["home","Home","home"],["send","Send today","send"],["people","My people","people"],["replies","Replies","replies"],["outcomes","Outcomes","outcomes"],null,["profile","My profile","profile"],["plan","Plan","plan"],["help","Help","help"]];
+  const TABS = [["home","Home","home"],["send","Send","send"],["people","People","people"],["replies","Replies","replies"],["more","More","more"]];
+  function parseRoute(){
+    const h = location.hash.replace(/^#\/?/, "");
+    const [path, query] = h.split("?");
+    const parts = path.split("/").filter(Boolean).map(decodeURIComponent);
+    return {name: parts[0] || "home", id: parts[1] || "", q: new URLSearchParams(query || "")};
+  }
+  function current(){ const r = parseRoute(); return r.name === "people" && r.id ? "people" : ["outcomes","profile","plan","help"].includes(r.name) && innerWidth < 1000 ? "more" : r.name; }
+  function chrome(){
+    const me = S.me; if (!me) return;
+    const cur = parseRoute().name, sendN = S.today ? S.today.batch.length : 0, wr = me.writing || 0;
+    const badge = {send: sendN, replies: wr};
+    $("#nav").innerHTML = NAV.map(n => n ? '<li><a href="#/' + n[0] + '"' + (cur === n[0] ? ' aria-current="page"' : "") + '>' + ICON[n[2]] + '<span>' + n[1] + '</span>' + (badge[n[0]] ? '<span class="badge num" aria-label="' + badge[n[0]] + ' waiting">' + badge[n[0]] + '</span>' : "") + '</a></li>' : '<li class="sep" role="separator"></li>').join("");
+    const tcur = current();
+    $("#tabs").innerHTML = TABS.map(t => '<a href="#/' + t[0] + '"' + (tcur === t[0] ? ' aria-current="page"' : "") + '>' + ICON[t[2]] + '<span>' + t[1] + '</span>' + (badge[t[0]] ? '<span class="dot num" aria-hidden="true">' + badge[t[0]] + '</span>' : "") + '</a>').join("");
+    $("#acct-name").textContent = me.name; $("#acct-email").textContent = me.email;
+    $("#acct-plan").textContent = me.package_label ? me.package_label + " plan" : "";
+    $("#avatar").textContent = (me.first_name || "K").slice(0, 1).toUpperCase();
+  }
+
+  // ---------- shared pieces ----------
+  function why(p){
+    if (!p.hook) return "";
+    const facts = (p.hook.facts || []).slice(0, 2).map(f => {
+      const src = f.source_url ? '<a class="src" href="' + esc(f.source_url) + '" target="_blank" rel="noopener noreferrer">' + esc(f.source_label) + ICON.out + '<span class="sr-only"> (opens in a new tab)</span></a>'
+        : (f.source_label ? '<span class="src">' + esc(f.source_label) + '</span>' : "");
+      return '<li><span class="whose">' + (f.owner === "candidate" ? "You" : "Them") + '</span><span>' + esc(f.text) + src + '</span></li>';
+    }).join("");
+    return '<div class="why"><p class="k">Why they are worth talking to' + (p.hook.label ? ": " + esc(p.hook.label.toLowerCase()) : "") + '</p><p class="hook">' + esc(p.hook.summary) + '</p>' + (facts ? '<ul class="facts" aria-label="Facts behind this">' + facts + '</ul>' : "") + '</div>';
+  }
+  function counter(p, text){
+    const n = text.length, limit = p.draft && p.draft.step === 1 ? 300 : 0, over = limit && n > limit;
+    return '<span class="count' + (over ? " over" : "") + '" id="c-' + esc(p.id) + '">' + n + (limit ? " of 300 characters" + (over ? ". Trim it for a connection note" : "") : " characters") + '</span>';
+  }
+  function draftBlock(p, opts){
+    opts = opts || {};
+    const id = esc(p.id), d = p.draft, editing = EDITING[p.id] != null, body = editing ? EDITING[p.id] : d.body;
+    return '<div class="draft"><div class="draft-h"><label class="k" for="d-' + id + '">' + (d.step === 1 ? "First message" : "Your next message") + (d.edited ? ", edited by you" : "") + '</label>' + counter(p, body) + '</div>' +
+      '<textarea class="msgbox" id="d-' + id + '" data-draft="' + id + '"' + (editing ? "" : " readonly") + ' aria-describedby="c-' + id + '" rows="2">' + esc(body) + '</textarea></div>' +
+      '<div class="actions">' + (editing
+        ? '<button class="btn ghost small" type="button" data-act="save" data-id="' + id + '">Save my edit</button><button class="btn ghost small" type="button" data-act="cancel" data-id="' + id + '">Cancel</button>'
+        : '<button class="btn ghost small" type="button" data-act="edit" data-id="' + id + '" aria-label="Edit the message to ' + esc(p.name) + '">' + ICON.pen + 'Edit</button>') +
+      '<button class="btn ghost small" type="button" data-act="copy" data-id="' + id + '">' + ICON.copy + 'Copy message</button>' +
+      '<a class="btn ghost small" href="' + esc(linkedin(p)) + '" target="_blank" rel="noopener noreferrer">' + ICON.out + 'Open LinkedIn<span class="sr-only"> for ' + esc(p.name) + ', opens in a new tab</span></a>' +
+      '<button class="btn small sent" type="button" data-act="sent" data-id="' + id + '">' + ICON.check + 'I sent it</button></div>' +
+      (opts.foot === false ? "" : '<div class="foot"><p>Copy it, open their profile, paste and send from your own account, then tap I sent it.</p>' +
+        (d.step === 1 ? '<button class="linkish" type="button" data-act="skip" data-id="' + id + '">Do not contact ' + esc(first(p.name)) + '</button>' : "") + '</div>');
+  }
+  function threadHtml(p){
+    const items = p.messages.map(m => '<div class="msg ' + (m.direction === "outbound" ? "out" : "in") + '">' + esc(m.body) +
+      '<span class="meta">' + (m.direction === "outbound" ? "You, " + when(m.sent_at) : esc(first(p.name)) + (m.created_at ? ", " + when(m.created_at) : "")) + '</span></div>')
+      .concat((p.pending_replies || []).filter(r => !p.messages.some(m => m.direction === "inbound" && m.body.trim() === String(r.body).trim()))
+        .map(r => '<div class="msg in pending">' + esc(r.body) + '<span class="meta">' + esc(first(p.name)) + ', added ' + when(r.received_at) + '</span></div>'));
+    return items.length ? '<div class="thread">' + items.join("") + '</div>' : "";
+  }
+  const sk = (cls, style) => '<span class="sk ' + cls + '"' + (style ? ' style="' + style + '"' : "") + '></span>';
+  function skeleton(kind){
+    if (kind === "home") return sk("sk-sheet") + '<div class="grid2">' + '<div>' + sk("sk-line", "width:40%;height:22px") + sk("sk-line") + sk("sk-line", "width:85%") + sk("sk-line", "width:70%") + '</div><div>' + sk("sk-card", "margin-top:0;height:160px") + '</div></div>';
+    return sk("sk-line", "width:220px;height:40px") + sk("sk-line", "width:50%;margin-top:14px") + sk("sk-card") + sk("sk-card");
+  }
+  const head = (title, sub, right) => '<div class="ph"><div><h1 tabindex="-1" id="vh">' + title + '</h1>' + (sub ? '<p class="sub">' + sub + '</p>' : "") + '</div>' + (right || "") + '</div>';
+
+  // ---------- views ----------
+  function vHome(){
+    const me = S.me, t = me.tasks, today = S.today, pr = me.progress;
+    const parts = [];
+    if (t.to_send) parts.push("send " + plural(t.to_send, "message", "messages"));
+    if (t.waiting) parts.push("check LinkedIn for replies from " + plural(t.waiting, "person", "people"));
+    if (t.decisions) parts.push("close " + plural(t.decisions, "conversation", "conversations") + " that went quiet");
+    const lede = parts.length ? "Today: " + parts.join(", ").replace(/, ([^,]*)$/, " and $1") + "." :
+      (today.sent_today ? "You are done for today. New messages and replies arrive after the daily run, around 9:00 am IST." : "Nothing needs you right now. New messages and replies arrive after the daily run, around 9:00 am IST.");
+    const task = (href, n, title, small) => '<li><a href="' + href + '" class="' + (n ? "" : "done") + '"><span class="n">' + n + '</span><span class="t">' + title + '<small>' + small + '</small></span>' + ICON.go + '</a></li>';
+    const steps = [["targeted","Targeted"],["sent","Sent"],["replied","Replied"],["conversations","Talking"],["referrals","Referrals"],["interviews","Interviews"]];
+    const plan = S.plan || {};
+    const daysUsed = plan.days && plan.days_left != null ? Math.min(1, Math.max(0, (plan.days - plan.days_left) / plan.days)) : null;
+    const doing = (me.now || []).map(n => '<li><span class="ic">' + (n.kind === "reply" || n.kind === "writing" ? ICON.pen : ICON.find) + '</span><p>' + esc(n.text) + '</p></li>').join("");
+    return '<section class="sheet" aria-labelledby="vh"><span class="perf l" aria-hidden="true"></span><span class="perf r" aria-hidden="true"></span>' +
+      '<img class="stamp" src="/brand/knock-stamp.svg" alt="" width="76" height="90">' +
+      '<h1 id="vh" tabindex="-1">' + greeting() + ', ' + esc(me.first_name || me.name) + '.</h1><p class="lede">' + esc(lede) + '</p>' +
+      '<ul class="tasks" aria-label="Today">' +
+        task("#/send", t.to_send, t.to_send === 1 ? "Message to send" : "Messages to send", today.sent_today ? today.sent_today + " of " + today.cap + " sent today" : "Up to " + today.cap + " a day") +
+        task("#/replies", t.waiting, "Waiting on a reply", "Paste any reply that came in") +
+        task("#/people?status=quiet", t.decisions, t.decisions === 1 ? "Decision to make" : "Decisions to make", "Quiet for over a week") +
+      '</ul>' +
+      '<ol class="strip" aria-label="Your progress toward interviews">' + steps.map(s => { const n = pr[s[0]] || 0; return '<li class="' + (n ? "on" : "") + '"><span class="dot" aria-hidden="true"></span><span class="n">' + n + '</span><span class="l">' + s[1] + '</span></li>'; }).join("") + '</ol></section>' +
+      '<div class="grid2"><section aria-labelledby="doing-h"><div class="sec-h"><h2 class="h" id="doing-h">What Knock is doing now</h2></div>' +
+        (doing ? '<ul class="doing">' + doing + '</ul>' : '<p class="empty">All caught up. When you add companies or roles in My profile, research for them starts in the next daily run.</p>') + '</section>' +
+      '<section aria-labelledby="plan-h"><div class="sec-h"><h2 class="h" id="plan-h">Your plan</h2><a href="#/plan" class="linkish">Details</a></div><div class="panel planmini">' +
+        (plan.package_label ? '<div class="row"><b>' + esc(plan.package_label) + (plan.days ? ", " + plan.days + " days" : "") + '</b>' + (plan.days_left != null ? '<span class="big num">' + plan.days_left + '<small style="font:600 .9rem var(--text);margin-left:6px">' + (plan.days_left === 1 ? "day left" : "days left") + '</small></span>' : "") + '</div>' +
+          (daysUsed != null ? '<div class="bar" role="img" aria-label="' + Math.round(daysUsed * 100) + ' percent of your plan used"><i style="width:' + (daysUsed * 100).toFixed(1) + '%"></i></div>' : "") +
+          '<p class="meta-line">' + plan.people_contacted + (plan.people_included ? " of " + plan.people_included + " people contacted" : " people contacted") + '</p>'
+          : '<p class="meta-line">Your plan details appear here once your package is confirmed.</p>') + '</div></section></div>' +
+      '<section class="sec" aria-labelledby="act-h"><div class="sec-h"><h2 class="h" id="act-h">Recent activity</h2></div><div id="feed">' + feedHtml(8) + '</div></section>';
+  }
+  function eventText(e){
+    const n = '<a href="#/people/' + encodeURIComponent(e.prospect_id) + '">' + esc(e.name) + '</a>' + (e.company ? '<span class="co">, ' + esc(e.company) + '</span>' : "");
+    switch (e.kind) {
+      case "sent": return e.step > 1 ? "You replied to " + n : "You sent a first message to " + n;
+      case "reply": return n + " replied";
+      case "reply_added": return "You added a reply from " + n + ". We are writing your answer";
+      case "draft": return (e.step > 1 ? "Your reply to " : "A first message to ") + n + " is ready";
+      case "status": return ({referral: n + " referred you", interview: "You have an interview through " + n, offer: "You have an offer through " + n,
+        no_response: "No reply from " + n + ", closed", declined: n + " said no, closed"})[e.status] || n + " updated";
+    }
+    return n;
+  }
+  function feedHtml(limit){
+    if (!S.activity) return sk("sk-line") + sk("sk-line", "width:90%") + sk("sk-line", "width:75%");
+    const ev = S.activity.slice(0, limit);
+    if (!ev.length) return '<p class="empty">Your activity shows up here: messages you send, replies, and the drafts we write for you.</p>';
+    return '<ul class="feed">' + ev.map(e => '<li><time datetime="' + esc(e.at) + '">' + when(e.at) + '</time><span>' + eventText(e) + '.</span></li>').join("") + '</ul>';
+  }
+
+  function vSend(){
+    const today = S.today, batch = today.batch.map(person).filter(Boolean);
+    const slots = '<div class="pace" aria-label="' + today.sent_today + ' of ' + today.cap + ' sent today"><div class="slots" aria-hidden="true">' + Array.from({length: today.cap}, (_, i) => '<i class="' + (i < today.sent_today ? "on" : "") + '"></i>').join("") + '</div><span class="num">' + today.sent_today + ' of ' + today.cap + ' sent today</span></div>';
+    let body;
+    if (!batch.length && today.sent_today && today.remaining === 0) {
+      body = '<div class="card done-day"><img src="/brand/knock-stamp.svg" alt="" width="96" height="114"><div><h2>You are done for today.</h2><p>You sent ' + plural(today.sent_today, "message", "messages") + ' today. The rest wait for tomorrow, so your account keeps a natural pace.' + (today.later ? " " + plural(today.later, "more is", "more are") + " ready for the coming days." : "") + '</p></div></div>';
+    } else if (!batch.length) {
+      body = '<div class="card done-day"><img src="/brand/knock-stamp.svg" alt="" width="96" height="114"><div><h2>' + (today.sent_today ? "All sent for now." : "Nothing to send right now.") + '</h2><p>New messages arrive after each daily run, around 9:00 am IST. We will have the next ones ready for you.</p></div></div>';
+    } else {
+      body = '<div class="list">' + batch.map((p, i) => '<article class="card" id="p-' + esc(p.id) + '" aria-labelledby="h-' + esc(p.id) + '"><div class="who"><div><p class="k num">' + (i + 1) + ' of ' + batch.length + '</p><h3 id="h-' + esc(p.id) + '"><a href="#/people/' + encodeURIComponent(p.id) + '">' + esc(p.name) + '</a></h3><p class="role">' + role(p) + '</p></div><span class="chip">' + esc(p.bucket_label) + '</span></div>' + why(p) + draftBlock(p) + '</article>').join("") + '</div>' +
+        (today.later ? '<p class="later">' + plural(today.later, "more message is", "more messages are") + ' ready and will show here on the coming days.</p>' : "");
+    }
+    return head("Send today", "Send from your own LinkedIn at your own pace. Spread them through the day.", slots) + body;
+  }
+
+  function filtered(){
+    const q = FILTER.q.trim().toLowerCase();
+    return S.people.filter(p => {
+      const st = statusOf(p);
+      if (FILTER.company && p.company !== FILTER.company) return false;
+      if (FILTER.type && p.bucket_label !== FILTER.type) return false;
+      if (FILTER.status === "quiet" ? !(p.section === "waiting" && p.stale) : FILTER.status && st.g !== FILTER.status) return false;
+      return !q || (p.name + " " + p.company + " " + p.headline).toLowerCase().includes(q);
+    });
+  }
+  function peopleRows(){
+    const rows = filtered(), n = S.people.length;
+    if (!n) return '<p class="empty">Your people appear here as soon as research finds them. The first names usually arrive within a day or two of your onboarding.</p>';
+    if (!rows.length) return '<p class="shown" role="status">No one matches these filters.</p><p class="empty">Try a different search, or <button class="linkish" type="button" data-act="clear-filters">clear the filters</button>.</p>';
+    const order = {ready: 0, writing: 1, conversation: 2, outcome: 2, waiting: 3, upcoming: 4, closed: 5, skipped: 6};
+    rows.sort((a, b) => (order[statusOf(a).g] - order[statusOf(b).g]) || String(b.last_at || "").localeCompare(String(a.last_at || "")) || a.name.localeCompare(b.name));
+    const link = p => "#/people/" + encodeURIComponent(p.id);
+    return '<p class="shown" role="status">Showing ' + rows.length + ' of ' + plural(n, "person", "people") + '</p>' +
+      '<table class="tbl"><caption class="sr-only">Your people</caption><thead><tr><th scope="col">Name</th><th scope="col">Company</th><th scope="col">Type</th><th scope="col">Status</th><th scope="col">Last activity</th></tr></thead><tbody>' +
+      rows.map(p => { const s = statusOf(p); return '<tr data-href="' + link(p) + '"><td><a class="nm" href="' + link(p) + '">' + esc(p.name) + '</a><span class="hl">' + esc(p.headline) + '</span></td><td>' + esc(p.company) + '</td><td>' + esc(p.bucket_label) + '</td><td><span class="chip ' + s.c + '">' + esc(s.t) + '</span></td><td><time>' + (when(p.last_at, false) || "Not yet") + '</time></td></tr>'; }).join("") +
+      '</tbody></table><ul class="plist">' + rows.map(p => { const s = statusOf(p); return '<li><a href="' + link(p) + '"><b>' + esc(p.name) + '</b><span class="chip ' + s.c + '">' + esc(s.t) + '</span><span class="hl">' + role(p) + '</span></a></li>'; }).join("") + '</ul>';
+  }
+  function vPeople(r){
+    if (r.q.get("status")) FILTER.status = r.q.get("status");
+    const uniq = a => Array.from(new Set(a.filter(Boolean))).sort((x, y) => x.localeCompare(y));
+    const opt = (v, l, cur) => '<option value="' + esc(v) + '"' + (v === cur ? " selected" : "") + '>' + esc(l) + '</option>';
+    return head("My people", "Everyone we found for you, with where each conversation stands.") +
+      '<div class="filters" role="search"><div class="search">' + ICON.search + '<label class="sr-only" for="f-q">Search people</label><input type="search" id="f-q" placeholder="Search by name, company or role" value="' + esc(FILTER.q) + '" autocomplete="off"></div>' +
+      '<div><label class="sr-only" for="f-company">Company</label><select id="f-company">' + opt("", "All companies", FILTER.company) + uniq(S.people.map(p => p.company)).map(c => opt(c, c, FILTER.company)).join("") + '</select></div>' +
+      '<div><label class="sr-only" for="f-type">Type</label><select id="f-type">' + opt("", "All types", FILTER.type) + uniq(S.people.map(p => p.bucket_label)).map(c => opt(c, c, FILTER.type)).join("") + '</select></div>' +
+      '<div><label class="sr-only" for="f-status">Status</label><select id="f-status">' + opt("", "Any status", FILTER.status) + GROUPS.map(g => opt(g[0], g[1], FILTER.status)).join("") + '</select></div></div>' +
+      '<div id="rows">' + peopleRows() + '</div>';
+  }
+
+  function vPerson(r){
+    const p = person(r.id);
+    if (!p) return '<a class="back" href="#/people">' + ICON.back + 'My people</a>' + head("We could not find this person", "They may have been removed from your list.") ;
+    const s = statusOf(p), id = esc(p.id), fn = esc(first(p.name));
+    const contacted = !!p.first_sent_at;
+    let next = "";
+    if (p.section === "ready" && p.draft) next = draftBlock(p, {foot: false});
+    else if (p.section === "writing") next = '<div class="writing">' + ICON.pen + '<div><b>Your next message is being written</b><span>It appears here and in Send today after the next daily run, around 9:00 am IST. Nothing to do until then.</span></div></div>';
+    else if (p.section === "upcoming") next = '<div class="writing">' + ICON.find + '<div><b>We are still working on this one</b><span>We research ' + fn + ' and write a first message, then check it before it reaches you.</span></div></div>';
+    else if (p.section === "waiting") next = '<div class="writing">' + ICON.mail + '<div><b>Waiting for ' + fn + ' to reply</b><span>Most replies come within three to five days. When one arrives, paste it on the right.</span></div></div>';
+    else if (p.section === "conversation") next = '<div class="writing">' + ICON.replies + '<div><b>You are in conversation</b><span>When ' + fn + ' writes again, paste the message and we draft your answer.</span></div></div>';
+    else next = '<p class="empty">' + (p.section === "skipped" ? "You chose not to contact " + fn + ". We will not suggest a message again." : "This conversation is closed.") + '</p>';
+    const outcomes = [["no_response","No reply after 7 days","Close it quietly"],["declined","They said no",""],["referral","They referred me",""],["interview","I have an interview",""],["offer","I got an offer",""]];
+    const side = (contacted ?
+      '<section class="panel stack" aria-labelledby="paste-h"><h2 class="h" id="paste-h" style="font-size:1.35rem">Paste their reply</h2><p class="help" id="rh">Copy ' + fn + '\'s message from LinkedIn exactly as written. We write your answer in the next daily run.</p><label class="sr-only" for="r-text">' + fn + '\'s reply</label><textarea id="r-text" aria-describedby="rh" placeholder="Their message"></textarea><button class="btn" type="button" data-act="reply" data-id="' + id + '">Save their reply</button></section>' +
+      '<section class="panel stack" aria-labelledby="out-h"><h2 class="h" id="out-h" style="font-size:1.35rem">How is it going?</h2><fieldset style="border:0;padding:0;margin:0"><legend class="sr-only">Set an outcome for ' + fn + '</legend><div class="opts">' +
+        outcomes.map(o => '<label class="opt"><input type="radio" name="outcome" value="' + o[0] + '"' + (p.status === o[0] ? " checked" : "") + '><span>' + o[1] + (o[2] ? '<small>' + o[2] + '</small>' : "") + '</span></label>').join("") +
+      '</div></fieldset><button class="btn ghost" type="button" data-act="outcome" data-id="' + id + '">Save update</button></section>'
+      : '<section class="panel stack"><h2 class="h" style="font-size:1.35rem">Before you send</h2><p class="help">Once you mark the first message as sent, you can paste their reply and record outcomes here.</p>' +
+        (["ready","upcoming"].includes(p.section) ? '<button class="linkish" type="button" data-act="skip" data-id="' + id + '">Do not contact ' + fn + '</button>' : "") + '</section>');
+    return '<a class="back" href="#/people">' + ICON.back + 'My people</a>' +
+      '<div class="p-head"><div><h1 tabindex="-1" id="vh">' + esc(p.name) + '</h1><p class="role">' + role(p) + (p.location ? ", " + esc(p.location) : "") + '</p><div class="chips"><span class="chip ' + s.c + '">' + esc(s.t) + '</span><span class="chip quiet">' + esc(p.bucket_label) + '</span>' + (p.status_at && OUTCOME_WORDS[p.status] ? '<span class="chip quiet">Since ' + when(p.status_at, false) + '</span>' : "") + '</div></div>' +
+      '<a class="btn ghost" href="' + esc(linkedin(p)) + '" target="_blank" rel="noopener noreferrer">' + ICON.out + 'Open LinkedIn<span class="sr-only"> profile of ' + esc(p.name) + ', opens in a new tab</span></a></div>' +
+      '<div class="p-grid"><div class="stack" style="gap:24px">' +
+        (p.hook ? '<section class="card">' + why(p) + '</section>' : '<section class="card"><p class="k">Why they are worth talking to</p><p class="hook" style="margin-top:8px">We are still researching ' + fn + '. The reason to talk, with sources, appears here once we have it.</p></section>') +
+        '<section class="card" aria-labelledby="th-h"><h2 class="h" id="th-h" style="font-size:1.35rem;margin-bottom:14px">Conversation</h2>' + (threadHtml(p) || '<p class="help">Nothing sent yet.</p>') + '</section>' +
+        '<section class="card" aria-labelledby="nx-h"><h2 class="h" id="nx-h" style="font-size:1.35rem;margin-bottom:6px">Next message</h2>' + next + '</section>' +
+      '</div><aside aria-label="Actions">' + side + '</aside></div>';
+  }
+
+  function vReplies(){
+    const eligible = S.people.filter(p => p.first_sent_at && p.section !== "skipped");
+    const convos = S.people.filter(p => p.messages.some(m => m.direction === "inbound") || (p.pending_replies || []).length)
+      .sort((a, b) => String(b.last_at || "").localeCompare(String(a.last_at || "")));
+    const picked = REPLY_TO && person(REPLY_TO);
+    const pick = picked ? '<div class="picked"><span>Reply from <b>' + esc(picked.name) + '</b>' + (picked.company ? ", " + esc(picked.company) : "") + '</span><button class="linkish" type="button" data-act="unpick">Change</button></div>' :
+      '<div class="combo" id="combo"><label class="l" for="cb-in">Who replied?</label><input type="text" id="cb-in" role="combobox" aria-expanded="false" aria-controls="cb-list" aria-autocomplete="list" autocomplete="off" placeholder="Start typing a name or company"' + (eligible.length ? "" : " disabled") + '><ul role="listbox" id="cb-list" hidden></ul></div>';
+    const last = p => {
+      const pend = (p.pending_replies || [])[p.pending_replies.length - 1];
+      const m = p.messages[p.messages.length - 1];
+      if (pend && (!m || String(pend.received_at) > String(m.created_at))) return {by: first(p.name) + ", added " + when(pend.received_at), body: pend.body};
+      return m ? {by: (m.direction === "outbound" ? "You, " + when(m.sent_at) : first(p.name) + ", " + when(m.created_at)), body: m.body} : {by: "", body: ""};
+    };
+    return head("Replies", "Paste replies as they come in. We write your answer in the next daily run, around 9:00 am IST.") +
+      '<section class="card stack" aria-labelledby="pr-h" style="max-width:760px"><h2 class="h" id="pr-h">Paste a reply</h2>' +
+        (eligible.length ? pick + '<div class="f"><label class="l" for="rp-text">Their message</label><textarea id="rp-text" placeholder="Paste it exactly as they wrote it"></textarea></div><div><button class="btn" type="button" data-act="reply-any">Save their reply</button></div>'
+          : '<p class="empty">Once you send your first messages, you can paste replies here.</p>') + '</section>' +
+      '<section class="sec" aria-labelledby="cv-h"><div class="sec-h"><h2 class="h" id="cv-h">Conversations</h2><p>' + plural(convos.length, "person has", "people have") + ' written back</p></div>' +
+        (convos.length ? '<div class="convos">' + convos.map(p => { const s = statusOf(p), l = last(p); return '<a class="convo" href="#/people/' + encodeURIComponent(p.id) + '"><b>' + esc(p.name) + '<span class="co">' + (p.company ? ", " + esc(p.company) : "") + '</span></b><span class="chip ' + s.c + '">' + esc(s.t) + '</span><q>' + esc(l.body) + '</q><span class="by">' + esc(l.by) + '</span></a>'; }).join("") + '</div>'
+          : '<p class="empty">Conversations start when someone replies. Most people take a few days, so this fills slowly and then all at once.</p>') + '</section>';
+  }
+
+  function vOutcomes(){
+    const rows = S.people.filter(p => OUTCOME_WORDS[p.status]).map(p => ({p: p, at: p.status_at || p.last_at || ""}))
+      .sort((a, b) => String(b.at).localeCompare(String(a.at)));
+    const c = k => S.people.filter(p => p.status === k).length;
+    const ref = c("referral"), int = c("interview"), off = c("offer");
+    const words = (n, one, many, none) => n ? '<b class="num">' + n + '</b> ' + (n === 1 ? one : many) : none;
+    return head("Outcomes", "Referrals, interviews and offers, newest first.") +
+      (rows.length ? '<p class="tally">' + words(ref, "referral", "referrals", "No referrals yet") + ', ' + words(int, "interview", "interviews", "no interviews yet") + ' and ' + words(off, "offer", "offers", "no offers yet") + '.</p>' +
+        '<section class="sec" aria-label="Timeline"><ol class="tl">' + rows.map(r => '<li class="' + r.p.status + '"><time datetime="' + esc(r.at) + '">' + (r.at ? new Date(r.at).toLocaleDateString("en-IN", {timeZone: TZ, day: "numeric", month: "short"}) : "") + '</time><div class="what"><span><span class="chip ink">' + OUTCOME_WORDS[r.p.status] + '</span></span><span><a href="#/people/' + encodeURIComponent(r.p.id) + '">' + esc(r.p.name) + '</a>' + (r.p.company ? ", " + esc(r.p.company) : "") + '</span></div></li>').join("") + '</ol></section>'
+        : '<p class="empty">No outcomes yet. Referrals and interviews usually follow a few good conversations, so this fills slowly at first. When one happens, open the person and record it.</p>');
+  }
+
+  const TAGS = {roles: "target_roles", companies: "target_companies", locations: "locations"};
+  function tagField(key, label, help, max){
+    const list = PDRAFT[TAGS[key]], top = new Set(PDRAFT.top_companies.map(x => x.toLowerCase()));
+    return '<div class="f"><label class="l" for="t-' + key + '">' + label + '</label>' + (help ? '<p class="help" id="th-' + key + '">' + help + '</p>' : "") +
+      '<div class="tags" data-tags="' + key + '">' + list.map((v, i) => {
+        const isTop = key === "companies" && top.has(v.toLowerCase());
+        return '<span class="tag' + (isTop ? " top" : "") + '"><span>' + esc(v) + '</span>' + (key === "companies" ? '<button type="button" data-act="toptoggle" data-i="' + i + '" aria-pressed="' + isTop + '" aria-label="' + (isTop ? "Remove " + esc(v) + " from top companies" : "Mark " + esc(v) + " as a top company") + '">' + ICON.star + '</button>' : "") +
+          '<button type="button" data-act="untag" data-key="' + key + '" data-i="' + i + '" aria-label="Remove ' + esc(v) + '">' + ICON.x + '</button></span>';
+      }).join("") + '<input type="text" id="t-' + key + '" data-tagin="' + key + '" placeholder="' + (list.length >= max ? "That is the most we can take" : "Type and press Enter") + '"' + (list.length >= max ? " disabled" : "") + (help ? ' aria-describedby="th-' + key + '"' : "") + ' enterkeyhint="done"></div></div>';
+  }
+  function vProfile(){
+    if (!S.profile) return skeleton();
+    if (!PDRAFT) PDRAFT = JSON.parse(JSON.stringify(S.profile));
+    const d = PDRAFT, st = d.story;
+    const ta = (k, label, help, val, path) => '<div class="f"><label class="l" for="s-' + k + '">' + label + '</label>' + (help ? '<p class="help">' + help + '</p>' : "") + '<textarea id="s-' + k + '" data-path="' + path + '" maxlength="' + (path.startsWith("story.") ? 1500 : 1000) + '">' + esc(val) + '</textarea></div>';
+    const tone = [["formal","Formal","Dear Meera, I read your note on hiring for design."],["neutral","Neutral","Hi Meera, your note on hiring for design stayed with me."],["casual","Casual","Hey Meera, loved your take on hiring designers."]];
+    const files = d.files || [];
+    return head("My profile", "What we use to find your people and write in your voice. Changes apply from the next daily run.") +
+      '<form id="pform" novalidate>' +
+      '<section class="form-sec" aria-labelledby="ps1"><div class="intro"><h2 id="ps1">Targets</h2><p>New companies are researched automatically. A new role or place means we look again at every company.</p></div><div class="fields">' +
+        tagField("roles", "Roles you want", "", 3) + tagField("companies", "Target companies", "Tap the star on up to 10 companies to research them first.", 40) + tagField("locations", "Places", "Cities, or Remote.", 5) + '</div></section>' +
+      '<section class="form-sec" aria-labelledby="ps2"><div class="intro"><h2 id="ps2">Your story</h2><p>Specific details give us real reasons to talk: a place, an employer, a result.</p></div><div class="fields">' +
+        ta("why_now", "Why this move, and why now?", "", st.why_now, "story.why_now") + ta("proud_1", "Something you are proud of, with one concrete result", "", st.proud_1, "story.proud_1") +
+        ta("proud_2", "A second thing you are proud of", "", st.proud_2, "story.proud_2") + ta("transition", "The transition you are making", "", st.transition, "story.transition") +
+        ta("roots", "Where you come from", "Schools, past employers, hometown, communities, clubs, causes, languages.", st.roots, "story.roots") + ta("recent", "Anything recent we can mention", "", st.recent, "story.recent") + '</div></section>' +
+      '<section class="form-sec" aria-labelledby="ps3"><div class="intro"><h2 id="ps3">Your voice</h2><p>How your messages should sound, and what they never say.</p></div><div class="fields"><fieldset style="border:0;padding:0;margin:0"><legend class="l" style="margin-bottom:8px">Tone</legend><div class="seg">' +
+        tone.map(t => '<label><input type="radio" name="tone" value="' + t[0] + '"' + (d.tone === t[0] ? " checked" : "") + '><b>' + t[1] + '</b><small>' + t[2] + '</small></label>').join("") + '</div></fieldset>' +
+        ta("never_say", "Never say", "Topics or phrases to avoid, for example a layoff, a gap year or salary.", d.never_say, "never_say") + '</div></section>' +
+      '<section class="form-sec" aria-labelledby="ps4"><div class="intro"><h2 id="ps4">Off-limits</h2><p>We never message these people or companies.</p></div><div class="fields">' +
+        '<div class="f"><label class="l" for="o-ce">Current employer</label><input type="text" id="o-ce" data-path="off_limits.current_employer" maxlength="200" value="' + esc(d.off_limits.current_employer) + '"></div>' +
+        ta("avoid", "Companies to avoid", "", d.off_limits.avoid_companies, "off_limits.avoid_companies") + ta("known", "People you already know at your targets", "", d.off_limits.known_people, "off_limits.known_people") + '</div></section>' +
+      '<section class="form-sec" aria-labelledby="ps5"><div class="intro"><h2 id="ps5">LinkedIn PDF and CV</h2><p>Upload a fresh copy when something changes. We refresh your facts in the next daily run.</p></div><div class="fields">' +
+        (files.length ? '<ul class="files">' + files.slice().reverse().map(f => '<li><b>' + esc(f.filename) + '</b><span>' + (f.kind === "cv" ? "CV" : "LinkedIn PDF") + ", " + Math.max(1, Math.round((f.size_bytes || 0) / 1024)) + ' KB, ' + when(f.at, false) + '</span></li>').join("") + '</ul>' : '<p class="help">Your onboarding files are with us. Upload here only to replace them.</p>') +
+        (d.facts_pending ? '<p class="help">Your latest upload is waiting for the next daily run.</p>' : "") +
+        '<div class="upl"><label class="btn ghost" for="up-li">' + ICON.upload + 'Upload LinkedIn PDF<input type="file" id="up-li" accept="application/pdf,.pdf" data-kind="linkedin_pdf"></label><label class="btn ghost" for="up-cv">' + ICON.upload + 'Upload CV<input type="file" id="up-cv" accept="application/pdf,.pdf" data-kind="cv"></label></div>' +
+        '<p class="help">PDF only, up to 4 MB. On LinkedIn: your profile, More, Save to PDF.</p></div></section>' +
+      '<div id="savebar-slot"></div></form>';
+  }
+  function dirty(){ return PDRAFT && S.profile && JSON.stringify(patchBody(PDRAFT)) !== JSON.stringify(patchBody(S.profile)); }
+  function patchBody(d){
+    return {target_roles: d.target_roles, target_companies: d.target_companies, top_companies: d.top_companies.filter(x => d.target_companies.some(c => c.toLowerCase() === x.toLowerCase())),
+      locations: d.locations, story: d.story, tone: d.tone || "", never_say: d.never_say, off_limits: d.off_limits};
+  }
+  function savebar(){
+    const slot = $("#savebar-slot"); if (!slot) return;
+    const on = dirty();
+    if (on && !slot.firstChild) slot.innerHTML = '<div class="savebar" role="region" aria-label="Unsaved changes"><span>You have unsaved changes.</span><span style="display:flex;gap:14px;align-items:center"><button class="linkish" type="button" data-act="discard">Discard</button><button class="btn small" type="button" data-act="psave">Save changes</button></span></div>';
+    if (!on) slot.innerHTML = "";
+  }
+
+  function vPlan(){
+    const p = S.plan || {};
+    const used = p.people_included ? Math.min(1, p.people_contacted / p.people_included) : null;
+    const subject = encodeURIComponent("Upgrade my Knock plan"), mail = 'mailto:' + (p.upgrade_email || "hello@knock.careers") + '?subject=' + subject;
+    return head("Plan", "Your package, your dates, and what is included.") +
+      '<section class="sheet plan-sheet" aria-labelledby="pl-h"><span class="perf l" aria-hidden="true"></span><span class="perf r" aria-hidden="true"></span><img class="stamp" src="/brand/knock-stamp.svg" alt="" width="76" height="90">' +
+        '<h2 id="pl-h">' + (p.package_label ? esc(p.package_label) : "Your package") + '</h2><p class="lede">' + (p.days ? p.days + " days" + (p.people_included ? ", " + p.people_included + " people contacted" : "") + (p.price ? ". " + esc(p.price) + ", founding member pricing." : ".") : p.package === "done_for_you" ? "We run your outreach end to end. Your dates and numbers are agreed with you directly." : "Your package details appear here once they are confirmed.") + '</p>' +
+        '<dl class="plan-facts"><div><dt>Started</dt><dd>' + (p.start_date ? esc(longDate(p.start_date)) : "Not yet") + '</dd></div><div><dt>Ends</dt><dd>' + (p.end_date ? esc(longDate(p.end_date)) : "To be set") + '</dd></div><div><dt>Days left</dt><dd class="num">' + (p.days_left != null ? p.days_left : "None set") + '</dd></div><div><dt>People contacted</dt><dd class="num">' + (p.people_contacted || 0) + (p.people_included ? '<small style="font:600 .95rem var(--text)"> of ' + p.people_included + '</small>' : "") + '</dd></div></dl>' +
+        (used != null ? '<div class="bar" role="img" aria-label="' + Math.round(used * 100) + ' percent of included people contacted" style="background:var(--inland-3)"><i style="width:' + (used * 100).toFixed(1) + '%"></i></div><p class="meta-line">' + p.people_researched + ' people researched so far.</p>' : "") +
+      '</section>' +
+      '<div class="grid2"><section aria-labelledby="in-h"><div class="sec-h"><h2 class="h" id="in-h">What is included</h2></div><ul class="incl">' + (p.included || []).map(x => '<li>' + ICON.check + esc(x) + '</li>').join("") + '</ul></section>' +
+      '<section aria-labelledby="up-h"><div class="sec-h"><h2 class="h" id="up-h">Want more time or people?</h2></div><div class="panel stack"><p>Write to us and we will extend your search or move you to a larger package. No payment is taken here.</p><div><a class="btn" href="' + mail + '">' + ICON.mail + 'Ask about an upgrade</a></div><p class="help">Or email hello@knock.careers.</p></div></section></div>';
+  }
+
+  function vHelp(){
+    const faq = [
+      ["Why do I send the messages myself?", "Messages from your own account, in your own words, are the ones people answer. We do the research and the writing; you stay in control of every message that goes out."],
+      ["Why only fifteen a day?", "LinkedIn watches for bursts. A steady pace through the day looks like what it is: a person reaching out with care. Send today shows you the right number each day."],
+      ["Someone replied. What now?", "Paste their reply on the Replies page or on their page under My people. We draft your answer in the next daily run, around 9:00 am IST, and it appears in Send today."],
+      ["Can I change a message before sending?", "Yes. Tap Edit, change anything that does not sound like you, then copy it. Your edits teach us your voice."],
+      ["What if I do not want to contact someone?", "Open them and choose Do not contact. We will not suggest a message to them again."],
+      ["How do I change my targets?", "Go to My profile. New companies are researched automatically; a new role or place means we look again at every company."]
+    ];
+    return head("Help", "How to get the most from Knock, and how to reach us.") +
+      '<section class="safe" aria-labelledby="sf-h"><h2 id="sf-h">How to send safely</h2><ol>' +
+        '<li><b>Fifteen to twenty a day at most.</b> Spread them through the day. LinkedIn notices bursts, people do not.</li>' +
+        '<li><b>Use your own personal account.</b> Never a second profile, and never a tool that sends for you.</li>' +
+        '<li><b>Never paste links.</b> A first message with a link looks like spam. Share your portfolio or CV only when they ask.</li>' +
+        '<li><b>Read it once before sending.</b> Change anything that does not sound like you.</li></ol></section>' +
+      '<section class="sec" aria-labelledby="fq-h"><div class="sec-h"><h2 class="h" id="fq-h">Questions</h2></div><div class="faq" style="border-top:0">' +
+        faq.map(f => '<details><summary>' + esc(f[0]) + ICON.plus + '</summary><p>' + esc(f[1]) + '</p></details>').join("") + '</div></section>' +
+      '<section class="sec" aria-labelledby="ct-h"><div class="sec-h"><h2 class="h" id="ct-h">Talk to a person</h2></div><div class="panel stack" style="max-width:620px"><p>Write to us about anything: a reply you are unsure about, a change to your plan, or something that does not look right. A person reads every email.</p><div><a class="btn" href="mailto:hello@knock.careers?subject=' + encodeURIComponent("Help with my Knock account") + '">' + ICON.mail + 'Email support</a></div></div></section>';
+  }
+
+  function vMore(){
+    const me = S.me;
+    const item = (href, icon, label) => '<li><a href="' + href + '">' + ICON[icon] + label + '<span class="go">' + ICON.go + '</span></a></li>';
+    return head("More", esc(me.name) + ", " + esc(me.email)) + '<ul class="more">' + item("#/outcomes", "outcomes", "Outcomes") + item("#/profile", "profile", "My profile") + item("#/plan", "plan", "Plan") + item("#/help", "help", "Help") +
+      '<li><button type="button" data-act="logout">' + ICON.logout + 'Log out</button></li></ul>';
+  }
+
+  const VIEWS = {home: vHome, send: vSend, people: vPeople, replies: vReplies, outcomes: vOutcomes, profile: vProfile, plan: vPlan, help: vHelp, more: vMore};
+  const TITLES = {home: "Home", send: "Send today", people: "My people", replies: "Replies", outcomes: "Outcomes", profile: "My profile", plan: "Plan", help: "Help", more: "More"};
+
+  let lastRoute = "";
+  function render(isNav){
+    const r = parseRoute(), view = $("#view");
+    if (/access_token|error_description|error=/.test(location.hash)) { view.innerHTML = skeleton("home"); return; }   // a magic link: supabase-js reads it first
+    if (!VIEWS[r.name]) { location.replace("#/home"); return; }
+    if (r.name !== "profile" && PDRAFT && !dirty()) PDRAFT = null;
+    const key = r.name + "/" + r.id;
+    view.innerHTML = S.me ? (r.name === "people" && r.id ? vPerson(r) : VIEWS[r.name](r)) : skeleton(r.name === "home" ? "home" : "");
+    const p = r.id && person(r.id);
+    document.title = (p ? p.name : TITLES[r.name]) + " | Knock";
+    sizeAll(); savebar();
+    if (isNav && key !== lastRoute) {
+      if (!reduced()) { view.classList.remove("enter"); void view.offsetWidth; view.classList.add("enter"); }
+      window.scrollTo(0, 0);
+      const h = $("#vh"); if (h) h.focus({preventScroll: true});
+    }
+    lastRoute = key;
+    chrome();
+    lazy(r);
+  }
+  function lazy(r){
+    if (!S.me) return;
+    if (r.name === "home" && !S.activity) api("/api/me/activity").then(b => { S.activity = b.events; const f = $("#feed"); if (f) f.innerHTML = feedHtml(8); }).catch(() => {});
+    if (r.name === "profile" && !S.profile) api("/api/me/profile").then(b => { S.profile = b; if (parseRoute().name === "profile") render(false); }).catch(e => toast(e.message));
+  }
+  window.addEventListener("hashchange", () => {
+    if (/access_token|error_description/.test(location.hash)) return;
+    if (dirty() && parseRoute().name !== "profile" && !confirm("You have unsaved changes in My profile. Leave without saving?")) { history.back(); return; }
+    render(true);
+  });
+  window.addEventListener("beforeunload", e => { if (dirty()) { e.preventDefault(); e.returnValue = ""; } });
+
+  // ---------- textareas ----------
+  function size(t){ t.style.height = "auto"; t.style.height = (t.scrollHeight + 4) + "px"; }
+  function sizeAll(){ $$("textarea.msgbox").forEach(size); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeAll);
+  let rT; window.addEventListener("resize", () => { clearTimeout(rT); rT = setTimeout(() => { sizeAll(); chrome(); }, 120); });
+
+  function copy(text){
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    return new Promise((ok, fail) => {
+      const t = document.createElement("textarea"); t.value = text; t.setAttribute("readonly", ""); t.style.position = "fixed"; t.style.opacity = "0";
+      document.body.appendChild(t); t.select();
+      try { document.execCommand("copy") ? ok() : fail(); } catch (e) { fail(e); } finally { t.remove(); }
+    });
+  }
+  function collapse(el){
+    return new Promise(done => {
+      if (!el || reduced()) return done();
+      el.style.height = el.offsetHeight + "px"; el.classList.add("leaving");
+      requestAnimationFrame(() => { el.style.height = "0px"; el.style.opacity = "0"; el.style.paddingTop = el.style.paddingBottom = "0px"; el.style.marginTop = "-20px"; });
+      setTimeout(done, 280);
+    });
+  }
+  function confirmSkip(p){
+    return new Promise(ok => {
+      const d = $("#dlg");
+      if (typeof d.showModal !== "function") return ok(confirm("Skip " + p.name + "? We will not suggest a message to them again."));
+      $("#dlg-h").textContent = "Skip " + p.name + "?"; $("#dlg-p").textContent = "We will not suggest a message to " + first(p.name) + " again. You can still find them under My people.";
+      const yes = $("#dlg-yes"), no = $("#dlg-no");
+      const fin = v => { yes.onclick = no.onclick = null; d.onclose = null; if (d.open) d.close(); ok(v); };
+      yes.onclick = () => fin(true); no.onclick = () => fin(false); d.onclose = () => fin(false);
+      d.showModal(); no.focus();
+    });
+  }
+
+  // ---------- events ----------
+  document.addEventListener("input", e => {
+    const t = e.target;
+    if (t.matches("textarea[data-draft]")) {
+      EDITING[t.dataset.draft] = t.value; size(t);
+      const p = person(t.dataset.draft), c = $("#c-" + CSS.escape(t.dataset.draft));
+      if (p && c) c.outerHTML = counter(p, t.value);
+    }
+    if (t.id === "f-q") { FILTER.q = t.value; $("#rows").innerHTML = peopleRows(); }
+    if (t.matches("[data-path]") && PDRAFT) {
+      const [a, b] = t.dataset.path.split(".");
+      if (b) PDRAFT[a][b] = t.value; else PDRAFT[a] = t.value;
+      savebar();
+    }
+    if (t.id === "cb-in") comboOpen(t.value);
+  });
+  document.addEventListener("change", e => {
+    const t = e.target;
+    if (["f-company","f-type","f-status"].includes(t.id)) {
+      FILTER[t.id.slice(2)] = t.value;
+      if (t.id === "f-status" && parseRoute().q.get("status")) history.replaceState(null, "", "#/people");
+      $("#rows").innerHTML = peopleRows();
+    }
+    if (t.name === "tone" && PDRAFT) { PDRAFT.tone = t.value; savebar(); }
+    if (t.matches("input[type=file][data-kind]") && t.files && t.files[0]) upload(t);
+  });
+
+  function addTag(input, refocus){
+    const key = input.dataset.tagin, list = PDRAFT[TAGS[key]], v = input.value.replace(/\s+/g, " ").trim().slice(0, 120);
+    if (!v) return false;
+    if (list.some(x => x.toLowerCase() === v.toLowerCase())) { toast(v + " is already on your list."); input.value = ""; return true; }
+    list.push(v); input.value = "";
+    render(false); const again = $("#t-" + key); if (again && refocus !== false) again.focus();
+    return true;
+  }
+  document.addEventListener("keydown", e => {
+    const t = e.target;
+    if (t.matches && t.matches("[data-tagin]")) {
+      if (e.key === "Enter" || e.key === ",") { e.preventDefault(); addTag(t); }
+      else if (e.key === "Backspace" && !t.value) { const list = PDRAFT[TAGS[t.dataset.tagin]]; if (list.length) { list.pop(); render(false); const a = $("#t-" + t.dataset.tagin); if (a) a.focus(); } }
+    }
+    if (t.id === "cb-in") comboKey(e);
+  });
+  document.addEventListener("focusout", e => { if (e.target.matches && e.target.matches("[data-tagin]") && e.target.value.trim()) addTag(e.target, false); });
+
+  // combobox for the reply picker
+  let cbIndex = -1, cbItems = [];
+  function comboOpen(q){
+    const list = $("#cb-list"), input = $("#cb-in"); if (!list) return;
+    q = (q || "").trim().toLowerCase();
+    cbItems = S.people.filter(p => p.first_sent_at && p.section !== "skipped" && (!q || (p.name + " " + p.company).toLowerCase().includes(q))).slice(0, 30);
+    cbIndex = cbItems.length ? 0 : -1;
+    list.innerHTML = cbItems.length ? cbItems.map((p, i) => '<li role="option" id="cb-' + i + '" data-pick="' + esc(p.id) + '" aria-selected="' + (i === cbIndex) + '">' + esc(p.name) + '<small>' + esc(p.company) + '</small></li>').join("") : '<li class="none" role="presentation">No one you have messaged matches.</li>';
+    list.hidden = false; input.setAttribute("aria-expanded", "true");
+    input.setAttribute("aria-activedescendant", cbIndex >= 0 ? "cb-0" : "");
+  }
+  function comboClose(){ const l = $("#cb-list"), i = $("#cb-in"); if (l) l.hidden = true; if (i) { i.setAttribute("aria-expanded", "false"); i.removeAttribute("aria-activedescendant"); } }
+  function comboKey(e){
+    const list = $("#cb-list");
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault(); if (list.hidden) return comboOpen(e.target.value);
+      if (!cbItems.length) return;
+      cbIndex = (cbIndex + (e.key === "ArrowDown" ? 1 : -1) + cbItems.length) % cbItems.length;
+      $$('[role=option]', list).forEach((o, i) => o.setAttribute("aria-selected", i === cbIndex));
+      e.target.setAttribute("aria-activedescendant", "cb-" + cbIndex);
+      const o = $("#cb-" + cbIndex); if (o) o.scrollIntoView({block: "nearest"});
+    } else if (e.key === "Enter") { e.preventDefault(); if (!list.hidden && cbItems[cbIndex]) pickReply(cbItems[cbIndex].id); }
+    else if (e.key === "Escape") comboClose();
+  }
+  function pickReply(id){
+    const text = $("#rp-text") ? $("#rp-text").value : "";
+    REPLY_TO = id; render(false);
+    const ta = $("#rp-text"); if (ta) { ta.value = text; ta.focus(); }
+  }
+  document.addEventListener("focusin", e => { if (e.target.id === "cb-in") comboOpen(e.target.value); });
+  document.addEventListener("mousedown", e => { const o = e.target.closest && e.target.closest("[data-pick]"); if (o) { e.preventDefault(); pickReply(o.dataset.pick); } });
+  document.addEventListener("click", e => { if (!e.target.closest || !e.target.closest("#combo")) comboClose(); }, true);
+
+  async function upload(input){
+    const f = input.files[0], kind = input.dataset.kind;
+    if (f.size > 4 * 1024 * 1024) { toast("This file is larger than 4 MB. Please upload a smaller PDF."); input.value = ""; return; }
+    const label = input.closest("label"); label.setAttribute("aria-busy", "true"); label.style.opacity = ".6";
+    const fd = new FormData(); fd.append("kind", kind); fd.append("file", f, f.name);
+    try {
+      await api("/api/me/files", {form: fd});
+      toast((kind === "cv" ? "CV" : "LinkedIn PDF") + " uploaded. We refresh your facts in the next daily run.");
+      S.profile = await api("/api/me/profile");
+      if (PDRAFT) { PDRAFT.files = S.profile.files; PDRAFT.facts_pending = S.profile.facts_pending; }
+      render(false);
+    } catch (err) { if (!/signed_out|no_account/.test(err.message)) toast(err.message); label.style.opacity = ""; label.removeAttribute("aria-busy"); }
+    input.value = "";
+  }
+
+  document.addEventListener("click", async e => {
+    const tr = e.target.closest && e.target.closest("tr[data-href]");
+    if (tr && !e.target.closest("a")) { location.hash = tr.dataset.href; return; }
+    const b = e.target.closest && e.target.closest("[data-act]");
+    if (!b) return;
+    const act = b.dataset.act, id = b.dataset.id, p = id ? person(id) : null;
+    const fail = err => { b.disabled = false; if (!/signed_out|no_account/.test(err.message)) toast(err.message); };
+    const go = async (path, body, msg, after) => {
+      b.disabled = true;
+      try { await api(path, {body: body}); if (msg) toast(msg); if (after) await after(); await refresh(); } catch (err) { fail(err); }
+    };
+    const P = "/api/me/prospects/" + encodeURIComponent(id || "");
+    switch (act) {
+      case "logout": return signOut(false);
+      case "edit": EDITING[id] = p.draft.body; render(false); { const t = $("#d-" + CSS.escape(id)); if (t) { t.focus(); t.setSelectionRange(t.value.length, t.value.length); } } return;
+      case "cancel": delete EDITING[id]; render(false); { const x = $('[data-act="edit"][data-id="' + CSS.escape(id) + '"]'); if (x) x.focus(); } return;
+      case "save": {
+        const text = (EDITING[id] || "").trim();
+        if (!text) return toast("The message is empty. Write something or press Cancel.");
+        return go(P + "/approve", {body: text}, "Edit saved. Copy it when you are ready.", () => { delete EDITING[id]; });
+      }
+      case "copy": {
+        const txt = EDITING[id] != null ? EDITING[id] : p.draft.body;
+        return copy(txt).then(() => toast("Copied. Paste it into LinkedIn."), () => { const t = $("#d-" + CSS.escape(id)); if (t) { t.removeAttribute("readonly"); t.select(); } toast("Select the message and copy it by hand."); });
+      }
+      case "sent": {
+        b.disabled = true;
+        const edited = EDITING[id] != null ? EDITING[id].trim() : null;
+        try {
+          await api(P + "/sent", {body: edited ? {body: edited} : {}});
+          delete EDITING[id];
+          if (parseRoute().name === "send") await collapse($("#p-" + CSS.escape(id)));
+          toast("Marked as sent to " + p.name + ".");
+          await refresh();
+          const nx = $("#view .card h3 a"); if (nx && parseRoute().name === "send") nx.focus(); else { const h = $("#vh"); if (h) h.focus(); }
+        } catch (err) { fail(err); }
+        return;
+      }
+      case "skip": {
+        if (!(await confirmSkip(p))) return;
+        return go(P + "/skip", {}, p.name + " will not be contacted.");
+      }
+      case "reply": {
+        const ta = $("#r-text"), val = ta ? ta.value.trim() : "";
+        if (!val) { toast("Paste their reply first."); if (ta) ta.focus(); return; }
+        return go(P + "/reply", {text: val}, "Reply saved. Your next message is being written.");
+      }
+      case "reply-any": {
+        const ta = $("#rp-text"), val = ta ? ta.value.trim() : "";
+        if (!REPLY_TO) { toast("Choose who replied first."); const i = $("#cb-in"); if (i) i.focus(); return; }
+        if (!val) { toast("Paste their reply first."); if (ta) ta.focus(); return; }
+        const who = person(REPLY_TO);
+        b.disabled = true;
+        try { await api("/api/me/prospects/" + encodeURIComponent(REPLY_TO) + "/reply", {body: {text: val}}); toast("Saved " + first(who.name) + "'s reply. Your answer is being written."); REPLY_TO = null; await refresh(); }
+        catch (err) { fail(err); }
+        return;
+      }
+      case "unpick": REPLY_TO = null; render(false); { const i = $("#cb-in"); if (i) i.focus(); } return;
+      case "outcome": {
+        const sel = $('input[name="outcome"]:checked');
+        if (!sel) return toast("Choose an update first.");
+        const words = {no_response: "Closed. We will not follow up.", declined: "Noted. Thank you for letting us know.", referral: "A referral. Well done.", interview: "An interview. Well done.", offer: "An offer. Congratulations."};
+        return go(P + "/status", {status: sel.value}, words[sel.value] || "Update saved.");
+      }
+      case "clear-filters": FILTER = {q: "", company: "", type: "", status: ""}; history.replaceState(null, "", "#/people"); render(false); { const q = $("#f-q"); if (q) q.focus(); } return;
+      case "untag": { const list = PDRAFT[TAGS[b.dataset.key]]; const v = list.splice(Number(b.dataset.i), 1)[0]; if (b.dataset.key === "companies") PDRAFT.top_companies = PDRAFT.top_companies.filter(x => x.toLowerCase() !== String(v).toLowerCase()); render(false); const i = $("#t-" + b.dataset.key); if (i) i.focus(); return; }
+      case "toptoggle": {
+        const name = PDRAFT.target_companies[Number(b.dataset.i)], low = name.toLowerCase(), has = PDRAFT.top_companies.some(x => x.toLowerCase() === low);
+        if (!has && PDRAFT.top_companies.length >= 10) return toast("Up to 10 top companies. Remove one first.");
+        PDRAFT.top_companies = has ? PDRAFT.top_companies.filter(x => x.toLowerCase() !== low) : PDRAFT.top_companies.concat([name]);
+        render(false); const again = $('[data-act="toptoggle"][data-i="' + b.dataset.i + '"]'); if (again) again.focus(); return;
+      }
+      case "discard": PDRAFT = null; render(false); toast("Changes discarded."); return;
+      case "psave": {
+        const body = patchBody(PDRAFT);
+        if (!body.target_roles.length) return toast("Keep at least one target role.");
+        if (!body.target_companies.length) return toast("Keep at least one target company.");
+        b.disabled = true;
+        try {
+          const r = await api("/api/me/profile", {method: "PATCH", body: body});
+          S.profile = r.profile; PDRAFT = null;
+          const q = r.research_queued || [];
+          toast(q.length ? "Saved. Research for " + (q.length > 2 ? q.slice(0, 2).join(", ") + " and " + (q.length - 2) + " more" : q.join(" and ")) + " starts in the next daily run." : "Saved. Your next messages use these changes.");
+          await refresh();
+        } catch (err) { fail(err); }
+        return;
+      }
+    }
+  });
+
+  // ---------- boot ----------
+  async function boot(){
+    $("#shell").hidden = false;
+    render(true);
+    let cfg = {};
+    try { cfg = await (await fetch("/api/public-config", {cache: "no-store"})).json(); } catch (e) {}
+    if (!cfg.supabase_url || !cfg.supabase_key || !window.supabase) {
+      return stateScreen("Sign-in is not available right now", '<p>Please reload the page in a minute. If it keeps happening, write to <a href="mailto:hello@knock.careers">hello@knock.careers</a>.</p>', '<button class="btn" type="button" onclick="location.reload()">Reload</button>');
+    }
+    sb = window.supabase.createClient(cfg.supabase_url, cfg.supabase_key, {auth: {persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: "implicit"}});
+    const fromLink = /error_description=([^&]+)/.exec(location.hash) || /error_description=([^&]+)/.exec(location.search);
+    const r = await sb.auth.getSession();                 // waits for a magic-link session in the URL, if any
+    if (/access_token|error_description|type=magiclink/.test(location.hash) || location.search) history.replaceState(null, "", location.pathname + "#/home");
+    if (!r.data || !r.data.session) {
+      if (fromLink) return stateScreen("That sign-in link did not work", '<p>' + esc(decodeURIComponent(fromLink[1].replace(/\+/g, " "))) + '. Links work once and expire after a while. Request a new code to sign in.</p>', '<a class="btn" href="/login">Get a new code</a>');
+      return location.replace("/login");
+    }
+    sb.auth.onAuthStateChange(ev => { if (ev === "SIGNED_OUT") location.replace("/login"); });
+    try { await loadCore(); render(true); }
+    catch (err) {
+      if (/signed_out|no_account/.test(err.message)) return;
+      stateScreen("We could not open your account", '<p>Please check your connection and reload. If it keeps happening, write to <a href="mailto:hello@knock.careers">hello@knock.careers</a>.</p>', '<button class="btn" type="button" onclick="location.reload()">Reload</button>');
+    }
+  }
+  boot();
+})();
+</script>
+</body>
+</html>

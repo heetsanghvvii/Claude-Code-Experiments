@@ -3,6 +3,7 @@
 Environment (Vercel project settings):
   SUPABASE_URL, SUPABASE_KEY, ENGINE_TOKEN   engine state in Supabase (token-gated RLS)
   CRM_PASSWORD                               operator login for /crm and /api/crm/*
+  (SUPABASE_URL and SUPABASE_KEY also power customer sign-in: /api/public-config and /api/me/*)
   CRON_SECRET                                Vercel cron auth for /api/cron/sync
   ANTHROPIC_API_KEY                          needed only for sync (drafting replies, learning)
 """
@@ -15,12 +16,14 @@ import io
 import os
 import re
 import sys
+import time
 import uuid
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Annotated, Literal
 
+import httpx
 from fastapi import FastAPI, File, Form, Header, HTTPException, Request, UploadFile
 from pydantic import BaseModel, Field
 
@@ -223,9 +226,16 @@ def crm_status(candidate_id: str, prospect_id: str, payload: StatusChange, x_crm
     if payload.status not in allowed:
         raise HTTPException(status_code=422, detail="Unknown status")
     c = store.load(candidate_id)
-    store.get_prospect(c, prospect_id).status = payload.status
+    set_status(store.get_prospect(c, prospect_id), payload.status)
     store.save(c)
     return {"ok": True}
+
+
+def set_status(p, status: str) -> None:
+    """Change a prospect's status and note when, so the client's Outcomes page can show dates."""
+    if p.status != status:
+        p.status = status
+        p.status_history = [*p.status_history, {"status": status, "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}][-20:]
 
 
 @app.post("/api/crm/outbox/{row_id}/sent")
@@ -338,11 +348,9 @@ def pdf_text(data: bytes) -> str:
     return text[:MAX_TEXT_CHARS]
 
 
-@app.post("/api/onboarding/file")
-async def onboarding_file(email: str = Form(max_length=254), kind: str = Form(), file: UploadFile = File()):
-    email = email.strip().lower()
-    if not EMAIL.match(email):
-        raise HTTPException(status_code=422, detail="Enter a valid email address first")
+async def _read_pdf_upload(email: str, kind: str, file: UploadFile, global_brake: bool = True) -> tuple[bytes, str, str]:
+    """Shared checks for every PDF upload (onboarding and the customer app). Returns (bytes, text, quota key);
+    the caller stores the file and then counts it with _count_upload(quota key)."""
     if kind not in ("linkedin_pdf", "cv"):
         raise HTTPException(status_code=422, detail="Unknown file type")
     data = await file.read(MAX_PDF_BYTES + 1)
@@ -353,19 +361,33 @@ async def onboarding_file(email: str = Form(max_length=254), kind: str = Form(),
     quota_key = hashlib.sha256(f"{email}|{_today_ist()}".encode()).hexdigest()
     if _upload_counts.get(quota_key, 0) >= FILES_PER_EMAIL_PER_DAY:
         raise HTTPException(status_code=429, detail="That is a lot of uploads for one day. Please try again tomorrow or email hello@knock.careers.")
-    unlinked = store.rest("GET", "candidate_files", params={
-        "select": "id,created_at", "onboarding_id": "is.null", "created_at": f"gte.{_since_24h()}", "limit": "1000"})
-    if len(_recent(unlinked or [])) >= UNLINKED_FILES_PER_DAY:
-        raise HTTPException(status_code=429, detail="Uploads are paused for a moment. Please try again later or email hello@knock.careers.")
+    if global_brake:
+        unlinked = store.rest("GET", "candidate_files", params={
+            "select": "id,created_at", "onboarding_id": "is.null", "created_at": f"gte.{_since_24h()}", "limit": "1000"})
+        if len(_recent(unlinked or [])) >= UNLINKED_FILES_PER_DAY:
+            raise HTTPException(status_code=429, detail="Uploads are paused for a moment. Please try again later or email hello@knock.careers.")
     try:
         text = pdf_text(data)
     except ValueError as e:
         raise HTTPException(status_code=422, detail=str(e))
+    return data, text, quota_key
+
+
+def _count_upload(quota_key: str) -> None:
+    _upload_counts[quota_key] = _upload_counts.get(quota_key, 0) + 1
+
+
+@app.post("/api/onboarding/file")
+async def onboarding_file(email: str = Form(max_length=254), kind: str = Form(), file: UploadFile = File()):
+    email = email.strip().lower()
+    if not EMAIL.match(email):
+        raise HTTPException(status_code=422, detail="Enter a valid email address first")
+    data, text, quota_key = await _read_pdf_upload(email, kind, file)
     file_id = str(uuid.uuid4())
     store.rest("POST", "candidate_files", json_body={
         "id": file_id, "onboarding_id": None, "kind": kind, "filename": _clean_filename(file.filename),
         "size_bytes": len(data), "text_content": text, "pdf": "\\x" + data.hex()})
-    _upload_counts[quota_key] = _upload_counts.get(quota_key, 0) + 1
+    _count_upload(quota_key)
     return {"ok": True, "id": file_id, "kind": kind, "filename": _clean_filename(file.filename),
             "size_bytes": len(data), "characters": len(text)}
 
@@ -783,15 +805,156 @@ def portal_prospect_view(c: Candidate, p, pending: list) -> dict:
                      for m in p.messages if m.direction == "inbound" or m.sent_at],
         "draft": draft,
         "pending_replies": pending,
+        "first_sent_at": _first_sent(p),
+        "last_at": max((t for t in [m.sent_at or m.created_at for m in p.messages] + [r.get("received_at") or "" for r in pending]
+                        if _when(t)), key=_when, default=""),
+        "stale": _stale(p, pending),
+        "status_at": _status_at(p),
     }
 
 
-@app.get("/api/portal/me")
-def portal_me(x_portal_token: str | None = Header(default=None)):
-    c = portal_auth(x_portal_token)
-    s = _summary(c.model_dump())
+def _stale(p, pending: list) -> bool:
+    """Their last message from us went out over STALE_DAYS ago and nothing came back."""
+    last = p.messages[-1] if p.messages else None
+    if pending or not last or last.direction != "outbound" or not last.sent_at:
+        return False
+    sent = _when(last.sent_at)
+    return bool(sent and datetime.now(timezone.utc) - sent > timedelta(days=STALE_DAYS))
+
+
+
+
+# ---------- shared client views and actions ----------
+# The portal link (/portal, x-portal-token) and the customer app (/app, Supabase sign-in) are two doors
+# into the same candidate. Everything below takes the candidate the caller proved they are, so both
+# behave identically and neither can reach another candidate's people.
+
+DAILY_CAP = 15            # messages a client is asked to send per day (IST), openers and follow-ups together
+STALE_DAYS = 7            # no reply after this many days: ask the client to close it
+OUTCOMES = ("referral", "interview", "offer")
+PACKAGE_INFO = {          # mirrors the Packages section of the landing page
+    "sprint": {"days": 7, "people": 60, "price": "Rs 2,499"},
+    "standard": {"days": 14, "people": 120, "price": "Rs 3,999"},
+    "full": {"days": 21, "people": 180, "price": "Rs 5,499"},
+    "done_for_you": {"days": None, "people": None, "price": "From Rs 14,999"},
+}
+INCLUDED = ["Your target list", "Research on every person", "Personal first messages",
+            "Reply drafts for every conversation", "A weekly results report"]
+
+
+def _when(s) -> datetime | None:
+    try:
+        d = datetime.fromisoformat(str(s).replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return None
+    return d if d.tzinfo else d.replace(tzinfo=timezone.utc)
+
+
+def _ist_day(s) -> str:
+    d = _when(s)
+    return d.astimezone(IST).date().isoformat() if d else ""
+
+
+def _first_sent(p) -> str:
+    return next((m.sent_at for m in p.messages if m.direction == "outbound" and m.sent_at), "")
+
+
+def _status_at(p) -> str:
+    """When the current status was set: the logged change, else the latest reply for outcomes set before logging."""
+    for h in reversed(p.status_history):
+        if h.get("status") == p.status:
+            return h.get("at", "")
+    if p.status in OUTCOMES:
+        return next((m.created_at for m in reversed(p.messages) if m.direction == "inbound" and _when(m.created_at)), "")
+    return ""
+
+
+def client_views(c: Candidate) -> list[dict]:
     pending = _pending_replies(c)
-    sections = Counter(_section(p, pending.get(p.id, [])) for p in c.prospects)
+    return [portal_prospect_view(c, p, pending.get(p.id, [])) for p in c.prospects]
+
+
+def pacing(c: Candidate, views: list[dict]) -> dict:
+    """Today's paced batch: follow-ups first (someone is waiting), then first messages, up to DAILY_CAP a day
+    counting everything already marked sent today in IST."""
+    today = _today_ist()
+    sent_today = sum(1 for p in c.prospects for m in p.messages
+                     if m.direction == "outbound" and m.sent_at and _ist_day(m.sent_at) == today)
+    remaining = max(0, DAILY_CAP - sent_today)
+    ready = [v for v in views if v["section"] == "ready" and v["draft"]]
+    top = {x.lower() for x in (c.story.get("top_companies") or [])}
+    order = {p.id: i for i, p in enumerate(c.prospects)}
+    follow = [v for v in ready if v["draft"]["step"] > 1]
+    openers = sorted((v for v in ready if v["draft"]["step"] == 1),
+                     key=lambda v: ((v["company"] or "").lower() not in top, order[v["id"]]))
+    batch = (follow + openers)[:remaining]
+    return {"cap": DAILY_CAP, "sent_today": sent_today, "remaining": remaining, "ready": len(ready),
+            "batch": [v["id"] for v in batch], "later": len(ready) - len(batch), "date": today}
+
+
+def _people(n: int) -> str:
+    return f"{n} {'person' if n == 1 else 'people'}"
+
+
+def knock_now(c: Candidate, views: list[dict]) -> list[dict]:
+    """What Knock is doing for this client right now, in plain words. No internals."""
+    by_id = {v["id"]: v for v in views}
+    items = []
+    for v in views:
+        if v["section"] == "writing":
+            items.append({"kind": "reply", "prospect_id": v["id"], "text": f"Writing your reply to {v['name']}"})
+    writing = Counter(p.company or "your target companies" for p in c.prospects
+                      if p.status in PRE_CONTACT - {"discovered"} and by_id[p.id]["section"] == "upcoming")
+    for company, n in writing.most_common():
+        items.append({"kind": "writing", "text": f"Writing first messages for {_people(n)} at {company}"})
+    researching = Counter(p.company or "your target companies" for p in c.prospects if p.status == "discovered")
+    for company, n in researching.most_common():
+        items.append({"kind": "research", "text": f"Researching {_people(n)} at {company}"})
+    off = c.story.get("off_limits") if isinstance(c.story.get("off_limits"), dict) else {}
+    avoid = " ".join(str(off.get(k, "")) for k in ("current_employer", "avoid_companies")).lower()
+    queued = [x for x in c.target_companies if x not in c.discovered and x.lower() not in avoid]
+    if queued:
+        names = queued[:3]
+        more = len(queued) - len(names)
+        listed = ", ".join(names[:-1]) + (" and " if len(names) > 1 else "") + names[-1] if not more else ", ".join(names) + f" and {more} more"
+        items.append({"kind": "finding", "text": f"Finding the right people at {listed}"})
+    return items[:8]
+
+
+def client_tasks(views: list[dict], today: dict) -> dict:
+    now = datetime.now(timezone.utc)
+    stale = [v["id"] for v in views if v["section"] == "waiting" and v["stale"]]
+    waiting = sum(1 for v in views if v["section"] == "waiting")
+    return {"to_send": len(today["batch"]), "waiting": waiting, "stale": stale, "decisions": len(stale),
+            "as_of": now.isoformat(timespec="seconds")}
+
+
+def plan_view(c: Candidate) -> dict:
+    pkg = c.story.get("package", "")
+    info = PACKAGE_INFO.get(pkg, {})
+    s = _summary(c.model_dump())
+    started = _when(c.story.get("plan_start")) or _when(c.story.get("portal_token_at"))
+    if started is None:
+        stamps = [d for p in c.prospects for m in p.messages for d in (_when(m.sent_at),) if d]
+        started = min(stamps) if stamps else None
+    days = info.get("days")
+    start_d = started.astimezone(IST).date() if started else None
+    end_d = start_d + timedelta(days=days) if (start_d and days) else None
+    today = datetime.now(IST).date()
+    return {
+        "package": pkg, "package_label": PACKAGE_LABELS.get(pkg, ""), "price": info.get("price", ""),
+        "days": days, "start_date": start_d.isoformat() if start_d else "",
+        "end_date": (end_d - timedelta(days=1)).isoformat() if end_d else "",
+        "days_left": max(0, (end_d - today).days) if end_d else None,
+        "people_included": info.get("people"), "people_contacted": s["contacted"], "people_researched": s["targeted"],
+        "included": INCLUDED, "upgrade_email": "hello@knock.careers",
+    }
+
+
+def client_me(c: Candidate, views: list[dict] | None = None) -> dict:
+    views = client_views(c) if views is None else views
+    s = _summary(c.model_dump())
+    sections = Counter(v["section"] for v in views)
     pkg = c.story.get("package", "")
     return {
         "name": c.full_name, "first_name": (c.full_name or "").split(" ")[0],
@@ -804,38 +967,45 @@ def portal_me(x_portal_token: str | None = Header(default=None)):
     }
 
 
-@app.get("/api/portal/prospects")
-def portal_prospects(x_portal_token: str | None = Header(default=None)):
-    c = portal_auth(x_portal_token)
-    pending = _pending_replies(c)
-    return {"prospects": [portal_prospect_view(c, p, pending.get(p.id, [])) for p in c.prospects]}
+def activity_view(c: Candidate, views: list[dict]) -> list[dict]:
+    by_id = {v["id"]: v for v in views}
+    events = []
+    for p in c.prospects:
+        base = {"prospect_id": p.id, "name": p.full_name, "company": p.company}
+        for m in p.messages:
+            if m.direction == "outbound" and m.sent_at:
+                events.append({**base, "kind": "sent", "step": m.step, "at": m.sent_at})
+            elif m.direction == "inbound":
+                events.append({**base, "kind": "reply", "at": m.created_at})
+        for h in p.status_history:
+            events.append({**base, "kind": "status", "status": h.get("status", ""), "at": h.get("at", "")})
+        v = by_id.get(p.id) or {}
+        for r in v.get("pending_replies") or []:
+            events.append({**base, "kind": "reply_added", "at": r.get("received_at", "")})
+        if v.get("draft") and p.messages:
+            events.append({**base, "kind": "draft", "step": v["draft"]["step"], "at": p.messages[-1].created_at})
+    events = [e for e in events if _when(e["at"])]
+    events.sort(key=lambda e: _when(e["at"]), reverse=True)
+    return events[:60]
 
 
-@app.post("/api/portal/prospects/{prospect_id}/approve")
-def portal_approve(prospect_id: str, payload: Approve, x_portal_token: str | None = Header(default=None)):
-    c = portal_auth(x_portal_token)
+def do_approve(c: Candidate, prospect_id: str, body: str | None) -> dict:
     p = _portal_prospect(c, prospect_id)
     if p.status == "skipped" or (p.messages and p.messages[-1].sent_at):
         raise HTTPException(status_code=409, detail="There is no draft waiting for you here")
-    approve_draft(c, p, payload.body, queue_followup=False)   # the client sends it themselves
+    approve_draft(c, p, body, queue_followup=False)   # the client sends it themselves
     store.save(c)
     return {"ok": True, "status": p.status}
 
 
-class PortalSent(BaseModel):
-    body: str | None = Field(default=None, max_length=1200)
-
-
-@app.post("/api/portal/prospects/{prospect_id}/sent")
-def portal_sent(prospect_id: str, payload: PortalSent | None = None, x_portal_token: str | None = Header(default=None)):
+def do_sent(c: Candidate, prospect_id: str, body: str | None) -> dict:
     """The client sent the latest draft from their own LinkedIn. Approves it first if needed (with any edit)."""
-    c = portal_auth(x_portal_token)
     p = _portal_prospect(c, prospect_id)
     if p.status == "skipped" or not p.messages or p.messages[-1].direction != "outbound" or p.messages[-1].sent_at:
         raise HTTPException(status_code=409, detail="There is no draft waiting for you here")
     msg = p.messages[-1]
-    if not msg.approved or (payload and payload.body):
-        approve_draft(c, p, payload.body if payload else None, queue_followup=False)
+    if not msg.approved or body:
+        approve_draft(c, p, body, queue_followup=False)
     msg.sent_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     if msg.step == 1 and p.status in PRE_CONTACT:
         p.status = "sent"
@@ -848,16 +1018,10 @@ def portal_sent(prospect_id: str, payload: PortalSent | None = None, x_portal_to
     return {"ok": True, "status": p.status, "sent_at": msg.sent_at}
 
 
-class PortalReply(BaseModel):
-    text: str = Field(min_length=1, max_length=4000)
-
-
-@app.post("/api/portal/prospects/{prospect_id}/reply")
-def portal_reply(prospect_id: str, payload: PortalReply, x_portal_token: str | None = Header(default=None)):
+def do_reply(c: Candidate, prospect_id: str, text: str) -> dict:
     """The client pastes the person's reply. The next scheduled sync drafts the answer."""
-    c = portal_auth(x_portal_token)
     p = _portal_prospect(c, prospect_id)
-    text = payload.text.strip()
+    text = text.strip()
     if not text:
         raise HTTPException(status_code=422, detail="Paste their reply first")
     if not any(m.direction == "outbound" and m.sent_at for m in p.messages):
@@ -869,25 +1033,350 @@ def portal_reply(prospect_id: str, payload: PortalReply, x_portal_token: str | N
     return {"ok": True, "status": p.status}
 
 
-@app.post("/api/portal/prospects/{prospect_id}/status")
-def portal_status(prospect_id: str, payload: StatusChange, x_portal_token: str | None = Header(default=None)):
-    c = portal_auth(x_portal_token)
-    if payload.status not in PORTAL_STATUSES:
+def do_status(c: Candidate, prospect_id: str, status: str) -> dict:
+    if status not in PORTAL_STATUSES:
         raise HTTPException(status_code=422, detail="Unknown status")
     p = _portal_prospect(c, prospect_id)
     if not any(m.direction == "outbound" and m.sent_at for m in p.messages):
         raise HTTPException(status_code=409, detail="Mark your message as sent first")
-    p.status = payload.status
+    set_status(p, status)
     store.save(c)
     return {"ok": True, "status": p.status}
 
 
-@app.post("/api/portal/prospects/{prospect_id}/skip")
-def portal_skip(prospect_id: str, x_portal_token: str | None = Header(default=None)):
-    c = portal_auth(x_portal_token)
+def do_skip(c: Candidate, prospect_id: str) -> dict:
     p = _portal_prospect(c, prospect_id)
     if p.status not in PRE_CONTACT:
         raise HTTPException(status_code=409, detail="You have already been in touch with this person")
     p.status = "skipped"
     store.save(c)
     return {"ok": True, "status": p.status}
+
+
+# ---------- client portal (/portal): the secret-link door ----------
+
+class PortalSent(BaseModel):
+    body: str | None = Field(default=None, max_length=1200)
+
+
+class PortalReply(BaseModel):
+    text: str = Field(min_length=1, max_length=4000)
+
+
+@app.get("/api/portal/me")
+def portal_me(x_portal_token: str | None = Header(default=None)):
+    return client_me(portal_auth(x_portal_token))
+
+
+@app.get("/api/portal/prospects")
+def portal_prospects(x_portal_token: str | None = Header(default=None)):
+    return {"prospects": client_views(portal_auth(x_portal_token))}
+
+
+@app.post("/api/portal/prospects/{prospect_id}/approve")
+def portal_approve(prospect_id: str, payload: Approve, x_portal_token: str | None = Header(default=None)):
+    return do_approve(portal_auth(x_portal_token), prospect_id, payload.body)
+
+
+@app.post("/api/portal/prospects/{prospect_id}/sent")
+def portal_sent(prospect_id: str, payload: PortalSent | None = None, x_portal_token: str | None = Header(default=None)):
+    return do_sent(portal_auth(x_portal_token), prospect_id, payload.body if payload else None)
+
+
+@app.post("/api/portal/prospects/{prospect_id}/reply")
+def portal_reply(prospect_id: str, payload: PortalReply, x_portal_token: str | None = Header(default=None)):
+    return do_reply(portal_auth(x_portal_token), prospect_id, payload.text)
+
+
+@app.post("/api/portal/prospects/{prospect_id}/status")
+def portal_status(prospect_id: str, payload: StatusChange, x_portal_token: str | None = Header(default=None)):
+    return do_status(portal_auth(x_portal_token), prospect_id, payload.status)
+
+
+@app.post("/api/portal/prospects/{prospect_id}/skip")
+def portal_skip(prospect_id: str, x_portal_token: str | None = Header(default=None)):
+    return do_skip(portal_auth(x_portal_token), prospect_id)
+
+
+# ---------- customer app (/login, /app): Supabase email sign-in ----------
+# The browser signs in with a one-time email code (supabase-js) and sends the access token as
+# Authorization: Bearer <token>. We ask Supabase who it belongs to (GET /auth/v1/user), cache the answer
+# for 60 seconds per token hash, and map the confirmed email to the candidate whose story.email matches.
+
+AUTH_TTL_SECONDS = 60
+_auth_cache: dict[str, tuple[float, str]] = {}   # sha256(token) -> (expires at, verified email)
+NO_ACCOUNT = {"code": "no_account", "message": "We could not find a Knock account for this email.",
+              "onboarding_url": "/start"}
+
+
+@app.get("/api/public-config")
+def public_config():
+    """The browser needs the project URL and the publishable (public) key to run Supabase sign-in."""
+    return {"supabase_url": (os.environ.get("SUPABASE_URL") or "").rstrip("/") or None,
+            "supabase_key": os.environ.get("SUPABASE_KEY") or None}
+
+
+def _fetch_supabase_user(token: str) -> dict | None:
+    """The Supabase Auth user for this access token, or None when Supabase says the token is not valid."""
+    url, key = (os.environ.get("SUPABASE_URL") or "").rstrip("/"), os.environ.get("SUPABASE_KEY") or ""
+    if not (url and key):
+        raise HTTPException(status_code=503, detail="Sign-in is not configured yet. Please write to hello@knock.careers.")
+    try:
+        r = httpx.get(f"{url}/auth/v1/user", headers={"apikey": key, "Authorization": f"Bearer {token}"}, timeout=10)
+    except httpx.HTTPError:
+        raise HTTPException(status_code=503, detail="We could not check your sign-in just now. Please try again in a minute.")
+    if r.status_code in (401, 403):
+        return None
+    if r.status_code != 200:
+        raise HTTPException(status_code=503, detail="We could not check your sign-in just now. Please try again in a minute.")
+    return r.json()
+
+
+def user_email(authorization: str | None) -> str:
+    expired = HTTPException(status_code=401, detail="Your sign-in has expired. Please sign in again.")
+    token = (authorization or "").strip()
+    if not token.lower().startswith("bearer "):
+        raise expired
+    token = token[7:].strip()
+    if len(token) < 20 or len(token) > 4096:
+        raise expired
+    key = hashlib.sha256(token.encode()).hexdigest()
+    now = time.monotonic()
+    hit = _auth_cache.get(key)
+    if hit and hit[0] > now:
+        return hit[1]
+    user = _fetch_supabase_user(token)
+    email = ((user or {}).get("email") or "").strip().lower()
+    # An unconfirmed address proves nothing (password sign-ups before confirmation), so it never maps to a client.
+    if not user or not email or not (user.get("email_confirmed_at") or user.get("confirmed_at")):
+        raise expired
+    if len(_auth_cache) > 2000:
+        for k in [k for k, v in _auth_cache.items() if v[0] <= now]:
+            _auth_cache.pop(k, None)
+    _auth_cache[key] = (now + AUTH_TTL_SECONDS, email)
+    return email
+
+
+def _candidate_for_email(email: str) -> Candidate | None:
+    if store._supabase():
+        rows = store.rest("GET", "engine_state", params={"select": "id,doc", "doc->story->>email": f"ilike.{email}"}) or []
+        docs = [r["doc"] for r in rows if r.get("doc") and r["id"] not in SHARED]
+    else:
+        docs = [store.get_doc(i) for i in store.list_ids()]
+    found = sorted((d for d in docs if str(((d or {}).get("story") or {}).get("email") or "").strip().lower() == email),
+                   key=lambda d: d.get("id", ""))
+    return Candidate.model_validate(found[0]) if found else None
+
+
+def me_auth(authorization: str | None) -> Candidate:
+    email = user_email(authorization)
+    c = _candidate_for_email(email)
+    if c is None:
+        raise HTTPException(status_code=403, detail={**NO_ACCOUNT, "email": email})
+    return c
+
+
+@app.get("/api/me")
+def me(authorization: str | None = Header(default=None)):
+    c = me_auth(authorization)
+    views = client_views(c)
+    today = pacing(c, views)
+    return {**client_me(c, views), "email": (c.story.get("email") or "").strip().lower(),
+            "today": today, "tasks": client_tasks(views, today), "now": knock_now(c, views), "plan": plan_view(c)}
+
+
+@app.get("/api/me/prospects")
+def me_prospects(authorization: str | None = Header(default=None)):
+    c = me_auth(authorization)
+    views = client_views(c)
+    today = pacing(c, views)
+    batch = set(today["batch"])
+    return {"prospects": [{**v, "in_batch": v["id"] in batch} for v in views], "today": today}
+
+
+@app.post("/api/me/prospects/{prospect_id}/approve")
+def me_approve(prospect_id: str, payload: Approve, authorization: str | None = Header(default=None)):
+    return do_approve(me_auth(authorization), prospect_id, payload.body)
+
+
+@app.post("/api/me/prospects/{prospect_id}/sent")
+def me_sent(prospect_id: str, payload: PortalSent | None = None, authorization: str | None = Header(default=None)):
+    return do_sent(me_auth(authorization), prospect_id, payload.body if payload else None)
+
+
+@app.post("/api/me/prospects/{prospect_id}/reply")
+def me_reply(prospect_id: str, payload: PortalReply, authorization: str | None = Header(default=None)):
+    return do_reply(me_auth(authorization), prospect_id, payload.text)
+
+
+@app.post("/api/me/prospects/{prospect_id}/status")
+def me_status(prospect_id: str, payload: StatusChange, authorization: str | None = Header(default=None)):
+    return do_status(me_auth(authorization), prospect_id, payload.status)
+
+
+@app.post("/api/me/prospects/{prospect_id}/skip")
+def me_skip(prospect_id: str, authorization: str | None = Header(default=None)):
+    return do_skip(me_auth(authorization), prospect_id)
+
+
+@app.get("/api/me/activity")
+def me_activity(authorization: str | None = Header(default=None)):
+    c = me_auth(authorization)
+    return {"events": activity_view(c, client_views(c))}
+
+
+@app.get("/api/me/plan")
+def me_plan(authorization: str | None = Header(default=None)):
+    return plan_view(me_auth(authorization))
+
+
+# ---------- customer app: profile and files ----------
+
+STORY_FIELDS = ("why_now", "proud_1", "proud_2", "transition", "roots", "recent")
+
+
+def _off_limits(c: Candidate) -> dict:
+    off = c.story.get("off_limits")
+    return off if isinstance(off, dict) else {}
+
+
+def profile_view(c: Candidate) -> dict:
+    st, off = c.story, _off_limits(c)
+    proud = [x for x in (st.get("proudest") or []) if isinstance(x, str)]
+    return {
+        "full_name": c.full_name, "email": (st.get("email") or "").strip().lower(), "headline": c.headline,
+        "target_roles": c.target_roles, "target_companies": c.target_companies,
+        "top_companies": [x for x in (st.get("top_companies") or []) if x in c.target_companies],
+        "locations": c.locations,
+        "story": {"why_now": st.get("why_now", ""), "proud_1": proud[0] if proud else "", "proud_2": proud[1] if len(proud) > 1 else "",
+                  "transition": st.get("transition", ""), "roots": st.get("roots", ""), "recent": st.get("recent", "")},
+        "tone": st.get("tone", ""), "never_say": st.get("never_say", ""),
+        "off_limits": {k: str(off.get(k, "") or "") for k in ("current_employer", "avoid_companies", "known_people")},
+        "files": [{k: f.get(k) for k in ("kind", "filename", "size_bytes", "at")} for f in (st.get("uploads") or [])][-6:],
+        "facts_pending": profiles.pending_text(c),
+        "research_requested_at": st.get("research_requested_at", ""),
+    }
+
+
+class StoryPatch(BaseModel):
+    model_config = {"extra": "forbid"}
+    why_now: str = Long()
+    proud_1: str = Long()
+    proud_2: str = Long()
+    transition: str = Long()
+    roots: str = Long()
+    recent: str = Long()
+
+
+class OffLimitsPatch(BaseModel):
+    model_config = {"extra": "forbid"}
+    current_employer: str = Short()
+    avoid_companies: str = Field(default="", max_length=1000)
+    known_people: str = Field(default="", max_length=1000)
+
+
+class ProfilePatch(BaseModel):
+    """Everything a client may change about themselves. Anything else (tier, tokens, facts) is refused."""
+    model_config = {"extra": "forbid"}
+    target_roles: list[Item] | None = Field(default=None, max_length=3)
+    target_companies: list[Item] | None = Field(default=None, max_length=40)
+    top_companies: list[Item] | None = Field(default=None, max_length=10)
+    locations: list[Item] | None = Field(default=None, max_length=5)
+    story: StoryPatch | None = None
+    tone: Literal["formal", "neutral", "casual", ""] | None = None
+    never_say: str | None = Field(default=None, max_length=1000)
+    off_limits: OffLimitsPatch | None = None
+
+
+def _clean_list(items: list[str]) -> list[str]:
+    out, seen = [], set()
+    for x in items:
+        x = re.sub(r"\s+", " ", x).strip()
+        if x and x.lower() not in seen:
+            seen.add(x.lower())
+            out.append(x)
+    return out
+
+
+def apply_profile(c: Candidate, body: ProfilePatch) -> dict:
+    """Validate and apply a profile edit. New companies are picked up by the next research run on their own;
+    a change of roles or places re-opens research at every company. No founder step in between."""
+    story = dict(c.story)
+    queued: list[str] = []
+    research_all = False
+    if body.target_roles is not None:
+        roles = _clean_list(body.target_roles)
+        if not roles:
+            raise HTTPException(status_code=422, detail="Keep at least one target role")
+        research_all |= [r.lower() for r in roles] != [r.lower() for r in c.target_roles]
+        c.target_roles = roles
+    if body.target_companies is not None:
+        companies = _clean_list(body.target_companies)
+        if not companies:
+            raise HTTPException(status_code=422, detail="Keep at least one target company")
+        before = {x.lower() for x in c.target_companies}
+        queued = [x for x in companies if x.lower() not in before]
+        c.target_companies = companies
+    if body.locations is not None:
+        locations = _clean_list(body.locations)
+        research_all |= sorted(x.lower() for x in locations) != sorted(x.lower() for x in c.locations)
+        c.locations = locations
+    if body.top_companies is not None or body.target_companies is not None:
+        wanted = _clean_list(body.top_companies) if body.top_companies is not None else story.get("top_companies") or []
+        lookup = {x.lower(): x for x in c.target_companies}
+        story["top_companies"] = [lookup[x.lower()] for x in wanted if x.lower() in lookup]
+    if body.story is not None:
+        s = body.story
+        story.update({"why_now": s.why_now.strip(), "transition": s.transition.strip(), "roots": s.roots.strip(),
+                      "recent": s.recent.strip(), "proudest": [x.strip() for x in (s.proud_1, s.proud_2) if x.strip()]})
+    if body.tone is not None:
+        story["tone"] = body.tone
+    if body.never_say is not None:
+        story["never_say"] = body.never_say.strip()
+    if body.off_limits is not None:
+        story["off_limits"] = {**_off_limits(c), **{k: v.strip() for k, v in body.off_limits.model_dump().items()}}
+    if research_all:
+        c.discovered = {}            # every company is searched again for the new roles or places
+        queued = list(c.target_companies)
+    if queued:
+        story["research_requested_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    c.story = story
+    return {"research_queued": queued}
+
+
+@app.get("/api/me/profile")
+def me_profile(authorization: str | None = Header(default=None)):
+    return profile_view(me_auth(authorization))
+
+
+@app.patch("/api/me/profile")
+def me_profile_patch(body: ProfilePatch, authorization: str | None = Header(default=None)):
+    c = me_auth(authorization)
+    result = apply_profile(c, body)
+    store.save(c)
+    return {"ok": True, **result, "profile": profile_view(c)}
+
+
+@app.post("/api/me/files")
+async def me_files(kind: str = Form(), file: UploadFile = File(), authorization: str | None = Header(default=None)):
+    """Re-upload the LinkedIn PDF or CV. Same checks as onboarding; the text is kept on the candidate so the
+    next scheduled run refreshes their facts (profiles.pending_text)."""
+    c = me_auth(authorization)
+    email = (c.story.get("email") or "").strip().lower()
+    data, text, quota_key = await _read_pdf_upload(email, kind, file, global_brake=False)
+    file_id, name = str(uuid.uuid4()), _clean_filename(file.filename)
+    onboarding_id = c.story.get("onboarding_id") if UUID.match(str(c.story.get("onboarding_id") or "")) else None
+    row = {"id": file_id, "onboarding_id": onboarding_id, "candidate_id": c.id, "kind": kind, "filename": name,
+           "size_bytes": len(data), "text_content": text, "pdf": "\\x" + data.hex()}
+    try:
+        store.rest("POST", "candidate_files", json_body=row)
+    except httpx.HTTPStatusError as e:   # before migration 0007 adds candidate_files.candidate_id
+        if e.response.status_code != 400:
+            raise
+        store.rest("POST", "candidate_files", json_body={k: v for k, v in row.items() if k != "candidate_id"})
+    _count_upload(quota_key)
+    at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    c.story = {**c.story, "linkedin_text" if kind == "linkedin_pdf" else "cv_text": text[:20_000],
+               "uploads": [*(c.story.get("uploads") or []), {"kind": kind, "filename": name, "size_bytes": len(data), "at": at}][-12:]}
+    store.save(c)
+    return {"ok": True, "id": file_id, "kind": kind, "filename": name, "size_bytes": len(data), "characters": len(text)}

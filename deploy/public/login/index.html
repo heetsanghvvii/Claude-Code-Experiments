@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en-IN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sign in | Knock</title>
+<meta name="description" content="Sign in to your Knock account with a one-time code sent to your email.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#EEF3F8">
+<link rel="icon" type="image/svg+xml" href="/brand/knock-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
+<style>
+/* Knock brand tokens (brand/tokens.css), inlined. Light only. */
+:root{
+  --inland:#A9C7E6; --inland-2:#97B9DD; --inland-3:#C4D9EF;
+  --paper:#EEF3F8; --white:#FAFCFE;
+  --ink:#0E1F3A; --ink-2:#2B4266; --ink-3:#4A5F80;
+  --post:#B3301B; --post-soft:#F3D9D2;
+  --rule:rgba(14,31,58,.2); --rule-strong:rgba(14,31,58,.55);
+  --display:"Archivo","Arial Narrow",sans-serif;
+  --text:"Archivo",system-ui,sans-serif;
+  --serif:"Source Serif 4",Georgia,serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --shadow-sheet:0 30px 60px -36px rgba(14,31,58,.55);
+  --shadow-note:0 30px 50px -30px rgba(14,31,58,.55),0 4px 10px -6px rgba(14,31,58,.3);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;background:var(--paper);color:var(--ink);font-family:var(--text);font-size:1rem;line-height:1.55;font-variation-settings:"wdth" 100;caret-color:var(--post);overflow-x:hidden}
+::selection{background:var(--ink);color:var(--inland-3)}
+a{color:inherit;text-underline-offset:.22em;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--post);outline-offset:3px;border-radius:2px}
+[tabindex="-1"]:focus{outline:none}
+h1{font-family:var(--display);font-variation-settings:"wdth" 72;font-stretch:72%;font-weight:800;line-height:.95;letter-spacing:-.02em;margin:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px clamp(16px,4vw,48px)}
+.top .mark{display:block;line-height:0}
+.top .mark img{width:120px;height:auto}
+.top a.small{font-size:.92rem;color:var(--ink-2)}
+
+main{flex:1 0 auto;display:grid;place-items:start center;padding:clamp(8px,4vh,56px) 16px clamp(40px,8vh,96px)}
+.sheet{position:relative;width:min(100%,520px);background:var(--inland);border-radius:4px;padding:clamp(28px,5vw,48px) clamp(26px,6vw,56px) clamp(28px,5vw,44px);box-shadow:var(--shadow-sheet);overflow:hidden;isolation:isolate}
+.sheet::before{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px),radial-gradient(120% 70% at 85% 0%,rgba(255,255,255,.25),transparent 60%)}
+.perf{position:absolute;top:0;bottom:0;width:10px;background:radial-gradient(circle,var(--paper) 2.6px,transparent 3.2px) center top/10px 14px repeat-y}
+.perf.l{left:8px}.perf.r{right:8px}
+.stamp{position:absolute;right:clamp(26px,5vw,44px);top:clamp(24px,4vw,36px);width:62px;transform:rotate(3deg);filter:drop-shadow(0 6px 8px rgba(14,31,58,.22))}
+h1{font-size:clamp(2.3rem,1.8rem + 2.2vw,3.1rem);max-width:12ch;padding-right:64px}
+.lede{margin-top:12px;font-family:var(--serif);font-size:1.12rem;line-height:1.45;color:var(--ink);max-width:36ch}
+
+form{margin-top:26px;display:grid;gap:14px}
+label{font-weight:600;font-size:.95rem}
+.field{display:grid;gap:6px}
+input{width:100%;min-height:52px;padding:12px 16px;border:1.5px solid rgba(14,31,58,.5);border-radius:4px;background:var(--white);font:inherit;font-size:1.05rem;color:var(--ink);transition:border-color .2s,box-shadow .2s}
+input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(179,48,27,.35)}
+input::placeholder{color:#5F7290;opacity:1}
+input[aria-invalid="true"]{border-color:var(--post)}
+.code{font:700 1.7rem/1 var(--display);font-variation-settings:"wdth" 100;letter-spacing:.42em;text-align:center;padding-left:calc(16px + .42em);font-variant-numeric:tabular-nums}
+.help{font-size:.9rem;color:var(--ink-2)}
+.err{font-size:.92rem;font-weight:600;color:var(--ink);background:var(--post-soft);border-radius:4px;padding:10px 12px}
+.err a{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:52px;padding:.7em 1.4em;background:var(--ink);color:var(--white);border:2px solid var(--ink);border-radius:999px;font-family:var(--display);font-variation-settings:"wdth" 88;font-stretch:88%;font-weight:700;font-size:1.05rem;cursor:pointer;text-decoration:none;transition:background .2s var(--ease),border-color .2s var(--ease),box-shadow .2s var(--ease),transform 160ms var(--ease)}
+.btn:hover{background:var(--post);border-color:var(--post);box-shadow:0 8px 20px -10px rgba(179,48,27,.7)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.65;cursor:progress;box-shadow:none}
+.btn svg{width:18px;height:18px}
+.row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;justify-content:space-between;margin-top:2px}
+.linkish{background:none;border:0;padding:8px 0;font:inherit;font-size:.92rem;color:var(--ink);text-decoration:underline;text-underline-offset:.22em;cursor:pointer}
+.linkish:hover{text-decoration-thickness:2px}
+.linkish[disabled]{color:var(--ink-2);text-decoration:none;cursor:default}
+.sent-to{font-family:var(--serif);font-size:1.12rem;margin-top:12px;max-width:38ch}
+.sent-to b{font-family:var(--text);font-weight:700;overflow-wrap:anywhere}
+.step{animation:rise .32s var(--ease) both}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.note{width:min(100%,520px);margin-top:22px;display:grid;gap:6px;font-size:.95rem;color:var(--ink-2);padding:0 4px}
+.note a{color:var(--ink);font-weight:600}
+footer{padding:22px clamp(16px,4vw,48px) 26px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:.9rem;color:var(--ink-2);border-top:1px solid var(--rule)}
+footer .tag{font-family:var(--serif);font-style:italic;color:var(--ink)}
+.state{width:min(100%,520px);background:var(--white);box-shadow:var(--shadow-note);border-radius:4px;padding:28px}
+@media (max-width:420px){.stamp{width:48px}h1{padding-right:50px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="/" aria-label="Knock, home"><img src="/brand/knock-wordmark.svg" alt="Knock" width="120" height="31"></a>
+  <a class="small" href="mailto:hello@knock.careers">Need help?</a>
+</header>
+
+<main id="main">
+  <div style="display:grid;justify-items:center;width:100%">
+    <section class="sheet" aria-labelledby="h">
+      <span class="perf l" aria-hidden="true"></span><span class="perf r" aria-hidden="true"></span>
+      <img class="stamp" src="/brand/knock-stamp.svg" alt="" width="62" height="74">
+
+      <div id="step-email" class="step">
+        <h1 id="h" tabindex="-1">Sign in to Knock</h1>
+        <p class="lede">We will email you a short code. There is no password to remember.</p>
+        <form id="email-form" novalidate>
+          <div class="field">
+            <label for="email">Your email</label>
+            <input id="email" type="email" name="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" required placeholder="you@example.com" aria-describedby="email-help email-err">
+            <p class="help" id="email-help">Use the email you gave us when you joined.</p>
+          </div>
+          <p class="err" id="email-err" role="alert" hidden></p>
+          <button class="btn" type="submit" id="send-btn">Email me a code
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></button>
+        </form>
+      </div>
+
+      <div id="step-code" class="step" hidden>
+        <h1 id="h2" tabindex="-1">Check your email</h1>
+        <p class="sent-to">We sent a code to <b id="sent-email"></b>. Enter it here to sign in.</p>
+        <form id="code-form" novalidate>
+          <div class="field">
+            <label for="code">Your code</label>
+            <input id="code" class="code" type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" maxlength="10" required aria-describedby="code-help code-err">
+            <p class="help" id="code-help">The email can take a minute to arrive. If it is not in your inbox, check spam. Codes expire, so use the newest one.</p>
+          </div>
+          <p class="err" id="code-err" role="alert" hidden></p>
+          <button class="btn" type="submit" id="verify-btn">Sign in</button>
+          <div class="row">
+            <button class="linkish" type="button" id="resend">Send a new code</button>
+            <button class="linkish" type="button" id="change">Use a different email</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <div class="note">
+      <p>New to Knock? <a href="/start">Start your onboarding</a>.</p>
+      <p>Signing in on a new device? The email also has a link. Opening it on this device signs you in too.</p>
+    </div>
+  </div>
+</main>
+
+<footer><span class="tag">Knock on the right door.</span><span>Questions: <a href="mailto:hello@knock.careers">hello@knock.careers</a></span></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js" defer></script>
+<script>
+(function(){
+  "use strict";
+  var $ = function(s){ return document.querySelector(s); };
+  var EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  var sb = null, email = "", cooldownT = null;
+
+  function show(step){
+    $("#step-email").hidden = step !== "email";
+    $("#step-code").hidden = step !== "code";
+    var h = step === "email" ? $("#h") : $("#h2");
+    setTimeout(function(){ (step === "code" ? $("#code") : $("#email")).focus(); }, 0);
+    if (step === "code") h.setAttribute("aria-live", "polite");
+  }
+  function err(id, text){
+    var el = $(id); el.hidden = !text; el.innerHTML = text || "";
+    var input = id === "#email-err" ? $("#email") : $("#code");
+    input.setAttribute("aria-invalid", text ? "true" : "false");
+  }
+  function friendly(e){
+    var m = String((e && (e.message || e.msg)) || "").toLowerCase(), s = e && e.status;
+    if (s === 429 || /rate limit|too many|security purposes/.test(m)) return "Too many codes were requested for this email. Please wait a few minutes, then try again.";
+    if (/expired|invalid|otp|token/.test(m)) return "That code did not work. It may have expired. Check the newest email, or send a new code.";
+    if (/signups not allowed|not allowed/.test(m)) return "Sign-in is not open for this email. Write to <a href=\"mailto:hello@knock.careers\">hello@knock.careers</a>.";
+    if (/fetch|network|failed/.test(m)) return "We could not reach the sign-in service. Check your connection and try again.";
+    return "Something did not go through. Please try again, or write to <a href=\"mailto:hello@knock.careers\">hello@knock.careers</a>.";
+  }
+  function busy(btn, on, label){ btn.disabled = on; if (label) btn.firstChild.nodeValue = label; }
+
+  function cooldown(sec){
+    var b = $("#resend"); clearInterval(cooldownT);
+    function tick(){ if (sec <= 0) { clearInterval(cooldownT); b.disabled = false; b.textContent = "Send a new code"; return; } b.disabled = true; b.textContent = "Send a new code in " + sec + "s"; sec--; }
+    tick(); cooldownT = setInterval(tick, 1000);
+  }
+
+  function sendCode(){
+    return sb.auth.signInWithOtp({email: email, options: {shouldCreateUser: true, emailRedirectTo: location.origin + "/app"}});
+  }
+
+  $("#email-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    var v = $("#email").value.trim().toLowerCase();
+    if (!EMAIL.test(v)) { err("#email-err", "Enter your email address, for example name@gmail.com."); $("#email").focus(); return; }
+    if (!sb) { err("#email-err", "Sign-in is still loading. Please try again in a moment."); return; }
+    err("#email-err", ""); email = v;
+    var btn = $("#send-btn"); busy(btn, true, "Sending ");
+    sendCode().then(function(res){
+      busy(btn, false, "Email me a code ");
+      if (res.error) { err("#email-err", friendly(res.error)); return; }
+      try { sessionStorage.setItem("knock_login_email", email); } catch (x) {}
+      $("#sent-email").textContent = email; err("#code-err", ""); $("#code").value = "";
+      show("code"); cooldown(60);
+    }, function(x){ busy(btn, false, "Email me a code "); err("#email-err", friendly(x)); });
+  });
+
+  $("#code").addEventListener("input", function(){
+    var t = this.value.replace(/\D/g, "").slice(0, 10);
+    if (t !== this.value) this.value = t;
+    if (t.length >= 6) err("#code-err", "");
+  });
+
+  $("#code-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    var token = $("#code").value.replace(/\D/g, "");
+    if (token.length < 6) { err("#code-err", "Enter the 6-digit code from the email."); $("#code").focus(); return; }
+    var btn = $("#verify-btn"); busy(btn, true, "Signing in");
+    sb.auth.verifyOtp({email: email, token: token, type: "email"}).then(function(res){
+      if (res.error || !res.data || !res.data.session) { busy(btn, false, "Sign in"); err("#code-err", friendly(res.error)); $("#code").select(); return; }
+      location.replace("/app");
+    }, function(x){ busy(btn, false, "Sign in"); err("#code-err", friendly(x)); });
+  });
+
+  $("#resend").addEventListener("click", function(){
+    var b = this; b.disabled = true;
+    sendCode().then(function(res){
+      if (res.error) { b.disabled = false; err("#code-err", friendly(res.error)); return; }
+      err("#code-err", ""); cooldown(60); $("#code").focus();
+    }, function(x){ b.disabled = false; err("#code-err", friendly(x)); });
+  });
+  $("#change").addEventListener("click", function(){ clearInterval(cooldownT); show("email"); $("#email").select(); });
+
+  // ---------- start ----------
+  try { var remembered = sessionStorage.getItem("knock_login_email"); if (remembered) $("#email").value = remembered; } catch (x) {}
+  var q = new URLSearchParams(location.search);
+  if (q.get("expired")) err("#email-err", "You were signed out. Enter your email to get a new code.");
+
+  function boot(cfg){
+    if (!cfg.supabase_url || !cfg.supabase_key || !window.supabase) {
+      err("#email-err", "Sign-in is not available right now. Please write to <a href=\"mailto:hello@knock.careers\">hello@knock.careers</a>.");
+      return;
+    }
+    sb = window.supabase.createClient(cfg.supabase_url, cfg.supabase_key, {auth: {persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: "implicit"}});
+    sb.auth.getSession().then(function(r){ if (r.data && r.data.session) location.replace("/app"); });
+  }
+  var cfgP = fetch("/api/public-config", {cache: "no-store"}).then(function(r){ return r.json(); }).catch(function(){ return {}; });
+  function ready(){ cfgP.then(boot); }
+  if (document.readyState === "complete") ready(); else window.addEventListener("load", ready);
+  if (!$("#step-email").hidden) $("#email").focus({preventScroll: true});
+})();
+</script>
+</body>
+</html>

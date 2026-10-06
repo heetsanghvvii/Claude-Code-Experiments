@@ -15,6 +15,14 @@
     {
       "source": "/portal",
       "destination": "/portal/index.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/login/index.html"
+    },
+    {
+      "source": "/app",
+      "destination": "/app/index.html"
     }
   ],
   "functions": {
@@ -32,6 +40,40 @@
   "headers": [
     {
       "source": "/portal(.*)",
+      "headers": [
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/app(.*)",
+      "headers": [
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/login(.*)",
       "headers": [
         {
           "key": "Referrer-Policy",

@@ -4,6 +4,8 @@
 
 Serves http://127.0.0.1:8765 (landing page at /, onboarding at /start, CRM at /crm/, password "demo",
 client portal for the demo candidate Ananya at the /portal?t=... URL printed on start; set DEMO_PORTAL_TOKEN to fix it).
+With KNOCK_DEMO=1 the customer app (/app) also accepts one fixed demo access token (DEMO_ACCESS_TOKEN) as Ananya;
+the screenshot script plants it as a supabase-js session. Without the flag, /app needs a real Supabase sign-in.
 Nothing touches a real Supabase: outreach.store's HTTP layer is replaced by an in-memory fake.
 """
 
@@ -146,6 +148,39 @@ vikram = Candidate(
       [out("Hi Hema, how do you keep night-shift handovers clean at a busy distribution centre?", writer="sharp_observer", approved=False)]),
     ],
 )
+# ---- extra state for the customer app (/app): a paced batch, sends today, research in progress, outcome dates ----
+ananya.target_companies += ["Saffron Bank", "Quill Media"]
+ananya.discovered = {x: iso(-24 * 10) for x in ("Lumen Freight", "Orchard Pay", "Tidewater Health", "Saffron Bank")}
+ananya.story.update({"top_companies": ["Orchard Pay", "Lumen Freight"], "why_now": "Seven years teaching maths taught me how people learn; I want to design products that do the same.",
+                     "proudest": ["Redesigned our school's exam timetable tool, cutting clashes from 40 a term to 3."],
+                     "roots": "Mount Carmel College Bengaluru, Teach for Change fellow 2016, grew up in Mysuru, speak Kannada and Hindi.",
+                     "tone": "neutral", "never_say": "salary", "off_limits": {"current_employer": "Greenwood High", "avoid_companies": "", "known_people": ""},
+                     "uploads": [{"kind": "linkedin_pdf", "filename": "Profile.pdf", "size_bytes": 148_532, "at": iso(-24 * 11)}]})
+for p in ananya.prospects:
+    if p.id == "meera-pillai":
+        p.status_history = [{"status": "interview", "at": iso(-38)}]
+    if p.id == "dev-kulkarni":
+        p.status_history = [{"status": "referral", "at": iso(-29)}]
+ananya.prospects += [
+    P("priya-raman", "Priya Raman", "Senior UX Designer", "Orchard Pay", "team_member", "message_ready", "Taught design at a community college before Orchard Pay",
+      [out("Hi Priya, you taught design before joining Orchard Pay. Which habit from teaching shows up most in your design reviews?", writer="shared_path", approved=False)],
+      "similar_transition", fact="Taught interaction design at a community college for four years before joining Orchard Pay in 2021",
+      source="https://example.com/priya-raman/about"),
+    P("nikhil-rao", "Nikhil Rao", "Design Manager", "Lumen Freight", "hiring_manager", "message_ready", "Hiring for a product designer on the driver app",
+      [out("Hi Nikhil, I saw the driver app is hiring a product designer. What would the first ninety days look like for that person?", writer="curious_peer", approved=False)],
+      "relevant_work", fact="Posted a product designer opening for the Lumen Freight driver app in September", source="https://example.com/lumen-freight/careers"),
+    P("asha-kini", "Asha Kini", "Content Designer", "Tidewater Health", "team_member", "message_ready", "Writes patient-facing copy, as you wrote lesson plans",
+      [out("Hi Asha, writing for anxious patients sounds a lot like writing for anxious students. How do you test whether a sentence lands?", writer="sharp_observer", approved=False)],
+      "shared_interest", fact="Leads content design for the Tidewater Health patient app", source="linkedin_pdf"),
+    P("vivek-shetty", "Vivek Shetty", "Product Designer", "Orchard Pay", "team_member", "sent", "Moved from architecture into product design",
+      [out("Hi Vivek, you moved from architecture into product design. What did you have to unlearn first?", writer="curious_peer", sent_h=-3)], "similar_transition"),
+    P("ritu-batra", "Ritu Batra", "UX Lead", "Lumen Freight", "hiring_manager", "sent", "Runs the design guild in Bengaluru",
+      [out("Hi Ritu, I have been following the Bengaluru design guild sessions. How do you pick the topics each month?", writer="sharp_observer", sent_h=-2)], "shared_geo"),
+    P("omar-sheikh", "Omar Sheikh", "Design Researcher", "Tidewater Health", "team_member", "sent", "Studies how nurses use tablets on shift",
+      [out("Hi Omar, your study of nurses using tablets on shift caught my eye. What surprised you most?", writer="curious_peer", sent_h=-200)], "relevant_work"),
+] + [Prospect(id=f"saffron-{i}", full_name=n, headline=h, company="Saffron Bank", status="discovered", bucket="team_member")
+     for i, (n, h) in enumerate([("Kavya Iyer", "Product Designer"), ("Manish Gupta", "UX Researcher"), ("Neha Joshi", "Design Lead"),
+                                 ("Arvind Nair", "Senior Product Designer"), ("Sneha Pillai", "Design Manager")])]
 for c in (ananya, vikram):
     store.save(c)
 
@@ -251,6 +286,29 @@ PORTAL_TOKEN = os.environ.get("DEMO_PORTAL_TOKEN") or secrets.token_urlsafe(32)
 ananya.story["portal_token_hash"] = api_module._token_hash(PORTAL_TOKEN)
 ananya.story["portal_token_at"] = iso(-24 * 11)
 store.save(ananya)
+
+
+# ---- customer app sign-in for screenshots, ONLY with KNOCK_DEMO=1 (never in api/index.py) ----
+# The screenshot script stores a fake supabase-js session whose access token is DEMO_ACCESS_TOKEN; this stands in
+# for Supabase's GET /auth/v1/user so that token belongs to Ananya. Any other token is refused, as in production.
+DEMO_ACCESS_TOKEN = os.environ.get("DEMO_ACCESS_TOKEN", "demo-access-token-for-ananya-rao")
+if os.environ.get("KNOCK_DEMO") == "1":
+    def _demo_user(token: str):
+        if token == DEMO_ACCESS_TOKEN:
+            return {"id": "demo-user", "email": "ananya@example.com", "email_confirmed_at": iso(-24 * 11)}
+        return None
+
+    api_module._fetch_supabase_user = _demo_user
+
+
+@app.get("/login", include_in_schema=False)
+def login_page():  # same as the /login rewrite in vercel.json
+    return FileResponse(DEPLOY / "public" / "login" / "index.html")
+
+
+@app.get("/app", include_in_schema=False)
+def app_page():  # same as the /app rewrite in vercel.json
+    return FileResponse(DEPLOY / "public" / "app" / "index.html")
 
 
 @app.get("/portal", include_in_schema=False)

@@ -207,6 +207,7 @@ class Prospect(BaseModel):
     status: str = "discovered"
     source: str = "manual"
     exported_at: str = ""            # when the opener was handed to LGM
+    status_history: list[dict] = []  # outcomes the client or operator set: {"status", "at"} (ISO, UTC)
     facts: list[Fact] = []
     hooks: list[Hook] = []
     messages: list[Message] = []

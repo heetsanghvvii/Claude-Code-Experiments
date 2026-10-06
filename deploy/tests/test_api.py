@@ -452,3 +452,187 @@ def test_portal_hides_drafts_the_review_has_not_cleared(client):
     r1 = next(p for p in c.get("/api/portal/prospects", headers=P(tok)).json()["prospects"] if p["id"] == "r1")
     assert r1["draft"] is None and r1["section"] == "upcoming"
     assert c.get("/api/portal/me", headers=P(tok)).json()["progress"]["ready_to_send"] == 0
+
+
+# ---------- customer app (/app): Supabase email sign-in ----------
+
+import httpx  # noqa: E402
+
+USERS = {"tok-asha-valid-0000000000": "Asha@Example.com", "tok-ben-valid-00000000000": "ben@example.com",
+         "tok-stranger-000000000000": "nobody@example.com", "tok-unconfirmed-00000000": "asha@example.com"}
+
+
+@pytest.fixture
+def auth(client, monkeypatch):
+    """Mock Supabase's GET /auth/v1/user and count the calls."""
+    import api.index as api_module
+    api_module._auth_cache.clear()
+    api_module._upload_counts.clear()
+    calls = []
+
+    def fake_get(url, headers=None, timeout=None):
+        calls.append((url, headers))
+        assert url == "https://x.supabase.co/auth/v1/user" and headers["apikey"] == "sb_publishable_x"
+        token = headers["Authorization"].removeprefix("Bearer ")
+        req = httpx.Request("GET", url)
+        if token not in USERS:
+            return httpx.Response(401, json={"msg": "invalid JWT"}, request=req)
+        user = {"id": "u1", "email": USERS[token], "email_confirmed_at": None if "unconfirmed" in token else "2026-10-01T00:00:00Z"}
+        return httpx.Response(200, json=user, request=req)
+
+    monkeypatch.setattr(api_module.httpx, "get", fake_get)
+    c, fake = client
+    seed_portal()
+    for cid, email in (("asha-1", "asha@example.com"), ("ben-2", "BEN@example.com")):
+        cand = store.load(cid)
+        cand.story = {**cand.story, "email": email}
+        store.save(cand)
+    return c, fake, calls
+
+
+def B(token):
+    return {"authorization": f"Bearer {token}"}
+
+
+ASHA, BEN = B("tok-asha-valid-0000000000"), B("tok-ben-valid-00000000000")
+
+
+def test_public_config_serves_env_not_hardcoded(client):
+    c, _ = client
+    assert c.get("/api/public-config").json() == {"supabase_url": "https://x.supabase.co", "supabase_key": "sb_publishable_x"}
+
+
+def test_valid_token_maps_to_candidate_and_is_cached(auth):
+    c, _, calls = auth
+    me = c.get("/api/me", headers=ASHA).json()
+    assert me["name"] == "Asha" and me["email"] == "asha@example.com"
+    assert me["today"]["cap"] == 15 and me["today"]["batch"] == ["r1"] and me["tasks"]["to_send"] == 1
+    assert me["plan"]["package_label"] == "Standard" and me["plan"]["people_included"] == 120
+    assert c.get("/api/me/prospects", headers=ASHA).status_code == 200
+    assert len(calls) == 1                                    # second request served from the 60 second cache
+
+
+def test_unknown_email_is_403_with_onboarding_link(auth):
+    c, _, _ = auth
+    r = c.get("/api/me", headers=B("tok-stranger-000000000000"))
+    assert r.status_code == 403
+    d = r.json()["detail"]
+    assert d["message"] == "We could not find a Knock account for this email." and d["onboarding_url"] == "/start"
+
+
+def test_invalid_missing_or_unconfirmed_token_is_401(auth):
+    c, _, _ = auth
+    for h in ({}, {"authorization": "tok-asha-valid-0000000000"}, B("short"), B("tok-forged-00000000000000"),
+              B("tok-unconfirmed-00000000"), B("x" * 5000)):
+        assert c.get("/api/me", headers=h).status_code == 401
+        assert c.post("/api/me/prospects/r1/sent", headers=h).status_code == 401
+    assert c.get("/api/me/profile", headers=B("tok-forged-00000000000000")).status_code == 401
+
+
+def test_me_isolation_and_no_internal_fields(auth):
+    c, _, _ = auth
+    body = c.get("/api/me/prospects", headers=ASHA).json()
+    assert {p["id"] for p in body["prospects"]} == {"r1", "n1"}
+    text = str(body) + str(c.get("/api/me", headers=ASHA).json()) + str(c.get("/api/me/activity", headers=ASHA).json())
+    text += str(c.get("/api/me/profile", headers=ASHA).json())
+    for leak in ("SECRET JUDGE NOTE", "curious_peer", "judge_reason", "writer", "alternatives", "Xavier", "usd", "playbook",
+                 "portal_token_hash", "review_notes"):
+        assert leak not in text
+    assert c.post("/api/me/prospects/x1/skip", headers=ASHA).status_code == 404       # Ben's person
+    assert c.post("/api/me/prospects/r1/sent", headers=BEN).status_code == 404        # Asha's person
+    assert [p["id"] for p in c.get("/api/me/prospects", headers=BEN).json()["prospects"]] == ["x1"]
+    assert store.get_prospect(store.load("ben-2"), "x1").status == "message_ready"
+
+
+def test_me_actions_mirror_portal(auth, monkeypatch):
+    c, fake, _ = auth
+    import outreach.feedback as fb
+    monkeypatch.setattr(fb, "record_edit", lambda *a: None)
+    assert c.post("/api/me/prospects/r1/reply", headers=ASHA, json={"text": "too early"}).status_code == 409
+    assert c.post("/api/me/prospects/r1/approve", headers=ASHA, json={"body": "Hey Rahul, mine"}).json()["status"] == "approved"
+    assert c.post("/api/me/prospects/r1/sent", headers=ASHA).json()["status"] == "sent"
+    assert c.get("/api/me", headers=ASHA).json()["today"]["sent_today"] == 1
+    assert c.post("/api/me/prospects/r1/reply", headers=ASHA, json={"text": "Happy to talk."}).json()["status"] == "replied"
+    assert fake.tables["inbound_replies"][-1]["candidate_id"] == "asha-1"
+    assert c.post("/api/me/prospects/r1/status", headers=ASHA, json={"status": "skipped"}).status_code == 422
+    assert c.post("/api/me/prospects/r1/status", headers=ASHA, json={"status": "referral"}).json()["status"] == "referral"
+    view = next(p for p in c.get("/api/me/prospects", headers=ASHA).json()["prospects"] if p["id"] == "r1")
+    assert view["status_at"] and view["first_sent_at"]
+    kinds = [e["kind"] for e in c.get("/api/me/activity", headers=ASHA).json()["events"]]
+    assert {"sent", "status", "reply_added"} <= set(kinds)
+
+
+def test_pacing_cap_counts_sends_today_in_ist(auth):
+    c, _, _ = auth
+    cand = store.load("asha-1")
+    now = __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(timespec="seconds")
+    cand.prospects += [Prospect(id=f"o{i}", full_name=f"Person {i}", company="Zepto", status="message_ready",
+                                messages=[Message(direction="outbound", step=1, body=f"Hi {i}", created_at=now)]) for i in range(20)]
+    cand.prospects += [Prospect(id=f"s{i}", full_name=f"Sent {i}", status="sent",
+                                messages=[Message(direction="outbound", step=1, body="Hi", created_at=now, sent_at=now)]) for i in range(3)]
+    cand.prospects.append(Prospect(id="old", full_name="Old", status="sent", messages=[
+        Message(direction="outbound", step=1, body="Hi", created_at=now, sent_at="2026-01-01T10:00:00+00:00")]))
+    store.save(cand)
+    today = c.get("/api/me", headers=ASHA).json()["today"]
+    assert today["sent_today"] == 3 and today["remaining"] == 12 and len(today["batch"]) == 12
+    assert today["ready"] == 21 and today["later"] == 9
+    people = c.get("/api/me/prospects", headers=ASHA).json()["prospects"]
+    assert sum(p["in_batch"] for p in people) == 12
+    assert next(p for p in people if p["id"] == "old")["stale"] is True
+    assert c.get("/api/me", headers=ASHA).json()["tasks"]["stale"] == ["old"]
+    # Everything sent today: the batch is empty, and the client is done for the day.
+    for p in cand.prospects:
+        if p.id[:1] == "o" and p.id[1:].isdigit() and int(p.id[1:]) < 12:
+            p.messages[0].sent_at, p.status = now, "sent"
+    store.save(cand)
+    today = c.get("/api/me", headers=ASHA).json()["today"]
+    assert today["remaining"] == 0 and today["batch"] == []
+
+
+def test_profile_patch_validation_and_research_queue(auth):
+    c, _, _ = auth
+    prof = c.get("/api/me/profile", headers=ASHA).json()
+    assert prof["target_companies"] == ["Zepto"] and prof["email"] == "asha@example.com"
+    bad = [{"tier": "done_for_you"}, {"story": {"portal_token_hash": "x"}}, {"target_roles": ["  "]},
+           {"target_companies": []}, {"tone": "shouty"}, {"target_roles": ["a", "b", "c", "d"]},
+           {"story": {"why_now": "x" * 1501}}, {"target_companies": ["x" * 121]}]
+    for b in bad:
+        assert c.patch("/api/me/profile", headers=ASHA, json=b).status_code == 422, b
+    cand = store.load("asha-1")
+    cand.discovered = {"Zepto": "2026-10-01T00:00:00+00:00"}
+    store.save(cand)
+    r = c.patch("/api/me/profile", headers=ASHA, json={
+        "target_companies": ["Zepto", "CRED", "cred", " Swiggy "], "top_companies": ["Swiggy", "Nowhere"],
+        "story": {"why_now": "Ready to own a product at a consumer company after 3 years at Blinkit."},
+        "tone": "casual", "never_say": "my notice period", "off_limits": {"current_employer": "Blinkit"}}).json()
+    assert r["research_queued"] == ["CRED", "Swiggy"]
+    cand = store.load("asha-1")
+    assert cand.target_companies == ["Zepto", "CRED", "Swiggy"] and cand.story["top_companies"] == ["Swiggy"]
+    assert cand.discovered == {"Zepto": "2026-10-01T00:00:00+00:00"} and cand.story["tone"] == "casual"
+    assert cand.story["off_limits"]["current_employer"] == "Blinkit" and cand.story["research_requested_at"]
+    assert cand.story["email"] == "asha@example.com"                     # untouched
+    # A new role re-opens research at every company.
+    r = c.patch("/api/me/profile", headers=ASHA, json={"target_roles": ["Growth Lead"]}).json()
+    assert r["research_queued"] == ["Zepto", "CRED", "Swiggy"] and store.load("asha-1").discovered == {}
+    assert c.patch("/api/me/profile", headers=BEN, json={"tone": "formal"}).status_code == 200
+    assert store.load("asha-1").story["tone"] == "casual"                 # Ben's edit only touched Ben
+
+
+def test_me_files_upload_needs_sign_in(auth):
+    c, fake, _ = auth
+    fake.tables["candidate_files"] = []
+    files = {"file": ("Profile.pdf", PROFILE, "application/pdf")}
+    assert c.post("/api/me/files", data={"kind": "linkedin_pdf"}, files=files).status_code == 401
+    assert c.post("/api/me/files", headers=B("tok-forged-00000000000000"), data={"kind": "linkedin_pdf"}, files=files).status_code == 401
+    assert c.post("/api/me/files", headers=B("tok-stranger-000000000000"), data={"kind": "cv"}, files=files).status_code == 403
+    assert fake.tables["candidate_files"] == []
+    assert c.post("/api/me/files", headers=ASHA, data={"kind": "photo"}, files=files).status_code == 422
+    assert c.post("/api/me/files", headers=ASHA, data={"kind": "cv"}, files={"file": ("cv.docx", b"nope", "x")}).status_code == 415
+    r = c.post("/api/me/files", headers=ASHA, data={"kind": "linkedin_pdf"}, files=files)
+    assert r.status_code == 200 and set(r.json()) == {"ok", "id", "kind", "filename", "size_bytes", "characters"}
+    row = fake.tables["candidate_files"][0]
+    assert row["candidate_id"] == "asha-1" and row["kind"] == "linkedin_pdf"
+    cand = store.load("asha-1")
+    assert "Zepto" in cand.story["linkedin_text"] and cand.story["uploads"][0]["filename"] == "Profile.pdf"
+    prof = c.get("/api/me/profile", headers=ASHA).json()
+    assert prof["facts_pending"] is True and prof["files"][0]["kind"] == "linkedin_pdf" and "linkedin_text" not in str(prof)

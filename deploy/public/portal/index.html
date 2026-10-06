@@ -210,7 +210,7 @@ footer a{color:var(--white)}
       <svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="2.5" width="22" height="27" rx="2"/><circle cx="16" cy="12" r="3"/><path d="M12.6 15.2a5.2 5.2 0 1 0 6.8 0"/></svg>
       Knock <small>your portal</small>
     </a>
-    <span class="who-am-i" id="whoami"></span>
+    <span class="who-am-i"><span id="whoami"></span> <a href="/login">Sign in with email</a></span>
   </div>
 </header>
 
@@ -229,6 +229,16 @@ footer a{color:var(--white)}
 (function(){
   "use strict";
   var STORE = "knock_portal_t";
+  // Signed in to the customer app on this device (supabase-js keeps sb-<project>-auth-token)? Use /app instead.
+  try {
+    for (var i = 0; i < localStorage.length; i++) {
+      if (/^sb-.+-auth-token$/.test(localStorage.key(i) || "")) {
+        var q0 = new URLSearchParams(location.search);
+        if (q0.get("t")) { try { localStorage.setItem(STORE, q0.get("t")); } catch (e) {} }
+        location.replace("/app"); return;
+      }
+    }
+  } catch (e) {}
   var TOKEN = "", ME = null, PEOPLE = [], EDITING = {}, OPEN_PASTE = {};
   var $ = function(s, r){ return (r || document).querySelector(s); };
   var esc = function(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); };

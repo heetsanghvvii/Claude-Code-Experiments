@@ -5,3 +5,4 @@ export * from './rng';
 export * from './teams';
 export * from './tagging';
 export * from './engine';
+export * from './code';

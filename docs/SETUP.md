@@ -99,7 +99,7 @@ Options:
 
 If you run the script as root, it runs `initdb` and Postgres as the `postgres` user automatically.
 
-Keep the migrations and the engine in step. `docs/STRUCTURE.md` explains that the rules currently exist twice (TypeScript and PL/pgSQL), and parity tests are planned.
+Keep the migrations and the engine in step. `docs/STRUCTURE.md` explains that the rules currently exist twice (TypeScript and PL/pgSQL), and `docs/PARITY.md` describes the parity tests that keep them in step (`bash supabase/tests/run.sh parity`).
 
 ## 6. Run the app
 

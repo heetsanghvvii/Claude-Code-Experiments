@@ -13,7 +13,7 @@ export interface ProximityEvidence {
  * Decides whether GPS readings corroborate a tag.
  *
  * Rules (conservative, to avoid false eliminations):
- * - readings with accuracy worse than `maxAccuracyM`, from the future, or outside the
+ * - readings flagged `isMocked`, with accuracy worse than `maxAccuracyM`, from the future, or outside the
  *   window [tag.createdAt - tagConfirmWindowMs, tag.createdAt + tagConfirmWindowMs] are ignored;
  * - each hunter reading is paired with the closest-in-time unused runner reading within
  *   `pairMaxSkewMs`; each reading is used at most once, so readings cannot be double-counted;
@@ -29,6 +29,7 @@ export function evaluateProximity(
   const lo = tag.createdAt - config.tagConfirmWindowMs;
   const hi = Math.min(now, tag.createdAt + config.tagConfirmWindowMs);
   const usable = (r: LocationReading) =>
+    r.isMocked !== true &&
     Number.isFinite(r.accuracyM) &&
     r.accuracyM >= 0 &&
     r.accuracyM <= config.maxAccuracyM &&

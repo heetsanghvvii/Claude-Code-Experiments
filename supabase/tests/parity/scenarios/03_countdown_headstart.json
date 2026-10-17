@@ -1,0 +1,92 @@
+[
+  {
+    "name": "countdown-to-active",
+    "description": "COUNTDOWN becomes ACTIVE exactly at active_at (start + 10 s); nothing ticks early",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "r1", "x"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "r1" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1", "expect": { "status": "COUNTDOWN", "times": { "activeAt": 15, "huntersReleasedAt": 75, "endsAt": 615, "endedAt": null } } },
+      { "at": 6, "do": "location", "as": "r1", "expect": { "error": "WRONG_STATUS" } },
+      { "at": 7, "do": "tag", "as": "h1", "tag": "t0", "runner": "r1", "expect": { "error": "WRONG_STATUS" } },
+      { "at": 8, "do": "advance", "as": "x", "expect": { "error": "NOT_A_PLAYER" } },
+      { "at": 14, "do": "advance", "as": "r1", "expect": { "status": "COUNTDOWN", "events": [] } },
+      { "at": 15, "do": "advance", "as": "r1", "expect": { "status": "ACTIVE", "huntersReleased": false, "events": ["GAME_STARTED"] } },
+      { "at": 16, "do": "advance", "as": "h1", "expect": { "status": "ACTIVE", "events": [] } },
+      { "at": 20, "do": "cancel", "as": "h1", "expect": { "error": "WRONG_STATUS", "status": "ACTIVE" } }
+    ]
+  },
+  {
+    "name": "countdown-host-cancel",
+    "description": "Host may cancel during COUNTDOWN; others may not",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "r1"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "r1" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 7, "do": "cancel", "as": "r1", "expect": { "error": "NOT_HOST" } },
+      { "at": 8, "do": "cancel", "as": "h1", "expect": { "status": "CANCELLED", "endReason": "HOST_CANCELLED", "winner": null, "times": { "endedAt": 8 }, "events": ["GAME_CANCELLED"] } },
+      { "at": 15, "do": "advance", "as": "h1", "expect": { "status": "CANCELLED", "events": [] } }
+    ]
+  },
+  {
+    "name": "countdown-runner-leaves",
+    "description": "If a team empties during COUNTDOWN the game is cancelled (PLAYERS_LEFT), not won",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "r1"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "r1" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 9, "do": "leave", "as": "r1", "expect": { "status": "CANCELLED", "endReason": "PLAYERS_LEFT", "players": { "r1": "LEFT" }, "events": ["PLAYER_LEFT:r1", "GAME_CANCELLED"] } }
+    ]
+  },
+  {
+    "name": "countdown-long-gap",
+    "description": "One late tick applies every due transition in order: start, release, deadline",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "r1"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "r1" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 900, "do": "advance", "as": "r1", "expect": { "status": "COMPLETED", "winner": "RUNNERS", "endReason": "TIME_EXPIRED", "times": { "endedAt": 615 }, "snapshots": 0, "events": ["GAME_STARTED", "HUNTERS_RELEASED", "GAME_COMPLETED"] } }
+    ]
+  },
+  {
+    "name": "head-start",
+    "description": "No tags before hunters_released_at (active_at + head start); allowed exactly at it. Runners may report during head start; no snapshot until release.",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "h2", "r1", "r2", "x"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "h2" },
+      { "at": 2, "do": "join", "as": "r1" },
+      { "at": 3, "do": "join", "as": "r2" },
+      { "at": 4, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 4, "do": "setRole", "as": "h1", "player": "h2", "role": "HUNTER" },
+      { "at": 4, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 4, "do": "setRole", "as": "h1", "player": "r2", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 15, "do": "tag", "as": "h1", "tag": "t0", "runner": "r1", "expect": { "error": "HEAD_START", "status": "COUNTDOWN" } },
+      { "at": 16, "do": "location", "as": "r1", "expect": { "ok": true, "status": "ACTIVE", "events": ["GAME_STARTED"] } },
+      { "at": 74, "do": "tag", "as": "h1", "tag": "t0", "runner": "r1", "expect": { "error": "HEAD_START" } },
+      { "at": 74, "do": "location", "as": "r1", "expect": { "huntersReleased": false, "snapshots": 0 } },
+      { "at": 75, "do": "tag", "as": "r1", "tag": "t1", "runner": "r2", "expect": { "error": "NOT_HUNTER" } },
+      { "at": 75, "do": "tag", "as": "h1", "tag": "t2", "runner": "h2", "expect": { "error": "NOT_RUNNER" } },
+      { "at": 75, "do": "tag", "as": "h1", "tag": "t3", "runner": "x", "expect": { "error": "NOT_RUNNER" } },
+      { "at": 75, "do": "tag", "as": "x", "tag": "t4", "runner": "r1", "expect": { "error": "NOT_HUNTER" } },
+      { "at": 75, "do": "tag", "as": "h1", "tag": "t5", "runner": "r1", "expect": { "huntersReleased": true, "tags": { "t5": { "status": "PENDING", "createdAt": 75 } }, "snapshots": [{ "runner": "r1", "recordedAt": 74, "releasedAt": 75 }], "events": ["HUNTERS_RELEASED", "TAG_REQUESTED:t5"] } }
+    ]
+  }
+]

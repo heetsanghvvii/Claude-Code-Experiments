@@ -41,7 +41,7 @@ Rated by likelihood x impact. Each risk has a mitigation and says where in the c
 | Hunters seeing unreleased runner locations | Breaks the core rule | `player_locations` is readable only by its owner. Hunters read only `location_snapshots` rows with `released_at <= now()` for their own game (RLS). Snapshots are inserted with `released_at` already set by the server, so no unreleased snapshot rows exist for hunters to see. Covered by SQL tests. |
 | Realtime `postgres_changes` and RLS | Leaks if misconfigured | Realtime applies RLS for `authenticated`. Publish only `games`, `game_players`, `location_snapshots`, `game_events`, never `player_locations`. |
 | Nothing ticks the server clock (no cron) | Games never end | `advance_game` is called on every RPC and by any client polling; schedule it with `pg_cron` each minute in production. Its result is idempotent. |
-| Rules duplicated in TS and SQL | Drift | Parity tests (planned). |
+| Rules duplicated in TS and SQL | Drift | Parity tests: shared JSON scenarios run against both, step by step (`docs/PARITY.md`). |
 
 ## 5. Known gaps found while testing
 

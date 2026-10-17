@@ -1,0 +1,89 @@
+[
+  {
+    "name": "immutable-after-completion",
+    "description": "After COMPLETED every command is refused with GAME_FINISHED (or is a pure idempotent replay) and nothing changes",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "h2", "r1", "x"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "h2" },
+      { "at": 2, "do": "join", "as": "r1" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h2", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 80, "do": "tag", "as": "h2", "tag": "t0", "runner": "r1" },
+      { "at": 81, "do": "withdraw", "as": "h2", "tag": "t0" },
+      { "at": 85, "do": "tag", "as": "h2", "tag": "t2", "runner": "r1" },
+      { "at": 90, "do": "tag", "as": "h1", "tag": "t1", "runner": "r1" },
+      { "at": 91, "do": "ack", "as": "r1", "tag": "t1", "expect": { "status": "COMPLETED", "winner": "HUNTERS", "tags": { "t2": "REJECTED", "t0": "REJECTED" } } },
+      { "at": 92, "do": "leave", "as": "h2", "expect": { "error": "GAME_FINISHED" } },
+      { "at": 92, "do": "assignTeams", "as": "h1", "expect": { "error": "GAME_FINISHED" } },
+      { "at": 92, "do": "setRole", "as": "h1", "player": "r1", "role": "HUNTER", "expect": { "error": "GAME_FINISHED" } },
+      { "at": 92, "do": "start", "as": "h1", "expect": { "error": "GAME_FINISHED" } },
+      { "at": 92, "do": "start", "as": "h2", "expect": { "error": "GAME_FINISHED" } },
+      { "at": 92, "do": "cancel", "as": "h1", "expect": { "error": "GAME_FINISHED" } },
+      { "at": 92, "do": "location", "as": "h1", "expect": { "error": "WRONG_STATUS" } },
+      { "at": 92, "do": "tag", "as": "h1", "tag": "t3", "runner": "r1", "expect": { "error": "GAME_FINISHED" } },
+      { "at": 92, "do": "tag", "as": "h1", "tag": "t1", "runner": "r1", "expect": { "ok": true, "events": [] } },
+      { "at": 92, "do": "ack", "as": "r1", "tag": "t1", "expect": { "ok": true, "events": [] } },
+      { "at": 92, "do": "ack", "as": "r1", "tag": "t2", "expect": { "error": "GAME_FINISHED" } },
+      { "at": 92, "do": "withdraw", "as": "h2", "tag": "t2", "expect": { "ok": true, "events": [] } },
+      { "at": 92, "do": "withdraw", "as": "h1", "tag": "t1", "expect": { "error": "GAME_FINISHED" } },
+      { "at": 92, "do": "advance", "as": "x", "expect": { "error": "NOT_A_PLAYER" } },
+      { "at": 9999, "do": "advance", "as": "r1", "expect": { "ok": true, "status": "COMPLETED", "endReason": "ALL_RUNNERS_ELIMINATED", "times": { "endedAt": 91 }, "events": [] } },
+      {
+        "at": 9999, "do": "join", "as": "x",
+        "divergence": { "reason": "SQL looks games up by code among live games only, so a finished game's code is GAME_NOT_FOUND (the code is released for reuse); the engine has no codes.", "fields": ["result"], "engine": { "error": "GAME_FINISHED" }, "sql": { "error": "GAME_NOT_FOUND" } }
+      }
+    ]
+  },
+  {
+    "name": "lobby-timeout",
+    "description": "A LOBBY is cancelled lobby_timeout (1800 s) after creation, exactly at the boundary, with ended_at at the timeout; a call that fails rolls the timeout back until the next successful tick",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["host", "a", "b"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "host" },
+      { "at": 1, "do": "join", "as": "a" },
+      { "at": 1799, "do": "advance", "as": "a", "expect": { "status": "LOBBY" } },
+      { "at": 1800, "do": "join", "as": "b", "expect": { "error": "GAME_FINISHED", "status": "LOBBY" } },
+      { "at": 1800, "do": "start", "as": "host", "expect": { "error": "GAME_FINISHED", "status": "LOBBY" } },
+      { "at": 1801, "do": "advance", "as": "a", "expect": { "status": "CANCELLED", "endReason": "LOBBY_TIMEOUT", "winner": null, "times": { "endedAt": 1800 }, "events": ["GAME_CANCELLED"] } },
+      { "at": 1802, "do": "leave", "as": "a", "expect": { "error": "GAME_FINISHED" } },
+      { "at": 1802, "do": "cancel", "as": "host", "expect": { "error": "GAME_FINISHED" } },
+      { "at": 1802, "do": "setRole", "as": "host", "player": "a", "role": "RUNNER", "expect": { "error": "GAME_FINISHED", "players": { "a": { "role": null } } } }
+    ]
+  },
+  {
+    "name": "lobby-host-handoff",
+    "description": "When the host leaves a LOBBY the earliest remaining joiner becomes host; when the last player leaves the lobby is cancelled",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["host", "a", "b"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "host" },
+      { "at": 1, "do": "join", "as": "a" },
+      { "at": 2, "do": "join", "as": "b" },
+      { "at": 3, "do": "leave", "as": "b", "expect": { "host": "host", "players": {}, "events": ["PLAYER_LEFT:b"] } },
+      { "at": 4, "do": "join", "as": "b" },
+      { "at": 5, "do": "leave", "as": "host", "expect": { "host": "a", "events": ["PLAYER_LEFT:host"] } },
+      { "at": 6, "do": "cancel", "as": "b", "expect": { "error": "NOT_HOST" } },
+      { "at": 6, "do": "leave", "as": "host", "expect": { "error": "NOT_A_PLAYER" } },
+      { "at": 7, "do": "leave", "as": "a", "expect": { "host": "b" } },
+      { "at": 8, "do": "leave", "as": "b", "expect": { "status": "CANCELLED", "endReason": "HOST_CANCELLED", "times": { "endedAt": 8 }, "events": ["PLAYER_LEFT:b", "GAME_CANCELLED"] } }
+    ]
+  },
+  {
+    "name": "lobby-host-cancel",
+    "description": "Only the host can cancel a lobby",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["host", "a"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "host" },
+      { "at": 1, "do": "join", "as": "a" },
+      { "at": 2, "do": "cancel", "as": "a", "expect": { "error": "NOT_HOST" } },
+      { "at": 3, "do": "cancel", "as": "host", "expect": { "status": "CANCELLED", "endReason": "HOST_CANCELLED", "times": { "endedAt": 3 } } },
+      { "at": 4, "do": "join", "as": "a", "divergence": { "reason": "finished game's code is no longer live in SQL", "fields": ["result"], "engine": { "error": "GAME_FINISHED" }, "sql": { "error": "GAME_NOT_FOUND" } } }
+    ]
+  }
+]

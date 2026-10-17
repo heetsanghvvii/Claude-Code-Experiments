@@ -191,6 +191,8 @@ describe('GPS proximity evidence', () => {
     ['time skew over pairMaxSkewMs', (r: ReturnType<typeof reading>) => (r.playerId === 'r1' ? { ...r, recordedAt: r.recordedAt + 5_001 } : r)],
     ['future readings', (r: ReturnType<typeof reading>) => ({ ...r, recordedAt: r.recordedAt + 60_000 })],
     ['readings before the window', (r: ReturnType<typeof reading>) => ({ ...r, recordedAt: r.recordedAt - 60_000 })],
+    ['mocked hunter readings', (r: ReturnType<typeof reading>) => (r.playerId === 'h1' ? { ...r, isMocked: true } : r)],
+    ['mocked runner readings', (r: ReturnType<typeof reading>) => (r.playerId === 'r1' ? { ...r, isMocked: true } : r)],
   ])('rejects evidence with %s', (_name, mod) => {
     const ev = evaluateProximity(t, twoPairs(mod), cfg, now);
     expect(ev.sufficient).toBe(false);
@@ -262,6 +264,14 @@ describe('win conditions', () => {
     const r = ok(leaveGame(started(), 'h1', ACTIVE_AT - SEC));
     expect(r.state.status).toBe('CANCELLED');
     expect(r.state.winner).toBeNull();
+  });
+
+  it('an eliminated runner who leaves stays ELIMINATED (the elimination is never erased)', () => {
+    const s = ok(acknowledgeTag(ok(tag(hunting())).state, 't1', 'r1', RELEASE_AT + 2 * SEC)).state;
+    const r = ok(leaveGame(s, 'r1', RELEASE_AT + 3 * SEC));
+    expect(r.events).toEqual([]);
+    expect(r.state.players.r1!.status).toBe('ELIMINATED');
+    expect(r.state.players.r1!.eliminatedAt).toBe(RELEASE_AT + 2 * SEC);
   });
 });
 

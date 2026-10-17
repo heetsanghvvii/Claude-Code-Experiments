@@ -191,7 +191,8 @@ export function leaveGame(state: GameState, playerId: string, now: Millis): Resu
     if (isFinished(s)) return 'GAME_FINISHED';
     const p = s.players[playerId];
     if (!p) return 'NOT_A_PLAYER';
-    if (p.status === 'LEFT') return; // idempotent
+    // Idempotent; an ELIMINATED player who leaves keeps their result (and SQL's status/eliminated_at check holds).
+    if (p.status !== 'ACTIVE') return;
     if (s.status === 'LOBBY') {
       delete s.players[playerId];
       ev.push({ type: 'PLAYER_LEFT', at: now, playerId });

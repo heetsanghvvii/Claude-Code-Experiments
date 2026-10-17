@@ -1,0 +1,74 @@
+[
+  {
+    "name": "snapshot-release-timing",
+    "description": "First snapshot at hunters_released_at, then one per interval measured from the previous release; latest fresh reading per ACTIVE runner; stale, missing and eliminated runners left out (a round with no fresh reading releases nothing but still resets the interval); failed calls and idempotent replays release nothing; none at or after the deadline",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "r1", "r2"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "r1" },
+      { "at": 2, "do": "join", "as": "r2" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r2", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 70, "do": "location", "as": "r1", "expect": { "events": ["GAME_STARTED"] } },
+      { "at": 74, "do": "location", "as": "r1", "northM": 20 },
+      { "at": 74, "do": "advance", "as": "h1", "expect": { "snapshots": 0 } },
+      { "at": 75, "do": "advance", "as": "h1", "expect": { "snapshots": [{ "runner": "r1", "recordedAt": 74, "releasedAt": 75 }], "events": ["HUNTERS_RELEASED"] } },
+      { "at": 80, "do": "location", "as": "r1" },
+      { "at": 100, "do": "location", "as": "r1" },
+      { "at": 104, "do": "advance", "as": "h1", "expect": { "snapshots": 1 } },
+      { "at": 105, "do": "advance", "as": "h1", "expect": { "snapshots": 2 } },
+      { "at": 115, "do": "location", "as": "r2" },
+      { "at": 140, "do": "advance", "as": "h1", "expect": { "snapshots": 3 } },
+      { "at": 141, "do": "location", "as": "r2" },
+      { "at": 141, "do": "tag", "as": "h1", "tag": "t1", "runner": "r2" },
+      { "at": 142, "do": "ack", "as": "r2", "tag": "t1", "expect": { "players": { "r2": "ELIMINATED" }, "status": "ACTIVE" } },
+      { "at": 150, "do": "location", "as": "r2", "expect": { "error": "NOT_A_PLAYER" } },
+      { "at": 160, "do": "location", "as": "r1" },
+      { "at": 170, "do": "advance", "as": "h1", "expect": { "snapshots": 4 } },
+      { "at": 195, "do": "location", "as": "r1" },
+      { "at": 200, "do": "location", "as": "r2", "expect": { "error": "NOT_A_PLAYER", "snapshots": 4 } },
+      { "at": 201, "do": "advance", "as": "h1", "expect": { "snapshots": 5 } },
+      { "at": 225, "do": "location", "as": "r1" },
+      { "at": 232, "do": "tag", "as": "h1", "tag": "t1", "runner": "r2", "expect": { "ok": true, "snapshots": 5, "events": [] } },
+      { "at": 233, "do": "advance", "as": "h1", "expect": { "snapshots": 6 } },
+      { "at": 580, "do": "advance", "as": "h1", "expect": { "snapshots": 6 } },
+      { "at": 600, "do": "location", "as": "r1" },
+      { "at": 610, "do": "advance", "as": "h1", "expect": { "snapshots": 7 } },
+      {
+        "at": 615, "do": "advance", "as": "h1",
+        "expect": {
+          "status": "COMPLETED", "winner": "RUNNERS", "endReason": "TIME_EXPIRED", "events": ["GAME_COMPLETED"],
+          "snapshots": [
+            { "runner": "r1", "recordedAt": 74, "releasedAt": 75 },
+            { "runner": "r1", "recordedAt": 100, "releasedAt": 105 },
+            { "runner": "r2", "recordedAt": 115, "releasedAt": 140 },
+            { "runner": "r1", "recordedAt": 160, "releasedAt": 170 },
+            { "runner": "r1", "recordedAt": 195, "releasedAt": 201 },
+            { "runner": "r1", "recordedAt": 225, "releasedAt": 233 },
+            { "runner": "r1", "recordedAt": 600, "releasedAt": 610 }
+          ]
+        }
+      },
+      { "at": 650, "do": "advance", "as": "h1", "expect": { "snapshots": 7, "events": [] } }
+    ]
+  },
+  {
+    "name": "snapshot-backdated-reading",
+    "description": "A reading sent late (recorded 20 s before it arrives) is used by its device time; the newest recorded_at wins, not the newest arrival",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "r1"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "r1" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 72, "do": "location", "as": "r1", "northM": 5 },
+      { "at": 74, "do": "location", "as": "r1", "northM": 30, "ago": 20 },
+      { "at": 75, "do": "advance", "as": "h1", "expect": { "snapshots": [{ "runner": "r1", "recordedAt": 72, "releasedAt": 75 }] } }
+    ]
+  }
+]

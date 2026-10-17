@@ -1,0 +1,75 @@
+[
+  {
+    "name": "team-constraints",
+    "description": "Who may assign or set roles, when, and what start_game requires (min players, every role set, one of each team)",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["host", "a", "b", "c"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "host", "expect": { "status": "LOBBY", "host": "host", "events": ["PLAYER_JOINED:host"] } },
+      { "at": 1, "do": "assignTeams", "as": "host", "expect": { "error": "NOT_ENOUGH_PLAYERS" } },
+      { "at": 1, "do": "start", "as": "host", "expect": { "error": "NOT_ENOUGH_PLAYERS" } },
+      { "at": 2, "do": "join", "as": "a", "expect": { "events": ["PLAYER_JOINED:a"] } },
+      { "at": 3, "do": "assignTeams", "as": "a", "expect": { "error": "NOT_HOST" } },
+      { "at": 3, "do": "start", "as": "host", "expect": { "error": "TEAMS_NOT_ASSIGNED" } },
+      { "at": 4, "do": "setRole", "as": "host", "player": "host", "role": "HUNTER", "expect": { "events": ["ROLE_SET:host"] } },
+      { "at": 4, "do": "setRole", "as": "host", "player": "a", "role": "HUNTER" },
+      { "at": 5, "do": "start", "as": "host", "expect": { "error": "TEAMS_NOT_ASSIGNED", "status": "LOBBY" } },
+      { "at": 6, "do": "setRole", "as": "host", "player": "a", "role": "RUNNER", "expect": { "players": { "a": { "role": "RUNNER" } } } },
+      { "at": 7, "do": "join", "as": "b", "expect": { "roleCounts": { "HUNTER": 1, "RUNNER": 1, "NONE": 1 } } },
+      { "at": 8, "do": "start", "as": "host", "expect": { "error": "TEAMS_NOT_ASSIGNED" } },
+      { "at": 9, "do": "setRole", "as": "a", "player": "b", "role": "RUNNER", "expect": { "error": "NOT_HOST" } },
+      { "at": 9, "do": "setRole", "as": "host", "player": "c", "role": "RUNNER", "expect": { "error": "NOT_A_PLAYER" } },
+      { "at": 10, "do": "setRole", "as": "host", "player": "b", "role": "RUNNER", "expect": { "events": ["ROLE_SET:b"] } },
+      { "at": 10, "do": "setRole", "as": "host", "player": "b", "role": "RUNNER", "expect": { "ok": true } },
+      { "at": 11, "do": "start", "as": "a", "expect": { "error": "NOT_HOST" } },
+      { "at": 12, "do": "start", "as": "host", "expect": { "status": "COUNTDOWN", "times": { "activeAt": 22, "huntersReleasedAt": 82, "endsAt": 622 }, "events": ["COUNTDOWN_STARTED"] } },
+      { "at": 13, "do": "start", "as": "host", "expect": { "error": "WRONG_STATUS" } },
+      { "at": 13, "do": "setRole", "as": "host", "player": "b", "role": "HUNTER", "expect": { "error": "WRONG_STATUS" } },
+      { "at": 13, "do": "assignTeams", "as": "host", "expect": { "error": "WRONG_STATUS" } },
+      {
+        "at": 14, "do": "assignTeams", "as": "a",
+        "divergence": {
+          "reason": "Check order: the engine checks status before host; SQL (_require_host_lobby) checks host before status. Both reject.",
+          "fields": ["result"],
+          "engine": { "error": "WRONG_STATUS" },
+          "sql": { "error": "NOT_HOST" }
+        }
+      },
+      { "at": 14, "do": "join", "as": "c", "expect": { "error": "WRONG_STATUS" } }
+    ]
+  },
+  {
+    "name": "team-game-full",
+    "description": "max_players (20) is enforced on join",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["host", "p01", "p02", "p03", "p04", "p05", "p06", "p07", "p08", "p09", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "p20"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "host" },
+      { "at": 1, "do": "join", "as": "p01" }, { "at": 2, "do": "join", "as": "p02" }, { "at": 3, "do": "join", "as": "p03" },
+      { "at": 4, "do": "join", "as": "p04" }, { "at": 5, "do": "join", "as": "p05" }, { "at": 6, "do": "join", "as": "p06" },
+      { "at": 7, "do": "join", "as": "p07" }, { "at": 8, "do": "join", "as": "p08" }, { "at": 9, "do": "join", "as": "p09" },
+      { "at": 10, "do": "join", "as": "p10" }, { "at": 11, "do": "join", "as": "p11" }, { "at": 12, "do": "join", "as": "p12" },
+      { "at": 13, "do": "join", "as": "p13" }, { "at": 14, "do": "join", "as": "p14" }, { "at": 15, "do": "join", "as": "p15" },
+      { "at": 16, "do": "join", "as": "p16" }, { "at": 17, "do": "join", "as": "p17" }, { "at": 18, "do": "join", "as": "p18" },
+      { "at": 19, "do": "join", "as": "p19", "expect": { "roleCounts": { "NONE": 20 } } },
+      { "at": 20, "do": "join", "as": "p20", "expect": { "error": "GAME_FULL" } },
+      { "at": 21, "do": "leave", "as": "p05" },
+      { "at": 22, "do": "join", "as": "p20", "expect": { "ok": true, "roleCounts": { "NONE": 20 } } }
+    ]
+  },
+  {
+    "name": "lobby-join-replay",
+    "description": "Joining twice: SQL join_game is idempotent (app restart), the engine reports ALREADY_JOINED. State is identical.",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["host", "a"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "host" },
+      { "at": 1, "do": "join", "as": "a" },
+      {
+        "at": 2, "do": "join", "as": "a",
+        "divergence": { "reason": "Documented in RISKS.md: SQL join is idempotent; the API layer adds the idempotency the engine lacks.", "fields": ["result"], "engine": { "error": "ALREADY_JOINED" }, "sql": { "ok": true } }
+      },
+      { "at": 3, "do": "join", "as": "host", "divergence": { "reason": "same as above (host rejoins)", "fields": ["result"], "engine": { "error": "ALREADY_JOINED" }, "sql": { "ok": true } } }
+    ]
+  }
+]

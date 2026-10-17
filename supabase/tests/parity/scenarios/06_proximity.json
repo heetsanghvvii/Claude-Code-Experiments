@@ -1,0 +1,119 @@
+[
+  {
+    "name": "proximity-two-pairs",
+    "description": "GPS confirmation needs two distinct close reading pairs; one pair, inaccurate pairs, far pairs and pairs more than 5 s apart never eliminate",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "r1", "r2"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "r1" },
+      { "at": 2, "do": "join", "as": "r2" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r2", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 95, "do": "location", "as": "h1", "northM": 100 },
+      { "at": 95, "do": "location", "as": "r1", "northM": 100 },
+      { "at": 100, "do": "tag", "as": "h1", "tag": "t1", "runner": "r1", "expect": { "tags": { "t1": "PENDING" }, "players": { "r1": "ACTIVE" } } },
+      { "at": 102, "do": "location", "as": "h1", "northM": 100, "accuracyM": 80 },
+      { "at": 102, "do": "location", "as": "r1", "northM": 100, "accuracyM": 80, "expect": { "tags": { "t1": "PENDING" } } },
+      { "at": 104, "do": "location", "as": "h1", "northM": 100 },
+      { "at": 104, "do": "location", "as": "r1", "northM": 150, "expect": { "tags": { "t1": "PENDING" } } },
+      { "at": 106, "do": "location", "as": "h1", "northM": 100 },
+      { "at": 112, "do": "location", "as": "r1", "northM": 100, "expect": { "tags": { "t1": "PENDING" }, "players": { "r1": "ACTIVE" } } },
+      { "at": 115, "do": "location", "as": "r1", "northM": 104, "eastM": 3, "accuracyM": 25, "expect": { "tags": { "t1": "PENDING" } } },
+      { "at": 115, "do": "location", "as": "h1", "northM": 100, "accuracyM": 25, "expect": { "tags": { "t1": { "status": "CONFIRMED", "confirmation": "PROXIMITY", "resolvedAt": 115 } }, "players": { "r1": { "status": "ELIMINATED", "eliminatedAt": 115 } }, "status": "ACTIVE", "events": ["TAG_CONFIRMED:t1", "PLAYER_ELIMINATED:r1"] } }
+    ]
+  },
+  {
+    "name": "proximity-no-reading-reuse",
+    "description": "Each runner reading pairs with at most one hunter reading: two hunter fixes next to one runner fix are one pair",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "r1", "r2"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "r1" },
+      { "at": 2, "do": "join", "as": "r2" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r2", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 100, "do": "tag", "as": "h1", "tag": "t1", "runner": "r1" },
+      { "at": 100, "do": "location", "as": "r1" },
+      { "at": 100, "do": "location", "as": "h1", "ago": 1 },
+      { "at": 101, "do": "location", "as": "h1", "expect": { "tags": { "t1": "PENDING" } } },
+      { "at": 102, "do": "location", "as": "h1", "expect": { "tags": { "t1": "PENDING" } } },
+      { "at": 103, "do": "location", "as": "r1", "expect": { "tags": { "t1": { "status": "CONFIRMED", "resolvedAt": 103 } }, "players": { "r1": "ELIMINATED" } } }
+    ]
+  },
+  {
+    "name": "proximity-at-submit",
+    "description": "Evidence gathered before the tag (inside the window) confirms it at submit time",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "r1"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "r1" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 90, "do": "location", "as": "h1" },
+      { "at": 90, "do": "location", "as": "r1" },
+      { "at": 95, "do": "location", "as": "h1" },
+      { "at": 96, "do": "location", "as": "r1" },
+      { "at": 100, "do": "tag", "as": "h1", "tag": "t1", "runner": "r1", "expect": { "tags": { "t1": { "status": "CONFIRMED", "confirmation": "PROXIMITY", "resolvedAt": 100 } }, "status": "COMPLETED", "winner": "HUNTERS", "endReason": "ALL_RUNNERS_ELIMINATED", "times": { "endedAt": 100 }, "events": ["TAG_REQUESTED:t1", "TAG_CONFIRMED:t1", "PLAYER_ELIMINATED:r1", "GAME_COMPLETED"] } }
+    ]
+  },
+  {
+    "name": "proximity-window",
+    "description": "Readings older than tag_confirm_window before the tag do not count",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "r1", "r2"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "r1" },
+      { "at": 2, "do": "join", "as": "r2" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r2", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 130, "do": "location", "as": "h1" },
+      { "at": 130, "do": "location", "as": "r1" },
+      { "at": 135, "do": "location", "as": "h1" },
+      { "at": 135, "do": "location", "as": "r1" },
+      { "at": 200, "do": "tag", "as": "h1", "tag": "t1", "runner": "r1", "expect": { "tags": { "t1": "PENDING" } } },
+      { "at": 201, "do": "location", "as": "h1" },
+      { "at": 201, "do": "location", "as": "r1", "expect": { "tags": { "t1": "PENDING" } } },
+      { "at": 204, "do": "location", "as": "r1" },
+      { "at": 205, "do": "location", "as": "h1", "expect": { "tags": { "t1": "CONFIRMED" } } }
+    ]
+  },
+  {
+    "name": "proximity-mocked-readings-ignored",
+    "description": "Readings the device flags as mocked (is_mocked) are never evidence for an elimination",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "r1", "r2"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "r1" },
+      { "at": 2, "do": "join", "as": "r2" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r2", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 100, "do": "tag", "as": "h1", "tag": "t1", "runner": "r1" },
+      { "at": 101, "do": "location", "as": "r1" },
+      { "at": 101, "do": "location", "as": "h1", "mocked": true },
+      { "at": 103, "do": "location", "as": "r1" },
+      { "at": 103, "do": "location", "as": "h1", "mocked": true, "expect": { "tags": { "t1": "PENDING" }, "players": { "r1": "ACTIVE" } } },
+      { "at": 120, "do": "location", "as": "h1" },
+      { "at": 120, "do": "location", "as": "r1", "mocked": true },
+      { "at": 122, "do": "location", "as": "h1" },
+      { "at": 122, "do": "location", "as": "r1", "mocked": true, "expect": { "tags": { "t1": "PENDING" } } },
+      { "at": 130, "do": "location", "as": "h1" },
+      { "at": 130, "do": "location", "as": "r1", "expect": { "tags": { "t1": "PENDING" } } },
+      { "at": 132, "do": "location", "as": "h1" },
+      { "at": 132, "do": "location", "as": "r1", "expect": { "tags": { "t1": "CONFIRMED" }, "players": { "r1": "ELIMINATED" } } }
+    ]
+  }
+]

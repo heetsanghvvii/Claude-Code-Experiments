@@ -25,7 +25,7 @@ apps/
 
 - `@outrun/engine` is the reference implementation of the rules. It is deterministic: every function takes `now` and returns new state plus events, with no clock, network or randomness of its own (team shuffles take a seed).
 - The server is the authority. The Postgres functions in `supabase/migrations` (SECURITY DEFINER, one transaction each) own the clock (`now()`), team assignment, snapshot release, tag confirmation, elimination and the winner. Clients only call RPCs; they cannot write `games`, `game_players`, `location_snapshots` or `game_events` directly.
-- The rules currently exist twice, in TypeScript and in PL/pgSQL. Planned follow-up: run the engine in a Supabase Edge Function that reads and writes inside one RPC transaction, or add parity tests that run shared scenarios against both.
+- The rules currently exist twice, in TypeScript and in PL/pgSQL. Planned follow-up: run the engine in a Supabase Edge Function that reads and writes inside one RPC transaction, or keep the parity tests that run shared scenarios against both (now in place, see `docs/PARITY.md`).
 - The app imports `@outrun/engine` only for display helpers (phase timers, distances). It never decides an outcome.
 
 ## Map SDK

@@ -1,0 +1,87 @@
+[
+  {
+    "name": "win-all-runners-eliminated",
+    "description": "Hunters win the moment the last ACTIVE runner is gone (eliminated or left); pending tags on a runner who left expire at that moment",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "r1", "r2", "r3"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "r1" },
+      { "at": 2, "do": "join", "as": "r2" },
+      { "at": 3, "do": "join", "as": "r3" },
+      { "at": 4, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 4, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 4, "do": "setRole", "as": "h1", "player": "r2", "role": "RUNNER" },
+      { "at": 4, "do": "setRole", "as": "h1", "player": "r3", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 80, "do": "tag", "as": "h1", "tag": "t3", "runner": "r3" },
+      { "at": 81, "do": "leave", "as": "r3", "expect": { "players": { "r3": "LEFT" }, "tags": { "t3": "PENDING" }, "status": "ACTIVE" } },
+      { "at": 82, "do": "leave", "as": "r3", "expect": { "ok": true, "events": [] } },
+      { "at": 83, "do": "tag", "as": "h1", "tag": "t1", "runner": "r1" },
+      { "at": 84, "do": "ack", "as": "r1", "tag": "t1", "expect": { "status": "ACTIVE" } },
+      { "at": 90, "do": "tag", "as": "h1", "tag": "t2", "runner": "r2" },
+      { "at": 91, "do": "ack", "as": "r2", "tag": "t2", "expect": { "status": "COMPLETED", "winner": "HUNTERS", "endReason": "ALL_RUNNERS_ELIMINATED", "times": { "endedAt": 91 }, "tags": { "t3": { "status": "EXPIRED", "resolvedAt": 91 } }, "events": ["TAG_CONFIRMED:t2", "PLAYER_ELIMINATED:r2", "TAG_EXPIRED:t3", "GAME_COMPLETED"] } }
+    ]
+  },
+  {
+    "name": "win-time-expired",
+    "description": "Runners win at ends_at if any runner remains; ended_at is the deadline, not the tick time",
+    "config": { "durationS": 120, "headStartS": 30, "snapshotIntervalS": 30 },
+    "users": ["h1", "r1", "r2"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "r1" },
+      { "at": 2, "do": "join", "as": "r2" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r2", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1", "expect": { "times": { "activeAt": 15, "huntersReleasedAt": 45, "endsAt": 135 } } },
+      { "at": 50, "do": "tag", "as": "h1", "tag": "t1", "runner": "r1" },
+      { "at": 51, "do": "ack", "as": "r1", "tag": "t1" },
+      { "at": 134, "do": "advance", "as": "r2", "expect": { "status": "ACTIVE" } },
+      { "at": 140, "do": "tag", "as": "h1", "tag": "t2", "runner": "r2", "expect": { "error": "GAME_FINISHED", "status": "ACTIVE" } },
+      { "at": 141, "do": "advance", "as": "r1", "expect": { "status": "COMPLETED", "winner": "RUNNERS", "endReason": "TIME_EXPIRED", "times": { "endedAt": 135 }, "players": { "r1": "ELIMINATED", "r2": "ACTIVE" } } }
+    ]
+  },
+  {
+    "name": "win-hunters-forfeit",
+    "description": "Runners win when the last ACTIVE hunter leaves; also during the head start",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "h2", "r1"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "h2" },
+      { "at": 2, "do": "join", "as": "r1" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "h2", "role": "HUNTER" },
+      { "at": 3, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 20, "do": "leave", "as": "h2", "expect": { "status": "ACTIVE", "players": { "h2": "LEFT" } } },
+      { "at": 30, "do": "leave", "as": "h1", "expect": { "status": "COMPLETED", "winner": "RUNNERS", "endReason": "HUNTERS_FORFEIT", "times": { "endedAt": 30 }, "events": ["PLAYER_LEFT:h1", "GAME_COMPLETED"] } },
+      { "at": 31, "do": "leave", "as": "h1", "expect": { "error": "GAME_FINISHED" } },
+      { "at": 31, "do": "leave", "as": "r1", "expect": { "error": "GAME_FINISHED", "players": { "r1": "ACTIVE" } } }
+    ]
+  },
+  {
+    "name": "win-pending-tag-of-left-hunter",
+    "description": "A tag made by a hunter who then left can still be acknowledged and eliminate (engine and SQL agree)",
+    "config": { "durationS": 600, "headStartS": 60, "snapshotIntervalS": 30 },
+    "users": ["h1", "h2", "r1", "r2"],
+    "steps": [
+      { "at": 0, "do": "create", "as": "h1" },
+      { "at": 1, "do": "join", "as": "h2" },
+      { "at": 2, "do": "join", "as": "r1" },
+      { "at": 3, "do": "join", "as": "r2" },
+      { "at": 4, "do": "setRole", "as": "h1", "player": "h1", "role": "HUNTER" },
+      { "at": 4, "do": "setRole", "as": "h1", "player": "h2", "role": "HUNTER" },
+      { "at": 4, "do": "setRole", "as": "h1", "player": "r1", "role": "RUNNER" },
+      { "at": 4, "do": "setRole", "as": "h1", "player": "r2", "role": "RUNNER" },
+      { "at": 5, "do": "start", "as": "h1" },
+      { "at": 80, "do": "tag", "as": "h2", "tag": "t1", "runner": "r1" },
+      { "at": 81, "do": "leave", "as": "h2" },
+      { "at": 82, "do": "ack", "as": "r1", "tag": "t1", "expect": { "tags": { "t1": "CONFIRMED" }, "players": { "r1": "ELIMINATED", "h2": "LEFT" } } },
+      { "at": 83, "do": "tag", "as": "h1", "tag": "t2", "runner": "r2" },
+      { "at": 84, "do": "leave", "as": "h1", "expect": { "status": "COMPLETED", "endReason": "HUNTERS_FORFEIT", "tags": { "t2": "EXPIRED" } } }
+    ]
+  }
+]

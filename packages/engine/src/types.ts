@@ -62,6 +62,8 @@ export interface LocationReading {
   lng: number;
   accuracyM: number;
   recordedAt: Millis;
+  /** The OS reported a mock location provider. Such readings are never evidence for a tag. */
+  isMocked?: boolean;
 }
 
 export interface TagRequest {

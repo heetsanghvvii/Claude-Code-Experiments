@@ -1,0 +1,10 @@
+{
+  "name": "outrun",
+  "private": true,
+  "workspaces": ["packages/*", "apps/*"],
+  "scripts": {
+    "test": "npm run test -w @outrun/engine",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "db:test": "bash supabase/tests/run.sh"
+  }
+}

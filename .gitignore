@@ -1,0 +1,21 @@
+node_modules/
+.expo/
+dist/
+web-build/
+ios/
+android/
+*.tsbuildinfo
+coverage/
+# secrets / env
+.env
+.env.*
+!.env.example
+*.pem
+*.p8
+*.p12
+*.key
+*.jks
+*.mobileprovision
+google-services.json
+GoogleService-Info.plist
+.DS_Store

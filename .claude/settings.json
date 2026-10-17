@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "claude-model-router-hook": {
+      "source": {
+        "source": "github",
+        "repo": "tzachbon/claude-model-router-hook"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "claude-model-router-hook@claude-model-router-hook": true
+  }
+}

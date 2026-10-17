@@ -23,7 +23,7 @@ export default function SignIn() {
 
   return (
     <Screen>
-      <Title>OUTRUN</Title>
+      <Title>MANHUNT</Title>
       <Muted>Sign in to hunt or run.</Muted>
       <Field label="Email" value={email} onChangeText={setEmail} autoCapitalize="none" autoComplete="email" keyboardType="email-address" textContentType="emailAddress" />
       <Field label="Password" value={password} onChangeText={setPassword} secureTextEntry autoComplete="current-password" textContentType="password" onSubmitEditing={submit} />

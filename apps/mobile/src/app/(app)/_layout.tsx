@@ -10,7 +10,7 @@ export default function AppLayout() {
         contentStyle: { backgroundColor: colors.bg },
       }}
     >
-      <Stack.Screen name="index" options={{ title: 'OUTRUN' }} />
+      <Stack.Screen name="index" options={{ title: 'MANHUNT' }} />
       <Stack.Screen name="create" options={{ title: 'Create game' }} />
       <Stack.Screen name="join" options={{ title: 'Join game' }} />
       <Stack.Screen name="lobby/[id]" options={{ title: 'Lobby', headerBackVisible: false }} />

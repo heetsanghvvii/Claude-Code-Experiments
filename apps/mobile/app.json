@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "OUTRUN",
+    "name": "Manhunt",
     "slug": "outrun",
     "scheme": "outrun",
     "version": "0.1.0",
@@ -29,7 +29,7 @@
       [
         "expo-location",
         {
-          "locationWhenInUsePermission": "OUTRUN uses your location during a game to show the arena and referee tags. Sharing stops when the game ends."
+          "locationWhenInUsePermission": "Manhunt uses your location during a game to show the arena and referee tags. Sharing stops when the game ends."
         }
       ]
     ]

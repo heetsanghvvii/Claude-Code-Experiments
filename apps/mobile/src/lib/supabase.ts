@@ -8,6 +8,8 @@ export const supabase = createClient(
   isConfigured ? SUPABASE_URL : 'https://placeholder.invalid',
   isConfigured ? SUPABASE_ANON_KEY : 'placeholder',
   {
+    // The Supabase project is shared with another app; all Manhunt objects live in the manhunt schema.
+    db: { schema: 'manhunt' },
     auth: {
       storage: Platform.OS === 'web' ? undefined : AsyncStorage,
       autoRefreshToken: true,

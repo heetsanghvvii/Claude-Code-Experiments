@@ -23,4 +23,4 @@ alter default privileges in schema public grant all on functions to anon, authen
 alter default privileges in schema public grant all on sequences to anon, authenticated, service_role;
 create publication supabase_realtime;
 do $$ begin execute format('alter database %I set search_path = "$user", public, extensions', current_database()); end $$;
-set search_path = "$user", public, extensions;
+set search_path = "$user", public, extensions, manhunt;

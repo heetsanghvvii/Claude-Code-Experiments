@@ -42,3 +42,9 @@ Rated by likelihood x impact. Each risk has a mitigation and says where in the c
 | Realtime `postgres_changes` and RLS | Leaks if misconfigured | Realtime applies RLS for `authenticated`. Publish only `games`, `game_players`, `location_snapshots`, `game_events`, never `player_locations`. |
 | Nothing ticks the server clock (no cron) | Games never end | `advance_game` is called on every RPC and by any client polling; schedule it with `pg_cron` each minute in production. Its result is idempotent. |
 | Rules duplicated in TS and SQL | Drift | Parity tests (planned). |
+
+## 5. Known gaps found while testing
+
+- A snapshot is released when the server clock ticks (any RPC, or the cron). It uses each runner's latest reading from the last `snapshot_interval_s`. A runner who has not reported in that window is left out of that round, and an `ADVANCE` that lands just before a runner's next reading releases the previous one. Mitigation: clients report every 5-10 s. Consider marking "no fresh fix" runners explicitly in the snapshot.
+- The deadline is hard: a tag pending at `ends_at` expires, and runners win if any remain. This is deliberate; it matches the engine.
+- `join_game` is idempotent in SQL (rejoin after an app restart), whereas the engine returns `ALREADY_JOINED`. The API layer adds the idempotency.

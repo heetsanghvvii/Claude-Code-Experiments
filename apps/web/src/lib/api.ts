@@ -42,6 +42,8 @@ export const setPlayerRole = (gameId: string, playerId: string, role: Role) =>
   rpc<GameRow>('set_player_role', { p_game_id: gameId, p_player_id: playerId, p_role: role });
 export const startGame = (gameId: string) => rpc<GameRow>('start_game', { p_game_id: gameId });
 export const cancelGame = (gameId: string) => rpc<GameRow>('cancel_game', { p_game_id: gameId });
+/** Any member can end a live round for everyone (safety). Status becomes CANCELLED, end_reason EMERGENCY_STOP. */
+export const emergencyStop = (gameId: string) => rpc<GameRow>('emergency_stop', { p_game_id: gameId });
 export const advanceGame = (gameId: string) => rpc<GameRow>('advance_game', { p_game_id: gameId });
 
 export interface LocationReading {

@@ -13,6 +13,7 @@ const REASONS: Record<EndReason, string> = {
   HOST_CANCELLED: 'The host cancelled the game.',
   PLAYERS_LEFT: 'Too many players left.',
   LOBBY_TIMEOUT: 'The lobby timed out before the game started.',
+  EMERGENCY_STOP: 'A player stopped the round for safety. No winner.',
 };
 
 export function ResultsScreen() {
@@ -54,6 +55,7 @@ export function ResultsScreen() {
 
   const me = players.find((p) => p.player_id === user?.id);
   const cancelled = game.status === 'CANCELLED';
+  const stopped = game.end_reason === 'EMERGENCY_STOP';
   const iWon = !!me?.role && game.winner === (me.role === 'HUNTER' ? 'HUNTERS' : 'RUNNERS');
   const lengthS =
     game.active_at && game.ended_at ? (Date.parse(game.ended_at) - Date.parse(game.active_at)) / 1000 : 0;
@@ -63,7 +65,7 @@ export function ResultsScreen() {
       {cancelled ? (
         <section className="card winner">
           <p className="eyebrow">Game over</p>
-          <h1>Cancelled</h1>
+          <h1>{stopped ? 'Round stopped' : 'Cancelled'}</h1>
         </section>
       ) : (
         <section className={`winner ${game.winner === 'HUNTERS' ? 'hunters' : 'runners'}`}>

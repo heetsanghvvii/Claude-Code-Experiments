@@ -11,7 +11,8 @@ export type EndReason =
   | 'HUNTERS_FORFEIT'
   | 'HOST_CANCELLED'
   | 'PLAYERS_LEFT'
-  | 'LOBBY_TIMEOUT';
+  | 'LOBBY_TIMEOUT'
+  | 'EMERGENCY_STOP';
 
 export interface GameRow {
   id: string;

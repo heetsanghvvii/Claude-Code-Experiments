@@ -20,3 +20,7 @@ Project skills live in `.claude/skills/` and load automatically in Claude Code s
 | [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) @ `839872f` | `i-have-adhd` | Short, action-first output (`/i-have-adhd`) |
 
 Upstream licenses are in `third_party_licenses/`. Jev's optional PreToolUse hook (`.claude/skills/claude-x-jev/hooks/pre-tool-gate.sh`) and claude-video hooks are not enabled.
+
+## Social agent team
+
+Multi-agent social media system (Brand OS in `brand-brain/`, agents in `.claude/agents/`, approval queue in `queue/`, memory in `memory/`). See `docs/social-agents.md`.

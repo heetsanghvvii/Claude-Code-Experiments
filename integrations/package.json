@@ -6,7 +6,7 @@
   "type": "module",
   "engines": { "node": ">=18.17" },
   "scripts": {
-    "check": "node --check lib/env.js && node --check lib/http.js && node --check lib/log.js && node --check lib/queue.js && node --check meta/publish.js && node --check meta/dms.js && node --check youtube/upload.js && node --check youtube/comments.js && node --check youtube/stats.js && node --check linkedin/post.js && node --check linkedin/stats.js",
+    "check": "node --check lib/env.js && node --check lib/http.js && node --check lib/log.js && node --check lib/queue.js && node --check meta/publish.js && node --check meta/dms.js && node --check youtube/upload.js && node --check youtube/comments.js && node --check youtube/stats.js && node --check youtube/auth.js && node --check linkedin/common.js && node --check linkedin/post.js && node --check linkedin/stats.js",
     "ig:publish": "node meta/publish.js",
     "ig:dms": "node meta/dms.js",
     "yt:upload": "node youtube/upload.js",

@@ -28,10 +28,9 @@ export function loadEnv() {
 
 loadEnv();
 
-// Live only when LIVE=1 and DRY_RUN was not explicitly set to true.
+// Dry run is the default. The network is only touched when LIVE=1 is set explicitly.
 export function isLive() {
-  const dry = String(process.env.DRY_RUN ?? 'true').toLowerCase();
-  return process.env.LIVE === '1' && dry !== 'true' && dry !== '1' ? true : process.env.LIVE === '1' && process.env.DRY_RUN === undefined;
+  return process.env.LIVE === '1';
 }
 
 export function isDryRun() {

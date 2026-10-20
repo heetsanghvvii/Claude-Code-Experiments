@@ -6,10 +6,10 @@ Multi-agent system on Claude Code. Brand OS lives in `brand-brain/`. Agents live
 | Phase | Scope | Status |
 | --- | --- | --- |
 | 1 | brand-brain + content-engine + approval queue + memory (manual posting) | built |
-| 2 | trend-radar + engagement | next |
-| 3 | Platform APIs (Meta Graph, YouTube Data, LinkedIn), scheduler, orchestrator, interrupts | later |
+| 2 | trend-radar + engagement + creative-studio | built |
+| 3 | Platform APIs (Meta Graph, YouTube Data, LinkedIn), scheduler, orchestrator, interrupts | scaffolded, dry-run by default (see integrations/README.md, interrupts/README.md) |
 
-(creative-studio ships with Phase 2 alongside engagement, orchestrator and scheduler with Phase 3.)
+Brand files currently hold ASSUMED defaults for "AgentDesk". Replace with your real brand. Real publishing needs platform credentials and `LIVE=1`.
 
 ## Folders
 - `brand-brain/` voice-guide, hook-bank, channel-playbooks, faq-library, visual-specs

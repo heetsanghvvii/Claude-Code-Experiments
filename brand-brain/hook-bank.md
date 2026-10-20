@@ -4,7 +4,7 @@ Status: ASSUMED DEFAULTS, replace with your real brand. The starter hooks below 
 Agents pick from and adapt these. Never copy a hook verbatim twice (check /memory/post-log.md).
 
 ## How to log a hook
-Format: `- [HOOK TEXT] | type | platform | result (views/saves/etc.) | date`
+Format: `- <hook text> | type | platform | result (views/saves/etc.) | date`
 
 ## Hook types
 - Contrarian: challenges a common belief
@@ -48,15 +48,15 @@ Format: `- [HOOK TEXT] | type | platform | result (views/saves/etc.) | date`
 - "Most small brands post on the wrong day for the wrong reader. Here is how we checked." | mistake | Text | untested | assumed
 
 ## Templates (fill the blanks)
-- "Stop [COMMON ACTION]. Do [ALTERNATIVE] instead."
+- "Stop <common action>. Do <alternative> instead."
   - Example: "Stop posting when you have time. Post in the same slot every week instead."
-- "I [DID THING] for [TIME]. Here is what [SURPRISING RESULT]."
+- "I <did thing> for <time>. Here is what <surprising result>."
   - Example: "I let agents draft our posts for 60 days. Here is what they got wrong first."
-- "[NUMBER] [THINGS] every [AUDIENCE] gets wrong about [TOPIC]."
+- "<number> <things> every <audience> gets wrong about <topic>."
   - Example: "4 mistakes every solo founder gets wrong about Instagram captions."
-- "Nobody tells [AUDIENCE] that [TRUTH]."
+- "Nobody tells <audience> that <truth>."
   - Example: "Nobody tells solo founders that a consistent 4 posts a week beats a viral week."
-- "[ADD YOURS]"
+- "<add yours>"
   - Example: "The one post type we stopped making, and the reason it was never worth the time."
 
 ## Hooks that flopped (avoid)

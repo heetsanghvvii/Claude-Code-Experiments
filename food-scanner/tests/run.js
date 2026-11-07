@@ -29,11 +29,12 @@ t("threshold is strictly greater", () => {
   assert.strictEqual(ns.compute({ energyKj: 335, sugars: 3.4, satFat: 1, salt: 0.2, fibre: 0, protein: 0, fvl: 0 }).score, 0);
   assert.strictEqual(ns.compute({ energyKj: 336, sugars: 0, satFat: 0, salt: 0, fibre: 0, protein: 0, fvl: 0 }).score, 1);
 });
-t("protein counted when N<11, fvl 5 lifts the rule", () => {
+t("protein counted only when N<11; never at N>=11, even with fvl > 80", () => {
   const a = ns.compute({ energyKj: 1000, sugars: 5, satFat: 1, salt: 0.1, fibre: 0, protein: 20, fvl: 0 });
   assert.strictEqual(a.proteinCounted, true);
-  const b = ns.compute({ energyKj: 3400, sugars: 52, satFat: 11, salt: 0.1, fibre: 0, protein: 20, fvl: 85 });
-  assert.strictEqual(b.proteinCounted, true); // fvl points 5 => protein counted
+  const b = ns.compute({ energyKj: 1200, sugars: 15, satFat: 5, salt: 0.1, fibre: 0, protein: 20, fvl: 85 });
+  assert.strictEqual(b.proteinCounted, false); assert.strictEqual(b.negative, 11);
+  assert.strictEqual(b.score, 6); assert.strictEqual(b.grade, "C");
 });
 
 // Jain

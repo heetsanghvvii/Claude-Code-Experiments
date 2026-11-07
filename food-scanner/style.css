@@ -58,3 +58,7 @@ progress { width: 100%; }
 details summary { cursor: pointer; font-weight: 600; margin: 6px 0; }
 footer { margin-top: 20px; }
 .disclaimer { font-size: .8rem; color: var(--muted); border-top: 1px dashed var(--line); margin-top: 10px; padding-top: 8px; }
+
+#barcode-form input { min-width: 0; flex: 1; text-overflow: ellipsis; }
+#barcode-form button { flex: none; white-space: nowrap; }
+@media (max-width: 380px) { #barcode::placeholder { font-size: .85rem; } }

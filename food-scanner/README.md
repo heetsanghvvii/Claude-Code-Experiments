@@ -40,7 +40,7 @@ Implements the Nutri-Score 2023 update for general foods (Sante publique France:
 
 - Negative points: energy (kJ, 0-10), sugars (g, 0-15), saturated fat (g, 0-10), salt (g, 0-20). A value earns one point per threshold it is strictly above.
 - Positive points: fibre (0-5), protein (0-7), fruit/vegetables/legumes % (>40: 1, >60: 2, >80: 5).
-- Score = negative minus positive. If negative points are 11 or more and fruit/veg/legumes points are below 5, protein is not counted.
+- Score = negative minus positive. If negative points are 11 or more, protein points are never counted (2023 general case; the 2017 exception for fruit/veg/legumes points of 5 no longer applies; cheese keeps counting protein but is not scored here).
 - Bands: A 0 or less, B 1-2, C 3-10, D 11-18, E 19 or more.
 - All thresholds are in `nutriscore.js`.
 

@@ -71,7 +71,7 @@
     var fv = 0;
     for (var i = 0; i < FVL.length; i++) if (x.fvl > FVL[i].gt) { fv = FVL[i].pts; break; }
 
-    var countProtein = !(N >= 11 && fv < 5);
+    var countProtein = N < 11; // 2023 general case: no exception, protein never counts at N >= 11
     var P = fi + fv + (countProtein ? pr : 0);
     var score = N - P;
     var grade = GRADES.filter(function (g) { return score <= g.max; })[0].grade;
@@ -84,7 +84,7 @@
       { side: "positive", rule: "Fibre", value: x.fibre + " g", points: fi, max: 5, counted: true, rule_text: "+1 above each of 3.0, 4.1, 5.2, 6.3, 7.4 g" },
       { side: "positive", rule: "Fruit, vegetables, legumes", value: x.fvl + " %", points: fv, max: 5, counted: true, rule_text: "1 point above 40%, 2 above 60%, 5 above 80%" },
       { side: "positive", rule: "Protein", value: x.protein + " g", points: pr, max: 7, counted: countProtein, rule_text: "+1 above each of 2.4, 4.8, 7.2, 9.6, 12, 14, 17 g" +
-          (countProtein ? "" : " (NOT counted: negative points are 11 or more and fruit/veg/legumes points are below 5)") }
+          (countProtein ? "" : " (NOT counted: negative points are 11 or more; no exception in the 2023 general case)") }
     ];
     return {
       status: "ok", score: score, grade: grade, negative: N, positive: P,

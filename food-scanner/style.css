@@ -62,3 +62,5 @@ footer { margin-top: 20px; }
 #barcode-form input { min-width: 0; flex: 1; text-overflow: ellipsis; }
 #barcode-form button { flex: none; white-space: nowrap; }
 @media (max-width: 380px) { #barcode::placeholder { font-size: .85rem; } }
+[hidden] { display: none !important; }
+#photo-preview[hidden] { display: none; }

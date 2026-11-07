@@ -1,14 +1,14 @@
-# Food Label Scanner (private prototype)
+# Food Label Checker (private prototype)
 
 Static web app for Indian food products. Plain HTML, CSS and JavaScript. No build step, no backend, no API keys, no accounts.
 
 ## What it does
 
-1. **Barcode lookup** in Open Food Facts (OFF): name, brand, ingredients, nutrition per 100g, allergens. Missing fields are shown as "this field is missing". Unknown barcodes show "Product not found in Open Food Facts". Network failures are reported separately from not-found.
+1. **Barcode lookup by typed digits** in Open Food Facts (OFF). You type or paste the barcode digits printed on the pack. The app does not use the camera and does not scan barcodes. It shows name, brand, ingredients, nutrition per 100g and allergens. Missing fields are shown as "this field is missing". Unknown barcodes show "Product not found in Open Food Facts". Network failures are reported separately from not-found.
 2. **OFF Nutri-Score grade** in its own box, labeled "Nutri-Score grade from Open Food Facts". It is never blended with the local score.
 3. **Local Nutri-Score calculation** (2023 algorithm, general foods only) with a full "why this score" breakdown. If any required input is missing, it shows "Insufficient data: no score calculated" and lists the missing inputs.
 4. **Jain screening aid** (separate from the score) on the ingredient list, from OFF or from a label photo.
-5. **Label photo reading**: client-side OCR with Tesseract.js, editable text, confidence display, heuristic ingredient parsing.
+5. **Label photo reading**: reads printed text from a photo with client-side OCR (it does not decode barcodes from images); with Tesseract.js, editable text, confidence display, heuristic ingredient parsing.
 
 Every result shows its data source (Open Food Facts, calculated from OFF data, or your photo/text). No health claims are made.
 
@@ -84,5 +84,5 @@ Tesseract.js 5.1.1 (English). The text is editable. Confidence is the OCR mean (
 - OFF India coverage is about 25K products against millions worldwide; many barcodes will be not found, and many products lack fibre, fruit/veg % or per-100g values, so no score.
 - OFF data quality varies (for example the Britannia Bourbon example has an absurd salt value and OCR-garbled ingredients).
 - OCR accuracy varies with photo quality, curved packs and small print.
-- Barcodes are typed in; there is no camera barcode scanning.
+- Barcodes are typed or pasted as digits; there is no camera barcode scanning and the photo reader does not decode barcodes.
 - Not a health tool. Nothing here is medical or dietary advice.

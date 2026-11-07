@@ -182,11 +182,20 @@
   }
 
   // ---- label photo + OCR
+  var photoUrl = null;
   $("photo").onchange = function () {
-    var f = this.files && this.files[0];
-    $("ocr-run").disabled = !f;
-    var img = $("photo-preview");
-    if (f) { img.src = URL.createObjectURL(f); img.hidden = false; } else img.hidden = true;
+    var f = this.files && this.files[0], img = $("photo-preview"), err = $("photo-error");
+    img.hidden = true; err.hidden = true; img.removeAttribute("src"); $("ocr-run").disabled = true;
+    if (photoUrl) { URL.revokeObjectURL(photoUrl); photoUrl = null; }
+    if (!f) return;
+    img.onload = function () { img.hidden = false; $("ocr-run").disabled = false; };
+    img.onerror = function () {
+      img.hidden = true; $("ocr-run").disabled = true;
+      err.textContent = "Could not read this file as an image. Choose a JPG, PNG or similar photo.";
+      err.hidden = false;
+    };
+    try { photoUrl = URL.createObjectURL(f); img.src = photoUrl; }
+    catch (e) { img.onerror(); }
   };
   function loadTesseract() {
     if (window.Tesseract) return Promise.resolve();

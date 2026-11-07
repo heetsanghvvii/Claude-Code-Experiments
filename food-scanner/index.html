@@ -5,27 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex">
-<title>Food Label Scanner</title>
+<title>Food Label Checker</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="top">
-  <h1>Food Label Scanner</h1>
+  <h1>Food Label Checker</h1>
   <p class="sub">Private prototype. Data: Open Food Facts and your own label photos.</p>
 </header>
 
 <nav class="tabs" role="tablist">
-  <button role="tab" id="tab-barcode" aria-selected="true" aria-controls="panel-barcode">Barcode</button>
-  <button role="tab" id="tab-label" aria-selected="false" aria-controls="panel-label">Label photo</button>
+  <button role="tab" id="tab-barcode" aria-selected="true" aria-controls="panel-barcode">Enter barcode</button>
+  <button role="tab" id="tab-label" aria-selected="false" aria-controls="panel-label">Read label photo</button>
 </nav>
 
 <main>
   <section id="panel-barcode" role="tabpanel" aria-labelledby="tab-barcode">
     <form id="barcode-form" class="row" autocomplete="off">
-      <label for="barcode" class="sr">Product barcode</label>
-      <input id="barcode" inputmode="numeric" pattern="[0-9]{8,14}" placeholder="Barcode (digits)" maxlength="14" required>
+      <label for="barcode" class="sr">Barcode digits printed on the pack</label>
+      <input id="barcode" inputmode="numeric" pattern="[0-9]{8,14}" placeholder="Barcode digits" maxlength="14" required>
       <button type="submit" class="primary">Look up</button>
     </form>
+    <p class="muted">Type or paste the barcode digits printed on the pack. This does not use the camera.</p>
     <div class="examples">
       <span class="muted">Examples:</span>
       <div id="examples" class="chips"></div>
@@ -36,8 +37,9 @@
   <section id="panel-label" role="tabpanel" aria-labelledby="tab-label" hidden>
     <div class="card">
       <h2>1. Photo of the ingredient label</h2>
-      <p class="muted">Text is read on this device with Tesseract.js (script loaded from a CDN when you press the button). The photo is not uploaded anywhere.</p>
+      <p class="muted">Reads printed text from a photo using OCR. It does not read barcodes. Text is read on this device with Tesseract.js (script loaded from a CDN when you press the button). The photo is not uploaded anywhere.</p>
       <input id="photo" type="file" accept="image/*" capture="environment">
+      <p id="photo-error" class="error" hidden></p>
       <img id="photo-preview" alt="Preview of the chosen label photo" hidden>
       <button id="ocr-run" class="primary" disabled>Read text from photo</button>
       <progress id="ocr-progress" max="100" value="0" hidden></progress>

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FocusBlock: Tap to Focus</title>
+<meta name="description" content="FocusBlock is a physical NFC block. Tap it to your phone to lock distracting apps like Instagram and YouTube.">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --surface: #131316;
+    --surface-2: #1b1b20;
+    --border: #26262d;
+    --text: #f4f4f5;
+    --muted: #9a9aa6;
+    --accent: #d4ff5a;
+    --accent-ink: #0a0a0b;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+  section { padding: 72px 0; border-top: 1px solid var(--border); }
+  h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.15; font-weight: 650; }
+  h1 { font-size: clamp(2.2rem, 7vw, 3.6rem); }
+  h2 { font-size: clamp(1.6rem, 4.5vw, 2.2rem); margin-bottom: 12px; }
+  h3 { font-size: 1.1rem; margin-bottom: 6px; }
+  p { color: var(--muted); }
+  .eyebrow {
+    display: inline-block; font-size: 0.78rem; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--accent); margin-bottom: 18px;
+  }
+  .lead { font-size: 1.08rem; margin-top: 18px; max-width: 540px; }
+
+  /* Header */
+  header { padding: 20px 0; }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-weight: 700; letter-spacing: -0.01em; color: var(--text); text-decoration: none; }
+  .brand span { color: var(--accent); }
+  .nav-link { color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+  .nav-link:hover { color: var(--text); }
+
+  /* Hero */
+  .hero { padding: 56px 0 80px; border-top: none; }
+  .hero-cta { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+  .btn {
+    display: inline-block; background: var(--accent); color: var(--accent-ink);
+    font-weight: 650; font-size: 1rem; padding: 15px 28px; border-radius: 999px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+  .btn:hover { opacity: 0.9; }
+  .btn:active { transform: scale(0.98); }
+  .fine { font-size: 0.88rem; color: var(--muted); }
+
+  /* Steps */
+  .steps { display: grid; gap: 14px; margin-top: 36px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+  }
+  .step-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1px solid var(--accent); color: var(--accent);
+    font-size: 0.9rem; font-weight: 650; margin-bottom: 14px;
+  }
+
+  /* Why */
+  .list { list-style: none; display: grid; gap: 12px; margin-top: 28px; }
+  .list li {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px 20px; color: var(--muted);
+  }
+  .list li strong { color: var(--text); display: block; margin-bottom: 2px; font-weight: 600; }
+
+  /* Price */
+  .price-card { text-align: left; }
+  .price { font-size: clamp(2.6rem, 9vw, 3.4rem); font-weight: 700; letter-spacing: -0.03em; margin: 10px 0 4px; }
+  .price-note { color: var(--muted); font-size: 0.95rem; margin-bottom: 24px; }
+
+  /* FAQ */
+  details {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); margin-top: 12px; padding: 18px 20px;
+  }
+  summary {
+    cursor: pointer; font-weight: 600; list-style: none;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--accent); font-size: 1.3rem; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  details p { margin-top: 12px; }
+
+  /* Waitlist form */
+  form { display: grid; gap: 14px; margin-top: 28px; }
+  label { display: grid; gap: 6px; font-size: 0.9rem; color: var(--muted); }
+  input {
+    background: var(--surface-2); border: 1px solid var(--border); color: var(--text);
+    border-radius: 12px; padding: 14px 16px; font: inherit; font-size: 1rem; width: 100%;
+  }
+  input::placeholder { color: #5c5c66; }
+  input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
+  form .btn { justify-self: start; border: none; }
+
+  footer { border-top: 1px solid var(--border); padding: 32px 0 48px; }
+  footer p { font-size: 0.85rem; }
+
+  @media (min-width: 640px) {
+    .steps { grid-template-columns: repeat(3, 1fr); }
+    .hero-cta { flex-direction: row; align-items: center; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top">Focus<span>Block</span></a>
+    <a class="nav-link" href="#waitlist">Join waitlist</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero wrap">
+    <span class="eyebrow">Physical focus, for Android</span>
+    <h1>Put the phone down by picking up one small block.</h1>
+    <p class="lead">FocusBlock is a palm-sized NFC block. Instagram and YouTube stay locked until you tap the block to your phone. One deliberate tap, no willpower contest.</p>
+    <div class="hero-cta">
+      <a class="btn" href="#waitlist">Pre-order</a>
+      <span class="fine">₹1,499 · One-time price</span>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">How it works</span>
+      <h2>Three steps, then you're off the feed.</h2>
+      <div class="steps">
+        <div class="card">
+          <div class="step-num">1</div>
+          <h3>Choose your apps</h3>
+          <p>Pick the apps that eat your time in the FocusBlock app, such as Instagram and YouTube.</p>
+        </div>
+        <div class="card">
+          <div class="step-num">2</div>
+          <h3>Tap to lock</h3>
+          <p>Place the back of your phone on the block. Your chosen apps lock immediately.</p>
+        </div>
+        <div class="card">
+          <div class="step-num">3</div>
+          <h3>Tap to unlock</h3>
+          <p>Done with deep work? Tap the block again and everything opens back up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">Why a physical tap</span>
+      <h2>Friction you can feel works better than a toggle.</h2>
+      <p class="lead">Unlocking an app in settings takes one thoughtless swipe. Reaching for a block takes a moment of intent, and that small pause is where good decisions happen.</p>
+      <ul class="list">
+        <li><strong>The decision happens once, on your desk</strong>Set your focus session when you're clear-headed, not at 11 pm in bed.</li>
+        <li><strong>Your phone stays in your hand</strong>A tap takes a second. You don't have to dig through menus to start or stop a session.</li>
+        <li><strong>It lives outside the phone</strong>The block sits on your desk or in your bag, so the thing you're trying to resist is not the thing that controls the lock.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">Price</span>
+      <h2>One price. No plan to cancel.</h2>
+      <div class="card price-card" style="margin-top: 28px;">
+        <p>FocusBlock, pre-order</p>
+        <div class="price">₹1,499</div>
+        <p class="price-note">Placeholder price. Final pricing will be confirmed before launch.</p>
+        <a class="btn" href="#waitlist">Pre-order</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">FAQ</span>
+      <h2>Quick answers.</h2>
+      <details>
+        <summary>Which phones does it work with?</summary>
+        <p>Android first. The FocusBlock app launches on Android, and that's where we're focusing our first release.</p>
+      </details>
+      <details>
+        <summary>Is iPhone supported?</summary>
+        <p>iPhone support is coming soon. Join the waitlist and we'll let you know when it's ready.</p>
+      </details>
+      <details>
+        <summary>Does it work offline?</summary>
+        <p>Yes. Locking and unlocking happens on your device with the NFC block, so you don't need an internet connection to start a session.</p>
+      </details>
+      <details>
+        <summary>Is there a subscription?</summary>
+        <p>No. You pay once for the block. There's no monthly fee.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="waitlist">
+    <div class="wrap">
+      <span class="eyebrow">Waitlist</span>
+      <h2>Reserve your FocusBlock.</h2>
+      <p class="lead">Leave your details and we'll reach out before launch with pre-order access.</p>
+
+      <!-- TODO: replace the placeholder action URL below with the real waitlist endpoint before launch. -->
+      <form action="https://example.com/TODO-waitlist-endpoint" method="post">
+        <label>
+          Name
+          <input type="text" name="name" autocomplete="name" placeholder="Your name" required>
+        </label>
+        <label>
+          Phone
+          <input type="tel" name="phone" autocomplete="tel" placeholder="+91 98765 43210">
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+        </label>
+        <button class="btn" type="submit">Join the waitlist</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>FocusBlock is a placeholder brand name for a product in development.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -19,3 +19,7 @@ coverage/
 google-services.json
 GoogleService-Info.plist
 .DS_Store
+
+# FocusBlock native module sources must be tracked
+!focusblock/modules/**/android/
+!focusblock/modules/**/ios/

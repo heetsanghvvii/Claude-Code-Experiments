@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 export const c = {
-  bg: '#111', card: '#1c1c1c', btn: '#2a2a2a', text: '#fff', dim: '#aaa',
-  line: '#333', link: '#6aa9ff', ok: '#5ac86f', danger: '#b3261e',
+  bg: '#1E1B18', card: '#2A2622', btn: '#38322C', text: '#F8F1E7', dim: '#B5AB9D',
+  line: '#3D362F', link: '#E08A6B', ok: '#9CAF88', danger: '#C65D3B',
 };
 
 export const g = StyleSheet.create({

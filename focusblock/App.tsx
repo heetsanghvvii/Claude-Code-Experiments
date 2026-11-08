@@ -134,10 +134,12 @@ export default function App() {
         <Row label="3. Pair sticker" value={token ? 'Re-pair' : 'Pair'} onPress={pair} done={!!token} />
       </View>
 
-      <View style={s.testRow}>
-        <Text style={s.sub}>Test lock without sticker</Text>
-        <Switch value={on} onValueChange={setBlocking} />
-      </View>
+      {__DEV__ && (
+        <View style={s.card}>
+          <Row label="Test: pair without sticker" value={token === 'test' ? 'Paired' : 'Pair'} done={token === 'test'} onPress={async () => { await AsyncStorage.setItem(TOKEN_KEY, 'test'); setToken('test'); }} />
+          <Row label="Test: simulate tap" value={on ? 'Unlock' : 'Lock'} done={false} onPress={() => { if (!perm) return Alert.alert('Allow blocking first'); setBlocking(!on); }} />
+        </View>
+      )}
 
       <Modal visible={pickerOpen} animationType="slide" onRequestClose={() => setPickerOpen(false)}>
         <SafeAreaView style={s.root}>

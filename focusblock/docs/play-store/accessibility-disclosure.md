@@ -75,7 +75,7 @@ Record a short screen capture, under about 2 minutes, that shows:
 6. Turning the service off in Settings, which stops blocking.
 
 **Reviewer notes (paste in the notes field)**
-FocusBlock needs no login. Install the build, tap "Continue" on the disclosure, enable FocusBlock under Accessibility, and pick any app to block. Tap an NFC sticker written by the app (a sticker can be requested from the developer if needed, or use the in-app "Pair" flow with any NTAG213 sticker). Open the blocked app to see the Home redirect.
+FocusBlock needs no login. Install the build, tap "Continue" on the disclosure, enable FocusBlock under Accessibility, and pick any app to block. Pair an NTAG213 sticker using the app's pairing step, then tap it to start a session. Open the blocked app to see the Home redirect. (Confirm the pairing flow is in the release build before submitting, and send a sticker to the reviewer if the flow needs one.)
 
 **Risk note for the developer**
 Google restricts AccessibilityService for purposes other than accessibility. App-blocking apps have been rejected before. Keep the disclosure, the video, and the explanation above consistent with each other. If the review is rejected, the fallback is to rebuild blocking on Usage Access (`UsageStatsManager`), which needs a different disclosure and a user-granted permission. Verify current Play policy before deciding.

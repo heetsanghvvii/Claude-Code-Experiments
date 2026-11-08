@@ -55,6 +55,10 @@ Verification: unit tests check hand-worked cases, and `tests/crosscheck.js` comp
 
 This is a prototype calculation. Not an official label, not medical advice.
 
+## Custom composition score
+
+A separate, original formula in `custom-score.js`. It is not Nutri-Score and has no health meaning; weights are arbitrary prototype choices. Start at 100. Subtract capped linear penalties: energy (max 25, cap 2500 kJ), sugars (25, cap 30 g), saturated fat (25, cap 10 g), salt (25, cap 2.5 g). Add capped bonuses: fibre (max 10, cap 6 g), protein (10, cap 15 g). Clamp to 0-100. Needs energy, sugars, saturated fat, salt, fibre and protein per 100g; otherwise "Insufficient data". Shown in its own box, never blended with the Open Food Facts grade or the Nutri-Score calculation.
+
 ## Jain rule list and limitations
 
 Rules live in `jain-rules.js` (editable data: term groups, functional classes, E/INS code tables, `config.honey`).

@@ -119,6 +119,8 @@
     // local score (separate)
     out.appendChild(renderLocalScore(p, ex));
 
+    out.appendChild(renderCustomScore(p, ex));
+
     // Jain (separate)
     var slot = h("div"); out.appendChild(slot);
     lastProduct = { p: p, slot: slot };
@@ -151,6 +153,19 @@
     box.appendChild(h("details", { open: "" }, h("summary", { text: "Why this score" }), h("table", null, tb), h("p", { class: "muted", text: "Grade bands: " + r.bands + "." })));
     if (ex.notes.length) box.appendChild(h("p", { class: "muted", text: "Input notes: " + ex.notes.join("; ") + "." }));
     box.appendChild(h("p", { class: "disclaimer", text: "General-foods rules only. Category is taken from Open Food Facts tags; products in beverage, cheese, fat/oil, water, salt or red meat categories are not scored." }));
+    return box;
+  }
+
+  function renderCustomScore(p, ex) {
+    var box = h("div", { class: "card sep" }, h("h2", null, "Custom composition score", src("calculated here from Open Food Facts per-100g data")));
+    box.appendChild(h("p", { class: "muted", text: "Prototype formula with arbitrary weights. Not Nutri-Score, not an official method, no health meaning. Separate from the other scores." }));
+    var r = FS.customScore.compute(ex.inputs, FS.nutriscore.plausibility);
+    if (r.status === "insufficient") { box.appendChild(h("div", { class: "notice" }, h("strong", { text: "Insufficient data: no score calculated." }), h("ul", null, r.missing.map(function (m) { return h("li", { text: m }); })))); return box; }
+    if (r.status === "inconsistent") { box.appendChild(h("div", { class: "notice" }, h("strong", { text: "Data looks inconsistent: no score calculated." }), h("ul", null, r.issues.map(function (m) { return h("li", { text: m }); })))); return box; }
+    box.appendChild(h("div", { class: "gradeline" }, h("strong", { text: r.score + " / 100" }), h("span", { class: "muted", text: r.formula })));
+    box.appendChild(h("details", null, h("summary", { text: "Why this score" }), h("table", null, h("tbody", null, r.rows.map(function (x) {
+      return h("tr", null, h("td", null, x.rule, h("div", { class: "muted", text: x.rule_text })), h("td", { text: x.value }), h("td", { class: "num", text: (x.points > 0 ? "+" : "") + x.points }));
+    })))));
     return box;
   }
 

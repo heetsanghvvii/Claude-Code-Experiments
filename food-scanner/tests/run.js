@@ -77,4 +77,11 @@ t("parser strips percentages and brackets", () => {
   const p = ING.parse("Ingredients: Wheat flour (68%), Sugar, Spices (cumin, chilli) 2%.");
   assert.deepStrictEqual(p.items.map(i => i.text), ["Wheat flour", "Sugar", "Spices", "cumin", "chilli"]);
 });
+const cs = require("../custom-score.js");
+t("custom score: known case and missing data", () => {
+  const r = cs.compute({ energyKj: 1250, sugars: 15, satFat: 5, salt: 1.25, fibre: 3, protein: 7.5 }, ns.plausibility);
+  assert.strictEqual(r.status, "ok"); assert.strictEqual(r.raw, 100 - 12.5 - 12.5 - 12.5 - 12.5 + 5 + 5); assert.strictEqual(r.score, 60);
+  assert.strictEqual(cs.compute({ energyKj: 1, sugars: 1, satFat: 1, salt: 1, fibre: null, protein: 1 }).status, "insufficient");
+  assert.strictEqual(cs.compute({ energyKj: 0, sugars: 0, satFat: 0, salt: 0, fibre: 20, protein: 50 }).score, 100);
+});
 console.log("\n" + n + " tests passed");

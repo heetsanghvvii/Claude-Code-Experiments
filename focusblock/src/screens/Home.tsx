@@ -1,3 +1,4 @@
+import { TEST_MODE } from '../testMode';
 import { useState } from 'react';
 import { Alert, Modal, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { Brick } from '../useBrick';
@@ -66,7 +67,7 @@ export function Home({ b }: { b: Brick }) {
         </Pressable>
       )}
 
-      {__DEV__ && (
+      {TEST_MODE && (
         <View style={g.card}>
           <Row label="Test: pair without sticker" value={b.token === 'test' ? 'Paired' : 'Pair'} done={b.token === 'test'} onPress={b.devPair} />
           <Row label="Test: simulate tap" value={b.on ? 'Unlock' : 'Lock'} done={false} onPress={() => { if (!b.perm) return Alert.alert('Allow blocking first'); b.setBlocking(!b.on); }} />

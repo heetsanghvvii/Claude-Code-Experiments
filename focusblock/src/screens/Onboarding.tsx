@@ -1,3 +1,4 @@
+import { TEST_MODE } from '../testMode';
 import { useState } from 'react';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { Brick } from '../useBrick';
@@ -46,7 +47,7 @@ export function Onboarding({ b }: { b: Brick }) {
           <Text style={g.buttonText}>Finish</Text>
         </Pressable>
       )}
-      {__DEV__ && (
+      {TEST_MODE && (
         <Pressable style={s.skip} onPress={() => (last ? b.finishOnboarding() : setStep(step + 1))}>
           <Text style={s.skipText}>Dev: skip step</Text>
         </Pressable>

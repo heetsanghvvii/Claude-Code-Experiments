@@ -1,0 +1,33 @@
+/* Shared styles for every nope marketing asset. Mirrors brand/tokens.css. */
+@font-face {
+  font-family: "Outfit";
+  src: url("../../../../brand/fonts/outfit-latin-variable.woff2") format("woff2");
+  font-weight: 100 900; font-display: block;
+}
+:root {
+  --ink: #1C1C1E; --ink-2: #262628; --ink-3: #323235; --ink-line: #3A3A3E;
+  --stone: #C9C7C3; --stone-5: #9C9993; --stone-7: #5C5A56;
+  --chalk: #F5F4F1; --chalk-2: #E9E7E2;
+  --saffron: #FF8A1F; --ember: #A84A00;
+  --font: "Outfit", ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: transparent; }
+body { font-family: var(--font); -webkit-font-smoothing: antialiased; color: var(--chalk); }
+.canvas { position: relative; overflow: hidden; }
+.dark { background: var(--ink); color: var(--chalk); }
+.light { background: var(--chalk); color: var(--ink); }
+.saffron { background: var(--saffron); color: var(--ink); }
+.display { font-weight: 800; letter-spacing: -0.045em; line-height: 0.92; }
+.h { font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; }
+.body { font-weight: 400; letter-spacing: -0.005em; line-height: 1.35; }
+.muted { color: var(--stone-5); }
+.light .muted { color: var(--stone-7); }
+.accent { color: var(--saffron); }
+.wm { display: block; }
+.wm path { fill: currentColor; }
+.pill { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+.pill.solid { background: var(--saffron); color: var(--ink); }
+.micro { font-weight: 500; letter-spacing: 0; }
+.rule { height: 2px; background: currentColor; opacity: 0.18; }
+img.render { display: block; position: absolute; pointer-events: none; }

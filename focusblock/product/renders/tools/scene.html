@@ -18,6 +18,10 @@ import * as THREE from 'three';
 import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 const q = new URLSearchParams(location.search);
 const VIEW = q.get('view') || 'threequarter';
@@ -65,7 +69,7 @@ function woodTexture() {
   g.fillStyle = grad; g.fillRect(0, 0, w, h);
   // fine grain
   for (let i = 0; i < 2600; i++) {
-    const y = rnd() * h, a = 0.04 + rnd() * 0.12, dark = rnd() > 0.35;
+    const y = rnd() * h, a = 0.03 + rnd() * 0.08, dark = rnd() > 0.35;
     g.strokeStyle = dark ? `rgba(55,25,8,${a})` : `rgba(200,135,70,${a * 0.8})`;
     g.lineWidth = 0.6 + rnd() * 2.2; g.beginPath();
     const amp = 2 + rnd() * 10, f = 0.0015 + rnd() * 0.003, ph = rnd() * 6;
@@ -167,7 +171,7 @@ async function main() {
     const g = new THREE.Group();
     g.add(zup(mesh(body, petg()))); g.add(zup(mesh(cap, petg())));
     feet(g, 0);
-    g.rotation.x = Math.PI; g.position.y = 18.0; // lying on its top face, underside up
+    g.rotation.x = Math.PI; g.position.y = P.height; // lying on its top face, underside up
     scene.add(g);
     camera = cam(24, sph(55, 20, 210), [0, 10, 0]);
   }
@@ -185,20 +189,27 @@ async function main() {
     feet(c, 0);
     g.rotation.y = THREE.MathUtils.degToRad(-20);
     scene.add(g);
-    camera = cam(26, sph(22, 30, 330), [0, 40, 0]);
+    camera = cam(26, sph(24, 30, 250), [0, 36, 0]);
   }
   if (VIEW === 'section') {
-    floor(C.cream); studioLights([-40, 140, -120], 2.4);
+    floor(C.cream); studioLights([-90, 120, 160], 2.4);
     const [sb, sc, ss] = await Promise.all([load('reference/section_body.stl'), load('reference/section_cap.stl'), load('reference/section_sticker.stl')]);
+    // cut faces (model normal -Y) get a lighter "section" colour so the parts read apart
+    function cutMesh(geo, base, cut) {
+      const n = geo.getAttribute('normal'), cols = new Float32Array(n.count * 3);
+      const cb = new THREE.Color(base), cc = new THREE.Color(cut);
+      for (let i = 0; i < n.count; i++) { const c = n.getY(i) < -0.98 ? cc : cb; cols.set([c.r, c.g, c.b], i * 3); }
+      geo.setAttribute('color', new THREE.BufferAttribute(cols, 3));
+      return mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.85 }));
+    }
     const g = new THREE.Group();
-    g.add(zup(mesh(sb, petg())));
-    g.add(zup(mesh(sc, petg(0xE39A78))));
-    g.add(zup(mesh(ss, new THREE.MeshStandardMaterial({ color: 0x2f6f9a, roughness: 0.5 }))));
-    if (P.use_foam) g.add(zup(mesh(await load('reference/section_foam.stl'), new THREE.MeshStandardMaterial({ color: 0x9CAF88, roughness: 1 }))));
-    feet(g, 0); g.position.y = FOOT;
+    g.add(zup(cutMesh(sb, C.terracotta, 0xEFB08F)));
+    g.add(zup(cutMesh(sc, C.terracotta, 0xE8DCC8)));
+    g.add(zup(cutMesh(ss, 0x2B2B2B, 0x2B2B2B)));
+    if (P.use_foam) g.add(zup(cutMesh(await load('reference/section_foam.stl'), C.sage, C.sage)));
     scene.add(g);
     // the cut face lies on model Y = 0 (three.js Z = 0) and faces -Y model = +Z three
-    camera = cam(22, sph(14, 18, 230), [0, 8, 0]);
+    camera = cam(13, sph(16, -22, 240), [0, 8, 0]);
   }
   if (VIEW === 'nest') {
     // wall: vertical plane, nest screwed to it, puck held in the cradle
@@ -214,15 +225,15 @@ async function main() {
     pk.position.z = P.nest_plate_t + P.nest_foot_gap; g.add(pk);
     // Z-up model is already "out of the wall" when the wall is the XY plane
     scene.add(g);
-    camera = cam(24, [70, -40, 230], [0, 0, 8]);
+    camera = cam(24, [150, -70, 160], [0, -4, 10]);
   }
   if (VIEW === 'photo') {
     // attempt to recreate panel 2 of the brand board: warm wooden desk, low sun
     scene.background = new THREE.Color(0x6b3a17);
     const wood = woodTexture(); wood.rotation = 0.5; wood.center.set(0.5, 0.5);
     floor(0xffffff, 700, wood);
-    scene.add(new THREE.HemisphereLight(0xffe2bf, 0x6a3a18, 1.1));
-    const sun = new THREE.DirectionalLight(0xffd9b0, 2.6); sun.position.set(90, 190, -60); sun.castShadow = true;
+    scene.add(new THREE.HemisphereLight(0xffe2bf, 0x6a3a18, 1.5));
+    const sun = new THREE.DirectionalLight(0xffd9b0, 2.6); sun.position.set(130, 120, -70); sun.castShadow = true;
     sun.shadow.mapSize.set(4096, 4096); sun.shadow.radius = 6; sun.shadow.bias = -0.0004;
     const s = sun.shadow.camera; s.left = -120; s.right = 120; s.top = 120; s.bottom = -120; scene.add(sun);
     const g = new THREE.Group();
@@ -239,7 +250,18 @@ async function main() {
     camera = cam(30, [10, 205, 85], [6, 0, 6]);
   }
 
-  renderer.render(scene, camera);
+  // ambient occlusion so the 0.8 mm deboss reads the way it does in daylight
+  const composer = new EffectComposer(renderer);
+  composer.setSize(W, H);
+  composer.addPass(new RenderPass(scene, camera));
+  if (q.get('ao') !== '0') {
+    const ao = new GTAOPass(scene, camera, W, H);
+    ao.updateGtaoMaterial({ radius: 1.2, distanceExponent: 1.0, thickness: 1.0, scale: 1.6, samples: 16 });
+    ao.blendIntensity = 1.0;
+    composer.addPass(ao);
+  }
+  composer.addPass(new OutputPass());
+  composer.render();
   window.__done = true;
 }
 main().catch(e => { document.title = 'ERR ' + e; window.__err = String(e); });

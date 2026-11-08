@@ -39,9 +39,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 # ---- Outer form (derived from panel 2 of the brand board, see README) -------
 DIAMETER = 64.0          # overall diameter. Photo reads ~1 : 0.28 height to width
-HEIGHT = 18.0            # body height, underside to top face (cap flush)
+HEIGHT = 16.0            # body height. Brand photo reads ~0.22 to 0.28 H/D; 0.25 balances look and heft
 TOP_ROLL_W = 10.0        # horizontal reach of the pillow roll on the top edge
-TOP_ROLL_H = 8.5         # vertical reach of the pillow roll
+TOP_ROLL_H = 7.5         # vertical reach of the pillow roll
 TOP_ROLL_EXP = 2.2       # superellipse exponent. 2.0 = plain ellipse, 3+ = boxier shoulder
 CROWN = 0.0              # dome on the top face. Keep 0 for FDM (a shallow dome prints as
                          # visible contour rings). Use 0.3 to 0.5 for cast or molded parts.
@@ -55,7 +55,7 @@ LETTER_FONT = os.path.join(HERE, "fonts", "Corben-Bold.ttf")  # OFL, closest fre
 LETTER_WIDTH = 32.0      # word width. Photo: wordmark spans ~50 % of the diameter
 LETTER_DEPTH = 0.8       # deboss depth (4 layers at 0.2). Photo deboss reads deep and soft
 LETTER_CHAMFER = 0.4     # 45 deg soft edge on the deboss (photo letters have soft edges)
-LETTER_CHAMFER_STEPS = 6
+LETTER_CHAMFER_STEPS = 8   # only used when CROWN > 0
 LETTER_OFFSET_Y = 0.6    # small upward shift so the x-height, not the descender, is centred
 LETTER_SVG = None        # path to an SVG with the real lettering (overrides font)
 MIN_PRINTABLE_FEATURE = 0.8  # warn if lettering strokes or gaps are thinner than this
@@ -70,7 +70,7 @@ FOAM_COMPRESS = 0.4      # fraction the foam is squeezed when the cap locks
 NO_FOAM_GAP = 0.3        # gap left above the post when USE_FOAM is False
 
 # ---- Base cap and bayonet (quarter-turn, wedge lock, coin slot) --------------
-BORE_D = 44.0            # cap opening in the body underside
+BORE_D = 42.0            # cap opening in the body underside
 BORE_DEPTH = 4.6         # straight part of the opening, then a 45 deg cone (no bridges)
 CAP_T = 4.0              # cap plate thickness
 CAP_RECESS = 0.2         # cap face sits this far inside the body underside when locked
@@ -93,9 +93,9 @@ COIN_SLOT_DEPTH = 2.0
 FEET_COUNT = 3           # pockets for self-adhesive silicone bumpers (non-slip, lifts the puck)
 FEET_D = 10.5            # pocket diameter for 10 mm bumpers
 FEET_DEPTH = 0.5
-FEET_RADIUS = 16.0       # pitch radius of the bumper pockets
+FEET_RADIUS = 14.5       # pitch radius of the bumper pockets
 CAP_TEXT = "put it down."  # debossed on the cap underside, set "" to disable
-CAP_TEXT_WIDTH = 26.0
+CAP_TEXT_WIDTH = 24.0
 CAP_TEXT_DEPTH = 0.4
 MARK_DEPTH = 0.4         # open / locked alignment marks on the underside
 
@@ -357,12 +357,19 @@ def make_body(d, report):
     report["letter_thin"] = thin_feature_check(cs, MIN_PRINTABLE_FEATURE)
     outer = Manifold.revolve(CrossSection([pts]), SEGMENTS)
     pieces = [Manifold.extrude(cs, 6.0).translate([0, 0, HEIGHT - 4.0]) - outer.translate([0, 0, -LETTER_DEPTH])]
-    n = LETTER_CHAMFER_STEPS if LETTER_CHAMFER > 0 else 0
-    for i in range(n):
-        t1 = LETTER_CHAMFER * (i + 1) / n          # depth below the surface
-        off = LETTER_CHAMFER - t1 + LETTER_CHAMFER / n  # 45 deg: wider near the surface
-        ring = cs.offset(off, JoinType.Round, 2.0, 24)
-        pieces.append(Manifold.extrude(ring, 6.0).translate([0, 0, HEIGHT - 4.0]) - outer.translate([0, 0, -t1]))
+    if LETTER_CHAMFER > 0 and CROWN == 0:
+        # true 45 deg chamfer: Minkowski sum of a thin slab of the letters with a cone
+        slab = Manifold.extrude(cs, 1.0).translate([0, 0, HEIGHT - LETTER_CHAMFER])
+        cone = Manifold.cylinder(LETTER_CHAMFER, 0.0, LETTER_CHAMFER, 16)
+        pieces.append(slab.minkowski_sum(cone))
+    elif LETTER_CHAMFER > 0:
+        # crowned top: stepped approximation that follows the dome
+        n = LETTER_CHAMFER_STEPS
+        for i in range(n):
+            t1 = LETTER_CHAMFER * (i + 1) / n
+            off = LETTER_CHAMFER - t1 + LETTER_CHAMFER / n
+            ring = cs.offset(off, JoinType.Round, 2.0, 24)
+            pieces.append(Manifold.extrude(ring, 6.0).translate([0, 0, HEIGHT - 4.0]) - outer.translate([0, 0, -t1]))
     cutter = Manifold.batch_boolean(pieces, OpType.Add)
     body = body - cutter
     return body
@@ -402,7 +409,7 @@ def make_cap(d, report):
     if CAP_TEXT:
         cs, _ = lettering_section(CAP_TEXT, CAP_TEXT_WIDTH, (0, 0))
         # bed face: mirror so it reads correctly when you look at the underside
-        cs = cs.mirror([1, 0]).translate([0, 6.0])
+        cs = cs.mirror([1, 0]).translate([0, 5.0])
         report["cap_text_thin"] = thin_feature_check(cs, 0.6)
         cap = cap - Manifold.extrude(cs, CAP_TEXT_DEPTH + 1).translate([0, 0, -1])
     return cap

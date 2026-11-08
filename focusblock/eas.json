@@ -20,6 +20,15 @@
       "android": {
         "buildType": "apk"
       }
+    },
+    "tester": {
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_TEST_MODE": "1"
+      },
+      "android": {
+        "buildType": "apk"
+      }
     }
   }
 }

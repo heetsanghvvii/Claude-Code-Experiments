@@ -20,7 +20,7 @@
     "android": {
       "package": "com.yourname.focusblock",
       "adaptiveIcon": {
-        "backgroundColor": "#111111",
+        "backgroundColor": "#FF7A0A",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"

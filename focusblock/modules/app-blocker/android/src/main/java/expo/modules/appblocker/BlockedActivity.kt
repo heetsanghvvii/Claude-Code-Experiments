@@ -25,7 +25,7 @@ class BlockedActivity : Activity() {
       gravity = Gravity.CENTER
     }
     val body = TextView(this).apply {
-      text = "Blocked. Tap your Brick to unlock."
+      text = "Blocked. Tap your Nope to unlock."
       setTextColor(Color.LTGRAY)
       textSize = 18f
       gravity = Gravity.CENTER

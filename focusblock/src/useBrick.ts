@@ -69,7 +69,7 @@ export function useBrick() {
       await writeTagToken(t);
       await store.setToken(t);
       setTokenState(t);
-      Alert.alert('Paired', 'This sticker is now your Brick.');
+      Alert.alert('Paired', 'This sticker is now your Nope.');
     } catch {
       Alert.alert('Pair failed', 'Hold the sticker to the back of your phone and try again.');
     } finally {
@@ -84,7 +84,7 @@ export function useBrick() {
     try {
       const t = await readTagToken();
       if (t === token) await setBlocking(!on);
-      else Alert.alert('Wrong sticker', 'This is not your Brick.');
+      else Alert.alert('Wrong sticker', 'This is not your Nope.');
     } catch {
       /* cancelled */
     } finally {

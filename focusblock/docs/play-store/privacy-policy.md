@@ -1,14 +1,14 @@
-# FocusBlock Privacy Policy
+# Nope Privacy Policy
 
 Effective date: [DATE]
 Developer: [DEVELOPER NAME]
 Contact: [CONTACT EMAIL]
 
-FocusBlock is an Android app that helps you stay off the apps you choose. You tap an NFC sticker to turn blocking on or off.
+Nope is an Android app that helps you stay off the apps you choose. You tap an NFC sticker to turn blocking on or off.
 
 ## The short version
 
-- FocusBlock works entirely on your phone.
+- Nope works entirely on your phone.
 - We do not collect, store on any server, or share your personal data.
 - There is no account, no sign-up, no analytics, and no ads.
 - Nothing you do in the app leaves your device.
@@ -19,13 +19,13 @@ FocusBlock is an Android app that helps you stay off the apps you choose. You ta
 - Whether blocking is currently on.
 - The random code written to your NFC sticker, which the app uses to recognise that sticker.
 
-This information is saved only in the app's private storage on your phone. It is not sent anywhere. Uninstalling FocusBlock deletes it.
+This information is saved only in the app's private storage on your phone. It is not sent anywhere. Uninstalling Nope deletes it.
 
 ## Permissions and why we ask for them
 
-**NFC.** FocusBlock reads your NFC sticker when you tap it, so it can lock or unlock your blocked apps.
+**NFC.** Nope reads your NFC sticker when you tap it, so it can lock or unlock your blocked apps.
 
-**Accessibility service.** When you turn blocking on, FocusBlock uses its Accessibility service to notice when an app you chose to block comes to the front. It then sends you to your Home screen.
+**Accessibility service.** When you turn blocking on, Nope uses its Accessibility service to notice when an app you chose to block comes to the front. It then sends you to your Home screen.
 
 - It uses only the name of the app that opened (for example, the app's package ID).
 - It does not read the text or content on your screen.
@@ -45,7 +45,7 @@ You can turn the Accessibility service off at any time in your phone's Settings.
 
 ## Children
 
-FocusBlock is not designed for children. It does not collect personal information from anyone, including children.
+Nope is not designed for children. It does not collect personal information from anyone, including children.
 
 ## Changes to this policy
 

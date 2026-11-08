@@ -1,4 +1,4 @@
-# FocusBlock
+# Nope
 
 Tap an NFC sticker to lock or unlock chosen apps. Android and iOS.
 
@@ -14,7 +14,7 @@ npx expo run:ios --device
 ```
 
 ## Notes
-- Android: user turns on the FocusBlock accessibility service once. Blocked apps get sent to Home.
+- Android: user turns on the Nope accessibility service once. Blocked apps get sent to Home.
 - iOS: needs a paid Apple developer account and the Family Controls capability. Real device only.
   App Store release needs Apple approval for Family Controls distribution.
 - Pairing writes a random token to the sticker. Scanning the same token toggles lock.

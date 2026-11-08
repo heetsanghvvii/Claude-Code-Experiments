@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name           = 'AppBlocker'
   s.version        = '0.1.0'
-  s.summary        = 'Screen Time app blocking for FocusBlock'
-  s.description    = 'Screen Time app blocking for FocusBlock'
+  s.summary        = 'Screen Time app blocking for Nope'
+  s.description    = 'Screen Time app blocking for Nope'
   s.license        = 'MIT'
-  s.author         = 'FocusBlock'
+  s.author         = 'Nope'
   s.homepage       = 'https://example.com'
   s.platforms      = { :ios => '16.4' }
   s.swift_version  = '5.9'

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "FocusBlock",
+    "name": "Nope",
     "slug": "focusblock",
     "scheme": "focusblock",
     "version": "1.0.0",
@@ -14,7 +14,7 @@
         "com.apple.developer.family-controls": true
       },
       "infoPlist": {
-        "NSFamilyControlsUsageDescription": "FocusBlock blocks the apps you choose while your Brick is on."
+        "NSFamilyControlsUsageDescription": "Nope blocks the apps you choose while your Nope is on."
       }
     },
     "android": {
@@ -30,7 +30,7 @@
     "plugins": [
       "expo-dev-client",
       ["expo-build-properties", { "ios": { "deploymentTarget": "16.4" } }],
-      ["react-native-nfc-manager", { "nfcPermission": "FocusBlock reads your NFC sticker to lock and unlock apps." }]
+      ["react-native-nfc-manager", { "nfcPermission": "Nope reads your NFC sticker to lock and unlock apps." }]
     ]
   }
 }

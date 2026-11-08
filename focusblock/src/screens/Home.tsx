@@ -14,11 +14,11 @@ export function Home({ b }: { b: Brick }) {
 
   return (
     <SafeAreaView style={g.root}>
-      <Text style={g.title}>FocusBlock</Text>
+      <Text style={g.title}>Nope</Text>
 
       <Pressable style={[s.big, b.on && s.bigOn]} onPress={b.tap} disabled={b.busy}>
         <Text style={g.bigText}>{b.busy ? 'Hold near sticker...' : b.on ? 'LOCKED' : 'UNLOCKED'}</Text>
-        <Text style={g.sub}>Tap to scan your Brick</Text>
+        <Text style={g.sub}>Tap to scan your Nope</Text>
       </Pressable>
 
       <View style={s.stats}>

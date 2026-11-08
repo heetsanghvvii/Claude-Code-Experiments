@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>nope render scene</title>
+<style>html,body{margin:0;background:#F8F1E7;overflow:hidden}canvas{display:block}</style>
+<script type="importmap">
+{"imports":{
+ "three":"https://unpkg.com/three@0.160.0/build/three.module.js",
+ "three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"
+}}
+</script>
+</head>
+<body>
+<script type="module">
+// Render scene for the nope puck. Usage: scene.html?view=threequarter|top|bottom|exploded|section|nest|photo
+import * as THREE from 'three';
+import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+const q = new URLSearchParams(location.search);
+const VIEW = q.get('view') || 'threequarter';
+const W = +(q.get('w') || 1600), H = +(q.get('h') || 1200);
+const CASE = '../../case/';
+
+const C = { terracotta: 0xC65D3B, sage: 0x9CAF88, sand: 0xE8DCC8, charcoal: 0x2B2B2B, cream: 0xF8F1E7 };
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(W, H);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(C.cream);
+
+// ---------- textures ----------
+function noiseTexture(size = 512, amp = 40, seed = 7) {
+  const c = document.createElement('canvas'); c.width = c.height = size;
+  const g = c.getContext('2d'); const img = g.createImageData(size, size);
+  let s = seed; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < size * size; i++) {
+    const v = 128 + (rnd() - 0.5) * amp;
+    img.data[i * 4] = img.data[i * 4 + 1] = img.data[i * 4 + 2] = v; img.data[i * 4 + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+  const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(6, 6);
+  return t;
+}
+function woodTexture() {
+  const w = 2048, h = 2048; const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const g = c.getContext('2d');
+  g.fillStyle = '#8a4d22'; g.fillRect(0, 0, w, h);
+  let s = 11; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 900; i++) {
+    const y = rnd() * h, th = 1 + rnd() * 7, a = 0.05 + rnd() * 0.18;
+    const light = rnd() > 0.5;
+    g.strokeStyle = light ? `rgba(214,140,70,${a})` : `rgba(60,28,8,${a})`;
+    g.lineWidth = th; g.beginPath();
+    const amp = 4 + rnd() * 18, f = 0.002 + rnd() * 0.004, ph = rnd() * 6;
+    for (let x = 0; x <= w; x += 16) { const yy = y + Math.sin(x * f + ph) * amp; x ? g.lineTo(x, yy) : g.moveTo(x, yy); }
+    g.stroke();
+  }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+  return t;
+}
+function coilTexture() {
+  const s = 512; const c = document.createElement('canvas'); c.width = c.height = s;
+  const g = c.getContext('2d'); g.fillStyle = '#f4f1ea'; g.fillRect(0, 0, s, s);
+  g.strokeStyle = '#b07a3a'; g.lineWidth = 3;
+  for (let i = 0; i < 7; i++) { g.beginPath(); g.arc(s / 2, s / 2, s / 2 - 18 - i * 9, 0, Math.PI * 2); g.stroke(); }
+  g.fillStyle = '#2B2B2B'; g.fillRect(s / 2 - 14, s / 2 - 10, 28, 20);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+
+const bump = noiseTexture(512, 60);
+function petg(color = C.terracotta, extra = {}) {
+  return new THREE.MeshStandardMaterial(Object.assign({
+    color, roughness: 0.86, metalness: 0.0, bumpMap: bump, bumpScale: 0.6,
+  }, extra));
+}
+
+// ---------- loading ----------
+const loader = new STLLoader();
+function load(name) {
+  return new Promise((res, rej) => loader.load(CASE + name, g => {
+    g.deleteAttribute('normal');
+    const cg = toCreasedNormals(g, Math.PI / 7);
+    res(cg);
+  }, undefined, rej));
+}
+function mesh(geo, mat) {
+  const m = new THREE.Mesh(geo, mat); m.castShadow = true; m.receiveShadow = true; return m;
+}
+
+// Z-up model space -> three.js Y-up
+function zup(obj) { const g = new THREE.Group(); obj.rotation.x = -Math.PI / 2; g.add(obj); return g; }
+
+// ---------- lights ----------
+function studioLights(dir = [-60, 120, 80], intensity = 2.6) {
+  scene.add(new THREE.HemisphereLight(0xfff6ea, 0xcdb8a0, 1.25));
+  const key = new THREE.DirectionalLight(0xfff1e0, intensity);
+  key.position.set(...dir); key.castShadow = true;
+  key.shadow.mapSize.set(4096, 4096); key.shadow.radius = 9; key.shadow.bias = -0.0004; key.shadow.normalBias = 0.02;
+  const s = key.shadow.camera; s.left = -90; s.right = 90; s.top = 90; s.bottom = -90; s.near = 1; s.far = 400;
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(0xffe7d0, 0.5); fill.position.set(80, 40, -60); scene.add(fill);
+  return key;
+}
+function floor(color = C.sand, size = 1200, tex = null) {
+  const mat = new THREE.MeshStandardMaterial({ color, roughness: 0.95, map: tex });
+  const f = new THREE.Mesh(new THREE.PlaneGeometry(size, size), mat);
+  f.rotation.x = -Math.PI / 2; f.receiveShadow = true; scene.add(f); return f;
+}
+function cam(fov, pos, target = [0, 6, 0]) {
+  const c = new THREE.PerspectiveCamera(fov, W / H, 1, 3000);
+  c.position.set(...pos); c.lookAt(...target); return c;
+}
+function sph(elev, azim, dist) {
+  const e = THREE.MathUtils.degToRad(elev), a = THREE.MathUtils.degToRad(azim);
+  return [dist * Math.cos(e) * Math.sin(a), dist * Math.sin(e), dist * Math.cos(e) * Math.cos(a)];
+}
+
+async function main() {
+  const P = await (await fetch(CASE + 'reference/params.json')).json();
+  const [body, cap, sticker] = await Promise.all([load('nope_body.stl'), load('reference/cap_locked_position.stl'), load('reference/sticker_placeholder.stl')]);
+  const stickerMat = new THREE.MeshStandardMaterial({ color: 0xf4f1ea, roughness: 0.5, map: coilTexture() });
+  const foamMat = new THREE.MeshStandardMaterial({ color: 0x8a8a86, roughness: 1.0 });
+  const bumperMat = new THREE.MeshPhysicalMaterial({ color: 0xd9cfc2, roughness: 0.35, transmission: 0.0, clearcoat: 0.6 });
+  let camera;
+
+  function feet(group, zBase) {
+    for (let k = 0; k < P.feet_count; k++) {
+      const a = THREE.MathUtils.degToRad(90 + k * 360 / P.feet_count + P.twist);
+      const g = new THREE.SphereGeometry(5, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2.6);
+      const m = mesh(g, bumperMat); m.scale.set(1, 0.55, 1);
+      // feet hang below the cap: build in z-up space
+      const holder = new THREE.Group(); holder.add(m); m.rotation.x = Math.PI; // dome pointing -Y
+      holder.position.set(P.feet_radius * Math.cos(a), zBase, -P.feet_radius * Math.sin(a));
+      group.add(holder);
+    }
+  }
+  const FOOT = 2.2; // bumper height, puck stands on its feet
+
+  if (VIEW === 'threequarter' || VIEW === 'top') {
+    floor(C.sand); studioLights([-70, 130, 60]);
+    const g = new THREE.Group();
+    g.add(zup(mesh(body, petg()))); g.add(zup(mesh(cap, petg())));
+    feet(g, 0); g.position.y = FOOT; g.rotation.y = THREE.MathUtils.degToRad(-12);
+    scene.add(g);
+    camera = VIEW === 'top' ? cam(22, [0, 220, 0.01], [0, 0, 0]) : cam(24, sph(30, 28, 210), [0, 7, 0]);
+  }
+  if (VIEW === 'bottom') {
+    floor(C.sand); studioLights([-70, 130, 60]);
+    const g = new THREE.Group();
+    g.add(zup(mesh(body, petg()))); g.add(zup(mesh(cap, petg())));
+    feet(g, 0);
+    g.rotation.x = Math.PI; g.position.y = 18.0; // lying on its top face, underside up
+    scene.add(g);
+    camera = cam(24, sph(55, 20, 210), [0, 10, 0]);
+  }
+  if (VIEW === 'exploded') {
+    floor(C.cream); studioLights([-70, 140, 70]);
+    const capOnly = await load('nope_base_cap.stl');
+    const foam = P.use_foam ? await load('reference/foam_placeholder.stl') : null;
+    const g = new THREE.Group();
+    const b = zup(mesh(body, petg())); b.position.y = 62; g.add(b);
+    const st = new THREE.Mesh(new THREE.CylinderGeometry(P.sticker_d / 2, P.sticker_d / 2, 0.6, 96),
+      [new THREE.MeshStandardMaterial({ color: 0xf4f1ea, roughness: 0.6 }), stickerMat, stickerMat]);
+    st.castShadow = true; st.position.y = 48; g.add(st);
+    if (foam) { const f = zup(mesh(foam, foamMat)); f.position.y = 38 - P.post_top; g.add(f); }
+    const c = zup(mesh(capOnly, petg())); c.rotation.y = 0; c.position.y = 6; g.add(c);
+    feet(c, 0);
+    g.rotation.y = THREE.MathUtils.degToRad(-20);
+    scene.add(g);
+    camera = cam(26, sph(22, 30, 330), [0, 40, 0]);
+  }
+  if (VIEW === 'section') {
+    floor(C.cream); studioLights([-40, 140, -120], 2.4);
+    const [sb, sc, ss] = await Promise.all([load('reference/section_body.stl'), load('reference/section_cap.stl'), load('reference/section_sticker.stl')]);
+    const g = new THREE.Group();
+    g.add(zup(mesh(sb, petg())));
+    g.add(zup(mesh(sc, petg(0xE39A78))));
+    g.add(zup(mesh(ss, new THREE.MeshStandardMaterial({ color: 0x2f6f9a, roughness: 0.5 }))));
+    if (P.use_foam) g.add(zup(mesh(await load('reference/section_foam.stl'), new THREE.MeshStandardMaterial({ color: 0x9CAF88, roughness: 1 }))));
+    feet(g, 0); g.position.y = FOOT;
+    scene.add(g);
+    // the cut face lies on model Y = 0 (three.js Z = 0) and faces -Y model = +Z three
+    camera = cam(22, sph(14, 18, 230), [0, 8, 0]);
+  }
+  if (VIEW === 'nest') {
+    // wall: vertical plane, nest screwed to it, puck held in the cradle
+    scene.background = new THREE.Color(C.cream);
+    const wall = new THREE.Mesh(new THREE.PlaneGeometry(800, 800), new THREE.MeshStandardMaterial({ color: 0xEFE6D8, roughness: 1 }));
+    wall.receiveShadow = true; scene.add(wall);
+    studioLights([-80, 120, 160], 2.4);
+    const nest = await load('nope_nest.stl');
+    const g = new THREE.Group();
+    g.add(mesh(nest, petg(C.sage)));
+    const pk = new THREE.Group();
+    pk.add(mesh(body, petg())); pk.add(mesh(cap, petg()));
+    pk.position.z = P.nest_plate_t + P.nest_foot_gap; g.add(pk);
+    // Z-up model is already "out of the wall" when the wall is the XY plane
+    scene.add(g);
+    camera = cam(24, [70, -40, 230], [0, 0, 8]);
+  }
+  if (VIEW === 'photo') {
+    // attempt to recreate panel 2 of the brand board: warm wooden desk, low sun
+    scene.background = new THREE.Color(0x6b3a17);
+    const wood = woodTexture(); wood.rotation = 0.6; wood.center.set(0.5, 0.5);
+    floor(0xffffff, 700, wood);
+    scene.add(new THREE.HemisphereLight(0xffe2bf, 0x5a2e12, 0.9));
+    const sun = new THREE.DirectionalLight(0xffd2a0, 3.4); sun.position.set(110, 150, -40); sun.castShadow = true;
+    sun.shadow.mapSize.set(4096, 4096); sun.shadow.radius = 6; sun.shadow.bias = -0.0004;
+    const s = sun.shadow.camera; s.left = -120; s.right = 120; s.top = 120; s.bottom = -120; scene.add(sun);
+    const g = new THREE.Group();
+    g.add(zup(mesh(body, petg(0xC0583A)))); g.add(zup(mesh(cap, petg(0xC0583A))));
+    feet(g, 0); g.position.y = FOOT; g.rotation.y = THREE.MathUtils.degToRad(14);
+    scene.add(g);
+    // props, kept simple: a ceramic cup and a kraft notebook corner, like the photo
+    const cup = new THREE.Mesh(new THREE.CylinderGeometry(40, 36, 80, 64, 1, true), new THREE.MeshStandardMaterial({ color: 0xe9dcc4, roughness: 0.9, side: THREE.DoubleSide }));
+    cup.position.set(95, 40, -115); cup.castShadow = true; scene.add(cup);
+    const tea = new THREE.Mesh(new THREE.CircleGeometry(38, 64), new THREE.MeshStandardMaterial({ color: 0xc58a5a, roughness: 0.4 }));
+    tea.rotation.x = -Math.PI / 2; tea.position.set(95, 70, -115); scene.add(tea);
+    const nb = new THREE.Mesh(new RoundedBoxGeometry(150, 14, 200, 4, 3), new THREE.MeshStandardMaterial({ color: 0xd9c7a8, roughness: 0.95 }));
+    nb.position.set(120, 7, 140); nb.rotation.y = 0.55; nb.castShadow = true; nb.receiveShadow = true; scene.add(nb);
+    camera = cam(30, [10, 205, 85], [6, 0, 6]);
+  }
+
+  renderer.render(scene, camera);
+  window.__done = true;
+}
+main().catch(e => { document.title = 'ERR ' + e; window.__err = String(e); });
+</script>
+</body>
+</html>

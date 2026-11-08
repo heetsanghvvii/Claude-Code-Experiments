@@ -1,0 +1,85 @@
+/* nope brand tokens v1. Charcoal + saffron. See BRAND.md for the allowed contrast pairs. */
+@font-face {
+  font-family: "Outfit";
+  src: url("./fonts/outfit-latin-variable.woff2") format("woff2-variations"), url("./fonts/outfit-latin-variable.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* Core palette */
+  --nope-charcoal-900: #1C1C1E;  /* ink, dark base */
+  --nope-charcoal-800: #262628;  /* raised surface on dark */
+  --nope-charcoal-700: #323235;  /* controls on dark */
+  --nope-charcoal-600: #48484C;  /* borders on dark (non-text) */
+  --nope-stone-300:    #C9C7C3;  /* warm grey, puck colour, secondary text on dark */
+  --nope-stone-500:    #9C9993;  /* muted text on dark only */
+  --nope-stone-700:    #5C5A56;  /* muted text on light only */
+  --nope-chalk-100:    #F5F4F1;  /* off-white, light base, text on dark */
+  --nope-chalk-200:    #E9E7E2;  /* raised surface on light */
+  --nope-saffron-500:  #FF8A1F;  /* the one accent */
+  --nope-saffron-600:  #F27A0C;  /* pressed / hover on saffron */
+  --nope-ember-700:    #A84A00;  /* saffron family for TEXT on light backgrounds */
+  --nope-saffron-tint-dark:  #3A2817;
+  --nope-saffron-tint-light: #FFE7D1;
+
+  /* Semantic, dark mode is the default brand mode */
+  --bg: var(--nope-charcoal-900);
+  --surface: var(--nope-charcoal-800);
+  --control: var(--nope-charcoal-700);
+  --line: #3A3A3E;
+  --text: var(--nope-chalk-100);
+  --text-2: var(--nope-stone-300);
+  --text-muted: var(--nope-stone-500);
+  --accent: var(--nope-saffron-500);
+  --accent-press: var(--nope-saffron-600);
+  --on-accent: var(--nope-charcoal-900);
+  --accent-text: var(--nope-saffron-500);
+  --focus: var(--nope-saffron-500);
+
+  /* Type */
+  --font-sans: "Outfit", ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+  --fw-body: 400; --fw-medium: 500; --fw-semibold: 600; --fw-display: 800;
+  --fs-xs: 0.8125rem;  /* 13 */
+  --fs-sm: 0.9375rem;  /* 15 */
+  --fs-base: 1.0625rem;/* 17 */
+  --fs-lg: 1.25rem;    /* 20 */
+  --fs-xl: 1.625rem;   /* 26 */
+  --fs-2xl: 2.25rem;   /* 36 */
+  --fs-3xl: clamp(2.75rem, 9vw, 4.5rem);
+  --fs-hero: clamp(3.5rem, 15vw, 8.5rem);
+  --lh-tight: 0.95; --lh-snug: 1.15; --lh-body: 1.55;
+  --track-display: -0.035em; --track-heading: -0.02em;
+
+  /* Space (4 pt base) */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px;
+
+  /* Shape: pills for actions, 20 for panels, 12 for inputs, full circle for anything puck */
+  --r-input: 12px; --r-panel: 20px; --r-pill: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 120ms; --dur-2: 220ms; --dur-3: 420ms; --dur-4: 700ms;
+
+  --shadow-puck: 0 30px 60px -20px rgba(0, 0, 0, 0.55), 0 8px 18px -8px rgba(0, 0, 0, 0.45);
+}
+
+/* Light mode (print, light surfaces, partner decks) */
+.nope-light, [data-theme="light"] {
+  --bg: var(--nope-chalk-100);
+  --surface: var(--nope-chalk-200);
+  --control: #DEDBD5;
+  --line: #D6D3CD;
+  --text: var(--nope-charcoal-900);
+  --text-2: #3A3A3D;
+  --text-muted: var(--nope-stone-700);
+  --accent: var(--nope-saffron-500);     /* fills only on light: buttons, dots, shapes */
+  --accent-press: var(--nope-saffron-600);
+  --on-accent: var(--nope-charcoal-900);
+  --accent-text: var(--nope-ember-700);  /* never saffron-500 as text on light */
+  --focus: var(--nope-charcoal-900);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-1: 0ms; --dur-2: 0ms; --dur-3: 0ms; --dur-4: 0ms; }
+}

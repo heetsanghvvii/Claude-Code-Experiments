@@ -12,19 +12,18 @@ Bayonet: 3 lugs x 18.0 deg, twist 30.0 deg, radial clr 0.25/0.3, entry play 0.4,
   channel floor ramps Z 1.75 -> 2.25, ceiling Z 3.75
   body ledge under the lugs (thinnest, at the entry): 1.75 mm
 Cap: 43.50 mm x 4.0 mm plate, post 25.1 mm to local Z 14.70
-  cap text strokes thinner than 0.6 mm: 17.2 % (cosmetic only)
+  cap text strokes thinner than 0.6 mm: 11.8 % (cosmetic only)
 Felt fallback: 58.0 mm pad on a flat ring 44 to 60.5 mm
 Nest: 70.0 mm x 20.7 mm, lip 62.0 mm at Z 19.1
 
 Part checks
-  nope_body.stl          watertight=False vol=37.59 cm3 bbox=64.0 x 64.0 x 18.0 est. mass 26 g @30% infill (48 g solid) | >45deg down-facing area 624 of 10558 mm2
-  nope_base_cap.stl      watertight=True vol=10.95 cm3 bbox=44.9 x 43.5 x 14.7 est. mass 9 g @30% infill (14 g solid) | >45deg down-facing area 372 of 4656 mm2
-  nope_nest.stl          watertight=False vol=14.40 cm3 bbox=70.0 x 70.0 x 20.7 est. mass 18 g @30% infill (18 g solid) | >45deg down-facing area 233 of 12705 mm2
-  nfc_test_coupons.stl   watertight=True vol=14.65 cm3 bbox=216.0 x 40.0 x 4.0 est. mass 19 g @30% infill (19 g solid) | >45deg down-facing area 0 of 14191 mm2
-  nope_assembled.stl     watertight=False vol=48.97 cm3 bbox=64.0 x 64.0 x 18.0
+  nope_body.stl          watertight=True vol=37.59 cm3 bbox=64.0 x 64.0 x 18.0 est. mass 26 g @30% / 32 g @50% infill / 48 g solid | >45deg down-facing area 624 of 10556 mm2
+  nope_base_cap.stl      watertight=True vol=10.94 cm3 bbox=44.9 x 43.5 x 14.7 est. mass 9 g @30% / 11 g @50% infill / 14 g solid | >45deg down-facing area 383 of 4663 mm2
+  nope_nest.stl          watertight=True vol=14.40 cm3 bbox=70.0 x 70.0 x 20.7 est. mass 18 g @30% / 18 g @50% infill / 18 g solid | >45deg down-facing area 0 of 12704 mm2
+  nfc_test_coupons.stl   watertight=True vol=14.65 cm3 bbox=216.0 x 40.0 x 4.0 est. mass 19 g @30% / 19 g @50% infill / 19 g solid | >45deg down-facing area 0 of 14191 mm2
+  nope_assembled.stl     watertight=True vol=48.97 cm3 bbox=64.0 x 64.0 x 18.0
 
-Body wall thickness, ray samples (n=3000): min 0.51, 1st pct 1.60, median 13.21 mm
-  samples under 1.6 mm (expected only at lettering edges, marks and bayonet slot corners):
-    count 76, Z range 15.80..17.87, R range 0.4..14.0
+Body wall thickness, ray samples (n=3000): 1st pct 1.60, median 13.25 mm
+  no samples under 1.6 mm outside the lettering
 
 Unverified until a real print: fit of the bayonet, NFC read through the skin, mass.

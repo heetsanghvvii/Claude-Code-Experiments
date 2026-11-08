@@ -83,7 +83,6 @@ LUG_ANG_CLEARANCE = 2.0  # deg each side of the lug in the entry slot
 TWIST_DEG = 30.0         # rotation from "open" to "locked"
 ENTRY_AX_CLEARANCE = 0.4 # vertical play at the channel entry (loose, easy to start)
 LOCK_INTERFERENCE = 0.10 # vertical squeeze at the locked end (wedge lock)
-RAMP_STEPS = 12          # resolution of the wedge ramp
 POST_CLEARANCE = 0.4     # radial clearance post to sticker shaft
 SEAT_RECESS = 0.2        # centring recess on the post top for foam or sticker
 COIN_SLOT_L = 20.0       # coin or screwdriver slot on the cap underside
@@ -94,7 +93,7 @@ FEET_D = 10.5            # pocket diameter for 10 mm bumpers
 FEET_DEPTH = 0.5
 FEET_RADIUS = 16.0       # pitch radius of the bumper pockets
 CAP_TEXT = "put it down."  # debossed on the cap underside, set "" to disable
-CAP_TEXT_WIDTH = 22.0
+CAP_TEXT_WIDTH = 26.0
 CAP_TEXT_DEPTH = 0.4
 MARK_DEPTH = 0.4         # open / locked alignment marks on the underside
 
@@ -148,10 +147,15 @@ def apply_cli():
 # ---------------------------------------------------------------------------
 
 def to_trimesh(m: Manifold) -> trimesh.Trimesh:
+    # collapse sub-micron sliver edges so the STL stays watertight after a slicer
+    # (or trimesh) welds vertices by position
+    m = m.simplify(1e-3)
     mesh = m.to_mesh()
     v = np.asarray(mesh.vert_properties)[:, :3]
     f = np.asarray(mesh.tri_verts)
-    return trimesh.Trimesh(vertices=v, faces=f, process=True)
+    # keep manifold3d's topology exactly (merging near-duplicate vertices can
+    # create non-manifold edges at sliver faces)
+    return trimesh.Trimesh(vertices=v, faces=f, process=False)
 
 
 def annular_sector(r_in, r_out, a0, a1, z0, z1, steps=None):
@@ -163,6 +167,17 @@ def annular_sector(r_in, r_out, a0, a1, z0, z1, steps=None):
     inner = [(r_in * math.cos(a), r_in * math.sin(a)) for a in angs[::-1]]
     cs = CrossSection([outer + inner])
     return Manifold.extrude(cs, z1 - z0).translate([0, 0, z0])
+
+
+def polar_cut(poly_az, r0, r1):
+    """Polygon in (angle deg, z) swept between radii r0..r1."""
+    m = Manifold.extrude(CrossSection([poly_az]), r1 - r0).translate([0, 0, r0])
+    m = m.refine_to_length(0.8)
+
+    def w(v):
+        a = math.radians(v[0])
+        return (v[2] * math.cos(a), v[2] * math.sin(a), v[1])
+    return m.warp(w)
 
 
 def cyl(r, z0, z1, x=0.0, y=0.0, seg=SEGMENTS):
@@ -308,22 +323,20 @@ def make_body(d, report):
     cav = [(0, -1), (br, -1), (br, BORE_DEPTH), (sr, z_cone_top), (sr, d["z_ceil"]), (0, d["z_ceil"])]
     body = body - Manifold.revolve(CrossSection([cav]), SEGMENTS)
 
-    # bayonet: vertical entry slots + ramped channels
+    # bayonet: per lug one solid cut = vertical entry slot + continuous wedge ramp.
+    # Drawn in (angle, Z), extruded along the radius, then warped to polar so the
+    # ramp is smooth and there are no overlapping facets.
     cut = []
     W, c = LUG_WIDTH_DEG, LUG_ANG_CLEARANCE
     for k in range(LUG_COUNT):
         th = k * 360.0 / LUG_COUNT
-        cut.append(annular_sector(br - 0.5, d["slot_r_out"], th - W / 2 - c, th + W / 2 + c, -1, d["ceil_ch"]))
-        a_start = th + W / 2 + c          # ramp starts where the slot ends
-        a_lock = th + W / 2 + TWIST_DEG   # lug leading edge when locked
-        a_end = a_lock + c
-        for i in range(RAMP_STEPS):
-            a0 = a_start + (a_lock - a_start) * i / RAMP_STEPS
-            a1 = a_start + (a_lock - a_start) * (i + 1) / RAMP_STEPS
-            f = d["floor_entry"] + (d["floor_lock"] - d["floor_entry"]) * (i + 0.5) / RAMP_STEPS
-            # extend each step back into the previous one so the cut is one solid
-            cut.append(annular_sector(br - 0.5, d["slot_r_out"], th - W / 2 - c, a1, f, d["ceil_ch"]))
-        cut.append(annular_sector(br - 0.5, d["slot_r_out"], th - W / 2 - c, a_end, d["floor_lock"], d["ceil_ch"]))
+        a_s0 = th - W / 2 - c             # slot start
+        a_start = th + W / 2 + c          # slot end = ramp start
+        a_lock = th + W / 2 + TWIST_DEG   # lug leading edge when locked = ramp top
+        a_end = a_lock + c                # hard stop
+        poly = [(a_s0, -1.0), (a_start, -1.0), (a_start, d["floor_entry"]), (a_lock, d["floor_lock"]),
+                (a_end, d["floor_lock"]), (a_end, d["ceil_ch"]), (a_s0, d["ceil_ch"])]
+        cut.append(polar_cut(poly, br - 0.5, d["slot_r_out"]))
     body = body - Manifold.batch_boolean(cut, __import__("manifold3d").OpType.Add)
 
     # underside marks: dot = open, bar = locked (read with the cap arrow at 0 deg)
@@ -380,7 +393,7 @@ def make_cap(d, report):
     if CAP_TEXT:
         cs, _ = lettering_section(CAP_TEXT, CAP_TEXT_WIDTH, (0, 0))
         # bed face: mirror so it reads correctly when you look at the underside
-        cs = cs.mirror([1, 0]).translate([0, 7.0])
+        cs = cs.mirror([1, 0]).translate([0, 6.0])
         report["cap_text_thin"] = thin_feature_check(cs, 0.6)
         cap = cap - Manifold.extrude(cs, CAP_TEXT_DEPTH + 1).translate([0, 0, -1])
     return cap
@@ -391,7 +404,7 @@ def make_sticker(d):
 
 
 def make_foam(d):
-    return cyl(STICKER_D / 2, d["post_top"], d["z_ceil"] - STICKER_T, seg=96)
+    return cyl(STICKER_D / 2 - 0.05, d["post_top"] + 0.001, d["z_ceil"] - STICKER_T - 0.001, seg=96)
 
 
 def make_nest(d, report):
@@ -412,12 +425,10 @@ def make_nest(d, report):
     lip_z = z_puck0 + z_rel
     lip_t = 1.6
     top = lip_z + lip_t
-    plate = cyl(ro, 0, NEST_PLATE_T)
-    ring = cyl(ro, 0, top) - cyl(ri, -1, top + 1)
-    # lip with a 45 deg underside so it prints without support
-    lip_prof = [(lip_r, lip_z), (ri + 0.01, lip_z - (ri - lip_r)), (ro, lip_z - (ri - lip_r)), (ro, top), (lip_r, top)]
-    lip = Manifold.revolve(CrossSection([lip_prof]), SEGMENTS)
-    nest = plate + ring + lip
+    # one revolved profile: plate, wall and a lip with a 45 deg underside (no support)
+    prof = [(0, 0), (ro, 0), (ro, top), (lip_r, top), (lip_r, lip_z),
+            (ri, lip_z - (ri - lip_r)), (ri, NEST_PLATE_T), (0, NEST_PLATE_T)]
+    nest = Manifold.revolve(CrossSection([prof]), SEGMENTS)
     # opening at the top (+Y): remove ring and lip over NEST_OPEN_DEG
     half = NEST_OPEN_DEG / 2
     nest = nest - annular_sector(ri - NEST_LIP_IN - 1, ro + 1, 90 - half, 90 + half, NEST_PLATE_T, top + 1)
@@ -504,12 +515,10 @@ def main():
     coupons = make_coupons(rep)
 
     parts = [body, cap_locked, sticker] + ([foam] if foam is not None else [])
-    assembled = Manifold.batch_boolean(parts, __import__("manifold3d").OpType.Add)
 
     files = {
         "nope_body.stl": body,
         "nope_base_cap.stl": cap,
-        "nope_assembled.stl": assembled,
         "nope_nest.stl": nest,
         "nfc_test_coupons.stl": coupons,
         "reference/sticker_placeholder.stl": sticker,
@@ -517,11 +526,27 @@ def main():
     }
     if foam is not None:
         files["reference/foam_placeholder.stl"] = foam
+    # half sections (cut on the XZ plane, keep +Y) for the cross-section render
+    for nm, m in [("body", body), ("cap", cap_locked), ("sticker", sticker)] + ([("foam", foam)] if foam is not None else []):
+        files[f"reference/section_{nm}.stl"] = m.trim_by_plane([0, 1, 0], 0.0)
     tms = {}
     for name, m in files.items():
         tm = to_trimesh(m)
         tm.export(os.path.join(out, name))
         tms[name] = tm
+
+    # key numbers for the render scripts
+    import json
+    with open(os.path.join(out, "reference", "params.json"), "w") as f:
+        json.dump(dict(diameter=DIAMETER, height=HEIGHT, twist=TWIST_DEG, cap_recess=CAP_RECESS,
+                       feet_radius=FEET_RADIUS, feet_count=FEET_COUNT, feet_d=FEET_D, sticker_d=STICKER_D,
+                       sticker_t=STICKER_T, z_ceil=d["z_ceil"], post_top=d["post_top"], use_foam=USE_FOAM,
+                       nest=rep["nest"], nest_plate_t=NEST_PLATE_T, nest_foot_gap=NEST_FOOT_GAP), f, indent=1)
+
+    # preview assembly: each part kept as its own closed shell (no boolean), so the
+    # 0.1 mm lock squeeze and the foam squeeze stay visible as overlaps, not merged
+    tms["nope_assembled.stl"] = trimesh.util.concatenate([to_trimesh(m) for m in parts])
+    tms["nope_assembled.stl"].export(os.path.join(out, "nope_assembled.stl"))
 
     # ------------------------------------------------------------------ report
     L = []
@@ -558,7 +583,8 @@ def main():
                 f"bbox={ext[0]:.1f} x {ext[1]:.1f} x {ext[2]:.1f}")
         if name != "nope_assembled.stl":
             g30, gsolid = est_mass(tm, infill=0.30)
-            line += f" est. mass {g30:.0f} g @30% infill ({gsolid:.0f} g solid)"
+            g50, _ = est_mass(tm, infill=0.50)
+            line += f" est. mass {g30:.0f} g @30% / {g50:.0f} g @50% infill / {gsolid:.0f} g solid"
             oh, tot = overhang_report(tm)
             line += f" | >45deg down-facing area {oh:.0f} of {tot:.0f} mm2"
         P(line)
@@ -567,11 +593,16 @@ def main():
     pts, th = thickness_samples(tmb)
     finite = th[np.isfinite(th)]
     P("")
-    P("Body wall thickness, ray samples (n=%d): min %.2f, 1st pct %.2f, median %.2f mm"
-      % (len(finite), finite.min(), np.percentile(finite, 1), np.median(finite)))
-    thin = pts[th < 1.6]
-    if len(thin):
-        P("  samples under 1.6 mm (expected only at lettering edges, marks and bayonet slot corners):")
+    P("Body wall thickness, ray samples (n=%d): 1st pct %.2f, median %.2f mm"
+      % (len(finite), np.percentile(finite, 1), np.median(finite)))
+    # ignore the lettering side walls (those rays run sideways through 0.6 mm of air
+    # and plastic, they are not walls) and float noise at exactly 1.6
+    sel = (th < 1.6 - 0.01) & (pts[:, 2] < HEIGHT - LETTER_DEPTH - 0.05)
+    thin = pts[sel]
+    if not len(thin):
+        P("  no samples under 1.6 mm outside the lettering")
+    else:
+        P("  samples under 1.6 mm outside the lettering (expected only at marks and slot corners):")
         zs = thin[:, 2]
         rs = np.hypot(thin[:, 0], thin[:, 1])
         P(f"    count {len(thin)}, Z range {zs.min():.2f}..{zs.max():.2f}, R range {rs.min():.1f}..{rs.max():.1f}")

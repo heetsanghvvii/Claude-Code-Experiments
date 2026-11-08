@@ -2,16 +2,27 @@ import { useState } from 'react';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { Brick } from '../useBrick';
 import { c, g } from '../theme';
+import { PermissionExplainer } from './PermissionExplainer';
 
 export function Onboarding({ b }: { b: Brick }) {
   const [step, setStep] = useState(0);
+  const [explaining, setExplaining] = useState(false);
   const steps = [
-    { title: 'Allow blocking', body: 'Nope needs permission to block distracting apps while you are locked in.', action: 'Allow', run: b.requestPermission, done: b.perm },
+    { title: 'Allow blocking', body: 'Nope needs permission to block distracting apps while you are locked in.', action: 'Allow', run: () => setExplaining(true), done: b.perm },
     { title: 'Choose apps', body: 'Pick the apps you want blocked during a focus session.', action: 'Choose apps', run: b.chooseApps, done: b.appCount > 0 },
     { title: 'Pair your sticker', body: 'Hold an NFC sticker to the back of your phone. It becomes your key to lock and unlock.', action: b.busy ? 'Hold near sticker...' : 'Pair sticker', run: b.pair, done: !!b.token },
   ];
   const cur = steps[step];
   const last = step === steps.length - 1;
+
+  if (explaining) {
+    return (
+      <PermissionExplainer
+        onAllow={() => { setExplaining(false); b.requestPermission(); }}
+        onCancel={() => setExplaining(false)}
+      />
+    );
+  }
 
   return (
     <SafeAreaView style={g.root}>

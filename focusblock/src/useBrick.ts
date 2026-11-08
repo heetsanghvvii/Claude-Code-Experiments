@@ -3,6 +3,8 @@ import { Alert, AppState, Platform } from 'react-native';
 import AppBlocker, { InstalledApp } from '../modules/app-blocker';
 import { readTagToken, writeTagToken } from './nfc';
 import * as store from './storage';
+import { useSettings } from './useSettings';
+import { buildBlockedList } from './essentials';
 
 export function useBrick() {
   const [ready, setReady] = useState(false);
@@ -14,6 +16,7 @@ export function useBrick() {
   const [perm, setPerm] = useState(false);
   const [busy, setBusy] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const { settings, settingsLoaded, setBlockBrowsers } = useSettings();
   const [apps, setApps] = useState<InstalledApp[]>([]);
   const [stats, setStats] = useState<store.Stats>({ todayMs: 0, streak: 0 });
   const [emergencyLeft, setEmergencyLeft] = useState(store.MAX_EMERGENCY_PER_DAY);
@@ -28,7 +31,6 @@ export function useBrick() {
       const ids = await store.getBlockedApps();
       if (ids.length) {
         setBlocked(ids);
-        AppBlocker.setBlockedApps(ids);
       }
       const blocking = AppBlocker.isBlocking();
       setOn(blocking);
@@ -105,7 +107,6 @@ export function useBrick() {
   const toggleApp = async (id: string) => {
     const next = blocked.includes(id) ? blocked.filter((x) => x !== id) : [...blocked, id];
     setBlocked(next);
-    AppBlocker.setBlockedApps(next);
     await store.setBlockedApps(next);
   };
 
@@ -125,7 +126,7 @@ export function useBrick() {
   return {
     ready, onboarded, token, on, perm, busy, stats, emergencyLeft,
     appCount: Platform.OS === 'ios' ? iosCount : blocked.length,
-    pickerOpen, setPickerOpen, apps, blocked,
+    pickerOpen, setPickerOpen, apps, blocked, settings, setBlockBrowsers,
     requestPermission, pair, tap, chooseApps, toggleApp, setBlocking,
     emergencyUnlock, finishOnboarding, devPair,
   };

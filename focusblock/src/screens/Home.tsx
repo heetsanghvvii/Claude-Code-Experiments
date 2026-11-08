@@ -5,12 +5,23 @@ import { MAX_EMERGENCY_PER_DAY } from '../storage';
 import { formatDuration } from '../format';
 import { HoldButton } from '../components/HoldButton';
 import { Row } from '../components/Row';
+import { PermissionExplainer } from './PermissionExplainer';
 import { c, g } from '../theme';
 
 const HOLD_SECONDS = 10;
 
 export function Home({ b }: { b: Brick }) {
   const [emergencyOpen, setEmergencyOpen] = useState(false);
+  const [explaining, setExplaining] = useState(false);
+
+  if (explaining) {
+    return (
+      <PermissionExplainer
+        onAllow={() => { setExplaining(false); b.requestPermission(); }}
+        onCancel={() => setExplaining(false)}
+      />
+    );
+  }
 
   return (
     <SafeAreaView style={g.root}>
@@ -33,7 +44,7 @@ export function Home({ b }: { b: Brick }) {
       </View>
 
       <View style={g.card}>
-        <Row label="Allow blocking" value={b.perm ? 'Done' : 'Allow'} onPress={b.requestPermission} done={b.perm} />
+        <Row label="Allow blocking" value={b.perm ? 'Done' : 'Allow'} onPress={() => setExplaining(true)} done={b.perm} />
         <Row label="Choose apps" value={b.appCount ? `${b.appCount} chosen` : 'Choose'} onPress={b.chooseApps} done={b.appCount > 0} />
         <Row label="Sticker" value={b.token ? 'Re-pair' : 'Pair'} onPress={b.pair} done={!!b.token} />
       </View>

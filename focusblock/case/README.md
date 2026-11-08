@@ -1,8 +1,10 @@
-# Nope puck v0.1 (first test design)
+# Nope puck v0.2 (matches terracotta brand board)
 
 File: nope_puck_60mm.stl
-- 60 mm round, 12 mm tall
-- Top: 26 mm x 1.2 mm pocket for the NFC sticker (18 mm and 25 mm stickers both fit)
-- Underside: 10.2 mm x 2.2 mm pocket for a 10 x 2 mm round magnet
-- Print: PLA or PETG, 0.2 mm layers, 20% infill, no supports, print flat on the bottom face
-- Unverified: not yet test printed. Expect to adjust pocket sizes by 0.1 to 0.3 mm after the first print.
+- 60 mm round, 12 mm tall, rounded top edge (5 mm) and soft bottom edge (1.5 mm)
+- Smooth flat top with "nope" debossed 0.6 mm (placeholder font, brand lettering to come)
+- Hidden NFC sticker: 26.4 mm round cavity open on the underside, 10.4 mm deep, leaving a 1.6 mm top skin
+  (sticker 18 mm or 25 mm sticks to the ceiling of the cavity, then cover the opening with a 60 mm self-adhesive felt or rubber pad)
+- No magnet pocket in this version (metal near the tag can weaken NFC reads, add later after testing)
+- Print: PETG, 0.2 mm layers, 20% infill, bottom face down. The cavity roof is a 26 mm bridge, normal for PETG.
+- Unverified: not yet test printed. NFC read range through the 1.0 to 1.6 mm skin needs a real test.

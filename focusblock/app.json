@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "FocusBlock",
+    "slug": "focusblock",
+    "scheme": "focusblock",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.yourname.focusblock",
+      "entitlements": {
+        "com.apple.developer.family-controls": true
+      },
+      "infoPlist": {
+        "NSFamilyControlsUsageDescription": "FocusBlock blocks the apps you choose while your Brick is on."
+      }
+    },
+    "android": {
+      "package": "com.yourname.focusblock",
+      "adaptiveIcon": {
+        "backgroundColor": "#111111",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      "expo-dev-client",
+      ["expo-build-properties", { "ios": { "deploymentTarget": "16.4" } }],
+      ["react-native-nfc-manager", { "nfcPermission": "FocusBlock reads your NFC sticker to lock and unlock apps." }]
+    ]
+  }
+}

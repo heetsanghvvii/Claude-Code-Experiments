@@ -25,12 +25,33 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.NFC"
+      ]
     },
     "plugins": [
       "expo-dev-client",
-      ["expo-build-properties", { "ios": { "deploymentTarget": "16.4" } }],
-      ["react-native-nfc-manager", { "nfcPermission": "Nope reads your NFC sticker to lock and unlock apps." }]
-    ]
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "16.4"
+          }
+        }
+      ],
+      [
+        "react-native-nfc-manager",
+        {
+          "nfcPermission": "Nope reads your NFC sticker to lock and unlock apps."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "633f3e22-e932-44bd-958d-a006609f4f3d"
+      }
+    },
+    "owner": "heetsanghvi"
   }
 }

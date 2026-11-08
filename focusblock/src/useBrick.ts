@@ -51,7 +51,7 @@ export function useBrick() {
       setReady(true);
     })();
     const sub = AppState.addEventListener('change', (st) => {
-      if (st === 'active') { refreshPerm(); refreshStats(); refreshEmergency(); }
+      if (st === 'active') { refreshPerm(); refreshStats(); refreshEmergency(); setHintTick((x) => x + 1); }
     });
     return () => sub.remove();
   }, [refreshPerm, refreshStats, refreshEmergency]);

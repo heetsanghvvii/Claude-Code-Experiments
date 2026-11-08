@@ -49,6 +49,16 @@ export function Home({ b }: { b: Brick }) {
         <Row label="Sticker" value={b.token ? 'Re-pair' : 'Pair'} onPress={b.pair} done={!!b.token} />
       </View>
 
+      {b.showRescueHint && (
+        <Pressable style={s.hint} onPress={() => b.setRescueOpen(true)}>
+          <Text style={s.hintText}>Locked for a while and cannot find your sticker? Tap here for help.</Text>
+        </Pressable>
+      )}
+
+      <Pressable style={s.lost} onPress={() => b.setRescueOpen(true)}>
+        <Text style={s.lostText}>Lost my puck?</Text>
+      </Pressable>
+
       {b.on && (
         <Pressable style={s.emergency} onPress={() => (b.emergencyLeft > 0 ? setEmergencyOpen(true) : Alert.alert('No emergency unlocks left today'))}>
           <Text style={s.emergencyText}>Emergency unlock</Text>
@@ -95,6 +105,10 @@ const s = StyleSheet.create({
   emergency: { backgroundColor: c.card, borderRadius: 16, padding: 16, marginBottom: 16, alignItems: 'center' },
   emergencyText: { color: c.danger, fontSize: 16, fontWeight: '700' },
   emergencySub: { color: c.dim, marginTop: 4 },
+  hint: { backgroundColor: c.card, borderRadius: 16, padding: 16, marginBottom: 16, borderWidth: 1, borderColor: c.link },
+  hintText: { color: c.text, lineHeight: 20 },
+  lost: { alignItems: 'center', paddingVertical: 10, marginBottom: 8 },
+  lostText: { color: c.link, fontSize: 15, fontWeight: '600' },
   overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.7)', justifyContent: 'flex-end' },
   sheet: { backgroundColor: c.card, padding: 20, paddingBottom: 36, borderTopLeftRadius: 24, borderTopRightRadius: 24 },
 });

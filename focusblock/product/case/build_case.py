@@ -29,7 +29,7 @@ import sys
 
 import numpy as np
 import trimesh
-from manifold3d import CrossSection, FillRule, Manifold
+from manifold3d import CrossSection, FillRule, JoinType, Manifold, OpType
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -42,18 +42,20 @@ DIAMETER = 64.0          # overall diameter. Photo reads ~1 : 0.28 height to wid
 HEIGHT = 18.0            # body height, underside to top face (cap flush)
 TOP_ROLL_W = 10.0        # horizontal reach of the pillow roll on the top edge
 TOP_ROLL_H = 8.5         # vertical reach of the pillow roll
-TOP_ROLL_EXP = 2.4       # superellipse exponent. 2.0 = plain ellipse, 3+ = boxier shoulder
+TOP_ROLL_EXP = 2.2       # superellipse exponent. 2.0 = plain ellipse, 3+ = boxier shoulder
 CROWN = 0.0              # dome on the top face. Keep 0 for FDM (a shallow dome prints as
                          # visible contour rings). Use 0.3 to 0.5 for cast or molded parts.
 BOTTOM_RADIUS = 3.0      # bottom edge round, cut off at BOTTOM_MAX_OVERHANG then chamfered
 BOTTOM_MAX_OVERHANG = 45.0  # deg from vertical, keeps the bed-side edge printable
 
 # ---- Top skin and lettering --------------------------------------------------
-SKIN = 2.2               # plastic between the NFC sticker and the top face (phone side)
+SKIN = 2.4               # plastic between the NFC sticker and the top face (phone side)
 LETTER_TEXT = "nope"
 LETTER_FONT = os.path.join(HERE, "fonts", "Corben-Bold.ttf")  # OFL, closest free match
 LETTER_WIDTH = 32.0      # word width. Photo: wordmark spans ~50 % of the diameter
-LETTER_DEPTH = 0.6       # deboss depth (3 layers at 0.2, 5 at 0.12)
+LETTER_DEPTH = 0.8       # deboss depth (4 layers at 0.2). Photo deboss reads deep and soft
+LETTER_CHAMFER = 0.4     # 45 deg soft edge on the deboss (photo letters have soft edges)
+LETTER_CHAMFER_STEPS = 6
 LETTER_OFFSET_Y = 0.6    # small upward shift so the x-height, not the descender, is centred
 LETTER_SVG = None        # path to an SVG with the real lettering (overrides font)
 MIN_PRINTABLE_FEATURE = 0.8  # warn if lettering strokes or gaps are thinner than this
@@ -278,8 +280,8 @@ def thin_feature_check(cs: CrossSection, min_feat):
     than min_feat (closing test), as % of the lettering area."""
     a = cs.area()
     h = min_feat / 2
-    opened = cs.offset(-h, 1).offset(h, 1)
-    closed = cs.offset(h, 1).offset(-h, 1)
+    opened = cs.offset(-h, JoinType.Round).offset(h, JoinType.Round)
+    closed = cs.offset(h, JoinType.Round).offset(-h, JoinType.Round)
     thin_strokes = (a - opened.area()) / a * 100
     thin_gaps = (closed.area() - a) / a * 100
     return thin_strokes, thin_gaps
@@ -353,8 +355,15 @@ def make_body(d, report):
     cs, letter_h = lettering_section(LETTER_TEXT, LETTER_WIDTH, (0, LETTER_OFFSET_Y), LETTER_SVG)
     report["letter_size"] = (LETTER_WIDTH, letter_h)
     report["letter_thin"] = thin_feature_check(cs, MIN_PRINTABLE_FEATURE)
-    prism = Manifold.extrude(cs, 6.0).translate([0, 0, HEIGHT - 4.0])
-    cutter = prism - Manifold.revolve(CrossSection([pts]), SEGMENTS).translate([0, 0, -LETTER_DEPTH])
+    outer = Manifold.revolve(CrossSection([pts]), SEGMENTS)
+    pieces = [Manifold.extrude(cs, 6.0).translate([0, 0, HEIGHT - 4.0]) - outer.translate([0, 0, -LETTER_DEPTH])]
+    n = LETTER_CHAMFER_STEPS if LETTER_CHAMFER > 0 else 0
+    for i in range(n):
+        t1 = LETTER_CHAMFER * (i + 1) / n          # depth below the surface
+        off = LETTER_CHAMFER - t1 + LETTER_CHAMFER / n  # 45 deg: wider near the surface
+        ring = cs.offset(off, JoinType.Round, 2.0, 24)
+        pieces.append(Manifold.extrude(ring, 6.0).translate([0, 0, HEIGHT - 4.0]) - outer.translate([0, 0, -t1]))
+    cutter = Manifold.batch_boolean(pieces, OpType.Add)
     body = body - cutter
     return body
 

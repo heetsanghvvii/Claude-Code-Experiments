@@ -15,30 +15,30 @@ Two facts shape everything here:
 
 ```
 Active pucks in week 4
-├── Paid orders
-│   ├── Meta ads
-│   │   ├── Spend
-│   │   ├── CPM  ->  impressions
-│   │   ├── Hook rate (3 second plays / impressions)
-│   │   ├── Link CTR  ->  link clicks
-│   │   ├── Landing page views (LPV)
-│   │   ├── LPV -> lead (waitlist) rate      LPV -> pay intent (UPI tap) rate
-│   │   └── Lead -> paid (14 days)           Pay intent -> paid
-│   ├── Organic Instagram (link in bio UTM, "where did you hear")
-│   ├── Founder network and LinkedIn
-│   ├── Referrals (codes)
-│   └── Creators (codes and UTMs)
-├── Delivered (on time vs promised date)
-├── Activated  = paired + backup code saved + first lock within 48 hours
-├── Day 7 active  = locked on 4+ of first 7 days (self-reported)
-└── Week 4 active = locked on 4+ of days 22 to 28 (self-reported)
++-- Paid orders
+|   +-- Meta ads
+|   |   +-- Spend
+|   |   +-- CPM  ->  impressions
+|   |   +-- Hook rate (3 second plays / impressions)
+|   |   +-- Link CTR  ->  link clicks
+|   |   +-- Landing page views (LPV)
+|   |   +-- LPV -> lead (waitlist) rate      LPV -> pay intent (UPI tap) rate
+|   |   `-- Lead -> paid (14 days)           Pay intent -> paid
+|   +-- Organic Instagram (link in bio UTM, "where did you hear")
+|   +-- Founder network and LinkedIn
+|   +-- Referrals (codes)
+|   `-- Creators (codes and UTMs)
++-- Delivered (on time vs promised date)
++-- Activated  = paired + backup code saved + first lock within 48 hours
++-- Day 7 active  = locked on 4+ of first 7 days (self-reported)
+`-- Week 4 active = locked on 4+ of days 22 to 28 (self-reported)
 
 Guardrails (must not break while chasing the above)
-├── Refund rate
-├── Lockout incidents (anyone stuck without rescue)
-├── NFC or phone incompatibility after purchase
-├── Founder minutes per order (chat + setup + support)
-└── Cost per paid order vs break-even (GTM.md section 9)
++-- Refund rate
++-- Lockout incidents (anyone stuck without rescue)
++-- NFC or phone incompatibility after purchase
++-- Founder minutes per order (chat + setup + support)
+`-- Cost per paid order vs break-even (GTM.md section 9)
 ```
 
 ---

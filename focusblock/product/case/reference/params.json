@@ -8,13 +8,13 @@
  "feet_d": 10.5,
  "sticker_d": 25.0,
  "sticker_t": 0.3,
- "z_ceil": 15.8,
- "post_top": 14.9,
+ "z_ceil": 15.6,
+ "post_top": 14.7,
  "use_foam": true,
  "nest": {
   "outer_d": 70.0,
-  "height": 20.67669172932331,
-  "lip_z": 19.076691729323308,
+  "height": 20.29323308270677,
+  "lip_z": 18.69323308270677,
   "lip_inner_d": 62.0
  },
  "nest_plate_t": 2.4,

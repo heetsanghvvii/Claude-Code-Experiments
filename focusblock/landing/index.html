@@ -15,9 +15,11 @@
     --muted: #6B645C;
     --accent: #C65D3B;
     --accent-ink: #FFF8EE;
+    --error: #A23B1E;
     --radius: 16px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
   html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
@@ -53,7 +55,7 @@
   .btn {
     display: inline-block; background: var(--accent); color: var(--accent-ink);
     font-weight: 650; font-size: 1rem; padding: 15px 28px; border-radius: 999px;
-    text-decoration: none; border: none; cursor: pointer;
+    text-decoration: none; border: none; cursor: pointer; font: inherit; font-weight: 650;
     transition: transform 0.15s ease, opacity 0.15s ease;
   }
   .btn:hover { opacity: 0.9; }
@@ -81,10 +83,18 @@
   }
   .list li strong { color: var(--text); display: block; margin-bottom: 2px; font-weight: 600; }
 
-  /* Price */
-  .price-card { text-align: left; }
+  /* Price and pre-order */
+  .price-card { text-align: left; margin-top: 28px; }
   .price { font-size: clamp(2.6rem, 9vw, 3.4rem); font-weight: 700; letter-spacing: -0.03em; margin: 10px 0 4px; }
   .price-note { color: var(--muted); font-size: 0.95rem; margin-bottom: 24px; }
+  .preorder-card { display: grid; gap: 16px; justify-items: start; margin-top: 28px; }
+  .qr-box {
+    width: 180px; height: 180px; display: grid; place-items: center;
+    border: 2px dashed var(--border); border-radius: var(--radius);
+    background: var(--surface-2); color: var(--muted); font-size: 0.9rem;
+  }
+  .assure { list-style: none; display: grid; gap: 8px; color: var(--muted); font-size: 0.95rem; }
+  .assure li::before { content: "- "; color: var(--accent); font-weight: 650; }
 
   /* FAQ */
   details {
@@ -97,7 +107,7 @@
   }
   summary::-webkit-details-marker { display: none; }
   summary::after { content: "+"; color: var(--accent); font-size: 1.3rem; line-height: 1; }
-  details[open] summary::after { content: "–"; }
+  details[open] summary::after { content: "-"; }
   details p { margin-top: 12px; }
 
   /* Waitlist form */
@@ -109,7 +119,11 @@
   }
   input::placeholder { color: #9A8F80; }
   input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
-  form .btn { justify-self: start; border: none; }
+  form .btn { justify-self: start; }
+  .form-error { color: var(--error); font-size: 0.92rem; min-height: 1.4em; }
+  .thanks { margin-top: 28px; }
+  .thanks:focus { outline: 2px solid var(--accent); outline-offset: 4px; }
+  .thanks a { color: var(--accent); }
 
   footer { border-top: 1px solid var(--border); padding: 32px 0 48px; }
   footer p { font-size: 0.85rem; }
@@ -135,8 +149,8 @@
     <h1>Put it down.</h1>
     <p class="lead">Nope is a palm-sized NFC block. Instagram and YouTube stay locked until you tap the block to your phone. One deliberate tap, no willpower contest.</p>
     <div class="hero-cta">
-      <a class="btn" href="#waitlist">Pre-order</a>
-      <span class="fine">₹1,499 · One-time price</span>
+      <a class="btn" href="#preorder">Pre-order</a>
+      <span class="fine">₹1,999 · One-time price</span>
     </div>
   </div>
 
@@ -181,11 +195,30 @@
     <div class="wrap">
       <span class="eyebrow">Price</span>
       <h2>One price. No plan to cancel.</h2>
-      <div class="card price-card" style="margin-top: 28px;">
+      <div class="card price-card">
         <p>Nope, pre-order</p>
-        <div class="price">₹1,499</div>
-        <p class="price-note">Placeholder price. Final pricing will be confirmed before launch.</p>
-        <a class="btn" href="#waitlist">Pre-order</a>
+        <div class="price">₹1,999</div>
+        <p class="price-note">One-time price. No subscription, no monthly fee.</p>
+        <a class="btn" href="#preorder">Pre-order</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="preorder">
+    <div class="wrap">
+      <span class="eyebrow">Pre-order with UPI</span>
+      <h2>Pay ₹1,999 with any UPI app.</h2>
+      <p class="lead">Android first. iPhone coming later.</p>
+      <div class="preorder-card">
+        <a class="btn" id="upi-pay" href="#preorder">Pay ₹1,999 with UPI</a>
+        <p class="fine">Tap on your phone to pay, or scan the QR from another device.</p>
+        <!-- TODO: replace this placeholder with a QR image of the UPI ID (for example <img src="upi-qr.png" alt="UPI QR code to pay Rs 1,999 for Nope">). -->
+        <div id="upi-qr" class="qr-box" aria-label="QR code placeholder">QR code</div>
+        <ul class="assure">
+          <li>30 day refund if it does not work for you.</li>
+          <!-- TODO: confirm shipping timing with the manufacturer before launch. -->
+          <li>Ships after your payment is confirmed, about 2 to 3 weeks in the first batch.</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -200,7 +233,7 @@
       </details>
       <details>
         <summary>Is iPhone supported?</summary>
-        <p>iPhone support is coming soon. Join the waitlist and we'll let you know when it's ready.</p>
+        <p>iPhone support is coming later. Join the waitlist and we'll let you know when it's ready.</p>
       </details>
       <details>
         <summary>Does it work offline?</summary>
@@ -219,11 +252,10 @@
       <h2>Reserve your Nope.</h2>
       <p class="lead">Leave your details and we'll reach out before launch with pre-order access.</p>
 
-      <!-- TODO: replace the placeholder action URL below with the real waitlist endpoint before launch. -->
-      <form action="https://example.com/TODO-waitlist-endpoint" method="post">
+      <form id="waitlist-form" novalidate>
         <label>
           Name
-          <input type="text" name="name" autocomplete="name" placeholder="Your name" required>
+          <input type="text" name="name" autocomplete="name" placeholder="Your name">
         </label>
         <label>
           Phone
@@ -231,10 +263,17 @@
         </label>
         <label>
           Email
-          <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+          <input type="email" name="email" autocomplete="email" placeholder="you@example.com">
         </label>
+        <p id="form-error" class="form-error" role="alert"></p>
         <button class="btn" type="submit">Join the waitlist</button>
       </form>
+
+      <div id="thanks" class="card thanks" role="status" tabindex="-1" hidden>
+        <h3>Thank you, <span id="thanks-name"></span>.</h3>
+        <p>We've opened WhatsApp with your details ready to send. We'll reach out before launch with pre-order access.</p>
+        <p class="fine">WhatsApp did not open? <a id="wa-link" href="#" target="_blank" rel="noopener">Send your details on WhatsApp</a>.</p>
+      </div>
     </div>
   </section>
 
@@ -245,5 +284,60 @@
     <p>Nope is a placeholder brand name for a product in development.</p>
   </div>
 </footer>
+
+<script>
+  // TODO: replace with the real WhatsApp number before launch: country code + number, digits only (for example 919876543210).
+  const WHATSAPP_NUMBER = "91XXXXXXXXXX";
+  // TODO: replace with the real UPI ID before launch (for example yourname@okhdfcbank).
+  const UPI_ID = "yourname@upi";
+  const PRICE_INR = 1999;
+  const STORAGE_KEY = "nope-waitlist";
+
+  const form = document.getElementById("waitlist-form");
+  const errorBox = document.getElementById("form-error");
+  const thanks = document.getElementById("thanks");
+
+  // Pre-order link: opens the UPI app with the amount filled in.
+  document.getElementById("upi-pay").href =
+    "upi://pay?pa=" + encodeURIComponent(UPI_ID) + "&pn=Nope&am=" + PRICE_INR + "&cu=INR&tn=Nope%20pre-order";
+
+  const field = (name) => form.querySelector('[name="' + name + '"]').value.trim();
+  const cleanPhone = (v) => v.replace(/[\s\-()]/g, "");
+  const isValidPhone = (v) => /^(\+?91)?[6-9]\d{9}$/.test(cleanPhone(v));
+  const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const entry = { name: field("name"), phone: field("phone"), email: field("email") };
+
+    if (!entry.name) return (errorBox.textContent = "Please enter your name.");
+    if (!isValidPhone(entry.phone)) return (errorBox.textContent = "Please enter a valid 10-digit Indian mobile number.");
+    if (!isValidEmail(entry.email)) return (errorBox.textContent = "Please enter a valid email address.");
+    errorBox.textContent = "";
+
+    // Local backup in case the WhatsApp step never happens. Blocked storage is fine.
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      saved.push({ ...entry, savedAt: new Date().toISOString() });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+    } catch (err) {
+      // Storage unavailable (private mode or blocked); the WhatsApp message still works.
+    }
+
+    const message =
+      "Hi Nope, I want to join the waitlist.\n" +
+      "Name: " + entry.name + "\n" +
+      "Phone: " + entry.phone + "\n" +
+      "Email: " + entry.email;
+    const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+
+    document.getElementById("wa-link").href = url;
+    document.getElementById("thanks-name").textContent = entry.name;
+    form.hidden = true;
+    thanks.hidden = false;
+    thanks.focus();
+    window.open(url, "_blank", "noopener");
+  });
+</script>
 </body>
 </html>

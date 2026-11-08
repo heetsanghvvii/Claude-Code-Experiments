@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Alert, AppState, Platform } from 'react-native';
 import AppBlocker, { InstalledApp } from '../modules/app-blocker';
 import { readTagToken, writeTagToken } from './nfc';
 import * as store from './storage';
+import * as rescue from './rescue';
 import { useSettings } from './useSettings';
 import { buildBlockedList } from './essentials';
 
@@ -17,6 +18,10 @@ export function useBrick() {
   const [busy, setBusy] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
   const { settings, settingsLoaded, setBlockBrowsers } = useSettings();
+  const [pendingCode, setPendingCode] = useState<string | null>(null);
+  const [rescueOpen, setRescueOpen] = useState(false);
+  const [lockSince, setLockSince] = useState<number | null>(null);
+  const [hintTick, setHintTick] = useState(0);
   const [apps, setApps] = useState<InstalledApp[]>([]);
   const [stats, setStats] = useState<store.Stats>({ todayMs: 0, streak: 0 });
   const [emergencyLeft, setEmergencyLeft] = useState(store.MAX_EMERGENCY_PER_DAY);
@@ -34,6 +39,10 @@ export function useBrick() {
       }
       const blocking = AppBlocker.isBlocking();
       setOn(blocking);
+      let since = await store.getLockSince();
+      if (blocking && since === null) { since = Date.now(); await store.setLockSince(since); }
+      if (!blocking && since !== null) { since = null; await store.setLockSince(null); }
+      setLockSince(since);
       // Reconcile a session left open by a killed app.
       if (blocking) await store.startSession();
       else await store.endSession();
@@ -47,6 +56,12 @@ export function useBrick() {
     return () => sub.remove();
   }, [refreshPerm, refreshStats, refreshEmergency]);
 
+  // Single place blocked apps reach the native blocker (merges browsers when enabled).
+  useEffect(() => {
+    if (!ready || !settingsLoaded) return;
+    AppBlocker.setBlockedApps(buildBlockedList(blocked, settings.blockBrowsers));
+  }, [ready, settingsLoaded, blocked, settings.blockBrowsers]);
+
   // Tick the live stats while locked.
   useEffect(() => {
     if (!on) return;
@@ -57,6 +72,9 @@ export function useBrick() {
   const setBlocking = async (v: boolean) => {
     AppBlocker.setBlocking(v);
     setOn(v);
+    const since = v ? Date.now() : null;
+    setLockSince(since);
+    await store.setLockSince(since);
     if (v) await store.startSession();
     else await store.endSession();
     refreshStats();
@@ -71,7 +89,7 @@ export function useBrick() {
       await writeTagToken(t);
       await store.setToken(t);
       setTokenState(t);
-      Alert.alert('Paired', 'This sticker is now your Nope.');
+      setPendingCode(await rescue.createBackupCode());
     } catch {
       Alert.alert('Pair failed', 'Hold the sticker to the back of your phone and try again.');
     } finally {
@@ -121,7 +139,35 @@ export function useBrick() {
 
   const finishOnboarding = async () => { await store.setOnboarded(); setOnboarded(true); };
 
-  const devPair = async () => { await store.setToken('test'); setTokenState('test'); };
+  const devPair = async () => {
+    await store.setToken('test');
+    setTokenState('test');
+    setPendingCode(await rescue.createBackupCode());
+  };
+
+  const confirmCodeSaved = async () => {
+    await rescue.confirmBackupSaved();
+    setPendingCode(null);
+    Alert.alert('Paired', 'This sticker is now your Nope.');
+  };
+
+  /** Called by the rescue screen after a correct backup code. */
+  const rescueUnlock = async () => {
+    await setBlocking(false);
+    refreshEmergency();
+  };
+
+  // Re-check the 24 hour hint every minute and when the app wakes.
+  useEffect(() => {
+    if (!on) return;
+    const id = setInterval(() => setHintTick((x) => x + 1), 60000);
+    return () => clearInterval(id);
+  }, [on]);
+  const showRescueHint = useMemo(
+    () => rescue.shouldShowHint(on, lockSince),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [on, lockSince, hintTick],
+  );
 
   return {
     ready, onboarded, token, on, perm, busy, stats, emergencyLeft,
@@ -129,6 +175,7 @@ export function useBrick() {
     pickerOpen, setPickerOpen, apps, blocked, settings, setBlockBrowsers,
     requestPermission, pair, tap, chooseApps, toggleApp, setBlocking,
     emergencyUnlock, finishOnboarding, devPair,
+    pendingCode, confirmCodeSaved, rescueOpen, setRescueOpen, rescueUnlock, showRescueHint,
   };
 }
 

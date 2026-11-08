@@ -97,3 +97,23 @@ export async function useEmergencyUnlock(): Promise<boolean> {
   await AsyncStorage.setItem(K.emergency, JSON.stringify({ day: today, used: used + 1 }));
   return true;
 }
+
+// ---- lock-out rescue ----
+const R = {
+  backup: 'brick.backup',
+  rescue: 'brick.rescue',
+  lockSince: 'brick.lockSince',
+};
+
+export type BackupRecord = { salt: string; hash: string; confirmed: boolean };
+export type RescueState = { fails: number; until: number };
+
+export const getBackup = () => getJson<BackupRecord | null>(R.backup, null);
+export const setBackup = (b: BackupRecord) => AsyncStorage.setItem(R.backup, JSON.stringify(b));
+
+export const getRescueState = () => getJson<RescueState>(R.rescue, { fails: 0, until: 0 });
+export const setRescueState = (s: RescueState) => AsyncStorage.setItem(R.rescue, JSON.stringify(s));
+
+export const getLockSince = () => getJson<number | null>(R.lockSince, null);
+export const setLockSince = (t: number | null) =>
+  t === null ? AsyncStorage.removeItem(R.lockSince) : AsyncStorage.setItem(R.lockSince, JSON.stringify(t));

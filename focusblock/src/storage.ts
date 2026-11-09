@@ -117,3 +117,40 @@ export const setRescueState = (s: RescueState) => AsyncStorage.setItem(R.rescue,
 export const getLockSince = () => getJson<number | null>(R.lockSince, null);
 export const setLockSince = (t: number | null) =>
   t === null ? AsyncStorage.removeItem(R.lockSince) : AsyncStorage.setItem(R.lockSince, JSON.stringify(t));
+
+// ---- weekly focus card (local only, nothing is sent unless the user taps Share) ----
+export type Weekly = {
+  /** Oldest first, 7 entries: [dayKey, focused ms]. Today is last. */
+  days: { key: string; ms: number }[];
+  lockDays: number;
+  totalMs: number;
+  streak: number;
+};
+
+export function computeWeekly(list: Session[], now: number = Date.now()): Weekly {
+  const days: { key: string; ms: number; start: number; end: number }[] = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(now);
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() - i);
+    const start = d.getTime();
+    const e = new Date(d);
+    e.setDate(e.getDate() + 1);
+    days.push({ key: dayKey(start), ms: 0, start, end: Math.min(e.getTime(), now) });
+  }
+  for (const s of list) {
+    const end = s.end ?? now;
+    if (end - s.start < 1000) continue;
+    for (const d of days) {
+      const overlap = Math.min(end, d.end) - Math.max(s.start, d.start);
+      if (overlap > 0) d.ms += overlap;
+    }
+  }
+  const totalMs = days.reduce((a, d) => a + d.ms, 0);
+  return {
+    days: days.map(({ key, ms }) => ({ key, ms })),
+    lockDays: days.filter((d) => d.ms >= 60000).length,
+    totalMs,
+    streak: computeStats(list, now).streak,
+  };
+}

@@ -1,5 +1,7 @@
 # Profit plan
 
+Update 9 Nov (later): CFO numbers adopted, see DECISION_LOG D19. Where this file says Rs 1,000 or Rs 750, read Rs 977 and Rs 725. Tranche 1 now includes the CA call (Rs 820) and Meta GST; reprint reserve folds into the Rs 1,400 left after tranche 2.
+
 Author: CEO. Date: Mon 9 Nov 2026. Source: business/unit_economics.xlsx (CFO, recalculated by me with LibreOffice), product/BOM_AND_COSTS.md (CPO), marketing/DEMAND_TEST.md (CMO). UNIT_ECONOMICS.md was not yet written at the time of this v1.
 Labels: FACT (a number in a file or listing), ASSUMPTION (planning number), UNVERIFIED (needs outside check). Every unit economics input below is ASSUMPTION unless stated. Nothing here is a promise of profit.
 
@@ -29,8 +31,8 @@ From the workbook, base column, then adjusted for the two part case.
 | Refund cost at 15 percent refund rate (revenue given back, handling, reverse shipping, less recovered parts) | 261 | ASSUMPTION |
 | Contribution before ads (workbook) | 1,045 | computed |
 | Adjustment for the heavier two part design (BOM file says parts Rs 126 incl scrap plus bumpers and foam, versus workbook case plus cap Rs 105) | minus about 45 | ASSUMPTION until a vendor quotes the new files |
-| **Contribution before ads, used by the CEO** | **about 1,000** | ASSUMPTION |
-| Range (workbook low to stress) | 340 to 1,630 | ASSUMPTION |
+| **Contribution before ads, used by the CEO (CFO recalculated: 977)** | **977** | ASSUMPTION |
+| Range (workbook low to stress) | 342 to 1,629 | ASSUMPTION |
 | Cash only contribution (without founder time) | about 1,085 | ASSUMPTION |
 
 Compare: NOPE_PLAN said Rs 1,235, BOM said Rs 1,270, CSO said Rs 1,135. All overstate because refunded revenue, founder time or ad GST were missing.
@@ -41,7 +43,7 @@ Ad GST of 18 percent is added to every Meta rupee (UNVERIFIED, check the first i
 
 | Quantity | Value | Meaning |
 |---|---|---|
-| Break-even CAC as shown in Meta (ex GST) | about Rs 750 | (1,000 minus 120 creative) divided by 1.18. Above this every order loses money |
+| Break-even CAC as shown in Meta (ex GST) | about Rs 725 (CFO: 726 loaded, 828 variable) | (977 minus 120 creative) divided by 1.18. Above this every order loses money |
 | Target CAC | Rs 400 or less | Leaves room for founder time, support, mistakes |
 | Scale ceiling | Rs 600 | We do not raise spend above a pilot level if the 7 day average CAC is above this |
 | Learning tolerance | Rs 850, only while total test ad spend is under Rs 18,000 | This is a research cost, we say so, and each order loses about Rs 80 to Rs 100 |

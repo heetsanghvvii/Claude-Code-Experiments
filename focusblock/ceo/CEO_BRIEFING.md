@@ -1,5 +1,7 @@
 # CEO briefing for the MD
 
+Update 9 Nov (later): CFO numbers adopted (DECISION_LOG D19): contribution Rs 977, break-even CAC Rs 725, CA call now in tranche 1.
+
 Author: CEO. Date: Mon 9 Nov 2026 (Day 0). Version: v1 (3 agent reports still pending, see section 9).
 Labels: FACT (seen in a repo file or tool output), ASSUMPTION (planning number), UNVERIFIED (believed, not checked).
 
@@ -28,7 +30,7 @@ nope is NOT profitable and cannot be by tomorrow morning (zero customers, zero r
 
 1. No paid traffic to anything that takes money until the NFC test and the 3 phone lock test pass. Free signals and the Rs 1,000 hook test run now, but only to a waitlist page that takes no payment.
 2. Print order confirmed with changes: 2 new bodies, 3 new caps, 1 coupon strip, 2 old simple pucks, one vendor, one shipment, cap Rs 1,500 (section 7).
-3. Break-even ad cost per paid order is about Rs 750, not Rs 1,235. Scale ceiling is Rs 600, target Rs 400. The old Rs 850 ceiling is a learning-phase tolerance only.
+3. Break-even ad cost per paid order is about Rs 725 (CFO), not Rs 1,235. Scale ceiling is Rs 600, target Rs 400. The old Rs 850 ceiling is a learning-phase tolerance only.
 4. Rs 199 refundable reservations only after Gate G1 and a business payment channel (earliest Wed 18 Nov). No personal UPI ID.
 5. Strict mode is opt-in, off by default, absent from any Play build until CLO and CTO sign off. We never say "cannot be bypassed".
 6. Google Play fee is paid after Gate G1 (Mon 16 Nov), not today. Phase 1 ships a direct APK, Play is not on the path to the first 50.
@@ -60,12 +62,12 @@ Total about 75 minutes. First 3 days total about 3.9 hours.
 
 1. The tap does not work reliably on real phones or through the 2.4 mm printed skin (RED, never tested). If it fails, nothing else matters. Test on Wed 11 Nov and Mon 16 Nov.
 2. Setup wall. A sideloaded APK on Android 13 or higher may need "allow restricted settings" before the accessibility toggle works (UNVERIFIED). This can kill activation for the first 50. Tested on Wed 11 Nov.
-3. Strangers do not pay at a cost we can afford. Break-even is about Rs 750 per paid order, and nobody knows the real number. Learned first on Fri 20 Nov (hook and page cost) and properly only at Step 2.
+3. Strangers do not pay at a cost we can afford. Break-even is about Rs 725 per paid order (CFO), and nobody knows the real number. Learned first on Fri 20 Nov (hook and page cost) and properly only at Step 2.
 
 ## 7. Where the business stands on profitability (honest)
 
 - Revenue today: Rs 0. Customers: 0. Profit: negative, about Rs 3,000 to Rs 8,600 of planned spend by Day 14.
-- On our own assumptions, one order earns about Rs 1,000 before ads (range Rs 340 to Rs 1,630, ASSUMPTION, workbook). It is profitable per order only if the full cost of getting that customer is below about Rs 750 and refunds stay near 15 percent.
+- On our own assumptions, one order earns about Rs 977 before ads (range Rs 342 to Rs 1,629, ASSUMPTION, workbook). It is profitable per order only if the full cost of getting that customer is below about Rs 725 and refunds stay near 15 percent.
 - Nobody knows the real ad cost for this product in India. That single number decides everything and we will first see a real number on Fri 20 Nov, and a trustworthy one around Fri 4 Dec.
 - Earliest honest dates: first paid order from a friendly buyer Wed 18 Nov; first paid order from a stranger via an ad Tue 24 Nov to Mon 30 Nov (needs your yes to Step 2 funding); first 10 pucks delivered about Fri 27 Nov; first 50 sold about mid Dec 2026 to Jan 2027; first 50 cash break-even after refund windows close about Feb 2027. All ASSUMPTION.
 - What cannot happen by tomorrow morning: any revenue, any proof of demand, any proof the tap works, any profit.

@@ -20,7 +20,7 @@ Part checks
   nope_body.stl          watertight=True vol=33.83 cm3 bbox=64.0 x 64.0 x 16.0 est. mass 24 g @30% / 29 g @50% infill / 43 g solid | >45deg down-facing area 620 of 9966 mm2
   nope_base_cap.stl      watertight=True vol=9.32 cm3 bbox=42.9 x 41.5 x 12.5 est. mass 8 g @30% / 9 g @50% infill / 12 g solid | >45deg down-facing area 376 of 4191 mm2
   nope_nest.stl          watertight=True vol=13.89 cm3 bbox=70.0 x 70.0 x 18.7 est. mass 18 g @30% / 18 g @50% infill / 18 g solid | >45deg down-facing area 0 of 12258 mm2
-  nfc_test_coupons.stl   watertight=True vol=14.65 cm3 bbox=216.0 x 40.0 x 4.0 est. mass 19 g @30% / 19 g @50% infill / 19 g solid | >45deg down-facing area 0 of 14191 mm2
+  nfc_test_coupons.stl   watertight=True vol=14.65 cm3 bbox=128.0 x 84.0 x 4.0 est. mass 19 g @30% / 19 g @50% infill / 19 g solid | >45deg down-facing area 0 of 14191 mm2
   nope_assembled.stl     watertight=True vol=43.59 cm3 bbox=64.0 x 64.0 x 16.0
 
 Body wall thickness, ray samples (n=3000): 1st pct 1.60, median 12.53 mm

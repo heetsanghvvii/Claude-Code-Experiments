@@ -117,6 +117,7 @@ NEST_SCREW_SPACING = 30.0
 # ---- NFC test coupons --------------------------------------------------------
 COUPON_THICKNESSES = [1.0, 1.6, 2.2, 3.0, 4.0]
 COUPON_D = 40.0
+COUPON_COLUMNS = 3       # 3 + 2 grid, 128 x 84 mm: fits every common bed (a 5-in-a-row strip is 216 mm)
 
 # ---- Output resolution -------------------------------------------------------
 SEGMENTS = 256           # circular resolution
@@ -463,17 +464,18 @@ def make_nest(d, report):
 
 def make_coupons(report):
     parts = []
-    n = len(COUPON_THICKNESSES)
     pitch = COUPON_D + 4
     for i, t in enumerate(COUPON_THICKNESSES):
-        x = (i - (n - 1) / 2) * pitch
-        c = cyl(COUPON_D / 2, 0, t, x, 0, 128)
+        row, col = divmod(i, COUPON_COLUMNS)
+        x = (col - (COUPON_COLUMNS - 1) / 2) * pitch
+        y = -row * pitch
+        c = cyl(COUPON_D / 2, 0, t, x, y, 128)
         label = f"{t:.1f}"
-        cs, _ = lettering_section(label, 16.0, (x, 0))
+        cs, _ = lettering_section(label, 16.0, (x, y))
         depth = min(0.4, t - 0.6)
         c = c - Manifold.extrude(cs, 2).translate([0, 0, t - depth])
         # orientation notch so stacks line up
-        c = c - box(x - 1, x + 1, COUPON_D / 2 - 2, COUPON_D / 2 + 1, -1, t + 1)
+        c = c - box(x - 1, x + 1, y + COUPON_D / 2 - 2, y + COUPON_D / 2 + 1, -1, t + 1)
         parts.append(c)
     return Manifold.batch_boolean(parts, __import__("manifold3d").OpType.Add)
 

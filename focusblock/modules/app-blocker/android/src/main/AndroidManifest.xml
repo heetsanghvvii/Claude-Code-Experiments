@@ -1,8 +1,31 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+  <!--
+    These entries are merged into the app manifest by the Android Gradle manifest merger,
+    because this local Expo module is an Android library. No config plugin is needed.
+  -->
+
+  <!-- Usage access fallback mode. Granted by the user in Settings, not at runtime. -->
+  <uses-permission
+    android:name="android.permission.PACKAGE_USAGE_STATS"
+    tools:ignore="ProtectedPermissions" />
+  <!-- "Display over other apps": lets usage mode start the blocked screen from the background. -->
+  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <!-- Play restricts this permission to some app types (UNVERIFIED for Nope). Remove for Play if rejected. -->
+  <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
   <queries>
     <intent>
       <action android:name="android.intent.action.MAIN" />
       <category android:name="android.intent.category.LAUNCHER" />
+    </intent>
+    <intent>
+      <action android:name="android.intent.action.MAIN" />
+      <category android:name="android.intent.category.HOME" />
     </intent>
   </queries>
   <application>
@@ -25,5 +48,22 @@
         android:name="android.accessibilityservice"
         android:resource="@xml/focus_accessibility_config" />
     </service>
+    <service
+      android:name="expo.modules.appblocker.UsageMonitorService"
+      android:exported="false"
+      android:foregroundServiceType="specialUse">
+      <property
+        android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+        android:value="Blocks apps the user chose while their self-control lock is on, using usage access to see which app is in front." />
+    </service>
+    <receiver
+      android:name="expo.modules.appblocker.BootReceiver"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+        <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+      </intent-filter>
+    </receiver>
   </application>
 </manifest>

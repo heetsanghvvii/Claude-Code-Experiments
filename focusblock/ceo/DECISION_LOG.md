@@ -96,3 +96,9 @@ Format: context, options, decision, owner, trigger to revisit.
 ## D17. Org and conflict rules
 - Decision: C-suite structure in ORG_CHART.md. CTO owns technical truth, CLO owns legal wording, CFO owns the money gate, CEO decides all other conflicts. MD only decides money, public actions and locked items.
 - Owner: CEO.
+
+## D18. CLO follow-ups (9 Nov, from ceo/reports/CLO.md)
+- Context: CLO asks for a decision on the seller address, "one refund per person", and the 30 day start date when the courier shows no delivery date.
+- Decision: (1) "One refund per person" stays an internal abuse rule and is removed from public wording until a lawyer reviews it. (2) The 30 day window starts on the courier delivered date; if the courier shows none, it starts 7 days after dispatch. (3) Seller address: a legally required geographic address is LIKELY (CLO). Publishing the MD's home address is the MD's personal choice, so it goes to the MD as an approval item, not a CEO decision. My recommendation: use a low-cost business address option if one exists under Rs 1,000 a year (UNVERIFIED); otherwise the home address on the box and legal pages only, never in ads or social posts. Placeholders stay until the MD answers.
+- Owner: CLO drafts, MD decides address. Revisit: lawyer review of the refund wording.
+- Note: my 6 allowed messages in this run are used, so this is recorded here and will go to the CLO in the next run.

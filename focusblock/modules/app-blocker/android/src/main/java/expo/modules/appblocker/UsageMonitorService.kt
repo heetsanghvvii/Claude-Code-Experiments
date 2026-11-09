@@ -112,8 +112,8 @@ class UsageMonitorService : Service() {
     running = false
     handler.removeCallbacks(tick)
     try {
-      if (Build.VERSION.SDK_INT >= 24) stopForeground(Service.STOP_FOREGROUND_REMOVE)
-      else @Suppress("DEPRECATION") stopForeground(true)
+      // minSdk is 24, so the int overload is always available.
+      stopForeground(Service.STOP_FOREGROUND_REMOVE)
     } catch (_: Exception) {
     }
     stopSelf()

@@ -13,7 +13,7 @@ nope is NOT profitable and cannot be by tomorrow morning (zero customers, zero r
 
 | Workstream | Owner | State | Colour | Next action |
 |---|---|---|---|---|
-| Tap works on real phones | CTO | Never run on a real phone. Fallback mode code exists, strict mode not started, test protocol file missing | RED | Install on 3 phones Wed 11 Nov (Gate G0) |
+| Tap works on real phones | CTO | Never run on a real phone. Health warning, setup doctor, fallback mode, strict mode (off), test protocol and claims list now written, all untested | RED | Install on 3 phones Wed 11 Nov (Gate G0) |
 | NFC read through the shell | CPO | New two part design done, not printed. Fit and read unverified | RED | Place print order today |
 | Physical samples | CPO + MD | Old-file cart exists (Rs 272.30). New-file order not placed | AMBER | Approve print order (decision D12) |
 | Demand | CMO | Test ladder written (very good), nothing run | RED | Free signals from Thu 12 Nov |

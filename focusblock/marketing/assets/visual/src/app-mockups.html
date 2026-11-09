@@ -18,7 +18,7 @@
   .big.on { background: var(--saffron); color: var(--ink); }
   .big .state { font-size: 26px; font-weight: 800; letter-spacing: 0.02em; }
   .big .sub { color: var(--stone-5); margin-top: 6px; font-size: 15px; }
-  .big.on .sub { color: var(--ink); opacity: 0.78; }
+  .big.on .sub { color: var(--ink); }
   .big .ring { position: absolute; width: 330px; height: 330px; border-radius: 50%; border: 2px solid currentColor; opacity: 0.08; }
   .stats { display: flex; gap: 12px; margin-bottom: 16px; }
   .stat { flex: 1; background: var(--ink-2); border-radius: 16px; padding: 16px; }
@@ -45,12 +45,13 @@
 </style></head>
 <body>
 
+<!-- Illustrative screens drawn from src/screens in the charcoal theme. Numbers (52m, 3) are sample values, not results. -->
 <!-- 1. Home, locked -->
 <div class="phone" id="home-locked"><div class="screen">
   <div class="status"><span>9:41</span><span class="cam"></span><span class="icons"><span class="bar" style="height:6px"></span><span class="bar" style="height:9px"></span><span class="bar" style="height:12px"></span><span class="batt"><i></i></span></span></div>
   <div class="app">
     <div class="title">nope</div>
-    <div class="big on"><div class="ring"></div><div class="state">LOCKED</div><div class="sub">Tap to scan your nope</div></div>
+    <div class="big on"><div class="ring"></div><div class="state">LOCKED</div><div class="sub">Tap your phone on the puck to unlock</div></div>
     <div class="stats"><div class="stat"><b>52m</b><span>Focused today</span></div><div class="stat"><b>3</b><span>Day streak</span></div></div>
     <div class="card">
       <div class="row"><span>Allow blocking</span><span class="v done">Done</span></div>
@@ -68,7 +69,7 @@
   <div class="status"><span>9:41</span><span class="cam"></span><span class="icons"><span class="bar" style="height:6px"></span><span class="bar" style="height:9px"></span><span class="bar" style="height:12px"></span><span class="batt"><i></i></span></span></div>
   <div class="app">
     <div class="title">nope</div>
-    <div class="big"><div class="ring"></div><div class="state">UNLOCKED</div><div class="sub">Tap to scan your nope</div></div>
+    <div class="big"><div class="ring"></div><div class="state">UNLOCKED</div><div class="sub">Tap your phone on the puck to lock</div></div>
     <div class="stats"><div class="stat"><b>52m</b><span>Focused today</span></div><div class="stat"><b>3</b><span>Day streak</span></div></div>
     <div class="card">
       <div class="row"><span>Allow blocking</span><span class="v done">Done</span></div>
@@ -99,9 +100,9 @@
   <div class="status"><span>9:41</span><span class="cam"></span><span class="icons"><span class="bar" style="height:6px"></span><span class="bar" style="height:9px"></span><span class="bar" style="height:12px"></span><span class="batt"><i></i></span></span></div>
   <div class="app">
     <div class="title">One permission, explained</div>
-    <div class="section"><h3>What nope can see</h3><p>Only which app is open right now, by its package name.</p></div>
-    <div class="section"><h3>What nope never does</h3><p>Read your messages, passwords, payments, or screen content, or send anything off your phone.</p></div>
-    <div class="section"><h3>Why Android calls it accessibility</h3><p>That is the only way an app can notice another app opening so it can send you home.</p></div>
+    <div class="section"><h3>Why Android calls this accessibility</h3><p>It is the way an app can notice another app opening, so nope can send you home.</p></div>
+    <div class="section"><h3>What nope never does</h3><p>Read your messages, passwords, payments, or what is on your screen.</p></div>
+    <div class="section"><h3>What nope can notice</h3><p>Only which app is open right now, by its name.</p></div>
     <p class="note">You can turn it off any time in Settings and nope stops.</p>
     <div class="btn primary">Allow in Settings</div>
     <div class="btn">Not now</div>

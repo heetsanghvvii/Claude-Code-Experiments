@@ -1,0 +1,12 @@
+sheet,item,supplier_name,source_link,quote_date,moq,unit_price_rs,price_at_50_rs,price_at_500_rs,lead_time_days,shipping_cost_rs,gst_invoice_available,sample_received,sample_test_result,spec_sheet_in_writing,defect_policy,payment_terms,communication_speed_hours,score_quality_1to5,score_price_1to5,score_speed_1to5,total_score,decision,notes
+printing,3D print PETG body + cap,,,,,,,,,,,,,,,,,,,,,,candidate from BOM: Zbotic (quote was for a placeholder file only)
+printing,3D print PETG body + cap,,,,,,,,,,,,,,,,,,,,,,second vendor required
+stickers,NTAG213 25 mm,,,,,,,,,,,,,,,,,,,,,,run the 5 line test in SUPPLIERS.md
+boxes,kraft tuck box 90x90x30,,,,,,,,,,,,,,,,,,,,,,
+cards,A6 quick start + A7 backup,,,,,,,,,,,,,,,,,,,,,,
+bumpers,silicone 10 mm,,,,,,,,,,,,,,,,,,,,,,
+foam,EVA 25 mm disc,,,,,,,,,,,,,,,,,,,,,,
+bags,courier poly/padded mailer,,,,,,,,,,,,,,,,,,,,,,
+courier,Rate 0 to 500 g to Mumbai,Shiprocket (aggregator),,,,,,,,,,,,,,,,,,,,,all rates unverified until Instinct fills
+courier,Rate 0 to 500 g to Delhi,Delhivery,,,,,,,,,,,,,,,,,,,,,
+courier,Rate 0 to 500 g to Tier 3 town,India Post Speed Post,,,,,,,,,,,,,,,,,,,,,

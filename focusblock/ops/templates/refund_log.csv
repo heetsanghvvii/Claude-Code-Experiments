@@ -1,0 +1,2 @@
+refund_id,order_code,request_date,delivered_date,days_since_delivery,within_30_days,reason_code,fix_attempted,fix_worked,decision,amount_refunded,upi_id_last4,refund_sent_date,upi_ref,working_days_taken,puck_returned,return_shipping_cost,returned_puck_qc_result,restock_status,buyer_comment,notes
+RF-001-EXAMPLE,NP-A1-EXAMPLE,2026-12-20,2026-12-10,10,yes,not_working,yes,no,full refund,1999,1234,2026-12-22,UPIREF999,2,no,0,,,"Example comment",reason codes: no_nfc | not_working | changed_mind | damaged | late | other

@@ -1,0 +1,2 @@
+ticket_id,opened_date,order_code,channel,issue_category,severity,phone_model,android_version,description,macro_used,first_response_minutes,resolved_date,resolution,cause_code,needs_owner,owner,escalated_to_ceo,buyer_sentiment,notes
+T-001-EXAMPLE,2026-12-12,NP-A1-EXAMPLE,whatsapp,tag_wont_read,S2,Redmi Note 12,13,"Example: reads slowly",M4,25,2026-12-12,"Moved phone sweet spot",user,no,,no,ok,categories: install | no_nfc | tag_read | blocking_stopped | lost_puck | refund | shipping | privacy | defect | other ; severity S1 locked out S2 not working S3 cosmetic or shipping

@@ -8,7 +8,7 @@ export function AppPicker({ b }: { b: Brick }) {
     const ess = getEssential(id);
     if (ess?.level === 'never') return;
     if (ess && !b.blocked.includes(id)) {
-      Alert.alert('Keep reachable?', 'This could lock you out of calls or payments. Block anyway?', [
+      Alert.alert('Keep reachable?', 'This app may be needed for calls, payments or emergencies. Block it anyway? You can change this any time when unlocked.', [
         { text: 'Cancel', style: 'cancel' },
         { text: 'Block anyway', style: 'destructive', onPress: () => b.toggleApp(id) },
       ]);
@@ -24,7 +24,7 @@ export function AppPicker({ b }: { b: Brick }) {
         <View style={s.setting}>
           <View style={s.settingText}>
             <Text style={s.name}>Also block web browsers while locked</Text>
-            <Text style={s.note}>Stops Instagram.com and YouTube.com in Chrome. Also blocks Chrome for everything else.</Text>
+            <Text style={s.note}>Blocks Chrome and other browsers while locked, so you cannot open Instagram or YouTube in a browser. You will not be able to browse the web until you unlock.</Text>
           </View>
           <Switch value={b.settings.blockBrowsers} onValueChange={b.setBlockBrowsers} />
         </View>
@@ -38,7 +38,7 @@ export function AppPicker({ b }: { b: Brick }) {
               <View style={[s.row, never && s.disabled]}>
                 <View style={s.rowText}>
                   <Text style={s.name}>{item.name}</Text>
-                  {never ? <Text style={s.tagDim}>Always allowed for safety</Text> : null}
+                  {never ? <Text style={s.tagDim}>Always allowed so you can call for help</Text> : null}
                   {ess && !never ? <Text style={s.tag}>Keep reachable</Text> : null}
                 </View>
                 <Switch

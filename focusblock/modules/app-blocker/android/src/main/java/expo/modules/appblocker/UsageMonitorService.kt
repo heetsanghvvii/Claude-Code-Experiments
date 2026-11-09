@@ -90,6 +90,8 @@ class UsageMonitorService : Service() {
       stopSelfSafely()
       return START_NOT_STICKY
     }
+    BlockerCore.usageAlive = true
+    BlockerCore.beat(this, force = true)
     if (!running) {
       running = true
       lastQueryEnd = 0L
@@ -99,12 +101,14 @@ class UsageMonitorService : Service() {
   }
 
   override fun onDestroy() {
+    BlockerCore.usageAlive = false
     running = false
     handler.removeCallbacks(tick)
     super.onDestroy()
   }
 
   private fun stopSelfSafely() {
+    BlockerCore.usageAlive = false
     running = false
     handler.removeCallbacks(tick)
     try {
@@ -173,6 +177,7 @@ class UsageMonitorService : Service() {
       return
     }
     // Screen off: nothing can be in front, save battery.
+    BlockerCore.beat(this)
     val power = getSystemService(Context.POWER_SERVICE) as? PowerManager
     if (power != null && !power.isInteractive) return
 

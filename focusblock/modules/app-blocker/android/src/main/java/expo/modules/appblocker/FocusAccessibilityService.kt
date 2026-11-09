@@ -1,6 +1,7 @@
 package expo.modules.appblocker
 
 import android.accessibilityservice.AccessibilityService
+import android.content.Intent
 import android.view.accessibility.AccessibilityEvent
 
 /**
@@ -15,6 +16,8 @@ class FocusAccessibilityService : AccessibilityService() {
 
   override fun onServiceConnected() {
     super.onServiceConnected()
+    BlockerCore.accessibilityAlive = true
+    BlockerCore.beat(this, force = true)
     appLabel = try {
       packageManager.getApplicationLabel(applicationInfo).toString()
     } catch (_: Exception) {
@@ -30,7 +33,19 @@ class FocusAccessibilityService : AccessibilityService() {
     }
   }
 
+  override fun onUnbind(intent: Intent?): Boolean {
+    BlockerCore.accessibilityAlive = false
+    return super.onUnbind(intent)
+  }
+
+  override fun onDestroy() {
+    BlockerCore.accessibilityAlive = false
+    super.onDestroy()
+  }
+
   private fun handle(event: AccessibilityEvent?) {
+    BlockerCore.accessibilityAlive = true
+    BlockerCore.beat(this)
     if (event?.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return
     val pkg = event.packageName?.toString() ?: return
     if (BlockerCore.isNeverBlocked(this, pkg)) return // Phone, emergency, Nope, launcher, keyboard

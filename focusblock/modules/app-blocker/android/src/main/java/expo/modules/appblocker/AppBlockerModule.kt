@@ -142,6 +142,10 @@ class AppBlockerModule : Module() {
         "sdk" to Build.VERSION.SDK_INT,
         "mode" to BlockerCore.getMode(ctx),
         "strictMode" to BlockerCore.isStrict(ctx),
+        "serviceAlive" to BlockerCore.isServiceAlive(ctx),
+        "lastHeartbeat" to BlockerCore.lastHeartbeat(ctx).toDouble(),
+        "blockingHealthy" to BlockerCore.isBlockingHealthy(ctx),
+        "strictModeAvailable" to FocusAccessibilityService.STRICT_MODE_ALLOWED,
       )
     }
 

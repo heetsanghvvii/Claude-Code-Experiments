@@ -34,6 +34,8 @@ object BlockerCore {
   const val KEY_STRICT = "strictMode"
   /** Wall clock ms of the last lock or unlock. Used for the strict mode grace window. */
   const val KEY_CHANGED_AT = "stateChangedAt"
+  /** Wall clock ms of the last sign of life from whichever blocking service is running. */
+  const val KEY_HEARTBEAT = "heartbeatAt"
 
   const val MODE_ACCESSIBILITY = "accessibility"
   const val MODE_USAGE = "usage"
@@ -68,6 +70,11 @@ object BlockerCore {
     "com.android.permissioncontroller",
   )
 
+  /** Set by the services themselves; both run in the app process, so the module can read them. */
+  @Volatile var accessibilityAlive = false
+  @Volatile var usageAlive = false
+  @Volatile private var lastBeatWrite = 0L
+
   @Volatile private var lastHomeAt = 0L
   @Volatile private var launcherPkgs: Set<String> = emptySet()
   @Volatile private var launchersCheckedAt = 0L
@@ -92,6 +99,34 @@ object BlockerCore {
     val at = prefs(ctx).getLong(KEY_CHANGED_AT, 0L)
     val now = System.currentTimeMillis()
     return at > 0L && now >= at && now - at < STRICT_GRACE_MS
+  }
+
+  /** Records a heartbeat, written at most every 30 s to keep disk writes low. */
+  fun beat(ctx: Context, force: Boolean = false) {
+    val now = SystemClock.elapsedRealtime()
+    if (!force && lastBeatWrite != 0L && now - lastBeatWrite < 30_000) return
+    lastBeatWrite = now
+    try {
+      prefs(ctx).edit().putLong(KEY_HEARTBEAT, System.currentTimeMillis()).apply()
+    } catch (_: Exception) {
+    }
+  }
+
+  fun lastHeartbeat(ctx: Context): Long = prefs(ctx).getLong(KEY_HEARTBEAT, 0L)
+
+  /** Is the service for the chosen mode running right now (in this process)? */
+  fun isServiceAlive(ctx: Context): Boolean =
+    if (getMode(ctx) == MODE_USAGE) usageAlive else accessibilityAlive
+
+  /**
+   * True only when blocking would really happen now: permissions for the chosen mode are
+   * granted AND its service is running. In usage mode the service only runs while locked,
+   * so when unlocked we report the permissions only.
+   */
+  fun isBlockingHealthy(ctx: Context): Boolean {
+    if (!hasModePermissions(ctx)) return false
+    if (getMode(ctx) == MODE_USAGE && !isOn(ctx)) return true
+    return isServiceAlive(ctx)
   }
 
   // ---------------- never-block rules ----------------

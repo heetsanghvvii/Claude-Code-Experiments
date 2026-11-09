@@ -97,5 +97,55 @@ public class AppBlockerModule: Module {
     Function("isBlocking") { () -> Bool in
       return UserDefaults.standard.bool(forKey: onKey)
     }
+
+    // ---- Android-only features: iOS stubs with sensible defaults ----
+    // iOS uses Screen Time (FamilyControls); there is no detection mode or strict mode.
+
+    Function("setMode") { (_ mode: String) in }
+
+    Function("getMode") { () -> String in
+      return "accessibility"
+    }
+
+    Function("setStrictMode") { (_ on: Bool) in }
+
+    Function("getStrictMode") { () -> Bool in
+      return false
+    }
+
+    AsyncFunction("getDiagnostics") { () -> [String: Any] in
+      let approved = AuthorizationCenter.shared.authorizationStatus == .approved
+      let major = ProcessInfo.processInfo.operatingSystemVersion.majorVersion
+      return [
+        "accessibilityEnabled": approved,
+        "usageAccessGranted": approved,
+        "overlayGranted": true,
+        "batteryOptimizationIgnored": true,
+        "manufacturer": "Apple",
+        "brand": "Apple",
+        "model": UIDevice.current.model,
+        "sdk": major,
+        "mode": "accessibility",
+        "strictMode": false,
+        "serviceAlive": approved,
+        "lastHeartbeat": 0,
+        "blockingHealthy": approved,
+        "strictModeAvailable": false,
+      ]
+    }
+
+    AsyncFunction("requestAccessibility") { () -> Bool in false }
+    AsyncFunction("requestUsageAccess") { () -> Bool in false }
+    AsyncFunction("requestOverlay") { () -> Bool in true }
+    AsyncFunction("requestIgnoreBatteryOptimization") { () -> Bool in true }
+
+    AsyncFunction("openAppDetails") { () -> Bool in
+      DispatchQueue.main.async {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+          UIApplication.shared.open(url)
+        }
+      }
+      return true
+    }
   }
 }

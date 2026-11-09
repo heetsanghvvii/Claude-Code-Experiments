@@ -30,3 +30,6 @@ The first 50 units can be run by hand. Founder time is about 26 minutes per orde
 1. **Order cap rule**: when a week passes 15 paid orders, do we pause ads to a waitlist (my recommendation) or add a paid helper at about 6 to 8 hours a week [A]?
 2. **Refund and return policy**: full refund inside 30 days from delivery, refund does not require the puck back (my recommendation), refund within 3 working days.
 3. **Hardware go gate**: no batch B01 until the sample passes P0 NFC criteria on 5 phones, and a second print vendor is qualified. Accept a later ship date over a failed first batch?
+
+## Update after CEO reply
+Accepted: first money no earlier than Wed 18 Nov (G2), cap 10 comfort and 15 hard, refund policy per D7, hardware gate G1. Due Fri 13 Nov: rescue route proposal and 2 print vendor quotes. The day 8 to 14 plan above is superseded by ceo/CRITICAL_PATH.md.

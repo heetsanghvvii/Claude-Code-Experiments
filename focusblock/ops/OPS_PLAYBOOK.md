@@ -10,6 +10,15 @@ Inputs I relied on: GTM.md (order code format `NP-A1-7K2Q`, UTM scheme, ship pro
 
 ---
 
+## CEO decisions applied (2026-11-09, ceo/AGENT_ORDERS.md and DECISION_LOG D7)
+
+- No money before gate G2 (earliest Wed 18 Nov): G1 NFC read through the printed shell on 5 phones, business account, payment link, terms and refund pages live, CLO wording check. Paid pre-orders do NOT open on 16 Nov.
+- Order cap: 10 a week comfort, 15 a week hard cap, then a helper or gateway checkout.
+- Refund policy (D7): 30 days from delivery, to the original payment method, within 3 working days of request. Return not required in batch 1, but ask for a photo of the setup problem or a return if the buyer is willing. One refund per person. Rs 199 reservation refundable any time before shipping within 3 working days. Defective unit: we pay reverse shipping and replace or refund. Missed ship-by date by more than 7 days: full refund on request. Wording: "no forms, no argument", not "no questions". Day 28 message reminds the buyer of the window. Where section 2 or macros differ, D7 wins.
+- Open by Fri 13 Nov: rescue route when puck and code are both lost (proposal: identity check by WhatsApp plus a replacement puck at cost), and two print vendor quotes for the pilot batch.
+
+---
+
 ## 0. The flow on one page
 
 ```

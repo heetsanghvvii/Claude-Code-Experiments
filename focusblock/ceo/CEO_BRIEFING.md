@@ -19,7 +19,7 @@ nope is NOT profitable and cannot be by tomorrow morning (zero customers, zero r
 | Demand | CMO | Test ladder written (very good), nothing run | RED | Free signals from Thu 12 Nov |
 | Unit economics | CFO | Workbook done, UNIT_ECONOMICS.md missing. Base contribution about Rs 1,000 per order before ads | AMBER | Update case cost for the new two part design |
 | Legal and compliance | CLO | Research done, nothing verified. Employer contract unread, no trademark search, GST open | AMBER | MD reads contract Day 0, no customer money before that |
-| Brand and website | Creative | Logos and tokens done, landing v2 in progress (uncommitted), placeholders remain | AMBER | Landing in waitlist mode only until Gate G1 |
+| Brand and website | Creative | Landing v2 done in waitlist mode, legal pages and Round 1 ads built, placeholders remain for MD details | GREEN | Landing in waitlist mode only until Gate G1 |
 | Play Store | CTO + CLO | Docs drafted, no account, risk unverified | AMBER | Pay fee after Gate G1, not before |
 | Operations | COO | Playbook, templates, macros done | GREEN | Business bank account and payment link |
 | Customer experience | CCO | Journey, setup guide, check-ins done. 37 UI issues found (14 high) | AMBER | CTO fixes the top 6 before any pilot |
@@ -78,4 +78,4 @@ ORG_CHART.md, DECISION_LOG.md, OKRS_14_DAYS.md, CRITICAL_PATH.md, RISK_REGISTER.
 
 ## 9. Waiting on
 
-CTO (test protocol, strict mode, health indicator, flavour split), CFO (UNIT_ECONOMICS.md, re-run with new case cost), CPO (README, RISKS_AND_QC.md, PACKAGING.md), Creative (landing v2 and visuals), CLO (any update), CMO (landing page spec delivery). COO and CSO reports: COO.md and CSO.md not yet in ceo/reports at time of writing. I will finalize v2 when you tell me the last agents are done.
+CTO (test protocol, strict mode, health indicator, flavour split), CFO (UNIT_ECONOMICS.md, re-run with new case cost), CPO (README, RISKS_AND_QC.md, PACKAGING.md), CLO (any update), CMO (landing page spec delivery). COO and CSO reports: COO.md and CSO.md not yet in ceo/reports at time of writing. I will finalize v2 when you tell me the last agents are done.

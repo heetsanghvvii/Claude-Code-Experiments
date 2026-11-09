@@ -1,0 +1,151 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:transparent;overflow:hidden}canvas{display:block}</style></head>
+<body>
+<script type="module">
+import * as THREE from './three.module.js';
+import { STLLoader } from './STLLoader.js';
+import { RoomEnvironment } from './RoomEnvironment.js';
+
+const q = new URLSearchParams(location.search);
+const W = +q.get('w') || 1600, H = +q.get('h') || 1200;
+const view = q.get('view') || 'three';           // three | top | trio | tap | side
+const bg = q.get('bg') || 'none';                 // hex without # or none
+const colours = { charcoal: 0x333336, stone: 0xc9c7c3, saffron: 0xff8a1f };
+const pick = (q.get('c') || 'stone').split(',');
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(W, H);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.NoToneMapping;
+renderer.toneMappingExposure = +(q.get('exp') || 1.0);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.VSMShadowMap;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+if (bg !== 'none') scene.background = new THREE.Color('#' + bg);
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+scene.environmentIntensity = +(q.get('env') || 0.14);
+
+const key = new THREE.DirectionalLight(0xfff6ee, +(q.get('key') || 1.1));
+key.position.set(-60, 140, 80);
+key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048);
+key.shadow.radius = 18; key.shadow.blurSamples = 25;
+Object.assign(key.shadow.camera, { left: -260, right: 260, top: 260, bottom: -260, near: 1, far: 400 });
+key.shadow.bias = -0.0004;
+scene.add(key);
+const rim = new THREE.DirectionalLight(0xffffff, 0.35); rim.position.set(80, 40, -90); scene.add(rim);
+scene.add(new THREE.HemisphereLight(0xffffff, 0x303030, 0.15));
+
+// ground that only catches shadow
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(6000, 6000), new THREE.ShadowMaterial({ opacity: +(q.get('shadow') || 0.32) }));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+
+function material(name) {
+  const col = new THREE.Color(colours[name]);
+  return new THREE.MeshPhysicalMaterial({
+    envMapIntensity: +(q.get('env') || 0.35), color: col, roughness: name === 'saffron' ? 0.55 : 0.62, metalness: 0,
+    clearcoat: 0.08, clearcoatRoughness: 0.6, sheen: 0.25, sheenRoughness: 0.8, sheenColor: new THREE.Color(0xffffff),
+  });
+}
+
+const loader = new STLLoader();
+const geo = await new Promise(r => loader.load('./' + (q.get('stl') || 'puck_brand.stl'), r));
+geo.computeVertexNormals();
+// STL: Z up, top at z = 18. Convert to Y up.
+geo.rotateX(-Math.PI / 2);
+geo.computeBoundingBox();
+
+function puck(name) {
+  const m = new THREE.Mesh(geo, material(name));
+  m.castShadow = true; m.receiveShadow = true;
+  return m;
+}
+
+const cam = new THREE.PerspectiveCamera(+(q.get('fov') || 24), W / H, 1, 2000);
+function look(pos, target) { cam.position.set(...pos); cam.lookAt(new THREE.Vector3(...target)); }
+
+if (view === 'three') {
+  const p = puck(pick[0]); p.rotation.y = +(q.get('ry') || -0.35); scene.add(p);
+  look([0, 120, 190], [0, 6, 0]);
+} else if (view === 'top') {
+  const p = puck(pick[0]); p.rotation.y = +(q.get('ry') || 0); scene.add(p);
+  key.position.set(-140, 70, -60);
+  look([0, 250, 0.001], [0, 0, 0]);
+} else if (view === 'side') {
+  const p = puck(pick[0]); scene.add(p);
+  look([0, 26, 300], [0, 8, 0]);
+} else if (view === 'trio') {
+  const spots = [[-76, 0, 8, 0.12], [0, 0, -20, 0.0], [76, 0, 10, -0.12]];
+  pick.forEach((n, i) => { const p = puck(n); const s = spots[i]; p.position.set(s[0], s[1], s[2]); p.rotation.y = s[3]; scene.add(p); });
+  look([0, 170, 300], [0, 4, -4]);
+} else if (view === 'tap') {
+  const p = puck(pick[0]); p.rotation.y = -0.3; scene.add(p);
+  // a plain phone slab, back facing the puck, tilted as if mid-tap
+  const shape = new THREE.Shape();
+  const pw = 72, ph = 152, r = 11;
+  shape.moveTo(-pw/2 + r, -ph/2); shape.lineTo(pw/2 - r, -ph/2); shape.quadraticCurveTo(pw/2, -ph/2, pw/2, -ph/2 + r);
+  shape.lineTo(pw/2, ph/2 - r); shape.quadraticCurveTo(pw/2, ph/2, pw/2 - r, ph/2); shape.lineTo(-pw/2 + r, ph/2);
+  shape.quadraticCurveTo(-pw/2, ph/2, -pw/2, ph/2 - r); shape.lineTo(-pw/2, -ph/2 + r); shape.quadraticCurveTo(-pw/2, -ph/2, -pw/2 + r, -ph/2);
+  const pg = new THREE.ExtrudeGeometry(shape, { depth: 7.5, bevelEnabled: true, bevelSize: 1.6, bevelThickness: 1.6, bevelSegments: 6, curveSegments: 24 });
+  pg.center();
+  const phone = new THREE.Mesh(pg, new THREE.MeshPhysicalMaterial({ color: 0x111113, roughness: 0.35, clearcoat: 0.6, clearcoatRoughness: 0.25 }));
+  phone.castShadow = true;
+  phone.rotation.x = -Math.PI / 2 + 0.42; phone.rotation.z = 0.5;
+  phone.position.set(46, 58, -22);
+  scene.add(phone);
+  look([-30, 210, 360], [20, 26, -10]);
+} else if (view === 'shelf') {
+  // the puck left on a shelf in another room: wall, one plank, one cup
+  const wallCol = new THREE.Color('#' + (q.get('wall') || '26262a'));
+  const wall = new THREE.Mesh(new THREE.PlaneGeometry(4000, 4000), new THREE.MeshStandardMaterial({ color: wallCol, roughness: 0.95 }));
+  wall.position.set(0, 0, -70); wall.receiveShadow = true; scene.add(wall);
+  const plankMat = new THREE.MeshPhysicalMaterial({ color: new THREE.Color('#' + (q.get('plank') || '3a3a3e')), roughness: 0.8, envMapIntensity: 0.3 });
+  const plank = new THREE.Mesh(new THREE.BoxGeometry(900, 14, 140), plankMat);
+  plank.position.set(0, -7, 0); plank.receiveShadow = true; plank.castShadow = true; scene.add(plank);
+  ground.visible = false;
+  const p = puck(pick[0]); p.rotation.y = -0.2; p.position.set(+(q.get('px') || 0), 0, 0); scene.add(p);
+  if (q.get('cup') !== '0') {
+    const cupMat = new THREE.MeshPhysicalMaterial({ color: new THREE.Color('#' + (q.get('cupc') || 'c9c7c3')), roughness: 0.5, envMapIntensity: 0.4 });
+    const cup = new THREE.Mesh(new THREE.CylinderGeometry(34, 30, 86, 64), cupMat);
+    cup.position.set(-150, 43, -20); cup.castShadow = true; cup.receiveShadow = true; scene.add(cup);
+  }
+  key.position.set(-160, 170, 140);
+  look([+(q.get('cx') || 40), +(q.get('cy') || 70), +(q.get('cz') || 330)], [+(q.get('tx') || -20), 18, 0]);
+} else if (view === 'hand') {
+  // clay-style open hand, palm up, puck resting in it. Stylised on purpose: replace with a real photo.
+  const skin = new THREE.MeshPhysicalMaterial({ color: new THREE.Color(q.get('skin') ? '#' + q.get('skin') : '#b07a57'), roughness: 0.75, sheen: 0.4, sheenColor: new THREE.Color(0xffd9c0), envMapIntensity: 0.35 });
+  const hand = new THREE.Group();
+  const palm = new THREE.Mesh(new THREE.CapsuleGeometry(34, 26, 12, 48), skin);
+  palm.scale.set(1.0, 1.0, 0.42); palm.rotation.x = Math.PI / 2; palm.rotation.z = Math.PI / 2;
+  palm.position.set(0, 0, 0);
+  hand.add(palm);
+  const finger = (len, rad, x, z, rotY, bendX) => {
+    const g = new THREE.Group();
+    const a = new THREE.Mesh(new THREE.CapsuleGeometry(rad, len * 0.55, 10, 32), skin); a.rotation.z = Math.PI / 2; a.position.x = len * 0.32; g.add(a);
+    const b = new THREE.Mesh(new THREE.CapsuleGeometry(rad * 0.94, len * 0.45, 10, 32), skin); b.rotation.z = Math.PI / 2 + bendX; b.position.set(len * 0.8, Math.sin(bendX) * len * 0.22, 0); g.add(b);
+    g.position.set(x, 4, z); g.rotation.y = rotY; return g;
+  };
+  hand.add(finger(78, 9.2, 44, -26, 0.16, 0.28));
+  hand.add(finger(86, 9.6, 50, -8, 0.04, 0.28));
+  hand.add(finger(82, 9.4, 49, 10, -0.08, 0.28));
+  hand.add(finger(66, 8.4, 42, 27, -0.22, 0.28));
+  const thumb = finger(64, 11, -6, -40, 0.95, 0.35); thumb.position.y = 6; hand.add(thumb);
+  const wrist = new THREE.Mesh(new THREE.CapsuleGeometry(28, 120, 10, 40), skin);
+  wrist.scale.set(1, 1, 0.55); wrist.rotation.z = Math.PI / 2; wrist.rotation.x = Math.PI / 2; wrist.position.set(-100, -6, 0); hand.add(wrist);
+  hand.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+  hand.scale.setScalar(1.22); hand.position.set(-8, 30, 0); hand.rotation.y = 0.5; hand.rotation.z = 0.08;
+  scene.add(hand);
+  const p = puck(pick[0]); p.position.set(10, 48, 4); p.rotation.y = 0.5; p.rotation.z = 0.06; scene.add(p);
+  ground.position.y = -40;
+  look([150, 300, 330], [14, 34, 0]);
+}
+
+renderer.render(scene, cam);
+window.__done = true;
+</script>
+</body></html>

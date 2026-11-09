@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>nope: put it down</title>
+<meta name="description" content="nope is a palm-sized puck that locks the apps you choose with one tap. Leave it in another room. Rs 1,999 once, 30 day refund. Android with NFC. Join the first 50.">
+<meta name="theme-color" content="#1C1C1E">
+<meta name="color-scheme" content="dark">
+<!-- TODO: set the real site URL in og:url and make og:image an absolute URL once the domain is live. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="nope">
+<meta property="og:title" content="nope: put it down">
+<meta property="og:description" content="A palm-sized puck that locks the apps you choose. Leave it in another room. Rs 1,999 once. Android with NFC.">
+<meta property="og:image" content="og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A saffron nope puck on charcoal, with the line Put it down.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,{{FAVICON_B64}}">
+<link rel="apple-touch-icon" href="data:image/png;base64,{{TOUCH_B64}}">
+<style>
+@font-face {
+  font-family: "Outfit";
+  src: url(data:font/woff2;base64,{{FONT_B64}}) format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+/* Fallback tuned to sit close to Outfit's width so the layout holds offline. */
+@font-face { font-family: "Outfit Fallback"; src: local("Arial"), local("Roboto"), local("Helvetica"); size-adjust: 99%; ascent-override: 100%; descent-override: 26%; }
+:root {
+  --ink: #1C1C1E; --ink-2: #262628; --ink-3: #323235; --line: #3A3A3E; --line-2: #48484C;
+  --stone: #C9C7C3; --stone-5: #9C9993;
+  --chalk: #F5F4F1;
+  --saffron: #FF8A1F; --saffron-press: #F27A0C; --saffron-soft: #3A2817;
+  --font: "Outfit", "Outfit Fallback", ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --gutter: 20px; --max: 1120px;
+  --r-panel: 20px; --r-input: 12px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 76px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body { background: var(--ink); color: var(--chalk); font-family: var(--font); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+::selection { background: var(--saffron); color: var(--ink); }
+:focus-visible { outline: 3px solid var(--saffron); outline-offset: 3px; border-radius: 6px; }
+.skip { position: absolute; left: 12px; top: -60px; background: var(--saffron); color: var(--ink); padding: 10px 16px; border-radius: 999px; font-weight: 700; z-index: 50; text-decoration: none; }
+.skip:focus { top: 12px; }
+.wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+h1, h2, h3 { font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; text-wrap: balance; }
+h2 { font-size: clamp(2.1rem, 8.4vw, 3.6rem); }
+h3 { font-size: 1.25rem; letter-spacing: -0.02em; line-height: 1.2; font-weight: 700; }
+p { text-wrap: pretty; }
+.lead { font-size: 1.125rem; color: var(--stone); max-width: 34em; }
+.muted { color: var(--stone-5); }
+.small { font-size: 0.9375rem; }
+
+/* Buttons: pills for every action */
+.btn { --bg: var(--saffron); --fg: var(--ink); display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; padding: 0 28px; border-radius: 999px; border: 0; background: var(--bg); color: var(--fg); font: inherit; font-size: 1.0625rem; font-weight: 700; letter-spacing: -0.01em; text-decoration: none; cursor: pointer; white-space: nowrap; transition: transform 140ms var(--ease), background-color 140ms var(--ease); -webkit-tap-highlight-color: transparent; }
+.btn:hover { --bg: var(--saffron-press); }
+.btn:active { transform: scale(0.97); }
+.btn.ghost { --bg: transparent; --fg: var(--chalk); box-shadow: inset 0 0 0 2px var(--line-2); }
+.btn.ghost:hover { --bg: var(--ink-2); }
+.btn.block { width: 100%; }
+.btn[disabled] { --bg: var(--ink-3); --fg: var(--stone-5); cursor: not-allowed; }
+.btn[disabled]:active { transform: none; }
+.micro { font-size: 0.875rem; color: var(--stone-5); font-weight: 500; }
+.link { color: var(--saffron); font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; text-decoration-color: rgba(255,138,31,0.4); }
+.link:hover { text-decoration-color: var(--saffron); }
+
+/* Header */
+.top { position: sticky; top: 0; z-index: 30; background: rgba(28,28,30,0.86); backdrop-filter: saturate(140%) blur(14px); -webkit-backdrop-filter: saturate(140%) blur(14px); border-bottom: 1px solid transparent; transition: border-color 200ms; }
+.top.scrolled { border-bottom-color: var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.wm { color: var(--chalk); display: inline-flex; }
+.wm svg { width: 84px; height: auto; }
+.top .wa { font-size: 0.9375rem; font-weight: 600; color: var(--stone); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 2px; }
+.top .wa:hover { color: var(--chalk); }
+
+/* Hero */
+.hero { padding: 20px 0 56px; position: relative; }
+.hero-grid { display: grid; gap: 4px; }
+.hero h1 { font-size: clamp(3.6rem, 19vw, 9rem); line-height: 0.9; letter-spacing: -0.05em; word-spacing: 0.06em; padding-bottom: 0.04em; }
+.hero-line { margin-top: 14px; font-size: clamp(1.6rem, 6.6vw, 2.6rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; color: var(--saffron); max-width: 16em; text-wrap: balance; }
+.hero .sub { margin-top: 14px; font-size: 1.1875rem; line-height: 1.45; color: var(--stone); max-width: 25em; }
+.hero-art { position: relative; margin: 8px -12px 0; aspect-ratio: 4 / 3; max-width: 560px; }
+.hero-art img { width: 100%; height: 100%; object-fit: cover; }
+.hero-cta { margin-top: 6px; display: grid; gap: 12px; justify-items: start; }
+.hero-cta .btn { width: 100%; max-width: 420px; }
+.price-line { font-size: 0.9375rem; color: var(--stone); font-weight: 500; }
+.price-line b { color: var(--chalk); font-weight: 700; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero .reveal { opacity: 0; transform: translateY(14px); animation: rise 700ms var(--ease) forwards; }
+  .hero .reveal.d1 { animation-delay: 80ms; } .hero .reveal.d2 { animation-delay: 160ms; } .hero .reveal.d3 { animation-delay: 240ms; }
+  .hero-art img { opacity: 0; transform: translateY(-26px) scale(0.98); animation: settle 900ms var(--ease) 120ms forwards; }
+}
+@keyframes rise { to { opacity: 1; transform: none; } }
+@keyframes settle { to { opacity: 1; transform: none; } }
+
+section { padding: 72px 0; }
+.sec-head { max-width: 40rem; }
+.sec-head p { margin-top: 16px; }
+
+/* Demo strip */
+.demo { padding-top: 24px; }
+.demo figure { border-radius: var(--r-panel); overflow: hidden; background: #19191B; position: relative; }
+.demo figure > img:not(.screen-shot) { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+.demo .screen-fig { margin-top: 14px; }
+.demo .screen-fig .screen-shot { width: min(250px, 64vw); }
+@media (min-width: 720px) { .demo .screen-fig { margin-top: 0; } }
+.demo figcaption { position: absolute; left: 20px; bottom: 18px; right: 20px; font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em; }
+
+/* How it works */
+.steps { list-style: none; display: grid; gap: 0; margin-top: 36px; counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 20px 0; border-top: 1px solid var(--line); }
+.steps li:last-child { border-bottom: 1px solid var(--line); }
+.steps li::before { counter-increment: s; content: counter(s); width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--ink-3); color: var(--chalk); font-weight: 700; font-size: 0.9375rem; margin-top: 1px; }
+.steps p { color: var(--stone-5); margin-top: 4px; }
+
+.tryit { margin-top: 36px; background: var(--ink-2); border-radius: var(--r-panel); padding: 22px; display: grid; gap: 20px; }
+.tryit-top { display: flex; align-items: center; gap: 18px; }
+.puck-btn { flex: none; width: 92px; height: 92px; border-radius: 50%; border: 0; cursor: pointer; background: radial-gradient(circle at 38% 30%, #FFA24A 0%, var(--saffron) 46%, #E97400 100%); box-shadow: 0 14px 26px -12px rgba(0,0,0,0.8), inset 0 -6px 12px rgba(0,0,0,0.12), inset 0 3px 6px rgba(255,255,255,0.25); display: grid; place-items: center; color: rgba(28,28,30,0.55); transition: transform 160ms var(--ease); -webkit-tap-highlight-color: transparent; }
+.puck-btn svg { width: 46px; }
+.puck-btn:active { transform: scale(0.94); }
+.tryit-state { font-weight: 700; font-size: 1.125rem; letter-spacing: -0.01em; }
+.tryit-state small { display: block; font-weight: 400; color: var(--stone-5); font-size: 0.9375rem; letter-spacing: 0; margin-top: 2px; }
+.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.tile { display: grid; justify-items: center; gap: 6px; font-size: 0.75rem; color: var(--stone); text-align: center; }
+.tile i { width: 100%; max-width: 58px; aspect-ratio: 1; border-radius: 16px; background: var(--ink-3); position: relative; display: grid; place-items: center; transition: opacity 260ms var(--ease), background-color 260ms var(--ease); }
+.tile i::after { content: ""; width: 38%; aspect-ratio: 1; border-radius: 50%; border: 3px solid var(--stone-5); opacity: 0.7; }
+.tile.sq i::after { border-radius: 6px; }
+.tile.tri i::after { border-radius: 4px 50% 50% 50%; }
+.tile .lk { position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; transition: opacity 260ms var(--ease); }
+.tile .lk svg { width: 22px; color: var(--saffron); }
+.locked .tile.feed i { background: #2A2A2C; }
+.locked .tile.feed i::after { opacity: 0.12; }
+.locked .tile.feed .lk { opacity: 1; }
+.locked .tile.feed span { color: var(--stone-5); }
+.tiles-label { font-size: 0.8125rem; color: var(--stone-5); margin-bottom: 10px; font-weight: 500; }
+
+/* Chip objection */
+.worth { list-style: none; display: grid; gap: 0; margin-top: 30px; }
+.worth li { display: grid; grid-template-columns: 24px 1fr; gap: 14px; padding: 18px 0; border-top: 1px solid var(--line); }
+.worth li > svg { width: 22px; color: var(--saffron); margin-top: 3px; }
+.worth h3 { font-size: 1.125rem; }
+.worth p { color: var(--stone-5); margin-top: 4px; }
+@media (min-width: 720px) { .worth { grid-template-columns: 1fr 1fr; column-gap: 40px; } }
+@media (min-width: 1000px) { .chip-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 64px; align-items: start; } .chip-grid .worth { margin-top: 6px; } }
+
+/* Another room */
+.room { background: #19191B; }
+.plan { margin-top: 40px; border-radius: var(--r-panel); background: var(--ink); padding: 18px; }
+.plan svg { width: 100%; height: auto; }
+.plan .plan-h { display: none; }
+.plan .plan-v { max-width: 380px; margin: 0 auto; }
+@media (min-width: 720px) { .plan .plan-h { display: block; } .plan .plan-v { display: none; } }
+.honest { margin-top: 16px; font-size: 1rem; color: var(--stone-5); }
+.quote { margin-top: 28px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; max-width: 22em; }
+
+/* Split rows (privacy, rescue) */
+.split { display: grid; gap: 36px; align-items: center; }
+.screen-shot { width: min(280px, 72vw); height: auto; margin: 0 auto; filter: drop-shadow(0 30px 40px rgba(0,0,0,0.45)); }
+.facts { list-style: none; display: grid; gap: 18px; margin-top: 28px; }
+.facts li { padding-left: 34px; position: relative; color: var(--stone); }
+.facts li strong { color: var(--chalk); font-weight: 700; display: block; }
+.facts li::before { content: ""; position: absolute; left: 0; top: 4px; width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--line-2); }
+.facts.yes li::before { background: var(--saffron); border-color: var(--saffron); }
+.facts .no::before { background: transparent; }
+.facts .no::after { content: ""; position: absolute; left: 5px; top: 13px; width: 10px; height: 2px; background: var(--stone-5); }
+
+/* Reachable chips */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; list-style: none; }
+.chips li { border-radius: 999px; padding: 10px 16px; background: var(--ink-2); font-weight: 600; font-size: 0.9375rem; color: var(--chalk); }
+.chips li.always { background: var(--chalk); color: var(--ink); }
+
+/* Pre-order */
+.order { background: var(--ink-2); }
+.price-big { white-space: nowrap; font-size: clamp(3.6rem, 20vw, 6.4rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.9; color: var(--saffron); margin-top: 18px; }
+.price-big span { font-size: 0.32em; letter-spacing: -0.02em; color: var(--stone); font-weight: 600; margin-left: 6px; }
+.terms { list-style: none; margin-top: 26px; display: grid; gap: 12px; }
+.terms li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; color: var(--stone); }
+.terms li svg { width: 22px; color: var(--saffron); margin-top: 2px; }
+.terms li b { color: var(--chalk); font-weight: 600; }
+.flow { margin-top: 40px; display: grid; gap: 14px; list-style: none; }
+.flow > li { background: var(--ink); border-radius: var(--r-panel); padding: 22px; }
+.flow h3 { display: flex; gap: 12px; align-items: baseline; }
+.flow h3 .n { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--ink-3); display: inline-grid; place-items: center; font-size: 0.875rem; position: relative; top: -2px; }
+.flow > li.done h3 .n { background: var(--saffron); color: var(--ink); }
+.flow p { color: var(--stone-5); margin-top: 8px; }
+.nfc-choice { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+.nfc-choice .btn { min-height: 48px; padding: 0 20px; font-size: 1rem; }
+.nfc-choice .btn[aria-pressed="true"] { --bg: var(--chalk); --fg: var(--ink); box-shadow: none; }
+.nfc-no { margin-top: 14px; color: var(--chalk); }
+.pay { margin-top: 16px; display: grid; gap: 14px; }
+.qr-row { display: flex; gap: 16px; align-items: center; }
+.qr-box { width: 132px; height: 132px; flex: none; border-radius: 16px; background: var(--chalk); color: var(--ink); display: grid; place-items: center; text-align: center; font-size: 0.8125rem; font-weight: 600; padding: 10px; }
+.code { font-weight: 700; color: var(--chalk); letter-spacing: 0.04em; white-space: nowrap; }
+.trust { margin-top: 18px; font-size: 0.9375rem; color: var(--stone-5); }
+
+/* Founder */
+.maker { display: grid; gap: 24px; align-items: center; }
+.maker-photo { width: 120px; height: 120px; border-radius: 50%; background: var(--ink-3); display: grid; place-items: center; color: var(--stone-5); font-size: 0.75rem; text-align: center; padding: 14px; line-height: 1.2; }
+
+/* FAQ */
+.faq { margin-top: 32px; border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; padding: 20px 44px 20px 0; position: relative; font-weight: 600; font-size: 1.0625rem; letter-spacing: -0.01em; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; position: absolute; right: 6px; top: 50%; width: 12px; height: 12px; margin-top: -8px; border-right: 2px solid var(--saffron); border-bottom: 2px solid var(--saffron); transform: rotate(45deg); transition: transform 220ms var(--ease); }
+.faq details[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
+.faq .a { padding: 0 0 22px; color: var(--stone); max-width: 40em; }
+.faq .a p + p { margin-top: 10px; }
+
+/* Waitlist */
+form { display: grid; gap: 16px; margin-top: 24px; max-width: 30rem; }
+label { display: grid; gap: 8px; font-size: 0.9375rem; font-weight: 600; color: var(--chalk); }
+input { width: 100%; background: var(--ink-2); border: 2px solid var(--line-2); color: var(--chalk); border-radius: var(--r-input); padding: 14px 16px; font: inherit; font-size: 1.0625rem; min-height: 54px; transition: border-color 150ms; }
+input::placeholder { color: var(--stone-5); opacity: 1; }
+input:focus { outline: none; border-color: var(--saffron); }
+input[aria-invalid="true"] { border-color: var(--saffron); }
+.form-error { color: var(--saffron); font-size: 0.9375rem; font-weight: 600; min-height: 1.4em; }
+.thanks { margin-top: 28px; background: var(--ink-2); border-radius: var(--r-panel); padding: 24px; max-width: 30rem; }
+.thanks:focus { outline: 3px solid var(--saffron); outline-offset: 3px; }
+.thanks p { color: var(--stone); margin-top: 8px; }
+
+/* Join the first 50 */
+.join { margin-top: 40px; background: var(--ink); border-radius: var(--r-panel); padding: 24px 20px; }
+.join-title { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; }
+.join-sub { color: var(--stone); margin-top: 10px; }
+.join form { max-width: none; }
+.nfc-q { border: 0; display: grid; gap: 8px; }
+.nfc-q legend { font-size: 0.9375rem; font-weight: 600; margin-bottom: 4px; }
+.nfc-check { margin-top: 18px; background: var(--saffron-soft); border-radius: 14px; padding: 14px 16px; color: var(--stone); font-size: 0.9375rem; }
+.nfc-check b { color: var(--chalk); }
+label .opt { color: var(--stone-5); font-weight: 400; }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.seg label { position: relative; display: block; }
+.seg input { position: absolute; opacity: 0; width: 100%; height: 100%; inset: 0; margin: 0; cursor: pointer; min-height: 0; }
+.seg span { display: grid; place-items: center; min-height: 50px; border-radius: 999px; box-shadow: inset 0 0 0 2px var(--line-2); font-weight: 600; font-size: 0.9375rem; transition: background-color 140ms, color 140ms, box-shadow 140ms; }
+.seg input:checked + span { background: var(--chalk); color: var(--ink); box-shadow: none; }
+.seg input:focus-visible + span { outline: 3px solid var(--saffron); outline-offset: 3px; }
+.nfc-q[aria-invalid="true"] .seg span { box-shadow: inset 0 0 0 2px var(--saffron); }
+.legal { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 22px; }
+.legal a { color: var(--chalk); font-weight: 600; text-decoration: none; padding: 6px 0; }
+.legal a:hover { color: var(--saffron); }
+.thanks { margin-top: 18px; }
+
+/* Final */
+.final { text-align: left; padding: 96px 0 88px; }
+.final h2 { font-size: clamp(3.6rem, 19vw, 9rem); letter-spacing: -0.05em; word-spacing: 0.06em; line-height: 0.9; }
+.final .btn { margin-top: 28px; width: 100%; max-width: 420px; }
+.final .micro { margin-top: 12px; }
+
+footer { border-top: 1px solid var(--line); padding: 40px 0 120px; color: var(--stone-5); font-size: 0.9375rem; }
+footer .wm svg { width: 72px; }
+footer .cols { display: grid; gap: 18px; margin-top: 18px; }
+footer a { color: var(--stone); }
+
+/* Sticky pre-order bar (mobile) */
+.sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom)); background: rgba(28,28,30,0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid var(--line); display: flex; align-items: center; gap: 12px; transform: translateY(110%); transition: transform 320ms var(--ease); }
+.sticky.show { transform: none; }
+.sticky .meta { flex: 1; min-width: 0; line-height: 1.2; }
+.sticky .meta b { display: block; font-size: 1.0625rem; letter-spacing: -0.01em; }
+.sticky .meta span { font-size: 0.75rem; color: var(--stone-5); }
+.sticky .btn { min-height: 50px; padding: 0 20px; font-size: 1rem; }
+@media (prefers-reduced-motion: reduce) { .sticky { transition: none; } }
+
+/* Tablet and up */
+@media (min-width: 720px) {
+  :root { --gutter: 32px; }
+  section { padding: 104px 0; }
+  .steps { grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .steps li { grid-template-columns: 1fr; border-bottom: 0; padding-top: 22px; }
+  .steps li:last-child { border-bottom: 0; }
+  .split { grid-template-columns: 1.15fr 0.85fr; gap: 56px; }
+  .split.flip { grid-template-columns: 0.85fr 1.15fr; }
+  .split.flip > :first-child { order: 2; }
+  .flow { grid-template-columns: 1fr; }
+  .maker { grid-template-columns: 160px 1fr; }
+  .maker-photo { width: 160px; height: 160px; }
+  .tryit { grid-template-columns: auto 1fr; align-items: center; padding: 28px 32px; gap: 32px; }
+  footer .cols { grid-template-columns: repeat(3, 1fr); }
+  .demo .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+}
+@media (min-width: 1000px) {
+  .hero { padding: 40px 0 80px; }
+  .hero-grid { grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: 24px; }
+  .hero-art { grid-column: 2; grid-row: 1 / span 2; margin: 0; max-width: none; }
+  .hero-copy { grid-column: 1; }
+  .hero-cta { grid-column: 1; margin-top: 30px; }
+  .sticky { display: none; }
+  footer { padding-bottom: 48px; }
+  .order .wrap:first-child { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: start; }
+  .flow { grid-template-columns: 1fr; margin-top: 0; }
+  .order-right .join { margin-top: 0; padding: 32px; }
+  .order-right .flow:not([hidden]) + .join { margin-top: 14px; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="wm" href="#main" aria-label="nope, back to top">{{WORDMARK_SVG}}</a>
+    <a class="wa js-wa" href="#" target="_blank" rel="noopener">Chat on WhatsApp</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 id="hero-title" class="reveal">Put it down.</h1>
+        <p class="hero-line reveal d1" id="hero-line">Leave it in another room.</p>
+        <p class="sub reveal d1" id="hero-sub">A palm-sized puck that locks the apps you choose. Unlocking takes a walk, not a thumb.</p>
+      </div>
+      <div class="hero-art">
+        <img src="data:image/webp;base64,{{IMG_hero}}" width="960" height="720" alt="The nope puck: a smooth round saffron puck, about the size of a palm, with nope pressed into the top." fetchpriority="high">
+      </div>
+      <div class="hero-cta reveal d2" id="hero-cta">
+        <a class="btn js-cta" href="#join">Join the first 50</a>
+        <p class="micro">Rs 1,999 once · No subscription · 30 day refund<br>Android with NFC only.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="demo" aria-label="What the tap looks like">
+    <div class="wrap">
+      <!-- TODO: swap this still for the 15 second demo video (muted, autoplay, playsinline, loop, captions burned in, under 3 MB, lazy-loaded). -->
+      <figure>
+        <img src="data:image/webp;base64,{{IMG_tap}}" width="720" height="720" alt="A phone held just above the saffron puck, about to tap it.">
+        <figcaption>Tap to lock. Tap again to unlock.</figcaption>
+      </figure>
+      <figure class="screen-fig" style="background:#1C1C1E;display:grid;place-items:center;padding:28px 0">
+        <img class="screen-shot" src="data:image/webp;base64,{{IMG_home}}" width="560" height="1174" alt="The nope app home screen in the locked state: a saffron panel reading Locked.">
+      </figure>
+    </div>
+  </div>
+
+  <section id="chip" aria-labelledby="chip-title">
+    <div class="wrap chip-grid">
+      <div class="sec-head">
+        <h2 id="chip-title">Yes, the chip inside is cheap.</h2>
+        <p class="lead">An NFC sticker costs a few rupees, and some free apps work with one. If that setup suits you, go for it. Here is what the Rs 1,999 pays for.</p>
+      </div>
+      <ul class="worth">
+        <li>{{CHECK_SVG}}<div><h3>A puck you'll want to leave out</h3><p>Smooth, palm-sized and made by hand. It sits on a shelf like an object, not a sticker on a wall.</p></div></li>
+        <li>{{CHECK_SVG}}<div><h3>An app built for this one job</h3><p>One tap to lock, one to unlock. No account, no analytics.</p></div></li>
+        <li>{{CHECK_SVG}}<div><h3>A way back in</h3><p>A backup code if the puck goes missing, and two emergency unlocks a day.</p></div></li>
+        <li>{{CHECK_SVG}}<div><h3>The essentials stay reachable</h3><p>The phone app is never blocked. WhatsApp and UPI apps are marked keep reachable.</p></div></li>
+        <li>{{CHECK_SVG}}<div><h3>Setup help from a person</h3><p>We help you set it up on WhatsApp, including the extra Android steps some phones need.</p></div></li>
+        <li>{{CHECK_SVG}}<div><h3>30 days to decide</h3><p>Not for you? Ask for a refund within 30 days of delivery. No forms, no argument.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="how-title">Three steps. No settings to dig through.</h2>
+      </div>
+      <ol class="steps">
+        <li><div><h3>Choose the apps</h3><p>Pick the ones that eat your evening. Instagram and YouTube, usually.</p></div></li>
+        <li><div><h3>Tap to lock</h3><p>Hold your phone on the puck for a second. Those apps now send you to the home screen.</p></div></li>
+        <li><div><h3>Walk to unlock</h3><p>Leave the puck in another room. When you really want the feed, go and tap it again.</p></div></li>
+      </ol>
+
+      <div class="tryit" id="tryit">
+        <div class="tryit-top">
+          <button class="puck-btn" type="button" id="puck-btn" aria-pressed="false" aria-describedby="tryit-state">
+            <span class="sr">Tap the puck to try locking</span>
+            <svg viewBox="0 0 104 100" aria-hidden="true"><path fill="currentColor" d="{{N_PATH}}"/></svg>
+          </button>
+          <p class="tryit-state" id="tryit-state" aria-live="polite">Try it. Tap the puck.<small>This is a demo on this page, not your phone.</small></p>
+        </div>
+        <div class="tiles-wrap">
+          <p class="tiles-label">On your phone</p>
+          <div class="tiles" id="tiles">
+            <div class="tile feed"><i><span class="lk">{{LOCK_SVG}}</span></i><span>Instagram</span></div>
+            <div class="tile feed sq"><i><span class="lk">{{LOCK_SVG}}</span></i><span>YouTube</span></div>
+            <div class="tile tri"><i></i><span>Phone</span></div>
+            <div class="tile sq"><i></i><span>WhatsApp</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="room" id="room" aria-labelledby="room-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="room-title">Your phone stays here. The puck lives in the kitchen.</h2>
+        <p class="lead">A screen time limit costs one tap to ignore. nope puts the off switch outside your phone. Leave the puck in another room, and the scroll needs a walk, not a thumb.</p>
+      </div>
+      <div class="plan" role="img" aria-label="A simple floor plan. The phone is on the bed in the bedroom. The puck sits on the kitchen shelf. A dotted path, a short walk, joins them.">
+        <svg class="plan-v" viewBox="0 0 340 500" aria-hidden="true" fill="none">
+          <g stroke="#48484C" stroke-width="3" stroke-linecap="round">
+            <path d="M14 14 H326 V486 H14 Z"/>
+            <path d="M14 250 H130"/><path d="M210 250 H326"/>
+          </g>
+          <rect x="150" y="70" width="150" height="150" rx="14" fill="#262628"/>
+          <rect x="160" y="80" width="62" height="34" rx="8" fill="#323235"/>
+          <rect x="228" y="80" width="62" height="34" rx="8" fill="#323235"/>
+          <rect x="210" y="140" width="32" height="54" rx="7" fill="#F5F4F1"/>
+          <rect x="214" y="145" width="24" height="44" rx="4" fill="#1C1C1E"/>
+          <rect x="28" y="440" width="284" height="32" rx="6" fill="#262628"/>
+          <circle cx="270" cy="456" r="15" fill="#FF8A1F"/>
+          <path d="M226 200 C 220 240, 175 250, 170 290 S 240 400, 262 434" stroke="#9C9993" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 11"/>
+          <g font-family="Outfit, Arial, sans-serif" font-size="18" font-weight="600" fill="#9C9993">
+            <text x="34" y="50">Bedroom</text>
+            <text x="34" y="74" font-weight="400" font-size="16">Your phone</text>
+            <text x="34" y="290">Kitchen</text>
+            <text x="34" y="314" font-weight="400" font-size="16">The puck</text>
+            <text x="34" y="410" fill="#C9C7C3" font-size="19">A walk, not a thumb.</text>
+          </g>
+        </svg>
+        <svg class="plan-h" viewBox="0 0 640 300" aria-hidden="true" fill="none">
+          <g stroke="#48484C" stroke-width="3" stroke-linecap="round">
+            <path d="M20 20 H620 V280 H20 Z"/>
+            <path d="M330 20 V120"/><path d="M330 196 V280"/>
+          </g>
+          <rect x="52" y="120" width="150" height="128" rx="14" fill="#262628"/>
+          <rect x="62" y="130" width="62" height="34" rx="8" fill="#323235"/>
+          <rect x="130" y="130" width="62" height="34" rx="8" fill="#323235"/>
+          <rect x="112" y="186" width="32" height="54" rx="7" fill="#F5F4F1"/>
+          <rect x="116" y="191" width="24" height="44" rx="4" fill="#1C1C1E"/>
+          <rect x="360" y="34" width="246" height="40" rx="6" fill="#262628"/>
+          <circle cx="560" cy="54" r="15" fill="#FF8A1F"/>
+          <path d="M150 200 C 240 190, 300 160, 330 158 S 470 140, 548 72" stroke="#9C9993" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 11"/>
+          <g font-family="Outfit, Arial, sans-serif" font-size="17" font-weight="600" fill="#9C9993">
+            <text x="52" y="56">Bedroom</text>
+            <text x="52" y="78" font-weight="400" font-size="15">Your phone</text>
+            <text x="360" y="112">Kitchen</text>
+            <text x="360" y="134" font-weight="400" font-size="15">The puck</text>
+            <text x="380" y="236" fill="#C9C7C3" font-size="18">A walk, not a thumb.</text>
+          </g>
+        </svg>
+      </div>
+      <p class="quote">It doesn't stop you. It makes you choose.</p>
+      <p class="lead honest">Honest note: you can still get around it. You can uninstall the app or switch off the permission. nope doesn't make cheating impossible. It makes opening those apps a deliberate act, and it works because the puck is somewhere else.</p>
+    </div>
+  </section>
+
+  <section id="privacy" aria-labelledby="privacy-title">
+    <div class="wrap split">
+      <div>
+        <h2 id="privacy-title">It notices which app opened. Nothing else.</h2>
+        <!-- Wording follows docs/CLAIMS_VERIFIED.md (9 Nov). TODO (CTO): re-check every line below against the release APK manifest. Do not add "nothing leaves your phone" until the INTERNET permission check is done (CEO D21, CLO claims list). -->
+        <ul class="facts yes">
+          <li><strong>What nope notices</strong>The name of the app that just opened, so it can send you home if that app is locked.</li>
+        </ul>
+        <ul class="facts">
+          <li class="no"><strong>What it never does</strong>Read your screen, your messages, what you type, your passwords or your payments.</li>
+          <li class="no"><strong>No account, no analytics</strong>No sign up, no login. nope does not send your app usage anywhere.</li>
+          <li class="no"><strong>Why Android calls it accessibility</strong>It is the only way an app can notice another app opening. Turn it off in Settings any time and nope stops.</li>
+        </ul>
+        <!-- TODO: link the real privacy policy URL. -->
+        <p style="margin-top:26px"><a class="link" href="#privacy-policy">Read the privacy policy</a></p>
+      </div>
+      <img class="screen-shot" src="data:image/webp;base64,{{IMG_permission}}" width="560" height="1174" alt="The nope permission screen: One permission, explained. What nope can see, what nope never does, and why Android calls it accessibility.">
+    </div>
+  </section>
+
+  <section id="rescue" aria-labelledby="rescue-title" style="background:#19191B">
+    <div class="wrap split flip">
+      <div>
+        <h2 id="rescue-title">Lost the puck? Your backup code gets you back in.</h2>
+        <ul class="facts">
+          <li><strong>A backup code, shown once</strong>When you pair, nope gives you a 10 character code. Save it in two places. It unlocks your apps and lets you pair a new puck.</li>
+          <li><strong>Two emergency unlocks a day</strong>Each one needs a 10 second hold. Long enough to ask yourself if it is really an emergency.</li>
+          <li><strong>The phone app is never blocked</strong>Calls stay one tap away. More on that below.</li>
+        </ul>
+      </div>
+      <img class="screen-shot" src="data:image/webp;base64,{{IMG_rescue}}" width="560" height="1174" alt="The nope rescue screen: Lost my puck? A box to enter the 10 character backup code and an Unlock now button.">
+    </div>
+  </section>
+
+  <section id="reachable" aria-labelledby="reach-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="reach-title">Lock the feeds. Keep the essentials.</h2>
+        <p class="lead">The phone app is never blocked. WhatsApp, UPI apps and Maps are marked keep reachable, so nope checks with you before you lock any of them.</p>
+      </div>
+      <ul class="chips" aria-label="Apps that stay reachable">
+        <li class="always">Phone, always</li>
+        <li>WhatsApp</li><li>Google Pay</li><li>PhonePe</li><li>Paytm</li><li>BHIM</li><li>CRED</li><li>Maps</li><li>Messages</li>
+      </ul>
+      <p class="muted small" style="margin-top:18px">Optional browser blocking covers the major browsers on Android.</p>
+    </div>
+  </section>
+
+  <section class="order" id="preorder" aria-labelledby="order-title">
+    <div class="wrap">
+      <div>
+        <h2 id="order-title">Pay once. That's it.</h2>
+        <p class="price-big" id="price">Rs 1,999<span>once</span></p>
+        <!-- TODO (MD): confirm the MRP line on the CA call (GST status unknown). -->
+        <p class="micro" style="margin-top:10px">MRP inclusive of all taxes.</p>
+        <ul class="terms">
+          <li>{{CHECK_SVG}}<span><b>No subscription, no account.</b> The app comes with the puck.</span></li>
+          <li>{{CHECK_SVG}}<span><b>30 day refund.</b> Ask within 30 days of the courier delivered date. No forms, no argument. <a class="link" href="refund.html">Refund policy</a></span></li>
+          <!-- TODO: publish the ship-by date only after Gate G1 (CEO decision 7). Until then keep this line. -->
+          <li>{{CHECK_SVG}}<span><b>Ship date confirmed first.</b> We'll confirm the ship date on WhatsApp before you pay anything. Miss it by more than 7 days and you can ask for a full refund.</span></li>
+          <!-- TODO (MD): confirm the founding batch details, and that every puck is tested before shipping, before any ad runs. -->
+          <li>{{CHECK_SVG}}<span><b>A founding batch of 50.</b> Hand-made, and tested before it ships.</span></li>
+        </ul>
+      </div>
+
+      <div class="order-right">
+        <!-- Payment flow: hidden while PAYMENTS_OPEN is false (waitlist mode, CEO money gate). -->
+        <ol class="flow" id="pay-flow" hidden>
+          <li id="step-nfc">
+            <h3><span class="n" aria-hidden="true">1</span>Check your phone has NFC</h3>
+            <p>Takes 10 seconds. Open Settings and search NFC. If you see it, you're set. nope works on Android phones with NFC. iPhone comes later.</p>
+            <div class="nfc-choice" role="group" aria-label="Does your phone have NFC?">
+              <button class="btn ghost" type="button" id="nfc-yes" aria-pressed="false">Yes, it has NFC</button>
+              <button class="btn ghost" type="button" id="nfc-no" aria-pressed="false">No NFC</button>
+            </div>
+            <p class="nfc-no" id="nfc-no-msg" hidden>Please don't pay yet. <a class="link" href="#join">Join the waitlist</a> and we'll tell you if that changes.</p>
+          </li>
+          <li id="step-pay">
+            <h3><span class="n" aria-hidden="true">2</span>Pay Rs 1,999 with any UPI app</h3>
+            <p id="pay-hint">Confirm NFC above, then pay. Your order code goes in the payment note.</p>
+            <div class="pay">
+              <a class="btn block" id="upi-pay" href="#step-nfc" aria-disabled="true">Pay Rs 1,999 with UPI</a>
+              <div class="qr-row">
+                <!-- TODO: replace this placeholder with a QR image of the business UPI ID (for example <img src="upi-qr.png" alt="UPI QR code to pay Rs 1,999 for nope">). Never a personal UPI ID (CEO D6). -->
+                <div id="upi-qr" class="qr-box" aria-label="QR code placeholder">UPI QR code</div>
+                <p class="small muted">On a laptop? Scan with your phone's UPI app. Order code <span class="code js-order-code">NP-00-0000</span></p>
+              </div>
+            </div>
+          </li>
+          <li id="step-wa">
+            <h3><span class="n" aria-hidden="true">3</span>Send us the screenshot</h3>
+            <p>Send the payment screenshot on WhatsApp with your order code. We reply to confirm, then ship.</p>
+            <div class="pay"><a class="btn ghost block js-wa js-wa-paid" href="#" target="_blank" rel="noopener">Send screenshot on WhatsApp</a></div>
+          </li>
+        </ol>
+
+        <div class="join" id="join">
+          <h3 class="join-title" id="join-title">Join the first 50</h3>
+          <p class="join-sub" id="join-sub">No payment today. When the first batch is ready, we message you on WhatsApp with the ship date and how to order.</p>
+          <div class="nfc-check" id="nfc-check">
+            <p><b>First, check your phone has NFC.</b> Takes 10 seconds: open Settings and search NFC. Nothing shows up? nope won't work on that phone yet. Tell us your model below and we'll let you know.</p>
+          </div>
+          <form id="waitlist-form" novalidate aria-labelledby="join-title">
+            <label for="f-name">First name
+              <input id="f-name" type="text" name="name" autocomplete="given-name" placeholder="Your first name" aria-describedby="form-error">
+            </label>
+            <label for="f-city">City
+              <input id="f-city" type="text" name="city" autocomplete="address-level2" placeholder="For example Pune" aria-describedby="form-error">
+            </label>
+            <label for="f-phone">WhatsApp number
+              <input id="f-phone" type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="98765 43210" aria-describedby="form-error">
+            </label>
+            <label for="f-email"><span>Email <span class="opt">(optional)</span></span>
+              <input id="f-email" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@example.com" aria-describedby="form-error">
+            </label>
+            <label for="f-model">Phone brand and model
+              <input id="f-model" type="text" name="model" autocomplete="off" placeholder="For example Samsung Galaxy A35" aria-describedby="form-error">
+            </label>
+            <fieldset class="nfc-q">
+              <legend>Does your phone show NFC?</legend>
+              <div class="seg">
+                <label><input type="radio" name="nfc" value="yes"><span>Yes</span></label>
+                <label><input type="radio" name="nfc" value="no"><span>No</span></label>
+                <label><input type="radio" name="nfc" value="not sure"><span>Not sure</span></label>
+              </div>
+            </fieldset>
+            <p id="form-error" class="form-error" role="alert"></p>
+            <button class="btn block" type="submit" id="join-btn">Join the first 50</button>
+            <p class="micro">We use your details only to tell you about your nope. <a class="link" href="privacy.html">Privacy</a></p>
+          </form>
+          <div id="thanks" class="thanks" role="status" tabindex="-1" hidden>
+            <h3>Thanks, <span id="thanks-name"></span>. You're on the list for the first 50.</h3>
+            <p>Your code is <span class="code js-order-code">NP-XW-0000</span>. We'll message you on WhatsApp. We've also opened WhatsApp with your details ready, so you can say hi.</p>
+            <p id="thanks-nfc" hidden>No NFC means nope won't work on this phone yet. Please don't pay for one. We'll tell you if that changes.</p>
+            <p class="small">WhatsApp did not open? <a class="link" id="wa-link" href="#" target="_blank" rel="noopener">Say hi on WhatsApp</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <p class="trust">Questions first? <a class="link js-wa" href="#" target="_blank" rel="noopener">Chat on WhatsApp</a>. Thinking of it as a gift? <a class="link" id="gift-ask" href="#" target="_blank" rel="noopener">Send someone the link</a>.</p>
+    </div>
+  </section>
+
+  <section id="maker" aria-labelledby="maker-title">
+    <div class="wrap maker">
+      <!-- TODO: replace with a real founder photo (square, at least 320 px, face visible). -->
+      <div class="maker-photo" aria-hidden="true">Founder photo</div>
+      <div>
+        <h2 id="maker-title">Who makes this</h2>
+        <!-- TODO: fill in the founder's real name and city. -->
+        <p class="lead" style="margin-top:16px">Hi, I'm <span class="js-founder">[Founder name]</span>. I make the puck, the app, and I answer the WhatsApp messages. If something is unclear, ask me before you pay anything.</p>
+        <p class="muted" style="margin-top:14px">nope is made by one person in <span class="js-city">[City]</span>. The founding batch is hand-made and is tested before it ships.</p>
+        <p style="margin-top:22px"><a class="btn ghost js-wa" href="#" target="_blank" rel="noopener">Chat on WhatsApp</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" aria-labelledby="faq-title" style="background:#19191B">
+    <div class="wrap">
+      <h2 id="faq-title">Honest answers.</h2>
+      <div class="faq">
+        <!-- TODO: this answer assumes any-sticker support stays open (founder Decision 1). If the app becomes pucks only, rewrite the last sentence. -->
+        <details><summary>Isn't it just an NFC chip?</summary><div class="a"><p>The chip is, and it's cheap. You're paying for the finished puck, an app made for this with a backup code and emergency unlocks, setup help from a person, and a 30 day refund. Free apps with a sticker can work too, and that's a fine choice.</p></div></details>
+        <details><summary>Which phones does it work with?</summary><div class="a"><p>Android phones with NFC. Open Settings and search NFC to check. iPhone needs Apple's approval for this kind of app, so it comes later. We won't promise a date.</p></div></details>
+        <details><summary>What exactly can the app see?</summary><div class="a"><p>Only the name of the app that just opened. Not your screen, not your messages, not what you type. There is no account to create.</p></div></details>
+        <details><summary>Can I get stuck?</summary><div class="a"><p>nope only locks the apps you choose, and the phone app is never blocked. You get two emergency unlocks a day, each with a 10 second hold, and your backup code unlocks everything if the puck goes missing.</p></div></details>
+        <details><summary>What if I lose the puck?</summary><div class="a"><p>Enter your backup code in the app. It unlocks everything and lets you pair a new puck. That's why we ask you to save it in two places.</p></div></details>
+        <details><summary>Can I cheat?</summary><div class="a"><p>Yes. You can uninstall the app or switch off the permission. nope isn't a fortress. It makes opening the apps you chose a deliberate act, and it works best when the puck lives in another room.</p></div></details>
+        <details><summary>Does it need the internet?</summary><div class="a"><p>No. Locking and unlocking happen between your phone and the puck.</p></div></details>
+        <details><summary>Does it work through a phone case?</summary><div class="a"><p>Thin cases are usually fine. Thick, metal or wallet cases can block the tap. If yours does, take the phone out for the tap.</p></div></details>
+        <details><summary>Is there a subscription?</summary><div class="a"><p>No. Rs 1,999 once, MRP inclusive of all taxes. The app comes with it.</p></div></details>
+        <details><summary>Can I pay now?</summary><div class="a"><p>Not yet. We take orders only once the first batch has passed our phone tests. Join the first 50 and we'll message you first.</p></div></details>
+        <details><summary>How does the refund work?</summary><div class="a"><p>Ask within 30 days of the date the courier marks your parcel delivered (if it shows none, 30 days from 7 days after dispatch). Message us with your order number and we refund to the payment method you used within 3 working days. No forms, no argument. <a class="link" href="refund.html">Full refund policy</a></p></div></details>
+        <details><summary>When will it ship?</summary><div class="a"><p>We are finishing tests on real phones first. You get a firm ship-by date before you pay, and if we miss it by more than 7 days you can ask for a full refund.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" aria-labelledby="final-title">
+    <div class="wrap">
+      <h2 id="final-title">Put it down.</h2>
+      <a class="btn js-cta" href="#join">Join the first 50</a>
+      <p class="micro">Rs 1,999 once · Android with NFC · 30 day refund</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="wm">{{WORDMARK_SVG}}</span>
+    <nav class="legal" aria-label="Policies">
+      <a href="terms.html">Terms</a><a href="refund.html">Refund policy</a><a href="shipping.html">Shipping</a><a href="privacy.html">Privacy</a><a class="js-wa" href="#" target="_blank" rel="noopener">Contact</a>
+    </nav>
+    <div class="cols">
+      <!-- TODO (MD): seller details. Address on the site is the MD's decision (CEO D18). Do not publish with brackets. -->
+      <p>Sold by [Proprietorship or trade name], [full address], [city, state, PIN].<br>Email: [email]. WhatsApp: <a class="js-wa" href="#" target="_blank" rel="noopener">chat with us</a>.</p>
+      <p>Grievance officer: [name], [email]. We acknowledge complaints within 48 hours and aim to resolve them within one month.</p>
+      <p>Prices in rupees, MRP inclusive of all taxes. Android with NFC. iPhone later, no date yet.<br>Our website uses Meta's pixel to measure ads. <!-- TODO: second sentence only after the CTO manifest check --></p>
+    </div>
+    <p style="margin-top:22px">© 2026 nope</p>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky" aria-hidden="true">
+  <div class="meta"><b>Rs 1,999 once</b><span>30 day refund</span></div>
+  <a class="btn js-cta" href="#join" tabindex="-1">Join the first 50</a>
+</div>
+
+<script>
+  // TODO: replace with the real WhatsApp number before launch: country code + number, digits only (for example 919876543210).
+  const WHATSAPP_NUMBER = "91XXXXXXXXXX";
+  // TODO: replace with the real UPI ID before launch (for example yourname@okhdfcbank). Business account only, never personal (CEO D6).
+  const UPI_ID = "yourname@upi";
+  // Money gate. Keep false (waitlist mode) until the CEO opens it: Gate G1 passed and a business payment channel live (earliest Wed 18 Nov).
+  // true shows the NFC check, UPI pay link and QR, and switches every main button to "Pre-order for Rs 1,999".
+  const PAYMENTS_OPEN = false;
+  // TODO: add the Meta Pixel ID from Events Manager. Leave empty and no pixel loads.
+  const META_PIXEL_ID = "";
+  // TODO: add a free form backend URL (Google Apps Script web app, Formspree or similar) so waitlist leads are not lost if WhatsApp never opens.
+  const FORM_ENDPOINT = "";
+  const PRICE_INR = 1999;
+  const STORAGE_KEY = "nope-waitlist";
+  const SITE_URL = location.origin && location.origin !== "null" ? location.origin + location.pathname : "https://nope.example"; // TODO: real domain
+
+  // Angle-matched headlines for Meta ads: ?a=A1 ... ?a=A8 (see marketing/PLAN.md section 2).
+  const ANGLES = {
+    A: ["Leave it in another room.", "A palm-sized puck that locks the apps you choose. Unlocking takes a walk, not a thumb."],
+    B: ["Break time stays break time.", "Tap your phone on the puck and the feeds lock. Your five minute break ends when you decide."],
+    A1: ["Your phone stays here. The puck lives in the kitchen.", "A palm-sized puck that locks the apps you choose. Leave it in another room."],
+    A2: ["One tap to lock. A walk to unlock.", "Tap your phone on the puck and the apps you chose lock. Put the puck somewhere else."],
+    A3: ["It notices which app opened. Nothing else.", "No account, no analytics. A puck that locks the apps you choose."],
+    A4: ["Pay once. No subscription.", "Rs 1,999 for the puck and the app. 30 day refund from delivery if it is not for you."],
+    A5: ["Bedtime scroll? The puck's in the other room.", "Lock the feeds before bed. Unlocking means getting up and walking to the puck."],
+    A6: ["Deep work starts with one tap.", "Lock the feeds, leave the puck across the room, and get on with it."],
+    A7: ["Not a lecture. Just a puck.", "For someone who wants to scroll less. They choose the apps. 30 day refund from delivery."],
+    A8: ["Lost the puck? Your backup code gets you back in.", "Two emergency unlocks a day, each with a 10 second hold. The phone app is never blocked."]
+  };
+  const params = new URLSearchParams(location.search);
+  // ?a=A (default) and ?a=B per marketing/DEMAND_TEST.md 3.1; A1 to A8 for single-angle ads. Unknown values show A.
+  let angle = (params.get("a") || "A").toUpperCase();
+  if (!ANGLES[angle]) angle = "A";
+  document.getElementById("hero-line").textContent = ANGLES[angle][0];
+  document.getElementById("hero-sub").textContent = ANGLES[angle][1];
+  if (angle === "A1") document.getElementById("room-title").textContent = "Put it down. Then walk away.";
+
+  // Order code NP-<source><type>-<4 chars> (marketing/DEMAND_TEST.md 3.1). Source: utm_content before the first underscore, else ?src=, else X.
+  // Type: W waitlist, F full order. Kept in localStorage so a returning visitor keeps the same code.
+  function makeCode(type) {
+    const abc = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    const r = new Uint8Array(4);
+    if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(r); else r.forEach((_, i) => r[i] = Math.floor(Math.random() * 256));
+    let tail = ""; r.forEach(n => tail += abc[n % abc.length]);
+    const src = ((params.get("utm_content") || "").split("_")[0] || params.get("src") || "X").replace(/[^A-Za-z0-9]/g, "").toUpperCase().slice(0, 6) || "X";
+    return "NP-" + src + type + "-" + tail;
+  }
+  let ORDER_CODE;
+  const TYPE = PAYMENTS_OPEN ? "F" : "W";
+  try {
+    ORDER_CODE = localStorage.getItem("nope-code");
+    if (!ORDER_CODE) { ORDER_CODE = makeCode(TYPE); localStorage.setItem("nope-code", ORDER_CODE); }
+  } catch (e) { ORDER_CODE = makeCode(TYPE); }
+  document.querySelectorAll(".js-order-code").forEach(el => el.textContent = ORDER_CODE);
+
+  // Mode switch: waitlist (default) or pre-order.
+  if (PAYMENTS_OPEN) {
+    document.getElementById("pay-flow").hidden = false;
+    document.querySelectorAll(".js-cta").forEach(a => { a.textContent = "Pre-order for Rs 1,999"; a.setAttribute("href", "#preorder"); });
+    document.getElementById("join-title").textContent = "Not ready yet? Join the waitlist.";
+    document.getElementById("join-sub").textContent = "For no NFC, iPhone, or just not today. We message you once there is news.";
+    document.getElementById("join-btn").textContent = "Join the waitlist on WhatsApp";
+  }
+
+  // Meta Pixel (only when an ID is set). Events: PageView, ViewContent, Lead, Contact, InitiateCheckout.
+  if (META_PIXEL_ID) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
+    fbq("init", META_PIXEL_ID);
+    fbq("track", "PageView");
+  }
+  const sent = {};
+  function track(name, data, once) {
+    if (once && sent[name]) return; sent[name] = true;
+    if (window.fbq) fbq("track", name, Object.assign({ currency: "INR", value: PRICE_INR, content_name: "nope puck" }, data || {}));
+  }
+
+  const wa = (text) => "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(text);
+  document.querySelectorAll(".js-wa").forEach(a => {
+    const paid = a.classList.contains("js-wa-paid");
+    a.href = wa(paid
+      ? "Hi nope, I paid Rs 1,999 for a pre-order. My order code is " + ORDER_CODE + ". Screenshot attached."
+      : "Hi nope, I have a question before I pre-order. (" + ORDER_CODE + ")");
+    a.addEventListener("click", () => track("Contact", null, false));
+  });
+  document.getElementById("gift-ask").href = "https://wa.me/?text=" + encodeURIComponent("Can you get me this? It's a puck that locks my scroll apps. Rs 1,999 once, 30 day refund. " + SITE_URL);
+
+  // Pre-order: NFC check first, then the UPI link opens with amount and order code.
+  const upi = document.getElementById("upi-pay");
+  if (PAYMENTS_OPEN) {
+  const upiHref = "upi://pay?pa=" + encodeURIComponent(UPI_ID) + "&pn=nope&am=" + PRICE_INR + "&cu=INR&tn=" + encodeURIComponent("nope " + ORDER_CODE);
+  const yes = document.getElementById("nfc-yes"), no = document.getElementById("nfc-no");
+  function setNfc(has) {
+    yes.setAttribute("aria-pressed", String(has)); no.setAttribute("aria-pressed", String(!has));
+    document.getElementById("nfc-no-msg").hidden = has;
+    document.getElementById("step-nfc").classList.toggle("done", has);
+    upi.setAttribute("aria-disabled", String(!has));
+    upi.href = has ? upiHref : "#step-nfc";
+    document.getElementById("pay-hint").textContent = has
+      ? "Tap to open your UPI app with Rs 1,999 and your order code filled in."
+      : "Confirm NFC above, then pay. Your order code goes in the payment note.";
+  }
+  yes.addEventListener("click", () => setNfc(true));
+  no.addEventListener("click", () => setNfc(false));
+  upi.addEventListener("click", (e) => {
+    if (upi.getAttribute("aria-disabled") === "true") { e.preventDefault(); yes.focus(); yes.parentElement.animate && !matchMedia("(prefers-reduced-motion: reduce)").matches && yes.parentElement.animate([{ transform: "translateX(0)" }, { transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "translateX(0)" }], { duration: 260 }); return; }
+    track("InitiateCheckout", { content_ids: [ORDER_CODE] });
+  });
+  document.querySelectorAll(".js-cta").forEach(a => a.addEventListener("click", () => track("InitiateCheckout", { content_ids: [ORDER_CODE] }, true)));
+  }
+
+  // Viewport events: price in view (ViewContent), QR in view (InitiateCheckout), sticky bar visibility.
+  const sticky = document.getElementById("sticky");
+  const header = document.getElementById("top");
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((es) => es.forEach(en => { if (en.isIntersecting) track("ViewContent", null, true); }), { threshold: 0.6 }).observe(document.getElementById("price"));
+    if (PAYMENTS_OPEN) new IntersectionObserver((es) => es.forEach(en => { if (en.isIntersecting) track("InitiateCheckout", { content_ids: [ORDER_CODE] }, true); }), { threshold: 0.8 }).observe(document.getElementById("upi-qr"));
+    let heroOut = false, orderIn = false, endIn = false;
+    const upd = () => { const show = heroOut && !orderIn && !endIn; sticky.classList.toggle("show", show); sticky.setAttribute("aria-hidden", String(!show)); sticky.querySelector("a").tabIndex = show ? 0 : -1; };
+    new IntersectionObserver(([en]) => { heroOut = !en.isIntersecting && en.boundingClientRect.top < 0; header.classList.toggle("scrolled", heroOut); upd(); }).observe(document.getElementById("hero-cta"));
+    new IntersectionObserver(([en]) => { orderIn = en.isIntersecting; upd(); }, { threshold: 0 }).observe(document.getElementById("preorder"));
+    new IntersectionObserver(([en]) => { endIn = en.isIntersecting; upd(); }).observe(document.querySelector(".final"));
+  }
+
+  // Try-it demo
+  const puckBtn = document.getElementById("puck-btn"), tiles = document.getElementById("tiles"), state = document.getElementById("tryit-state");
+  puckBtn.addEventListener("click", () => {
+    const on = puckBtn.getAttribute("aria-pressed") !== "true";
+    puckBtn.setAttribute("aria-pressed", String(on));
+    tiles.classList.toggle("locked", on);
+    state.innerHTML = on ? "Locked.<small>Instagram and YouTube send you home. Phone and WhatsApp still work.</small>" : "Unlocked.<small>Tap again to lock. On your phone, the puck would be in the other room.</small>";
+  });
+
+  // Waitlist: validate, back up locally, post to the form backend if set, then open WhatsApp.
+  const form = document.getElementById("waitlist-form");
+  const errorBox = document.getElementById("form-error");
+  const thanks = document.getElementById("thanks");
+  const field = (name) => form.querySelector('[name="' + name + '"]');
+  const cleanPhone = (v) => v.replace(/[\s\-()]/g, "");
+  const isValidPhone = (v) => /^(\+?91)?[6-9]\d{9}$/.test(cleanPhone(v));
+  const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  const nfcSet = form.querySelector(".nfc-q");
+  function clearInvalid() { form.querySelectorAll("[aria-invalid]").forEach(i => i.removeAttribute("aria-invalid")); }
+  function fail(name, msg) { clearInvalid(); const el = name === "nfc" ? nfcSet : field(name); el.setAttribute("aria-invalid", "true"); (name === "nfc" ? nfcSet.querySelector("input") : el).focus(); errorBox.textContent = msg; }
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const nfcPick = form.querySelector('input[name="nfc"]:checked');
+    const entry = { name: field("name").value.trim(), city: field("city").value.trim(), phone: field("phone").value.trim(), email: field("email").value.trim(), model: field("model").value.trim(), nfc: nfcPick ? nfcPick.value : "" };
+    if (!entry.name) return fail("name", "Please enter your first name.");
+    if (!entry.city) return fail("city", "Please enter your city.");
+    if (!isValidPhone(entry.phone)) return fail("phone", "Please enter a valid 10-digit Indian mobile number.");
+    if (entry.email && !isValidEmail(entry.email)) return fail("email", "Please check your email address, or leave it empty.");
+    if (!entry.model) return fail("model", "Please tell us your phone model, so we can check it works.");
+    if (!entry.nfc) return fail("nfc", "Please pick Yes, No or Not sure for NFC.");
+    clearInvalid();
+    errorBox.textContent = "";
+
+    const utm = {}; ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(k => { if (params.get(k)) utm[k] = params.get(k); });
+    const record = Object.assign({}, entry, { code: ORDER_CODE, angle: angle, savedAt: new Date().toISOString() }, utm);
+
+    // Local backup in case the WhatsApp step never happens. Blocked storage is fine.
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      saved.push(record);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+    } catch (err) {
+      // Storage unavailable (private mode or blocked); the WhatsApp message still works.
+    }
+    if (FORM_ENDPOINT) {
+      try { fetch(FORM_ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(record) }); } catch (e) {}
+    }
+    track("Lead", { content_ids: [ORDER_CODE] });
+
+    const message =
+      "Hi nope, I want to join the first 50.\n" +
+      "Name: " + entry.name + "\n" +
+      "City: " + entry.city + "\n" +
+      "Phone: " + entry.phone + "\n" +
+      (entry.email ? "Email: " + entry.email + "\n" : "") +
+      "Phone model: " + entry.model + "\n" +
+      "NFC: " + entry.nfc + "\n" +
+      "Code: " + ORDER_CODE;
+    const url = wa(message);
+
+    document.getElementById("wa-link").href = url;
+    document.getElementById("thanks-name").textContent = entry.name;
+    document.getElementById("thanks-nfc").hidden = entry.nfc !== "no";
+    form.hidden = true;
+    thanks.hidden = false;
+    thanks.focus();
+    window.open(url, "_blank", "noopener");
+  });
+</script>
+</body>
+</html>

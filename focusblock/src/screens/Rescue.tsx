@@ -62,7 +62,7 @@ export function Rescue({ b }: { b: Brick }) {
           <>
             <Text style={s.body}>You are unlocked. Your apps work again. If your puck is gone for good, you can pair a new one now. You will get a fresh backup code.</Text>
             <Pressable style={[g.button, { backgroundColor: c.link }]} onPress={repair} disabled={b.busy}>
-              <Text style={g.buttonText}>Pair a new puck</Text>
+              <Text style={[g.buttonText, { color: c.onAccent }]}>Pair a new puck</Text>
             </Pressable>
             <Pressable style={g.button} onPress={close}>
               <Text style={g.buttonText}>Maybe later</Text>
@@ -84,7 +84,7 @@ export function Rescue({ b }: { b: Brick }) {
             />
             {!!msg && <Text style={[s.msg, blockedNow && { color: c.danger }]}>{msg}</Text>}
             <Pressable style={[g.button, { backgroundColor: c.link }, blockedNow && s.off]} onPress={submit} disabled={blockedNow || code.length < 10}>
-              <Text style={g.buttonText}>{b.on ? 'Unlock now' : 'Check code'}</Text>
+              <Text style={[g.buttonText, { color: c.onAccent }]}>{b.on ? 'Unlock now' : 'Check code'}</Text>
             </Pressable>
             {b.on && (
               <Text style={s.foot}>

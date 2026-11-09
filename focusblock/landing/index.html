@@ -143,6 +143,15 @@ section { padding: 72px 0; }
 .locked .tile.feed span { color: var(--stone-5); }
 .tiles-label { font-size: 0.8125rem; color: var(--stone-5); margin-bottom: 10px; font-weight: 500; }
 
+/* Chip objection */
+.worth { list-style: none; display: grid; gap: 0; margin-top: 30px; }
+.worth li { display: grid; grid-template-columns: 24px 1fr; gap: 14px; padding: 18px 0; border-top: 1px solid var(--line); }
+.worth li > svg { width: 22px; color: var(--saffron); margin-top: 3px; }
+.worth h3 { font-size: 1.125rem; }
+.worth p { color: var(--stone-5); margin-top: 4px; }
+@media (min-width: 720px) { .worth { grid-template-columns: 1fr 1fr; column-gap: 40px; } }
+@media (min-width: 1000px) { .chip-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 64px; align-items: start; } .chip-grid .worth { margin-top: 6px; } }
+
 /* Another room */
 .room { background: #19191B; }
 .plan { margin-top: 40px; border-radius: var(--r-panel); background: var(--ink); padding: 18px; }
@@ -150,6 +159,7 @@ section { padding: 72px 0; }
 .plan .plan-h { display: none; }
 .plan .plan-v { max-width: 380px; margin: 0 auto; }
 @media (min-width: 720px) { .plan .plan-h { display: block; } .plan .plan-v { display: none; } }
+.honest { margin-top: 16px; font-size: 1rem; color: var(--stone-5); }
 .quote { margin-top: 28px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; max-width: 22em; }
 
 /* Split rows (privacy, rescue) */
@@ -334,6 +344,23 @@ footer a { color: var(--stone); }
     </div>
   </div>
 
+  <section id="chip" aria-labelledby="chip-title">
+    <div class="wrap chip-grid">
+      <div class="sec-head">
+        <h2 id="chip-title">Yes, the chip inside is cheap.</h2>
+        <p class="lead">An NFC sticker costs a few rupees, and some free apps work with one. If that setup suits you, go for it. Here is what the Rs 1,999 pays for.</p>
+      </div>
+      <ul class="worth">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><h3>A puck you'll want to leave out</h3><p>Smooth, palm-sized and made by hand. It sits on a shelf like an object, not a sticker on a wall.</p></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><h3>An app built for this one job</h3><p>One tap to lock, one to unlock. No account, no analytics.</p></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><h3>A way back in</h3><p>A backup code if the puck goes missing, and two emergency unlocks a day.</p></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><h3>The essentials stay reachable</h3><p>The phone app is never blocked. WhatsApp and UPI apps are marked keep reachable.</p></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><h3>Setup help from a person</h3><p>We help you set it up on WhatsApp, including the extra Android steps some phones need.</p></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><h3>30 days to decide</h3><p>Not for you? Ask for a refund within 30 days of delivery. No forms, no argument.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
   <section id="how" aria-labelledby="how-title">
     <div class="wrap">
       <div class="sec-head">
@@ -417,6 +444,7 @@ footer a { color: var(--stone); }
         </svg>
       </div>
       <p class="quote">It doesn't stop you. It makes you choose.</p>
+      <p class="lead honest">Honest note: you can still get around it. You can uninstall the app or switch off the permission. nope doesn't make cheating impossible. It makes opening those apps a deliberate act, and it works because the puck is somewhere else.</p>
     </div>
   </section>
 
@@ -473,13 +501,14 @@ footer a { color: var(--stone); }
       <div>
         <h2 id="order-title">Pay once. That's it.</h2>
         <p class="price-big" id="price">Rs 1,999<span>once</span></p>
+        <!-- TODO (MD): confirm the MRP line on the CA call (GST status unknown). -->
         <p class="micro" style="margin-top:10px">MRP inclusive of all taxes.</p>
         <ul class="terms">
           <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span><b>No subscription, no account.</b> The app comes with the puck.</span></li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span><b>30 day refund.</b> Ask within 30 days of the courier delivered date. No forms, no argument. <a class="link" href="refund.html">Refund policy</a></span></li>
           <!-- TODO: publish the ship-by date only after Gate G1 (CEO decision 7). Until then keep this line. -->
           <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span><b>Ship date confirmed first.</b> We'll confirm the ship date on WhatsApp before you pay anything. Miss it by more than 7 days and you can ask for a full refund.</span></li>
-          <!-- TODO: confirm the founding batch details (50 units, hand-numbered) with the founder. -->
+          <!-- TODO (MD): confirm the founding batch details, and that every puck is tested before shipping, before any ad runs. -->
           <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span><b>A founding batch of 50.</b> Hand-made, and tested before it ships.</span></li>
         </ul>
       </div>
@@ -581,11 +610,13 @@ footer a { color: var(--stone); }
     <div class="wrap">
       <h2 id="faq-title">Honest answers.</h2>
       <div class="faq">
+        <!-- TODO: this answer assumes any-sticker support stays open (founder Decision 1). If the app becomes pucks only, rewrite the last sentence. -->
+        <details><summary>Isn't it just an NFC chip?</summary><div class="a"><p>The chip is, and it's cheap. You're paying for the finished puck, an app made for this with a backup code and emergency unlocks, setup help from a person, and a 30 day refund. Free apps with a sticker can work too, and that's a fine choice.</p></div></details>
         <details><summary>Which phones does it work with?</summary><div class="a"><p>Android phones with NFC. Open Settings and search NFC to check. iPhone needs Apple's approval for this kind of app, so it comes later. We won't promise a date.</p></div></details>
         <details><summary>What exactly can the app see?</summary><div class="a"><p>Only the name of the app that just opened. Not your screen, not your messages, not what you type. There is no account to create.</p></div></details>
         <details><summary>Can I get stuck?</summary><div class="a"><p>nope only locks the apps you choose, and the phone app is never blocked. You get two emergency unlocks a day, each with a 10 second hold, and your backup code unlocks everything if the puck goes missing.</p></div></details>
         <details><summary>What if I lose the puck?</summary><div class="a"><p>Enter your backup code in the app. It unlocks everything and lets you pair a new puck. That's why we ask you to save it in two places.</p></div></details>
-        <details><summary>Can I cheat?</summary><div class="a"><p>Yes. You can uninstall the app or switch off the permission. nope isn't a fortress. It adds one deliberate step, and often that is enough.</p></div></details>
+        <details><summary>Can I cheat?</summary><div class="a"><p>Yes. You can uninstall the app or switch off the permission. nope isn't a fortress. It makes opening the apps you chose a deliberate act, and it works best when the puck lives in another room.</p></div></details>
         <details><summary>Does it need the internet?</summary><div class="a"><p>No. Locking and unlocking happen between your phone and the puck.</p></div></details>
         <details><summary>Does it work through a phone case?</summary><div class="a"><p>Thin cases are usually fine. Thick, metal or wallet cases can block the tap. If yours does, take the phone out for the tap.</p></div></details>
         <details><summary>Is there a subscription?</summary><div class="a"><p>No. Rs 1,999 once, MRP inclusive of all taxes. The app comes with it.</p></div></details>

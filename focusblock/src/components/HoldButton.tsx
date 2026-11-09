@@ -38,6 +38,6 @@ export function HoldButton({ seconds, label, onConfirm }: { seconds: number; lab
 
 const s = StyleSheet.create({
   btn: { height: 60, borderRadius: 14, backgroundColor: c.btn, overflow: 'hidden', justifyContent: 'center', alignItems: 'center', marginTop: 8 },
-  fill: { position: 'absolute', left: 0, top: 0, bottom: 0, backgroundColor: c.danger },
+  fill: { position: 'absolute', left: 0, top: 0, bottom: 0, backgroundColor: '#8F4600' },
   text: { color: c.text, fontSize: 16, fontWeight: '700' },
 });

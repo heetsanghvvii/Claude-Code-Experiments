@@ -13,7 +13,7 @@ const FIELDS = 'code,product_name,brands,quantity,product_quantity,categories_ta
 const SLEEP_MS = 7000;
 const MAX_PAGES_PER_TAG = 5;
 const PAGE_SIZE = 100;
-const RETRIES = 4;
+const RETRIES = 7;
 
 // Key order matters: a product is kept in the first matching key only.
 const CATEGORIES = [

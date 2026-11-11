@@ -46,6 +46,7 @@ Work only inside the project folder unless the owner says otherwise.
 | CPO | scope, interface, demo, bug list | run or build the demo, list the top product gaps |
 | CFO | costs, revenue model, cash ask, stop rules | 12-month model in low, base and high cases |
 | Counsel (on demand) | licences, regulation, defamation, terms of service | review before any public launch |
+| Intern (Instinct) | emails, follow-ups, scheduling, chasing answers, other errands | draft the first outreach email and the list of open questions |
 
 Rules for running the team:
 
@@ -55,6 +56,7 @@ Rules for running the team:
 - Two agents never edit the same file at the same time. Give each agent its own files, and agree any shared data format in both briefs before they start.
 - Agents never commit, push, deploy, spend money or contact anyone. The CEO does commits after checks.
 - To add scope to a running agent, message it. Do not spawn a duplicate.
+- Instinct is the intern. It takes errands from the CEO only: drafting emails, follow-ups, meeting notes, and chasing replies. It drafts in the owner's email account and sends only what the owner has approved, either message by message or for a named recipient and purpose. It never agrees to terms, signs up for anything, or shares personal or health data.
 
 ## Step 4. Honesty rules (put these in every brief)
 

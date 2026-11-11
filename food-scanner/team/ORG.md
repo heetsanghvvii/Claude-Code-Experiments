@@ -1,4 +1,4 @@
-# Agent team: Food Label Checker
+# Agent team: Project Macro (working name; app is "Food Label Checker")
 
 The owner is the only human. One agent reports to the owner: the CEO.
 

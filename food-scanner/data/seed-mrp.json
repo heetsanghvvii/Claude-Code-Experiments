@@ -6,12 +6,12 @@
     "pack_g": 1000,
     "mrp_inr": 1685,
     "price_inr": 1685,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 24.0,
+    "energy_kcal_100g": 580.0,
     "barcode": "8908010900476",
     "source_url": "https://pintola.in/products/natural-almond-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Almond Butter - Creamy / 200gm",
@@ -20,12 +20,12 @@
     "pack_g": 200,
     "mrp_inr": 398,
     "price_inr": 398,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 24.0,
+    "energy_kcal_100g": 580.0,
     "barcode": "8908010900339",
     "source_url": "https://pintola.in/products/natural-almond-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Almond Butter - Creamy / 350gm",
@@ -34,12 +34,12 @@
     "pack_g": 350,
     "mrp_inr": 655,
     "price_inr": 655,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 24.0,
+    "energy_kcal_100g": 580.0,
     "barcode": "8908010900261",
     "source_url": "https://pintola.in/products/natural-almond-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Almond Butter - Crunchy / 1kg",
@@ -48,12 +48,12 @@
     "pack_g": 1000,
     "mrp_inr": 1685,
     "price_inr": 1685,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 24.0,
+    "energy_kcal_100g": 580.0,
     "barcode": "8908010900476",
     "source_url": "https://pintola.in/products/natural-almond-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Almond Butter - Crunchy / 200gm",
@@ -62,12 +62,12 @@
     "pack_g": 200,
     "mrp_inr": 398,
     "price_inr": 398,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 24.0,
+    "energy_kcal_100g": 580.0,
     "barcode": "8908010900339",
     "source_url": "https://pintola.in/products/natural-almond-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Almond Butter - Crunchy / 350gm",
@@ -76,12 +76,12 @@
     "pack_g": 350,
     "mrp_inr": 655,
     "price_inr": 649,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 24.0,
+    "energy_kcal_100g": 580.0,
     "barcode": "8908010900261",
     "source_url": "https://pintola.in/products/natural-almond-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Cashew Butter - 1kg",
@@ -90,12 +90,12 @@
     "pack_g": 1000,
     "mrp_inr": 1965,
     "price_inr": 1890,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 19.0,
+    "energy_kcal_100g": 550.0,
     "barcode": "8908010900513",
     "source_url": "https://pintola.in/products/natural-cashew-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Cashew Butter - 200gm",
@@ -104,12 +104,12 @@
     "pack_g": 200,
     "mrp_inr": 490,
     "price_inr": 472,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 19.0,
+    "energy_kcal_100g": 550.0,
     "barcode": "8908010900452",
     "source_url": "https://pintola.in/products/natural-cashew-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Cashew Butter - 350gm",
@@ -118,12 +118,12 @@
     "pack_g": 350,
     "mrp_inr": 770,
     "price_inr": 742,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 19.0,
+    "energy_kcal_100g": 550.0,
     "barcode": "8908010900469",
     "source_url": "https://pintola.in/products/natural-cashew-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Organic Peanut Butter - Creamy / 1kg",
@@ -132,12 +132,12 @@
     "pack_g": 1000,
     "mrp_inr": 490,
     "price_inr": 472,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900100",
     "source_url": "https://pintola.in/products/natural-organic-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Organic Peanut Butter - Creamy / 2.5kg",
@@ -146,12 +146,12 @@
     "pack_g": 2500,
     "mrp_inr": 1170,
     "price_inr": 1124,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900773",
     "source_url": "https://pintola.in/products/natural-organic-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Organic Peanut Butter - Creamy / 350gm",
@@ -160,12 +160,12 @@
     "pack_g": 350,
     "mrp_inr": 185,
     "price_inr": 179,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900087",
     "source_url": "https://pintola.in/products/natural-organic-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Organic Peanut Butter - Crunchy / 1kg",
@@ -174,12 +174,12 @@
     "pack_g": 1000,
     "mrp_inr": 490,
     "price_inr": 472,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900117",
     "source_url": "https://pintola.in/products/natural-organic-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Organic Peanut Butter - Crunchy / 2.5kg",
@@ -188,12 +188,12 @@
     "pack_g": 2500,
     "mrp_inr": 1170,
     "price_inr": 1124,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900797",
     "source_url": "https://pintola.in/products/natural-organic-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Organic Peanut Butter - Crunchy / 350gm",
@@ -202,12 +202,12 @@
     "pack_g": 350,
     "mrp_inr": 185,
     "price_inr": 179,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900094",
     "source_url": "https://pintola.in/products/natural-organic-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Peanut Butter - Creamy / 1kg",
@@ -216,12 +216,12 @@
     "pack_g": 1000,
     "mrp_inr": 420,
     "price_inr": 399,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900063",
     "source_url": "https://pintola.in/products/all-natural-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Peanut Butter - Creamy / 2.5kg",
@@ -230,12 +230,12 @@
     "pack_g": 2500,
     "mrp_inr": 1005,
     "price_inr": 968,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900124",
     "source_url": "https://pintola.in/products/all-natural-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Peanut Butter - Creamy / 350gm",
@@ -244,12 +244,12 @@
     "pack_g": 350,
     "mrp_inr": 164,
     "price_inr": 157,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900049",
     "source_url": "https://pintola.in/products/all-natural-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Peanut Butter - Crunchy / 1kg",
@@ -258,12 +258,12 @@
     "pack_g": 1000,
     "mrp_inr": 420,
     "price_inr": 399,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900070",
     "source_url": "https://pintola.in/products/all-natural-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Peanut Butter - Crunchy / 2.5kg",
@@ -272,12 +272,12 @@
     "pack_g": 2500,
     "mrp_inr": 1005,
     "price_inr": 968,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900131",
     "source_url": "https://pintola.in/products/all-natural-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Peanut Butter - Crunchy / 350gm",
@@ -286,12 +286,12 @@
     "pack_g": 350,
     "mrp_inr": 164,
     "price_inr": 157,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900056",
     "source_url": "https://pintola.in/products/all-natural-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Peanut Butter - Extra crunchy / 1kg",
@@ -300,12 +300,12 @@
     "pack_g": 1000,
     "mrp_inr": 420,
     "price_inr": 399,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900384",
     "source_url": "https://pintola.in/products/all-natural-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "All Natural Peanut Butter - Extra crunchy / 350gm",
@@ -314,12 +314,12 @@
     "pack_g": 350,
     "mrp_inr": 164,
     "price_inr": 157,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
     "barcode": "8908010900391",
     "source_url": "https://pintola.in/products/all-natural-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "American Recipe Performance Peanut Butter - Creamy / 1KG",
@@ -328,12 +328,12 @@
     "pack_g": 1000,
     "mrp_inr": 560,
     "price_inr": 520,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 32.0,
+    "energy_kcal_100g": 598.0,
     "barcode": "8906136650961",
     "source_url": "https://pintola.in/products/american-recipe-performance-series-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "American Recipe Performance Peanut Butter - Creamy / 510gm",
@@ -342,12 +342,12 @@
     "pack_g": 510,
     "mrp_inr": 304,
     "price_inr": 286,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 32.0,
+    "energy_kcal_100g": 598.0,
     "barcode": "8906136651012",
     "source_url": "https://pintola.in/products/american-recipe-performance-series-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "American Recipe Performance Peanut Butter - Crunchy / 1KG",
@@ -356,12 +356,12 @@
     "pack_g": 1000,
     "mrp_inr": 560,
     "price_inr": 520,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 32.0,
+    "energy_kcal_100g": 598.0,
     "barcode": "8906136650992",
     "source_url": "https://pintola.in/products/american-recipe-performance-series-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "American Recipe Performance Peanut Butter - Crunchy / 510gm",
@@ -370,12 +370,12 @@
     "pack_g": 510,
     "mrp_inr": 304,
     "price_inr": 286,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 32.0,
+    "energy_kcal_100g": 598.0,
     "barcode": "8906136651029",
     "source_url": "https://pintola.in/products/american-recipe-performance-series-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Classic Peanut Butter - Creamy / 1kg",
@@ -384,12 +384,12 @@
     "pack_g": 1000,
     "mrp_inr": 374,
     "price_inr": 365,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 605.0,
     "barcode": "8908010900162",
     "source_url": "https://pintola.in/products/classic-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Classic Peanut Butter - Creamy / 2.5kg",
@@ -398,12 +398,12 @@
     "pack_g": 2500,
     "mrp_inr": 840,
     "price_inr": 840,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 605.0,
     "barcode": "8908010900186",
     "source_url": "https://pintola.in/products/classic-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Classic Peanut Butter - Creamy / 350gm",
@@ -412,12 +412,12 @@
     "pack_g": 350,
     "mrp_inr": 150,
     "price_inr": 148,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 605.0,
     "barcode": "8908010900148",
     "source_url": "https://pintola.in/products/classic-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Classic Peanut Butter - Crunchy / 1kg",
@@ -426,12 +426,12 @@
     "pack_g": 1000,
     "mrp_inr": 374,
     "price_inr": 365,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 605.0,
     "barcode": "8908010900179",
     "source_url": "https://pintola.in/products/classic-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Classic Peanut Butter - Crunchy / 2.5kg",
@@ -440,12 +440,12 @@
     "pack_g": 2500,
     "mrp_inr": 840,
     "price_inr": 840,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 605.0,
     "barcode": "8908010900193",
     "source_url": "https://pintola.in/products/classic-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Classic Peanut Butter - Crunchy / 350gm",
@@ -454,12 +454,12 @@
     "pack_g": 350,
     "mrp_inr": 150,
     "price_inr": 148,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 605.0,
     "barcode": "8908010900155",
     "source_url": "https://pintola.in/products/classic-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Crispy High Protein Dark Chocolate Peanut Butter - 1Kg",
@@ -468,12 +468,12 @@
     "pack_g": 1000,
     "mrp_inr": 665,
     "price_inr": 659,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 583.0,
     "barcode": "8906136652002",
     "source_url": "https://pintola.in/products/crispy-high-protein-dark-chocolate-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Crispy High Protein Dark Chocolate Peanut Butter - 510gm",
@@ -482,12 +482,12 @@
     "pack_g": 510,
     "mrp_inr": 355,
     "price_inr": 349,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 583.0,
     "barcode": "8906136651999",
     "source_url": "https://pintola.in/products/crispy-high-protein-dark-chocolate-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Almond Butter - Creamy / 200gm",
@@ -496,12 +496,12 @@
     "pack_g": 200,
     "mrp_inr": 265,
     "price_inr": 265,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 14.0,
+    "energy_kcal_100g": 553.0,
     "barcode": "8908010900506",
     "source_url": "https://pintola.in/products/dark-chocolate-almond-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Almond Butter - Creamy / 350gm",
@@ -510,12 +510,12 @@
     "pack_g": 350,
     "mrp_inr": 425,
     "price_inr": 425,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 14.0,
+    "energy_kcal_100g": 553.0,
     "barcode": "8908010900278",
     "source_url": "https://pintola.in/products/dark-chocolate-almond-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Almond Butter - Crunchy / 200gm",
@@ -524,12 +524,12 @@
     "pack_g": 200,
     "mrp_inr": 265,
     "price_inr": 265,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 14.0,
+    "energy_kcal_100g": 553.0,
     "barcode": "8908010900490",
     "source_url": "https://pintola.in/products/dark-chocolate-almond-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Almond Butter - Crunchy / 350gm",
@@ -538,12 +538,12 @@
     "pack_g": 350,
     "mrp_inr": 425,
     "price_inr": 425,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 14.0,
+    "energy_kcal_100g": 553.0,
     "barcode": "8908010900285",
     "source_url": "https://pintola.in/products/dark-chocolate-almond-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Peanut Butter - Creamy / 1kg",
@@ -552,12 +552,12 @@
     "pack_g": 1000,
     "mrp_inr": 444,
     "price_inr": 444,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 18.6,
+    "energy_kcal_100g": 580.0,
     "barcode": "8908010900223",
     "source_url": "https://pintola.in/products/dark-chocolate-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Peanut Butter - Creamy / 2.5kg",
@@ -566,12 +566,12 @@
     "pack_g": 2500,
     "mrp_inr": 1020,
     "price_inr": 999,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 18.6,
+    "energy_kcal_100g": 580.0,
     "barcode": "8908010900919",
     "source_url": "https://pintola.in/products/dark-chocolate-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Peanut Butter - Creamy / 350gm",
@@ -580,12 +580,12 @@
     "pack_g": 350,
     "mrp_inr": 175,
     "price_inr": 175,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 18.6,
+    "energy_kcal_100g": 580.0,
     "barcode": "8908010900209",
     "source_url": "https://pintola.in/products/dark-chocolate-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Peanut Butter - Creamy / 500gm",
@@ -594,12 +594,12 @@
     "pack_g": 500,
     "mrp_inr": 244,
     "price_inr": 244,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 18.6,
+    "energy_kcal_100g": 580.0,
     "barcode": "8906136650169",
     "source_url": "https://pintola.in/products/dark-chocolate-peanut-butter",
     "checked": "2026-11-11",
-    "note": "variant title says 500 g, Shopify grams field says 350; used title; nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; variant title says 500 g, Shopify grams field says 350; used title; not read from images)"
   },
   {
     "name": "Dark Chocolate Peanut Butter - Crunchy / 1kg",
@@ -608,12 +608,12 @@
     "pack_g": 1000,
     "mrp_inr": 444,
     "price_inr": 444,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 18.6,
+    "energy_kcal_100g": 580.0,
     "barcode": "8908010900230",
     "source_url": "https://pintola.in/products/dark-chocolate-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Peanut Butter - Crunchy / 2.5kg",
@@ -622,12 +622,12 @@
     "pack_g": 2500,
     "mrp_inr": 1020,
     "price_inr": 999,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 18.6,
+    "energy_kcal_100g": 580.0,
     "barcode": "8908010900926",
     "source_url": "https://pintola.in/products/dark-chocolate-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Peanut Butter - Crunchy / 350gm",
@@ -636,12 +636,12 @@
     "pack_g": 350,
     "mrp_inr": 175,
     "price_inr": 175,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 18.6,
+    "energy_kcal_100g": 580.0,
     "barcode": "8908010900216",
     "source_url": "https://pintola.in/products/dark-chocolate-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Peanut Butter - Crunchy / 500gm",
@@ -650,12 +650,12 @@
     "pack_g": 500,
     "mrp_inr": 244,
     "price_inr": 244,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 18.6,
+    "energy_kcal_100g": 580.0,
     "barcode": "8906136650176",
     "source_url": "https://pintola.in/products/dark-chocolate-peanut-butter",
     "checked": "2026-11-11",
-    "note": "variant title says 500 g, Shopify grams field says 350; used title; nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; variant title says 500 g, Shopify grams field says 350; used title; not read from images)"
   },
   {
     "name": "Dark Chocolate Performance Peanut Butter - Creamy / 1KG",
@@ -664,12 +664,12 @@
     "pack_g": 1000,
     "mrp_inr": 575,
     "price_inr": 575,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 597.0,
     "barcode": "8906136650978",
     "source_url": "https://pintola.in/products/dark-chocolate-performance-series-peanut-butter-vegan-protein-26-protein-high-protein-source-of-fiber",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Performance Peanut Butter - Creamy / 510gm",
@@ -678,12 +678,12 @@
     "pack_g": 510,
     "mrp_inr": 310,
     "price_inr": 310,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 597.0,
     "barcode": "8906136651050",
     "source_url": "https://pintola.in/products/dark-chocolate-performance-series-peanut-butter-vegan-protein-26-protein-high-protein-source-of-fiber",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Performance Peanut Butter - Crunchy / 1KG",
@@ -692,12 +692,12 @@
     "pack_g": 1000,
     "mrp_inr": 575,
     "price_inr": 575,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 597.0,
     "barcode": "8906136651005",
     "source_url": "https://pintola.in/products/dark-chocolate-performance-series-peanut-butter-vegan-protein-26-protein-high-protein-source-of-fiber",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate Performance Peanut Butter - Crunchy / 510gm",
@@ -706,12 +706,12 @@
     "pack_g": 510,
     "mrp_inr": 310,
     "price_inr": 310,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 597.0,
     "barcode": "8906136651067",
     "source_url": "https://pintola.in/products/dark-chocolate-performance-series-peanut-butter-vegan-protein-26-protein-high-protein-source-of-fiber",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "High Protein All Natural Unsweetened Peanut Butter - Creamy / 1Kg",
@@ -720,12 +720,12 @@
     "pack_g": 1000,
     "mrp_inr": 749,
     "price_inr": 699,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 37.0,
+    "energy_kcal_100g": 610.0,
     "barcode": "8906136650251",
     "source_url": "https://pintola.in/products/high-protein-all-natural-peanut-butter-unsweetened",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "High Protein All Natural Unsweetened Peanut Butter - Creamy / 510gm",
@@ -734,12 +734,12 @@
     "pack_g": 510,
     "mrp_inr": 398,
     "price_inr": 382,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 37.0,
+    "energy_kcal_100g": 610.0,
     "barcode": "8906136650275",
     "source_url": "https://pintola.in/products/high-protein-all-natural-peanut-butter-unsweetened",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "High Protein All Natural Unsweetened Peanut Butter - Crunchy / 1Kg",
@@ -748,12 +748,12 @@
     "pack_g": 1000,
     "mrp_inr": 749,
     "price_inr": 699,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 37.0,
+    "energy_kcal_100g": 610.0,
     "barcode": "8906136650268",
     "source_url": "https://pintola.in/products/high-protein-all-natural-peanut-butter-unsweetened",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "High Protein All Natural Unsweetened Peanut Butter - Crunchy / 510gm",
@@ -762,12 +762,12 @@
     "pack_g": 510,
     "mrp_inr": 398,
     "price_inr": 382,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 37.0,
+    "energy_kcal_100g": 610.0,
     "barcode": "8906136650282",
     "source_url": "https://pintola.in/products/high-protein-all-natural-peanut-butter-unsweetened",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "High Protein Dark Chocolate Peanut Butter - Creamy / 1Kg",
@@ -832,12 +832,12 @@
     "pack_g": 1000,
     "mrp_inr": 655,
     "price_inr": 615,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 33.0,
+    "energy_kcal_100g": 605.0,
     "barcode": "8908010900988",
     "source_url": "https://pintola.in/products/high-protein-peanut-butter-jaggery",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "High Protein Organic Jaggery Peanut Butter - Creamy / 510gm",
@@ -846,12 +846,12 @@
     "pack_g": 510,
     "mrp_inr": 350,
     "price_inr": 337,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 33.0,
+    "energy_kcal_100g": 605.0,
     "barcode": "8908010900568",
     "source_url": "https://pintola.in/products/high-protein-peanut-butter-jaggery",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "High Protein Organic Jaggery Peanut Butter - Crunchy / 1Kg",
@@ -860,12 +860,12 @@
     "pack_g": 1000,
     "mrp_inr": 655,
     "price_inr": 615,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 33.0,
+    "energy_kcal_100g": 605.0,
     "barcode": "8908010900940",
     "source_url": "https://pintola.in/products/high-protein-peanut-butter-jaggery",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "High Protein Organic Jaggery Peanut Butter - Crunchy / 510gm",
@@ -874,12 +874,12 @@
     "pack_g": 510,
     "mrp_inr": 350,
     "price_inr": 337,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 33.0,
+    "energy_kcal_100g": 605.0,
     "barcode": "8908010900964",
     "source_url": "https://pintola.in/products/high-protein-peanut-butter-jaggery",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "33% Millet | Wholegrain & Seeds Muesli - 350g",
@@ -888,12 +888,12 @@
     "pack_g": 350,
     "mrp_inr": 252,
     "price_inr": 252,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 11.5,
+    "energy_kcal_100g": 401.0,
     "barcode": "8906136651494",
     "source_url": "https://pintola.in/products/pintola-wholegrain-seeds-muesli-with-33-millet-350g",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "33% Millet | Wholegrain & Seeds Muesli - 800g",
@@ -902,12 +902,12 @@
     "pack_g": 800,
     "mrp_inr": 520,
     "price_inr": 479,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 11.5,
+    "energy_kcal_100g": 401.0,
     "barcode": "8906136651500",
     "source_url": "https://pintola.in/products/pintola-wholegrain-seeds-muesli-with-33-millet-350g",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Choco Berry Crunch Muesli - 350g",
@@ -916,12 +916,12 @@
     "pack_g": 350,
     "mrp_inr": 252,
     "price_inr": 252,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 12.3,
+    "energy_kcal_100g": 435.0,
     "barcode": "8906136651524",
     "source_url": "https://pintola.in/products/pintola-dark-chocolate-cranberry-muesli-with-25-millet-60-wholegrains",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Choco Berry Crunch Muesli - 800g",
@@ -930,12 +930,12 @@
     "pack_g": 800,
     "mrp_inr": 520,
     "price_inr": 479,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 12.3,
+    "energy_kcal_100g": 435.0,
     "barcode": "8906136651531",
     "source_url": "https://pintola.in/products/pintola-dark-chocolate-cranberry-muesli-with-25-millet-60-wholegrains",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Fruit & Nut Muesli - 350g",
@@ -944,12 +944,12 @@
     "pack_g": 350,
     "mrp_inr": 260,
     "price_inr": 260,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 11.0,
+    "energy_kcal_100g": 415.0,
     "barcode": "8906136651470",
     "source_url": "https://pintola.in/products/pintola-fruit-nut-muesli-with-28-millet-68-wholegrains-350g",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Fruit & Nut Muesli - 800g",
@@ -958,12 +958,12 @@
     "pack_g": 800,
     "mrp_inr": 530,
     "price_inr": 499,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 11.0,
+    "energy_kcal_100g": 415.0,
     "barcode": "8906136651487",
     "source_url": "https://pintola.in/products/pintola-fruit-nut-muesli-with-28-millet-68-wholegrains-350g",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "High Protein Dark Chocolate & Cranberry Muesli - 1kg",
@@ -972,12 +972,12 @@
     "pack_g": 1000,
     "mrp_inr": 710,
     "price_inr": 679,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 25.0,
+    "energy_kcal_100g": 390.0,
     "barcode": "8906136651982",
     "source_url": "https://pintola.in/products/high-protein-muesli-dark-chocolate-cranberry-with-brown-sugar-22g-protein",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "High Protein Dark Chocolate & Cranberry Muesli - 400g",
@@ -986,12 +986,12 @@
     "pack_g": 400,
     "mrp_inr": 325,
     "price_inr": 299,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 25.0,
+    "energy_kcal_100g": 390.0,
     "barcode": "8906136651975",
     "source_url": "https://pintola.in/products/high-protein-muesli-dark-chocolate-cranberry-with-brown-sugar-22g-protein",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "High Protein Dark Chocolate Oats - 400g",
@@ -1000,12 +1000,12 @@
     "pack_g": 400,
     "mrp_inr": 310,
     "price_inr": 297,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 392.0,
     "barcode": null,
     "source_url": "https://pintola.in/products/high-protein-dark-chocolate-oats",
     "checked": "2026-11-11",
-    "note": "variant title says 400 g, Shopify grams field says 800; used title; nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; variant title says 400 g, Shopify grams field says 800; used title; not read from images)"
   },
   {
     "name": "Jumbo Rolled Oats - 1kg",
@@ -1014,12 +1014,12 @@
     "pack_g": 1000,
     "mrp_inr": 275,
     "price_inr": 261,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 13.9,
+    "energy_kcal_100g": 382.0,
     "barcode": "8906136651456",
     "source_url": "https://pintola.in/products/jumbo-rolled-oats",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Jumbo Rolled Oats - 400gm",
@@ -1028,12 +1028,12 @@
     "pack_g": 400,
     "mrp_inr": 125,
     "price_inr": 119,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 13.9,
+    "energy_kcal_100g": 382.0,
     "barcode": "8906136651517",
     "source_url": "https://pintola.in/products/jumbo-rolled-oats",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Steel Cut Oats - 1kg",
@@ -1042,12 +1042,12 @@
     "pack_g": 1000,
     "mrp_inr": null,
     "price_inr": 260,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 14.0,
+    "energy_kcal_100g": 375.0,
     "barcode": null,
     "source_url": "https://pintola.in/products/steel-cut-oats",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Almond Millet Cocoa Protein Bars - Box of 10",
@@ -2022,12 +2022,12 @@
     "pack_g": 350,
     "mrp_inr": 600,
     "price_inr": 399,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 25.0,
+    "energy_kcal_100g": 465.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/10g-protein-wafer-bars-cookies-cream-flavour-pack-of-10",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read; derived from per-serving (serving 20 g)"
   },
   {
     "name": "10g Protein Wafer Bars Dark Chocolate Flavour - Pack of 10 - Dark Chocolate",
@@ -2036,12 +2036,12 @@
     "pack_g": 350,
     "mrp_inr": 600,
     "price_inr": 399,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 25.0,
+    "energy_kcal_100g": 467.5,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/10g-protein-wafer-bars-dark-chocolate-flavour-pack-of-10",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read; derived from per-serving (serving 40 g)"
   },
   {
     "name": "10g Protein Wafer Bars Strawberry Pop Flavour - Pack of 10",
@@ -2050,12 +2050,12 @@
     "pack_g": 350,
     "mrp_inr": 600,
     "price_inr": 399,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 25.0,
+    "energy_kcal_100g": 470.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/10g-protein-wafer-bars-strawberry-pop-flavour-pack-of-10",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read; derived from per-serving (serving 20 g)"
   },
   {
     "name": "Power Up Choco Peanut Butter 20g Protein Bars - Pack of 5 350g",
@@ -2064,12 +2064,12 @@
     "pack_g": 350,
     "mrp_inr": 625,
     "price_inr": 375,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 28.6,
+    "energy_kcal_100g": 360.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/20g-choco-peanut-butter-protein-bar-pack-of-5",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "Power Up Coffee Crush 20g Protein Bars - Pack of 5 350g",
@@ -2078,12 +2078,12 @@
     "pack_g": 350,
     "mrp_inr": 625,
     "price_inr": 375,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 28.6,
+    "energy_kcal_100g": 364.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/power-up-coffee-20g-protein-bar-pack-of-5",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "Power Up Coffee Crush Butter 20g Protein Bar 70g",
@@ -2092,12 +2092,12 @@
     "pack_g": 70,
     "mrp_inr": 125,
     "price_inr": 125,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 28.6,
+    "energy_kcal_100g": 364.3,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/power-up-coffee-crush-butter-20g-protein-bar-70g",
     "checked": "2026-11-11",
-    "note": "nutrition only in image; hand-checked: page title says 70g (single bar; the 5-pack page says 350g); Shopify grams field said 350"
+    "note": "read from label image on brand site, double-read; derived from per-serving (serving 70 g); hand-checked: page title says 70g (single bar; the 5-pack page says 350g); Shopify grams field said 350"
   },
   {
     "name": "Protein Minis, 4g Choco Peanut Butter Protein Bar - Pack of 24 480g",
@@ -2106,12 +2106,12 @@
     "pack_g": 480,
     "mrp_inr": 432,
     "price_inr": 349,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 20.0,
+    "energy_kcal_100g": 397.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/yogabar-protein-minis-4g-protein-bar-24-bars-choco-peanut-butter",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "Fermented Yeast Protein 500gm - Chocolate - 500g x 1 (500g)",
@@ -2120,12 +2120,12 @@
     "pack_g": 500,
     "mrp_inr": 1149,
     "price_inr": 999,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 68.0,
+    "energy_kcal_100g": 363.9,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/fermented-yeast-protein-chocolate",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "Fermented Yeast Protein 500gm - Unflavoured - 500g x 1 (500g)",
@@ -2134,12 +2134,12 @@
     "pack_g": 500,
     "mrp_inr": 1299,
     "price_inr": 999,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 81.0,
+    "energy_kcal_100g": 390.4,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/fermented-yeast-protein-500gm-unflavoured",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "ProClean Plant Protein (Unflavoured) 500g",
@@ -2148,12 +2148,12 @@
     "pack_g": 500,
     "mrp_inr": 1555,
     "price_inr": 549,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 80.0,
+    "energy_kcal_100g": 406.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/proclean-plant-protein-unflavoured",
     "checked": "2026-11-11",
-    "note": "pack weight taken from product title; nutrition only in image"
+    "note": "read from label image on brand site, double-read; pack weight taken from product title"
   },
   {
     "name": "ProClean Plant Protein with Monk Fruit (Chocolate) 500g - Chocolate",
@@ -2162,12 +2162,12 @@
     "pack_g": 500,
     "mrp_inr": 1645,
     "price_inr": 699,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 66.5,
+    "energy_kcal_100g": 403.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/proclean-plantprotein-chocolate",
     "checked": "2026-11-11",
-    "note": "pack weight taken from product title; nutrition only in image"
+    "note": "read from label image on brand site, double-read; pack weight taken from product title"
   },
   {
     "name": "ProClean Plant Protein with Monk Fruit (Coffee) 500g - 500g",
@@ -2176,12 +2176,12 @@
     "pack_g": 500,
     "mrp_inr": 1645,
     "price_inr": 699,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 66.5,
+    "energy_kcal_100g": 399.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/proclean-plant-protein-coffee",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "ProClean Whey 0 Calorie Sweetener (Chocolate) 907g - 907g x 1 (907g)",
@@ -2190,12 +2190,12 @@
     "pack_g": 907,
     "mrp_inr": 3560,
     "price_inr": 2899,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 76.0,
+    "energy_kcal_100g": 379.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/chocolate-flavour-whey-protein-zero-calorie-sweetener",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "ProClean Whey Protein Concentrate 1kg - 1 kg",
@@ -2204,12 +2204,12 @@
     "pack_g": 1000,
     "mrp_inr": 2670,
     "price_inr": 2599,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 77.0,
+    "energy_kcal_100g": 384.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/proclean-whey-protein-concentrate-1kg",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "ProClean Whey with Monk Fruit (Chocolate) 680g",
@@ -2218,12 +2218,12 @@
     "pack_g": 680,
     "mrp_inr": 2670,
     "price_inr": 2499,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 71.4,
+    "energy_kcal_100g": 400.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/dates-monk-fruit-sweetened-whey",
     "checked": "2026-11-11",
-    "note": "pack weight taken from product title; nutrition only in image"
+    "note": "read from label image on brand site, double-read; pack weight taken from product title"
   },
   {
     "name": "Ultimate Whey Isolate with Fermented Yeast Protein - Chocolate - 500gm - 500g x 1 (500g)",
@@ -2232,12 +2232,12 @@
     "pack_g": 500,
     "mrp_inr": 2099,
     "price_inr": 1699,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 78.0,
+    "energy_kcal_100g": 373.8,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/ultimate-whey-isolate-with-fermented-yeast-protein-chocolate-500gm",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "Ultimate Whey Isolate with Fermented Yeast Protein - Unflavoured - 500gm - 500g x 1 (500g)",
@@ -2246,12 +2246,12 @@
     "pack_g": 500,
     "mrp_inr": 2099,
     "price_inr": 1599,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 86.0,
+    "energy_kcal_100g": 382.91,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/ultimate-whey-isolate-with-fermented-yeast-protein-unflavoured-500gm",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "Creamy 100% Unsweetened Peanut Butter 400g",
@@ -2260,12 +2260,12 @@
     "pack_g": 400,
     "mrp_inr": 280,
     "price_inr": 280,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 28.0,
+    "energy_kcal_100g": 652.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/unsweetened-peanut-butter-400g",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "26% High Protein Oats Dark Chocolate - 1kg x 1 (1kg)",
@@ -2274,12 +2274,12 @@
     "pack_g": 1000,
     "mrp_inr": 490,
     "price_inr": 399,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 364.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/26g-high-protein-oats-dark-chocolate",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "26% High Protein Oats Filter Kappi - 1kg x 1 (1kg)",
@@ -2288,12 +2288,12 @@
     "pack_g": 1000,
     "mrp_inr": 490,
     "price_inr": 399,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 364.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/26g-high-protein-oats-filter-kappi",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "26% High Protein Oats Fruit & Nut - 1kg x 1 (1kg)",
@@ -2302,12 +2302,12 @@
     "pack_g": 1000,
     "mrp_inr": 490,
     "price_inr": 399,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 375.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/26g-high-protein-oats-fruit-nut",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "26% High Protein Oats Kesar Pista Kulfi - 1kg x 1 (1kg)",
@@ -2316,12 +2316,12 @@
     "pack_g": 1000,
     "mrp_inr": 490,
     "price_inr": 399,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 377.6,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/26g-high-protein-oats-kesar-pista-kulfi",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate & Cranberry Muesli 400g",
@@ -2330,12 +2330,12 @@
     "pack_g": 400,
     "mrp_inr": 390,
     "price_inr": 275,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 12.0,
+    "energy_kcal_100g": 408.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/dark-chocolate-cranberry-muesli-400g",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Dark Chocolate & Cranberry Muesli 450g",
@@ -2344,12 +2344,12 @@
     "pack_g": 450,
     "mrp_inr": 445,
     "price_inr": 299,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 12.0,
+    "energy_kcal_100g": 408.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/dark-chocolate-cranberry-muesli-450g",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images); hand-checked: page title says 450g; Shopify grams field said 400"
+    "note": "read from label image on brand site, double-read; not read from images); hand-checked: page title says 450g; Shopify grams field said 400"
   },
   {
     "name": "Dark Chocolate & Cranberry Muesli 700g",
@@ -2358,12 +2358,12 @@
     "pack_g": 700,
     "mrp_inr": 399,
     "price_inr": 349,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 12.0,
+    "energy_kcal_100g": 408.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/dark-chocolate-cranberry-muesli-700g",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "Fruits Nuts & Seeds Muesli 400g",
@@ -2372,12 +2372,12 @@
     "pack_g": 400,
     "mrp_inr": 399,
     "price_inr": 275,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 11.5,
+    "energy_kcal_100g": 391.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/fruits-nuts-seeds-muesli-400g",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Fruits Nuts & Seeds Muesli 700g",
@@ -2386,12 +2386,12 @@
     "pack_g": 700,
     "mrp_inr": 399,
     "price_inr": 349,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 11.5,
+    "energy_kcal_100g": 391.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/fruits-nuts-seeds-muesli-700g",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "High Protein Muesli 850g - 850g / Choco Almond",
@@ -2400,12 +2400,12 @@
     "pack_g": 850,
     "mrp_inr": 535,
     "price_inr": 399,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 23.0,
+    "energy_kcal_100g": 386.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/choco-almond-high-protein-muesli-850g",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "High Protein Muesli Fruits, Nuts & Seeds 350g",
@@ -2414,12 +2414,12 @@
     "pack_g": 350,
     "mrp_inr": 390,
     "price_inr": 299,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 23.5,
+    "energy_kcal_100g": 403.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/high-protein-muesli-fruits-nuts-seeds",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "No Added Sugar Muesli 400g",
@@ -2428,12 +2428,12 @@
     "pack_g": 400,
     "mrp_inr": 390,
     "price_inr": 249,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 15.0,
+    "energy_kcal_100g": 379.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/no-added-sugar-muesli-400g",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "No Added Sugar Muesli 700g",
@@ -2442,12 +2442,12 @@
     "pack_g": 700,
     "mrp_inr": 399,
     "price_inr": 299,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 15.0,
+    "energy_kcal_100g": 379.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/no-added-sugar-muesli-700g",
     "checked": "2026-11-11",
-    "note": "nutrition only in image"
+    "note": "read from label image on brand site, double-read"
   },
   {
     "name": "OG Muesli - Dark Chocolate",
@@ -2470,12 +2470,12 @@
     "pack_g": 350,
     "mrp_inr": 350,
     "price_inr": 350,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 23.0,
+    "energy_kcal_100g": 386.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/choco-almond-high-protein-muesli-350g",
     "checked": "2026-11-11",
-    "note": "nutrition not in page text (no machine-readable table; not read from images)"
+    "note": "read from label image on brand site, double-read; not read from images)"
   },
   {
     "name": "Choco Dipped Protein Date Minis - 200g - 10pcs - Pack of 1",
@@ -2484,12 +2484,12 @@
     "pack_g": 200,
     "mrp_inr": 470,
     "price_inr": 349,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 9.2,
+    "energy_kcal_100g": 497.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/choco-dipped-protein-date-minis",
     "checked": "2026-11-11",
-    "note": "nutrition only in image; hand-checked: page title says 200g - 10pcs; Shopify grams field said 480 for every pack size"
+    "note": "read from label image on brand site, double-read; hand-checked: page title says 200g - 10pcs; Shopify grams field said 480 for every pack size"
   },
   {
     "name": "Classic Protein Date Minis - 200g - 10 pcs - Pack of 1",
@@ -2498,11 +2498,11 @@
     "pack_g": 200,
     "mrp_inr": 470,
     "price_inr": 359,
-    "protein_100g": null,
-    "energy_kcal_100g": null,
+    "protein_100g": 11.2,
+    "energy_kcal_100g": 474.0,
     "barcode": null,
     "source_url": "https://www.yogabars.in/products/classic-protein-date-minis",
     "checked": "2026-11-11",
-    "note": "nutrition only in image; hand-checked: page title says 200g - 10 pcs; Shopify grams field said 480 for every pack size"
+    "note": "read from label image on brand site, double-read; hand-checked: page title says 200g - 10 pcs; Shopify grams field said 480 for every pack size"
   }
 ]

@@ -50,6 +50,85 @@ const OVERRIDES = {
     { pack_g: 200, why: "page title says 200g - 10pcs; Shopify grams field said 480 for every pack size" },
 };
 
+
+/* ------------------------------------------------------------------ */
+/* LABEL_READS: nutrition read BY EYE from the brand's own label       */
+/* image (the brand pages publish the table only as an image) and      */
+/* double-read in two independent passes; only values that agreed      */
+/* exactly are listed. Keyed by product source_url, applied to every   */
+/* row of that product that has no nutrition. Per-100 g values as      */
+/* stored (for per-serving tables "serving_g" is the printed serving   */
+/* and protein/kcal are already converted to per 100 g by division).   */
+/* Evidence: tools/label-reads/pass1.json, pass2.json, sources.json.   */
+/* Re-running the script re-applies these so they are not wiped.       */
+/* ------------------------------------------------------------------ */
+const LABEL_READS = {
+  "https://www.yogabars.in/products/10g-protein-wafer-bars-cookies-cream-flavour-pack-of-10": {"protein": 25.0, "kcal": 465.0, "serving_g": 20.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabars-protein-wafer-bar-cookies-and-cream-nutrition-facts-ingredients.jpg?v=1782730224"},
+  "https://www.yogabars.in/products/10g-protein-wafer-bars-dark-chocolate-flavour-pack-of-10": {"protein": 25.0, "kcal": 467.5, "serving_g": 40.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabars-protein-wafer-bar-dark-chocolate-pack-of-10-back-of-pack-nutrition-facts-ingredients.jpg?v=1782729421"},
+  "https://www.yogabars.in/products/10g-protein-wafer-bars-strawberry-pop-flavour-pack-of-10": {"protein": 25.0, "kcal": 470.0, "serving_g": 20.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabars-protein-wafer-bar-strawberry-pop-nutrition-facts-ingredients-closeup.jpg?v=1782730773"},
+  "https://www.yogabars.in/products/20g-choco-peanut-butter-protein-bar-pack-of-5": {"protein": 28.6, "kcal": 360.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-20g-protein-bar-nutrition-label.jpg?v=1781614069"},
+  "https://www.yogabars.in/products/26g-high-protein-oats-dark-chocolate": {"protein": 26.0, "kcal": 364.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-26g-protein-oats-dark-chocolate-nutrition-facts.jpg?v=1782283336"},
+  "https://www.yogabars.in/products/26g-high-protein-oats-filter-kappi": {"protein": 26.0, "kcal": 364.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-high-protein-oats-nutritional-facts-calories.jpg?v=1782734948"},
+  "https://www.yogabars.in/products/26g-high-protein-oats-fruit-nut": {"protein": 26.0, "kcal": 375.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-fruit-nut-seeds-oats-nutrition-label.jpg?v=1782285662"},
+  "https://www.yogabars.in/products/choco-almond-high-protein-muesli-350g": {"protein": 23.0, "kcal": 386.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-choco-cranberry-muesli-calories-macros.jpg?v=1780745990"},
+  "https://www.yogabars.in/products/choco-almond-high-protein-muesli-850g": {"protein": 23.0, "kcal": 386.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-high-protein-muesli-850g-nutrition-label.jpg?v=1780747187"},
+  "https://www.yogabars.in/products/choco-dipped-protein-date-minis": {"protein": 9.2, "kcal": 497.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-protein-date-minis-nutrition-facts-ingredients.png?v=1782280867"},
+  "https://www.yogabars.in/products/chocolate-flavour-whey-protein-zero-calorie-sweetener": {"protein": 76.0, "kcal": 379.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-whey-protein-nutritional-facts-amino-acid-profile.jpg?v=1781011313"},
+  "https://www.yogabars.in/products/classic-protein-date-minis": {"protein": 11.2, "kcal": 474.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-protein-date-minis-classic-nutritional-facts.png?v=1782806440"},
+  "https://www.yogabars.in/products/dark-chocolate-cranberry-muesli-400g": {"protein": 12.0, "kcal": 408.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-super-muesli-400g-nutrition-facts.jpg?v=1780750875"},
+  "https://www.yogabars.in/products/dark-chocolate-cranberry-muesli-450g": {"protein": 12.0, "kcal": 408.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-super-muesli-400g-nutrition-facts.jpg?v=1780750875"},
+  "https://www.yogabars.in/products/dark-chocolate-cranberry-muesli-700g": {"protein": 12.0, "kcal": 408.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-dark-chocolate-cranberry-muesli-700g-macros.jpg?v=1780751507"},
+  "https://www.yogabars.in/products/dates-monk-fruit-sweetened-whey": {"protein": 71.4, "kcal": 400.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-whey-protein-nutrition-facts-amino-acid-profile.jpg?v=1781009860"},
+  "https://www.yogabars.in/products/fermented-yeast-protein-500gm-unflavoured": {"protein": 81.0, "kcal": 390.4, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-fermented-yeast-protein-unflavoured-nutrition-facts-back.jpg?v=1784620615"},
+  "https://www.yogabars.in/products/fermented-yeast-protein-chocolate": {"protein": 68.0, "kcal": 363.9, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-fermented-yeast-protein-chocolate-nutrition-facts-back.jpg?v=1784622822"},
+  "https://www.yogabars.in/products/fruits-nuts-seeds-muesli-400g": {"protein": 11.5, "kcal": 391.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-fruits-nuts-seeds-muesli-400g-nutrition-facts..jpg?v=1780752498"},
+  "https://www.yogabars.in/products/fruits-nuts-seeds-muesli-700g": {"protein": 11.5, "kcal": 391.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-super-muesli-fruits-nuts-seeds-nutritional-facts.jpg?v=1780999678"},
+  "https://www.yogabars.in/products/high-protein-muesli-fruits-nuts-seeds": {"protein": 23.5, "kcal": 403.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-high-protein-muesli-nutrition-facts-label.jpg?v=1781005195"},
+  "https://www.yogabars.in/products/no-added-sugar-muesli-400g": {"protein": 15.0, "kcal": 379.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-no-added-sugar-muesli-400g-nutrition-label.jpg?v=1781000233"},
+  "https://www.yogabars.in/products/no-added-sugar-muesli-700g": {"protein": 15.0, "kcal": 379.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-no-added-sugar-muesli-700g-nutrition-label.jpg?v=1781000881"},
+  "https://www.yogabars.in/products/power-up-coffee-20g-protein-bar-pack-of-5": {"protein": 28.6, "kcal": 364.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-coffee-protein-bar-nutrition-facts-label.jpg?v=1782217139"},
+  "https://www.yogabars.in/products/power-up-coffee-crush-butter-20g-protein-bar-70g": {"protein": 28.6, "kcal": 364.3, "serving_g": 70.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-coffee-crush-protein-bar-nutrition-label-70g.jpg?v=1784619043"},
+  "https://www.yogabars.in/products/proclean-plant-protein-coffee": {"protein": 66.5, "kcal": 399.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-proclean-coffee-plant-protein-nutrition-facts-amino-acid-profile.jpg?v=1782220650"},
+  "https://www.yogabars.in/products/proclean-plant-protein-unflavoured": {"protein": 80.0, "kcal": 406.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-proclean-unflavoured-plant-protein-nutrition-facts-label.jpg?v=1782221799"},
+  "https://www.yogabars.in/products/proclean-plantprotein-chocolate": {"protein": 66.5, "kcal": 403.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-proclean-chocolate-plant-protein-nutrition-facts-amino-acid-profile.jpg?v=1782219514"},
+  "https://www.yogabars.in/products/proclean-whey-protein-concentrate-1kg": {"protein": 77.0, "kcal": 384.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-proclean-whey-nutrition-label..jpg?v=1781173119"},
+  "https://www.yogabars.in/products/ultimate-whey-isolate-with-fermented-yeast-protein-chocolate-500gm": {"protein": 78.0, "kcal": 373.8, "image": "https://www.yogabars.in/cdn/shop/files/whey-isolate-yeast-protein-chocolate-back-nutrition-label.jpg?v=1784805324"},
+  "https://www.yogabars.in/products/ultimate-whey-isolate-with-fermented-yeast-protein-unflavoured-500gm": {"protein": 86.0, "kcal": 382.91, "image": "https://www.yogabars.in/cdn/shop/files/whey-isolate-yeast-protein-pack-back-nutrition-label.jpg?v=1784804572"},
+  "https://www.yogabars.in/products/unsweetened-peanut-butter-400g": {"protein": 28.0, "kcal": 652.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-peanut-butter-400g-nutrition-facts.jpg?v=1780742810"},
+  "https://www.yogabars.in/products/yogabar-protein-minis-4g-protein-bar-24-bars-choco-peanut-butter": {"protein": 20.0, "kcal": 397.0, "image": "https://www.yogabars.in/cdn/shop/files/yogabar-protein-minis-nutritional-facts.png?v=1781611762"},
+  "https://www.yogabars.in/products/26g-high-protein-oats-kesar-pista-kulfi": {"protein": 26.0, "kcal": 377.6, "image": "https://www.yogabars.in/cdn/shop/files/1kg-HPO-KPK-BOP.jpg?v=1793863917"},
+  "https://pintola.in/products/classic-peanut-butter": {"protein": 26.0, "kcal": 605.0, "image": "https://pintola.in/cdn/shop/files/05_09b5f13a-bea3-468b-8da4-6b812de458e3.jpg?v=1780122286"},
+  "https://pintola.in/products/dark-chocolate-almond-butter": {"protein": 14.0, "kcal": 553.0, "image": "https://pintola.in/cdn/shop/files/05_6ac22ccb-a76b-48b2-ac0a-5e07c6607e43.jpg?v=1780114990"},
+  "https://pintola.in/products/dark-chocolate-peanut-butter": {"protein": 18.6, "kcal": 580.0, "image": "https://pintola.in/cdn/shop/files/05_bd726b14-a346-421c-a85c-04185c1b69bb.jpg?v=1780118678"},
+  "https://pintola.in/products/dark-chocolate-performance-series-peanut-butter-vegan-protein-26-protein-high-protein-source-of-fiber": {"protein": 26.0, "kcal": 597.0, "image": "https://pintola.in/cdn/shop/files/5_f7162781-7d02-4d00-a3ae-2bd501419c51.png?v=1780057240"},
+  "https://pintola.in/products/pintola-dark-chocolate-cranberry-muesli-with-25-millet-60-wholegrains": {"protein": 12.3, "kcal": 435.0, "image": "https://pintola.in/cdn/shop/files/1-05_05bb0332-e5af-4750-8268-28c0560747ce.jpg?v=1718364913"},
+  "https://pintola.in/products/pintola-fruit-nut-muesli-with-28-millet-68-wholegrains-350g": {"protein": 11.0, "kcal": 415.0, "image": "https://pintola.in/cdn/shop/files/1-05_22e22c4d-4027-42fe-9821-053cdefcabbb.jpg?v=1718364979"},
+  "https://pintola.in/products/pintola-wholegrain-seeds-muesli-with-33-millet-350g": {"protein": 11.5, "kcal": 401.0, "image": "https://pintola.in/cdn/shop/files/1-05_33276641-f174-4de3-9cc0-cac15cd62f09.jpg?v=1718365192"},
+  "https://pintola.in/products/high-protein-dark-chocolate-oats": {"protein": 26.0, "kcal": 392.0, "image": "https://pintola.in/cdn/shop/files/5_2_ba8cb063-d1b0-41cc-af02-44099583942a.jpg?v=1780056000"},
+  "https://pintola.in/products/american-recipe-performance-series-peanut-butter": {"protein": 32.0, "kcal": 598.0, "image": "https://pintola.in/cdn/shop/files/4_a1089252-1016-4fef-a813-c993d6553627.jpg?v=1742190896"},
+  "https://pintola.in/products/crispy-high-protein-dark-chocolate-peanut-butter": {"protein": 30.0, "kcal": 583.0, "image": "https://pintola.in/cdn/shop/files/4_bb44ca3e-bf04-42f5-91d5-dc0de469f8a3.jpg?v=1780056397"},
+  "https://pintola.in/products/natural-cashew-butter": {"protein": 19.0, "kcal": 550.0, "image": "https://pintola.in/cdn/shop/files/06-1_792d4466-5178-4d7c-a27e-01dfa36d772b.jpg?v=1780119388"},
+  "https://pintola.in/products/natural-organic-peanut-butter": {"protein": 30.0, "kcal": 639.0, "image": "https://pintola.in/cdn/shop/files/06_1_7d6ecff4-327d-4f83-bae0-2ff6710ed236.jpg?v=1780120194"},
+  "https://pintola.in/products/high-protein-peanut-butter-jaggery": {"protein": 33.0, "kcal": 605.0, "image": "https://pintola.in/cdn/shop/files/06_55fa5eb8-34ab-4721-aff6-33bfc6a93b75.jpg?v=1780118937"},
+  "https://pintola.in/products/steel-cut-oats": {"protein": 14.0, "kcal": 375.0, "image": "https://pintola.in/cdn/shop/files/71Sr_GW3rL._SL1500_2.jpg?v=1730179907"},
+  "https://pintola.in/products/jumbo-rolled-oats": {"protein": 13.9, "kcal": 382.0, "image": "https://pintola.in/cdn/shop/files/6_954b9d3f-03f8-4965-9000-96ffc74c706f.jpg?v=1780056840"},
+  "https://pintola.in/products/all-natural-peanut-butter": {"protein": 30.0, "kcal": 639.0, "image": "https://pintola.in/cdn/shop/files/7_95982dcf-762a-4b1e-a650-d27904dbbe0a.jpg?v=1780118316"},
+  "https://pintola.in/products/high-protein-all-natural-peanut-butter-unsweetened": {"protein": 37.0, "kcal": 610.0, "image": "https://pintola.in/cdn/shop/files/06_05ec6ba6-8a7f-472d-82e7-f5a2b17bb934.png?v=1780122980"},
+  "https://pintola.in/products/high-protein-muesli-dark-chocolate-cranberry-with-brown-sugar-22g-protein": {"protein": 25.0, "kcal": 390.0, "image": "https://pintola.in/cdn/shop/files/7_28eeaec6-f66a-4f62-872d-29cfe5c8e0c9.jpg?v=1780050186"},
+  "https://pintola.in/products/natural-almond-butter": {"protein": 24.0, "kcal": 580.0, "image": "https://pintola.in/cdn/shop/files/B07DM6KVPN.PT05.jpg?v=1780115243"},
+};
+
+function applyLabelReads() {
+  for (const r of rows) {
+    const l = LABEL_READS[r.source_url];
+    if (!l || r.protein_100g != null || r.energy_kcal_100g != null) continue;
+    r.protein_100g = l.protein; r.energy_kcal_100g = l.kcal;
+    const note = "read from label image on brand site, double-read" + (l.serving_g ? "; derived from per-serving (serving " + l.serving_g + " g)" : "");
+    const old = (r.note || "").split("; ").filter((x) => x && !/^nutrition (only in image|not in page text)/.test(x));
+    r.note = [note].concat(old).join("; ");
+  }
+}
+
 /* ---------------------------- fetching ----------------------------- */
 const hostState = {};   // host -> { last: ms, count: n, robots: null|{allowed(path)}, blocked: bool }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -383,6 +462,7 @@ async function main() {
   for (const b of brands) { try { await b(); } catch (e) { warnings.push("brand run failed: " + e.message); } }
 
   applyOverrides();
+  applyLabelReads();
   const kept = [];
   for (const r of rows) {
     const bad = gate(r);
@@ -408,4 +488,4 @@ async function main() {
 
 main().catch((e) => { console.error(e); process.exit(1); });
 
-module.exports = { parseRobots, packFromVariant, nutritionFromText, per100, twtParse, twtWeight, gate, OVERRIDES, TWT_SKIPPED_BY_DESIGN, skipped, warnings };
+module.exports = { parseRobots, packFromVariant, nutritionFromText, per100, twtParse, twtWeight, gate, OVERRIDES, LABEL_READS, TWT_SKIPPED_BY_DESIGN, skipped, warnings };

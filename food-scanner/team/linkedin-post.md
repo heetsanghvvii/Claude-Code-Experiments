@@ -20,7 +20,7 @@ Three decisions shaped what got built:
 
 What exists today: a working prototype that compares 657 Indian products across five categories using Open Food Facts data, with 33 automated tests. No users and no revenue yet.
 
-What surprised me: the code was the easy part. Data was the hard part. Most brands publish their nutrition table as an image, not text. We have verified price data for 65 products, all from one brand. A comparison tool with one brand is not a comparison tool, so that is the next problem to solve.
+What surprised me: the code was the easy part. Data was the hard part. Most brands publish their nutrition table as an image, not text. We ended up reading label images twice and keeping only the values where both reads agreed. That gave us price and nutrition for 170 products across three brands. It is a start, not coverage.
 
 My takeaway for PMs working with AI agents: speed of building is no longer the constraint. Direction, constraints and data quality are. Those were always the job.
 

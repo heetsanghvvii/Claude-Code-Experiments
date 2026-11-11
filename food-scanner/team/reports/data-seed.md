@@ -73,3 +73,35 @@ Source: https://prices.openfoodfacts.org/api/v1/prices (schema at /api/schema). 
 - Barcodes for The Whole Truth and Yogabar: not shown on the pages read.
 - Image CDN checks beyond the 3 images viewed were not done.
 - Affiliate findings: see `team/reports/cmo-seed-affiliate.md`.
+
+## Task 3: nutrition read from label images (Pintola, Yogabar)
+
+Method: for each distinct product (same page or handle shares one table) the nutrition-table image was found from the Shopify `/products/<handle>.js` image list (Yogabar alt text and filenames name the table; Pintola images carry no alt text, so candidates were opened and viewed). Yogabar image URLs pointing at cdn.shopify.com were rewritten to www.yogabars.in/cdn/shop/..., Pintola to pintola.in/cdn/shop/...; all downloaded fine. Images were downscaled to 1600 px (or cropped at full resolution) before viewing. Two independent passes: `tools/label-reads/pass1.json` and `pass2.json` (map of image URL to protein, kcal, basis, serving, legible), product to image in `tools/label-reads/sources.json`. Only exact agreement went into `data/seed-mrp.json`. The values are also held in the `LABEL_READS` table in `tools/build-seed.js`, so a re-run does not wipe them. Rows keep their other notes after the new note.
+
+- Distinct products attempted: 55 (20 Pintola, 35 Yogabar). Filled: 53 products, 105 rows (rows with nutrition: 65 to 170 of 179).
+- Per-serving tables converted by division with the printed serving: Yogabar wafer bars (20 g, 20 g, 40 g) and Power Up Coffee Crush Butter 70 g bar (note says so). All others were printed per 100 g.
+- Left null (2 products, 5 rows):
+  - Pintola High Protein Dark Chocolate Peanut Butter (4 rows): no nutrition-table image found among the images checked within the request budget (the one opened showed ingredients only).
+  - Yogabar The OG Muesli (1 row): the table is only in a side-panel image; it was read in one pass only (12.54 g protein, 420.40 kcal per 100 g, serving 40 g), so by the two-pass rule it stays null. A second pass on a re-downloaded image would fill it.
+- Disagreements between passes: 0 (all 53 filled products matched exactly). Not counted as disagreements: first-choice Yogabar images for the two Ultimate Whey Isolate flavours and the OG Muesli back panel contained no table, so other images (back-of-pack panels) were used.
+- Sanity gate (protein 0 to 100, kcal 0 to 900, protein x 4 not above kcal x 1.05): 0 failures. Nut butters outside 20 to 35 g protein or 550 to 680 kcal were re-checked against the image and confirmed as printed, not adjusted: Pintola Dark Chocolate Almond Butter 14 g and 553 kcal, Dark Chocolate Peanut Butter 18.6 g and 580 kcal, Natural Cashew Butter 19 g and 550 kcal, High Protein All Natural Unsweetened Peanut Butter 37 g and 610 kcal.
+- Assumptions to know: (1) Pintola crunchy and creamy and size variants under one handle are treated as one table (the 4 American Recipe images checked were identical); (2) the Yogabar 400 g and 450 g Dark Chocolate Cranberry muesli pages use the same image file.
+- Requests this task: Pintola 77, Yogabar 76 (robots.txt included, 429 retries included), at least 2 seconds apart.
+
+Rows usable for protein per Rs 100 after this task (pack_g, a price and protein_100g present): 170 of 179.
+
+| Brand | Category | Usable rows |
+|---|---|---|
+| Pintola | nut-butters | 59 |
+| Pintola | muesli-oats | 12 |
+| Yogabar | protein-bars | 7 |
+| Yogabar | protein-powders | 10 |
+| Yogabar | nut-butters | 1 |
+| Yogabar | muesli-oats | 14 |
+| Yogabar | high-protein-snacks | 2 |
+| The Whole Truth | protein-bars | 20 |
+| The Whole Truth | protein-powders | 30 |
+| The Whole Truth | nut-butters | 11 |
+| The Whole Truth | muesli-oats | 4 |
+
+By category: protein-bars 27, protein-powders 40, nut-butters 71, muesli-oats 30, high-protein-snacks 2.

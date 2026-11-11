@@ -229,6 +229,11 @@
     loadCategoryData().then(function (d) {
       clear(pos);
       var keys = FS.value.matchCategories(p.categories_tags, d.categories);
+      // One category only: the one whose snapshot lists this barcode, else the first tag match.
+      var home = Object.keys(d.categories || {}).filter(function (k) {
+        return ((d.categories[k] && d.categories[k].products) || []).some(function (x) { return x && String(x.code) === String(p.code); });
+      });
+      if (home.length) keys = [home[0]]; else if (keys.length > 1) keys = [keys[0]];
       if (!keys.length) { pos.appendChild(h("p", { class: "muted", text: "This product's Open Food Facts categories do not match any category in the comparison data." })); return; }
       var myRatio = FS.value.ratio({ proteins_100g: protein, energy_kcal_100g: kcal });
       keys.forEach(function (k) {

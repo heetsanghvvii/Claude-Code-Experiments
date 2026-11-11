@@ -21,7 +21,7 @@ const CATEGORIES = [
   { key: 'protein-powders', label: 'Protein powders', tags: ['en:protein-powders', 'en:whey-protein', 'en:bodybuilding-supplements'] },
   { key: 'nut-butters', label: 'Nut butters', tags: ['en:peanut-butters', 'en:nut-butters', 'en:almond-butters'] },
   { key: 'muesli-oats', label: 'Muesli and oats', tags: ['en:mueslis', 'en:oat-flakes', 'en:rolled-oats', 'en:oats'] },
-  { key: 'high-protein-snacks', label: 'High-protein snacks', tags: ['en:roasted-chickpeas', 'en:fox-nuts', 'en:protein-chips', 'en:high-protein-snacks'] },
+  { key: 'high-protein-snacks', label: 'High-protein snacks', tags: ['en:makhana', 'en:fox-nuts', 'en:roasted-peanuts'] },
 ];
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

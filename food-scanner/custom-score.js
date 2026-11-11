@@ -1,45 +1,62 @@
-/* Custom composition score (prototype). This is NOT Nutri-Score and is not based on any official method.
- * The weights and caps below were chosen arbitrarily for this prototype. It has no health meaning.
- * It describes per-100g composition only: start at 100, subtract capped linear penalties for energy,
- * sugars, saturated fat and salt, add capped linear bonuses for fibre and protein, clamp to 0-100.
- * No estimation: any missing input means no score. */
+/* Macro Score v2 (project formula for fitness-focused label reading).
+ * NOT Nutri-Score, not an official rating, not medical advice. Weights and anchors are project choices.
+ * Per 100 g as sold. Five parts, each linear between two anchors and clamped to 0..max:
+ *   points = max * clamp((value - zero) / (full - zero), 0, 1)
+ * "zero" is the value that earns 0 points, "full" the value that earns max points.
+ * Score = sum of points, rounded to a whole number (0 to 100).
+ * No estimation: any missing input, or zero energy, means no score.
+ *
+ * EDIT THE TABLE BELOW to change weights and anchors. */
 (function (root) {
   "use strict";
-  var PENALTIES = [
-    { key: "energyKj", label: "Energy", unit: "kJ", cap: 2500, max: 25 },
-    { key: "sugars", label: "Sugars", unit: "g", cap: 30, max: 25 },
-    { key: "satFat", label: "Saturated fat", unit: "g", cap: 10, max: 25 },
-    { key: "salt", label: "Salt", unit: "g", cap: 2.5, max: 25 }
+  var PARTS = [
+    { key: "proteinDensity", label: "Protein density", unit: "g protein per 100 kcal", max: 40, zero: 0, full: 10 },
+    { key: "sugars", label: "Sugars", unit: "g", max: 20, zero: 22.5, full: 5 },
+    { key: "satFat", label: "Saturated fat", unit: "g", max: 15, zero: 5, full: 1.5 },
+    { key: "salt", label: "Salt", unit: "g", max: 10, zero: 1.5, full: 0.3 },
+    { key: "fibre", label: "Fibre", unit: "g", max: 15, zero: 0, full: 6 }
   ];
-  var BONUSES = [
-    { key: "fibre", label: "Fibre", unit: "g", cap: 6, max: 10 },
-    { key: "protein", label: "Protein", unit: "g", cap: 15, max: 10 }
+  // Band words describe the score only. Colour is always shown together with the word.
+  var BANDS = [
+    { min: 70, word: "High", level: "green" },
+    { min: 40, word: "Mid", level: "amber" },
+    { min: 0, word: "Low", level: "red" }
   ];
-  var LABELS = { energyKj: "energy (kJ per 100g)", sugars: "sugars (g per 100g)", satFat: "saturated fat (g per 100g)", salt: "salt or sodium (per 100g)", fibre: "fibre (g per 100g)", protein: "protein (g per 100g)" };
+  var LABELS = { energy: "energy (kcal, or kJ) per 100g", sugars: "sugars (g per 100g)", satFat: "saturated fat (g per 100g)", salt: "salt or sodium (per 100g)", fibre: "fibre (g per 100g)", protein: "protein (g per 100g)" };
   function isNum(v) { return typeof v === "number" && isFinite(v); }
   function r1(v) { return Math.round(v * 10) / 10; }
+  function r2(v) { return Math.round(v * 100) / 100; }
+  function band(score) { for (var i = 0; i < BANDS.length; i++) if (score >= BANDS[i].min) return BANDS[i]; return BANDS[BANDS.length - 1]; }
+  function pointsFor(part, v) {
+    var f = (v - part.zero) / (part.full - part.zero);
+    return part.max * Math.max(0, Math.min(1, f));
+  }
 
+  // x: { kcal, energyKj, sugars, satFat, salt, fibre, protein } per 100 g. Energy uses kcal, else kJ / 4.184.
   function compute(x, plausibility) {
-    var all = PENALTIES.concat(BONUSES);
-    var missing = all.filter(function (c) { return !isNum(x[c.key]); }).map(function (c) { return LABELS[c.key]; });
+    x = x || {};
+    var kcal = isNum(x.kcal) ? x.kcal : (isNum(x.energyKj) ? x.energyKj / 4.184 : null);
+    var missing = [];
+    if (kcal === null) missing.push(LABELS.energy);
+    ["protein", "sugars", "satFat", "salt", "fibre"].forEach(function (k) { if (!isNum(x[k])) missing.push(LABELS[k]); });
     if (missing.length) return { status: "insufficient", missing: missing };
+    if (kcal <= 0) return { status: "insufficient", missing: ["energy above zero (needed for protein per 100 kcal)"] };
     var issues = plausibility ? plausibility(x) : [];
     if (issues.length) return { status: "inconsistent", issues: issues };
-    var score = 100, rows = [];
-    PENALTIES.forEach(function (c) {
-      var p = c.max * Math.min(x[c.key] / c.cap, 1);
-      score -= p;
-      rows.push({ side: "penalty", rule: c.label, value: x[c.key] + " " + c.unit, points: -r1(p), rule_text: "-" + c.max + " x min(value / " + c.cap + ", 1)" });
+    var density = x.protein / kcal * 100;
+    var vals = { proteinDensity: density, sugars: x.sugars, satFat: x.satFat, salt: x.salt, fibre: x.fibre };
+    var sum = 0, rows = [];
+    PARTS.forEach(function (p) {
+      var pts = pointsFor(p, vals[p.key]);
+      sum += pts;
+      rows.push({ rule: p.label, value: r2(vals[p.key]) + " " + p.unit, points: r1(pts), max: p.max,
+        rule_text: p.max + " points at " + p.full + " or " + (p.full > p.zero ? "more" : "less") + ", 0 points at " + p.zero + " or " + (p.full > p.zero ? "less" : "more") + ", linear between" });
     });
-    BONUSES.forEach(function (c) {
-      var p = c.max * Math.min(x[c.key] / c.cap, 1);
-      score += p;
-      rows.push({ side: "bonus", rule: c.label, value: x[c.key] + " " + c.unit, points: r1(p), rule_text: "+" + c.max + " x min(value / " + c.cap + ", 1)" });
-    });
-    var clamped = Math.max(0, Math.min(100, score));
-    return { status: "ok", score: Math.round(clamped), raw: r1(score), rows: rows, formula: "100 + bonuses - penalties = " + r1(score) + (clamped !== score ? " (clamped to " + clamped + ")" : "") };
+    var score = Math.round(sum), b = band(score);
+    return { status: "ok", score: score, raw: r2(sum), band: b.word, level: b.level, rows: rows,
+      formula: "sum of five parts = " + r2(sum) + ", rounded to " + score };
   }
-  var api = { compute: compute, PENALTIES: PENALTIES, BONUSES: BONUSES };
+  var api = { compute: compute, PARTS: PARTS, BANDS: BANDS, band: band };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else { root.FS = root.FS || {}; root.FS.customScore = api; }
 })(typeof window !== "undefined" ? window : globalThis);

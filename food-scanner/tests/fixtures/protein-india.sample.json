@@ -1,0 +1,201 @@
+{
+ "generated": "2000-01-01T00:00:00Z (TEST FIXTURE, made-up numbers)",
+ "source": "TEST FIXTURE, not real data",
+ "source_url": "https://world.openfoodfacts.org/",
+ "categories": {
+  "protein-bars": {
+   "label": "Protein bars",
+   "tags": [
+    "en:protein-bars"
+   ],
+   "products": [
+    {
+     "code": "999000000001",
+     "name": "TEST Bar A (fixture)",
+     "brand": "TEST BRAND",
+     "quantity": "60 g",
+     "product_quantity_g": 60,
+     "energy_kcal_100g": 380,
+     "proteins_100g": 20,
+     "sugars_100g": 5,
+     "fat_100g": null,
+     "saturated_fat_100g": null,
+     "salt_100g": null,
+     "fiber_100g": null
+    },
+    {
+     "code": "999000000002",
+     "name": "TEST Bar B (fixture)",
+     "brand": "TEST BRAND",
+     "quantity": "60 g",
+     "product_quantity_g": 60,
+     "energy_kcal_100g": 400,
+     "proteins_100g": 30,
+     "sugars_100g": 8,
+     "fat_100g": null,
+     "saturated_fat_100g": null,
+     "salt_100g": null,
+     "fiber_100g": null
+    },
+    {
+     "code": "999000000003",
+     "name": "TEST Bar C (fixture)",
+     "brand": "TEST BRAND",
+     "quantity": "60 g",
+     "product_quantity_g": 60,
+     "energy_kcal_100g": 400,
+     "proteins_100g": 15,
+     "sugars_100g": null,
+     "fat_100g": null,
+     "saturated_fat_100g": null,
+     "salt_100g": null,
+     "fiber_100g": null
+    },
+    {
+     "code": "999000000004",
+     "name": "TEST Bar D tie of C (fixture)",
+     "brand": "TEST BRAND",
+     "quantity": "60 g",
+     "product_quantity_g": 60,
+     "energy_kcal_100g": 400,
+     "proteins_100g": 15,
+     "sugars_100g": 12,
+     "fat_100g": null,
+     "saturated_fat_100g": null,
+     "salt_100g": null,
+     "fiber_100g": null
+    },
+    {
+     "code": "999000000005",
+     "name": "TEST Bar E no energy (fixture)",
+     "brand": "TEST BRAND",
+     "quantity": "60 g",
+     "product_quantity_g": 60,
+     "energy_kcal_100g": null,
+     "proteins_100g": 20,
+     "sugars_100g": 3,
+     "fat_100g": null,
+     "saturated_fat_100g": null,
+     "salt_100g": null,
+     "fiber_100g": null
+    },
+    {
+     "code": "999000000006",
+     "name": "TEST Bar F no protein (fixture)",
+     "brand": "TEST BRAND",
+     "quantity": "60 g",
+     "product_quantity_g": 60,
+     "energy_kcal_100g": 300,
+     "proteins_100g": null,
+     "sugars_100g": 3,
+     "fat_100g": null,
+     "saturated_fat_100g": null,
+     "salt_100g": null,
+     "fiber_100g": null
+    },
+    {
+     "code": "999000000007",
+     "name": "TEST Bar G zero energy (fixture)",
+     "brand": "TEST BRAND",
+     "quantity": "60 g",
+     "product_quantity_g": 60,
+     "energy_kcal_100g": 0,
+     "proteins_100g": 5,
+     "sugars_100g": 1,
+     "fat_100g": null,
+     "saturated_fat_100g": null,
+     "salt_100g": null,
+     "fiber_100g": null
+    }
+   ]
+  },
+  "protein-powders": {
+   "label": "Protein powders",
+   "tags": [
+    "en:protein-powders"
+   ],
+   "products": [
+    {
+     "code": "999000000008",
+     "name": "TEST Powder A (fixture)",
+     "brand": "TEST BRAND",
+     "quantity": "60 g",
+     "product_quantity_g": 60,
+     "energy_kcal_100g": 400,
+     "proteins_100g": 75,
+     "sugars_100g": 3,
+     "fat_100g": null,
+     "saturated_fat_100g": null,
+     "salt_100g": null,
+     "fiber_100g": null
+    }
+   ]
+  },
+  "nut-butters": {
+   "label": "Nut butters",
+   "tags": [
+    "en:nut-butters"
+   ],
+   "products": []
+  },
+  "muesli-oats": {
+   "label": "Muesli and oats",
+   "tags": [
+    "en:mueslis",
+    "en:biscuits"
+   ],
+   "products": [
+    {
+     "code": "999000000009",
+     "name": "TEST Muesli A (fixture)",
+     "brand": "TEST BRAND",
+     "quantity": "60 g",
+     "product_quantity_g": 60,
+     "energy_kcal_100g": 360,
+     "proteins_100g": 10,
+     "sugars_100g": 15,
+     "fat_100g": null,
+     "saturated_fat_100g": null,
+     "salt_100g": null,
+     "fiber_100g": null
+    },
+    {
+     "code": "999000000010",
+     "name": "TEST Muesli B (fixture)",
+     "brand": "TEST BRAND",
+     "quantity": "60 g",
+     "product_quantity_g": 60,
+     "energy_kcal_100g": 380,
+     "proteins_100g": 12,
+     "sugars_100g": 10,
+     "fat_100g": null,
+     "saturated_fat_100g": null,
+     "salt_100g": null,
+     "fiber_100g": null
+    }
+   ]
+  },
+  "high-protein-snacks": {
+   "label": "High protein snacks",
+   "tags": [
+    "en:high-protein-snacks"
+   ],
+   "products": [
+    {
+     "code": "999000000011",
+     "name": "TEST Snack A (fixture)",
+     "brand": "TEST BRAND",
+     "quantity": "60 g",
+     "product_quantity_g": 60,
+     "energy_kcal_100g": 420,
+     "proteins_100g": 25,
+     "sugars_100g": 2,
+     "fat_100g": null,
+     "saturated_fat_100g": null,
+     "salt_100g": null,
+     "fiber_100g": null
+    }
+   ]
+  }
+ }
+}

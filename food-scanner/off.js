@@ -2,7 +2,7 @@
 (function (root) {
   "use strict";
   var FIELDS = ["code", "product_name", "brands", "quantity", "ingredients_text", "ingredients_text_en",
-    "allergens_tags", "traces_tags", "nutriments", "nutriscore_grade", "categories_tags", "image_front_small_url"].join(",");
+    "allergens_tags", "traces_tags", "nutriments", "nutriscore_grade", "categories_tags", "image_front_small_url", "product_quantity", "product_quantity_unit"].join(",");
 
   // Categories where the general-foods algorithm does not apply (separate rules exist).
   var EXCLUDED = {

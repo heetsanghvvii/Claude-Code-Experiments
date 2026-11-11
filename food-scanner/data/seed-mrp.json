@@ -1974,6 +1974,20 @@
     "note": "nutrition table has no serving size or per-100 g basis on page"
   },
   {
+    "name": "No Added Sugar Muesli  - Pack of 750 g",
+    "brand": "The Whole Truth",
+    "category": "muesli-oats",
+    "pack_g": 750,
+    "mrp_inr": 625,
+    "price_inr": 538,
+    "protein_100g": null,
+    "energy_kcal_100g": null,
+    "barcode": null,
+    "source_url": "https://thewholetruthfoods.com/products/no-added-sugar-5-grain-muesli-350g-2",
+    "checked": "2026-11-11",
+    "note": "nutrition table has no serving size or per-100 g basis on page"
+  },
+  {
     "name": "Nuts, Fruit & Seeds Muesli - Pack of 350 g",
     "brand": "The Whole Truth",
     "category": "muesli-oats",

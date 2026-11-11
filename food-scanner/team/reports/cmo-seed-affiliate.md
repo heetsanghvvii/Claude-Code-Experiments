@@ -1,37 +1,46 @@
-# CMO seed price list and affiliate rates (2026-11-11)
+# Affiliate programmes at source (2026-11-11)
 
-Status: BLOCKED. No page could be fetched, so nothing was collected. No numbers were estimated.
+Replaces the earlier "blocked" version. Seed price list status is in `team/reports/data-seed.md`: 179 rows (protein-bars 27, protein-powders 42, nut-butters 75, muesli-oats 33, high-protein-snacks 2), 65 usable for protein per Rs 100.
 
-## Why
-Every WebFetch call failed with a DNS error (ENOTFOUND), meaning the host is outside this session's allowed network domains. Hosts tried: affiliate-program.amazon.in, www.healthkart.com, pintola.in, www.myprotein.co.in. Following the tool's guidance, I stopped trying more sites. WebSearch works but returns only titles and snippets, which are not the brand product pages and cannot be cited for label values.
+## Amazon India Associates: verified
 
-## Task A: seed rows by category
+Sources (fetched directly, 2026-11-11):
+- Fee schedule: https://affiliate-program.amazon.in/help/node/topic/GRXPHT8U84RAYDXZ ("Associates Program Advertising Fee Schedule", Table 1 titled "Advertising Rates (Oct-Nov 2026)")
+- Operating Agreement: https://affiliate-program.amazon.in/help/operating/agreement
 
-| Category | Count | Brands |
+Stated commission rates (fixed rate on Qualifying Revenues, shipped items):
+
+| Category as listed by Amazon | Rate |
+|---|---|
+| Sports & Fitness | 4.72% |
+| Health, Household & Personal Care (listed together with Furniture, Kitchen & Dining, Pet Supplies) | 4% |
+| Amazon Fresh and Grocery | 2.50% |
+| All Other Categories | 5% |
+| Beauty and Luxury Beauty (for reference) | 8% |
+
+The schedule has no separate "nutrition" or "protein supplements" line. Which of Sports & Fitness, Health & Personal Care, Grocery or All Other applies to a given protein bar or powder is not stated on the page: not verified. Table 1 is dated Oct-Nov 2026 and Amazon states it can change.
+
+- Cookie window: the Operating Agreement defines a Session that starts at the click and ends at the first of 24 hours, the customer placing an order, or a click through another associate's link. Purchases after the session ends are not Qualifying Purchases (items added to cart in the session but ordered later are treated per the agreement text).
+- Payout timing: fees are paid monthly for items shipped in the month, "approximately 60 days following the end of each calendar month".
+- Payout threshold: Amazon "may accrue and withhold advertising fees until the total amount due to you is at least INR1000 in case of NEFT transfers". Other payment methods' thresholds are not stated on this page: not verified.
+- Eligibility: applicants apply, and Amazon "will evaluate your application and notify you of its acceptance or rejection"; Special Links may be shown only after acceptance. Mobile apps must be named in the application. Purchases by the associate or on their behalf do not earn fees. The agreement page states no numeric eligibility rule (for example a minimum number of qualifying sales): not verified.
+- Excluded from fees: flight bookings and gift cards, video gaming consoles and hardware, Prime membership, Kindle eBooks, gold and silver coins. Bounty events (e.g. Prime sign-up INR 100) are listed separately.
+
+## HealthKart: not verified
+
+https://www.healthkart.com/robots.txt returned HTTP 403 with a Cloudflare "Just a moment" bot challenge, so no HealthKart page (including any affiliate page) could be read. I did not try to get around it. Commission rates, cookie window, payout and eligibility: not verified. HealthKart also owns MuscleBlaze, whose own site has the same challenge.
+
+## Brand programme pages
+
+| Brand site | What I tried | Result |
 |---|---|---|
-| protein-bars | 0 | none |
-| protein-powders | 0 | none |
-| nut-butters | 0 | none |
-| muesli-oats | 0 | none |
-| high-protein-snacks | 0 | none |
-| Total | 0 | |
+| pintola.in | Homepage footer and navigation links (/pages/ list: about-us, contact, faq, refund, shipping-policy, why-pintola) | No affiliate, creator or partner page found: not verified |
+| thewholetruthfoods.com | Homepage links; https://thewholetruthfoods.com/affiliate | No affiliate page (that path is the site's 404 page): not verified |
+| www.yogabars.in | Homepage links (/pages/ list: blogs, career, factory-finder, privacy-policy, returns, shipping, terms); /pages/affiliate and /pages/affiliate-program | Both 404, nothing linked: not verified |
+| www.muscleblaze.com | /robots.txt | Cloudflare challenge (HTTP 403): not verified |
 
-data/seed-mrp.json contains `[]` (parses with node). No brand product page was readable.
+"No programme found" only means none was linked or at the paths tried; a brand may run a programme on a page or platform I did not reach. No commission, cookie, payout or eligibility values are stated for any brand.
 
-## Products skipped and why
-All targeted products (RiteBite Max Protein, Yoga Bar, The Whole Truth, Phab, MuscleBlaze, SuperYou, Nakpro, AS-IT-IS, Optimum Nutrition India, Oziva, Plix, Pintola, MyFitness, Alpino, The Butternut Co, Kellogg's, True Elements, Bagrry's and snack brands) were skipped: the brand sites could not be fetched from this session. Not attempted individually beyond the hosts above.
+## Takeaway for the app
 
-## Task B: affiliate rates
-
-| Programme | Official URL | Status |
-|---|---|---|
-| Amazon India Associates fee schedule | https://affiliate-program.amazon.in/welcome/compensation | not verified (host blocked) |
-| HealthKart affiliate programme | https://www.healthkart.com/affiliate (URL guessed, unconfirmed) | not verified (host blocked) |
-| Brand D2C programmes (up to 3) | n/a | not attempted |
-
-Commission rate for health, nutrition, grocery: not verified. Cookie window: not verified. Payout threshold and timing: not verified. Eligibility: not verified.
-
-Secondary sources (NOT official, unverified, no figures adopted): search results list shiprocket.in, cashify.in, cuelinks.com and fluxnote.io pages on Amazon India affiliate rates. Search snippets mixed seller referral fees with Associates rates, so no rate is recorded here.
-
-## To unblock
-Allow these hosts in the session network settings, then re-run: affiliate-program.amazon.in, www.healthkart.com, and the brand sites (e.g. pintola.in, www.myprotein.co.in, muscleblaze.com, thewholetruthfoods.com, yogabars.in, ritebite.in, oziva.in, plixlife.com, truelements.com).
+Only the Amazon India terms are verified. The scoring app has no verified rate for protein supplements specifically, so any revenue model should assume a range of 2.50% to 5% depending on how Amazon categorises each item, with a 24-hour attribution window and roughly 60-day payout lag, until the exact category is confirmed per product.

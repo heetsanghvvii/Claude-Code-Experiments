@@ -1,0 +1,387 @@
+{
+  "https://www.yogabars.in/cdn/shop/files/yogabar-peanut-butter-400g-nutrition-facts.jpg?v=1780742810": {
+    "protein_100g": 28.0,
+    "energy_kcal_100g": 652.0,
+    "per": "100g",
+    "serving_g": 30.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-20g-protein-bar-nutrition-label.jpg?v=1781614069": {
+    "protein_100g": 28.6,
+    "energy_kcal_100g": 360.0,
+    "per": "100g",
+    "serving_g": 70.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-26g-protein-oats-dark-chocolate-nutrition-facts.jpg?v=1782283336": {
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 364.0,
+    "per": "100g",
+    "serving_g": 50.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-choco-cranberry-muesli-calories-macros.jpg?v=1780745990": {
+    "protein_100g": 23.0,
+    "energy_kcal_100g": 386.0,
+    "per": "100g",
+    "serving_g": 50.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-coffee-protein-bar-nutrition-facts-label.jpg?v=1782217139": {
+    "protein_100g": 28.6,
+    "energy_kcal_100g": 364.0,
+    "per": "100g",
+    "serving_g": 70.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-coffee-crush-protein-bar-nutrition-label-70g.jpg?v=1784619043": {
+    "protein_100g": 28.6,
+    "energy_kcal_100g": 364.3,
+    "per": "serving",
+    "serving_g": 70.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-dark-chocolate-cranberry-muesli-700g-macros.jpg?v=1780751507": {
+    "protein_100g": 12.0,
+    "energy_kcal_100g": 408.0,
+    "per": "100g",
+    "serving_g": 40.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-super-muesli-400g-nutrition-facts.jpg?v=1780750875": {
+    "protein_100g": 12.0,
+    "energy_kcal_100g": 408.0,
+    "per": "100g",
+    "serving_g": 40.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-fruit-nut-seeds-oats-nutrition-label.jpg?v=1782285662": {
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 375.0,
+    "per": "100g",
+    "serving_g": 50.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-fruits-nuts-seeds-muesli-400g-nutrition-facts..jpg?v=1780752498": {
+    "protein_100g": 11.5,
+    "energy_kcal_100g": 391.0,
+    "per": "100g",
+    "serving_g": 40.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-super-muesli-fruits-nuts-seeds-nutritional-facts.jpg?v=1780999678": {
+    "protein_100g": 11.5,
+    "energy_kcal_100g": 391.0,
+    "per": "100g",
+    "serving_g": 40.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-high-protein-muesli-850g-nutrition-label.jpg?v=1780747187": {
+    "protein_100g": 23.0,
+    "energy_kcal_100g": 386.0,
+    "per": "100g",
+    "serving_g": 50.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-high-protein-muesli-nutrition-facts-label.jpg?v=1781005195": {
+    "protein_100g": 23.5,
+    "energy_kcal_100g": 403.0,
+    "per": "100g",
+    "serving_g": 50.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-high-protein-oats-nutritional-facts-calories.jpg?v=1782734948": {
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 364.0,
+    "per": "100g",
+    "serving_g": 50.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-no-added-sugar-muesli-400g-nutrition-label.jpg?v=1781000233": {
+    "protein_100g": 15.0,
+    "energy_kcal_100g": 379.0,
+    "per": "100g",
+    "serving_g": 40.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-no-added-sugar-muesli-700g-nutrition-label.jpg?v=1781000881": {
+    "protein_100g": 15.0,
+    "energy_kcal_100g": 379.0,
+    "per": "100g",
+    "serving_g": 40.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-proclean-chocolate-plant-protein-nutrition-facts-amino-acid-profile.jpg?v=1782219514": {
+    "protein_100g": 66.5,
+    "energy_kcal_100g": 403.0,
+    "per": "100g",
+    "serving_g": 38.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-proclean-coffee-plant-protein-nutrition-facts-amino-acid-profile.jpg?v=1782220650": {
+    "protein_100g": 66.5,
+    "energy_kcal_100g": 399.0,
+    "per": "100g",
+    "serving_g": 38.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-proclean-unflavoured-plant-protein-nutrition-facts-label.jpg?v=1782221799": {
+    "protein_100g": 80.0,
+    "energy_kcal_100g": 406.0,
+    "per": "100g",
+    "serving_g": 35.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-proclean-whey-nutrition-label..jpg?v=1781173119": {
+    "protein_100g": 77.0,
+    "energy_kcal_100g": 384.0,
+    "per": "100g",
+    "serving_g": 35.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-whey-protein-nutrition-facts-amino-acid-profile.jpg?v=1781009860": {
+    "protein_100g": 71.4,
+    "energy_kcal_100g": 400.0,
+    "per": "100g",
+    "serving_g": 35.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-whey-protein-nutritional-facts-amino-acid-profile.jpg?v=1781011313": {
+    "protein_100g": 76.0,
+    "energy_kcal_100g": 379.0,
+    "per": "100g",
+    "serving_g": 35.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-fermented-yeast-protein-chocolate-nutrition-facts-back.jpg?v=1784622822": {
+    "protein_100g": 68.0,
+    "energy_kcal_100g": 363.9,
+    "per": "100g",
+    "serving_g": 38.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-fermented-yeast-protein-unflavoured-nutrition-facts-back.jpg?v=1784620615": {
+    "protein_100g": 81.0,
+    "energy_kcal_100g": 390.4,
+    "per": "100g",
+    "serving_g": 38.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/whey-isolate-yeast-protein-chocolate-nutrition-facts-label.jpg?v=1784805285": {
+    "protein_100g": null,
+    "energy_kcal_100g": null,
+    "per": "none",
+    "serving_g": null,
+    "legible": false
+  },
+  "https://www.yogabars.in/cdn/shop/files/whey-isolate-yeast-protein-nutrition-facts-label.jpg?v=1784804504": {
+    "protein_100g": null,
+    "energy_kcal_100g": null,
+    "per": "none",
+    "serving_g": null,
+    "legible": false
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-protein-date-minis-classic-nutritional-facts.png?v=1782806440": {
+    "protein_100g": 11.2,
+    "energy_kcal_100g": 474.0,
+    "per": "100g",
+    "serving_g": 20.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-protein-date-minis-nutrition-facts-ingredients.png?v=1782280867": {
+    "protein_100g": 9.2,
+    "energy_kcal_100g": 497.0,
+    "per": "100g",
+    "serving_g": 20.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabar-protein-minis-nutritional-facts.png?v=1781611762": {
+    "protein_100g": 20.0,
+    "energy_kcal_100g": 397.0,
+    "per": "100g",
+    "serving_g": 20.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabars-protein-wafer-bar-cookies-and-cream-nutrition-facts-ingredients.jpg?v=1782730224": {
+    "protein_100g": 25.0,
+    "energy_kcal_100g": 465.0,
+    "per": "serving",
+    "serving_g": 20.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabars-protein-wafer-bar-strawberry-pop-nutrition-facts-ingredients-closeup.jpg?v=1782730773": {
+    "protein_100g": 25.0,
+    "energy_kcal_100g": 470.0,
+    "per": "serving",
+    "serving_g": 20.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/yogabars-protein-wafer-bar-dark-chocolate-pack-of-10-back-of-pack-nutrition-facts-ingredients.jpg?v=1782729421": {
+    "protein_100g": 25.0,
+    "energy_kcal_100g": 467.5,
+    "per": "serving",
+    "serving_g": 40.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/whey-isolate-yeast-protein-chocolate-back-nutrition-label.jpg?v=1784805324": {
+    "protein_100g": 78.0,
+    "energy_kcal_100g": 373.8,
+    "per": "100g",
+    "serving_g": 36.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/whey-isolate-yeast-protein-pack-back-nutrition-label.jpg?v=1784804572": {
+    "protein_100g": 86.0,
+    "energy_kcal_100g": 382.91,
+    "per": "100g",
+    "serving_g": 36.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/1kg-HPO-KPK-BOP.jpg?v=1793863917": {
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 377.6,
+    "per": "100g",
+    "serving_g": 50.0,
+    "legible": true
+  },
+  "https://www.yogabars.in/cdn/shop/files/OG-Muesli-BOP.jpg?v=1789546710": {
+    "protein_100g": null,
+    "energy_kcal_100g": null,
+    "per": "none",
+    "serving_g": null,
+    "legible": false
+  },
+  "https://pintola.in/cdn/shop/files/4_a1089252-1016-4fef-a813-c993d6553627.jpg?v=1742190896": {
+    "protein_100g": 32.0,
+    "energy_kcal_100g": 598.0,
+    "per": "100g",
+    "serving_g": 32.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/7_95982dcf-762a-4b1e-a650-d27904dbbe0a.jpg?v=1780118316": {
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
+    "per": "100g",
+    "serving_g": 40.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/06_05ec6ba6-8a7f-472d-82e7-f5a2b17bb934.png?v=1780122980": {
+    "protein_100g": 37.0,
+    "energy_kcal_100g": 610.0,
+    "per": "100g",
+    "serving_g": 32.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/7_28eeaec6-f66a-4f62-872d-29cfe5c8e0c9.jpg?v=1780050186": {
+    "protein_100g": 25.0,
+    "energy_kcal_100g": 390.0,
+    "per": "100g",
+    "serving_g": 50.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/4_bb44ca3e-bf04-42f5-91d5-dc0de469f8a3.jpg?v=1780056397": {
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 583.0,
+    "per": "100g",
+    "serving_g": 32.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/05_6ac22ccb-a76b-48b2-ac0a-5e07c6607e43.jpg?v=1780114990": {
+    "protein_100g": 14.0,
+    "energy_kcal_100g": 553.0,
+    "per": "100g",
+    "serving_g": 32.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/05_bd726b14-a346-421c-a85c-04185c1b69bb.jpg?v=1780118678": {
+    "protein_100g": 18.6,
+    "energy_kcal_100g": 580.0,
+    "per": "100g",
+    "serving_g": 32.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/5_f7162781-7d02-4d00-a3ae-2bd501419c51.png?v=1780057240": {
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 597.0,
+    "per": "100g",
+    "serving_g": 32.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/5_2_ba8cb063-d1b0-41cc-af02-44099583942a.jpg?v=1780056000": {
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 392.0,
+    "per": "100g",
+    "serving_g": 50.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/06-1_792d4466-5178-4d7c-a27e-01dfa36d772b.jpg?v=1780119388": {
+    "protein_100g": 19.0,
+    "energy_kcal_100g": 550.0,
+    "per": "100g",
+    "serving_g": 32.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/06_1_7d6ecff4-327d-4f83-bae0-2ff6710ed236.jpg?v=1780120194": {
+    "protein_100g": 30.0,
+    "energy_kcal_100g": 639.0,
+    "per": "100g",
+    "serving_g": 32.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/06_55fa5eb8-34ab-4721-aff6-33bfc6a93b75.jpg?v=1780118937": {
+    "protein_100g": 33.0,
+    "energy_kcal_100g": 605.0,
+    "per": "100g",
+    "serving_g": 32.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/B07DM6KVPN.PT05.jpg?v=1780115243": {
+    "protein_100g": 24.0,
+    "energy_kcal_100g": 580.0,
+    "per": "100g",
+    "serving_g": 32.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/1-05_05bb0332-e5af-4750-8268-28c0560747ce.jpg?v=1718364913": {
+    "protein_100g": 12.3,
+    "energy_kcal_100g": 435.0,
+    "per": "100g",
+    "serving_g": 40.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/1-05_22e22c4d-4027-42fe-9821-053cdefcabbb.jpg?v=1718364979": {
+    "protein_100g": 11.0,
+    "energy_kcal_100g": 415.0,
+    "per": "100g",
+    "serving_g": 40.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/1-05_33276641-f174-4de3-9cc0-cac15cd62f09.jpg?v=1718365192": {
+    "protein_100g": 11.5,
+    "energy_kcal_100g": 401.0,
+    "per": "100g",
+    "serving_g": 40.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/05_09b5f13a-bea3-468b-8da4-6b812de458e3.jpg?v=1780122286": {
+    "protein_100g": 26.0,
+    "energy_kcal_100g": 605.0,
+    "per": "100g",
+    "serving_g": 32.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/6_954b9d3f-03f8-4965-9000-96ffc74c706f.jpg?v=1780056840": {
+    "protein_100g": 13.9,
+    "energy_kcal_100g": 382.0,
+    "per": "100g",
+    "serving_g": 40.0,
+    "legible": true
+  },
+  "https://pintola.in/cdn/shop/files/71Sr_GW3rL._SL1500_2.jpg?v=1730179907": {
+    "protein_100g": 14.0,
+    "energy_kcal_100g": 375.0,
+    "per": "100g",
+    "serving_g": 40.0,
+    "legible": true
+  }
+}

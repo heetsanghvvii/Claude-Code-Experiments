@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1f6f50">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Food Label Checker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>Food Label Checker</h1>
+  <p class="sub">Look up a packaged food label and compare it with your own numbers. Data: Open Food Facts, your own targets and your own prices.</p>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button role="tab" id="tab-barcode" aria-selected="true" aria-controls="panel-barcode">Enter barcode</button>
+  <button role="tab" id="tab-compare" aria-selected="false" aria-controls="panel-compare">Compare a category</button>
+  <button role="tab" id="tab-label" aria-selected="false" aria-controls="panel-label">Read label photo</button>
+</nav>
+
+<main>
+  <section id="panel-barcode" role="tabpanel" aria-labelledby="tab-barcode">
+    <form id="barcode-form" class="row" autocomplete="off">
+      <label for="barcode" class="sr">Barcode digits printed on the pack</label>
+      <input id="barcode" inputmode="numeric" pattern="[0-9]{8,14}" placeholder="Barcode digits" maxlength="14" required>
+      <button type="submit" class="primary">Look up</button>
+    </form>
+    <div class="row"><button id="scan-btn" type="button" class="ghost full">Scan barcode with camera</button></div>
+    <div id="scan-box" class="card" hidden>
+      <video id="scan-video" playsinline muted></video>
+      <p id="scan-status" class="muted" aria-live="polite"></p>
+      <button id="scan-cancel" type="button">Cancel</button>
+    </div>
+    <p id="scan-error" class="error" hidden></p>
+    <p class="muted">Type or paste the barcode digits printed on the pack, or scan the barcode with your camera. The camera image stays on this device and is not uploaded. If the scanner cannot read it, type the digits.</p>
+    <details id="targets-box" class="card">
+      <summary id="targets-summary">Your targets (optional)</summary>
+      <p class="muted">Set your own numbers per 100 g. Nothing is preset. Leave a field empty to skip it. They are saved in this browser only.</p>
+      <div class="tgrid">
+        <label for="t-protein">Protein, at least (g)</label><input id="t-protein" inputmode="decimal" placeholder="for example 15">
+        <label for="t-sugars">Sugars, at most (g)</label><input id="t-sugars" inputmode="decimal" placeholder="for example 8">
+        <label for="t-satFat">Saturated fat, at most (g)</label><input id="t-satFat" inputmode="decimal" placeholder="for example 3">
+        <label for="t-salt">Salt, at most (g)</label><input id="t-salt" inputmode="decimal" placeholder="for example 1">
+        <label for="t-fibre">Fibre, at least (g)</label><input id="t-fibre" inputmode="decimal" placeholder="for example 5">
+        <label for="t-kcal">Energy, at most (kcal)</label><input id="t-kcal" inputmode="decimal" placeholder="for example 400">
+        <label for="t-exclude">Ingredients to avoid, separated by commas</label><input id="t-exclude" type="text" placeholder="for example palm oil, maltodextrin" autocomplete="off" spellcheck="false">
+      </div>
+      <p class="muted">The examples are only placeholders. These are your own targets and the app makes no health statement about them.</p>
+      <button id="targets-clear" type="button" class="ghost">Clear my targets</button>
+    </details>
+    <div class="examples">
+      <span class="muted">Examples:</span>
+      <div id="examples" class="chips"></div>
+    </div>
+    <div id="barcode-result" aria-live="polite"></div>
+  </section>
+
+  <section id="panel-compare" role="tabpanel" aria-labelledby="tab-compare" hidden>
+    <div class="card">
+      <h2>Compare a category</h2>
+      <p class="muted">Orders products by protein per 100 kcal, a single number worked out from label values. It is a ranking of that number, not a judgement of any product.</p>
+      <label for="cat-select" class="sr">Category</label>
+      <select id="cat-select"><option value="">Choose a category</option></select>
+    </div>
+    <div id="compare-result" aria-live="polite"></div>
+  </section>
+
+  <section id="panel-label" role="tabpanel" aria-labelledby="tab-label" hidden>
+    <div class="card">
+      <h2>1. Photo of the ingredient label</h2>
+      <p class="muted">Reads printed text from a photo using OCR. It does not read barcodes. Text is read on this device with Tesseract.js (script loaded from a CDN when you press the button). The photo is not uploaded anywhere.</p>
+      <input id="photo" type="file" accept="image/*" capture="environment">
+      <p id="photo-error" class="error" hidden></p>
+      <img id="photo-preview" alt="Preview of the chosen label photo" hidden>
+      <button id="ocr-run" class="primary" disabled>Read text from photo</button>
+      <progress id="ocr-progress" max="100" value="0" hidden></progress>
+      <p id="ocr-status" class="muted" aria-live="polite"></p>
+    </div>
+    <div class="card">
+      <h2>2. Check and edit the text</h2>
+      <p class="muted">Source: <span id="text-source">no text yet</span></p>
+      <textarea id="label-text" rows="7" placeholder="Extracted or pasted ingredient text appears here. Edit it to match the label." spellcheck="false"></textarea>
+      <div id="ocr-meta"></div>
+      <label class="check"><input type="checkbox" id="confirm-text"> I checked this text against the label and it is complete and correct</label>
+      <div class="row wrap">
+        <button id="analyse" class="primary">Analyse ingredients</button>
+        <button id="sample-gelatin" class="ghost" type="button">Sample: with gelatin</button>
+        <button id="sample-ambiguous" class="ghost" type="button">Sample: ambiguous</button>
+      </div>
+    </div>
+    <div id="label-result" aria-live="polite"></div>
+  </section>
+</main>
+
+<footer>
+  <label class="check"><input type="checkbox" id="honey-flag" checked> Treat honey and bee products as not Jain (practices differ)</label>
+  <p class="muted">No health claims are made. Nothing here is medical or dietary advice.</p>
+</footer>
+
+<script src="jain-rules.js"></script>
+<script src="ingredients.js"></script>
+<script src="jain.js"></script>
+<script src="nutriscore.js"></script>
+<script src="custom-score.js"></script>
+<script src="bands.js"></script>
+<script src="targets.js"></script>
+<script src="value.js"></script>
+<script src="off.js"></script>
+<script src="scan.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
